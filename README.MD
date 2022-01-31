@@ -40,7 +40,7 @@ const Menu = () => <DefaultPage
             field: 'type', title: '类型', search: 1, type: "select",
             items: [
                 {
-                    label: 'group',     // 可选时的标签
+                    label: 'group',     // 可选值要展示的标签
                     value: 1,           // 对应数据库的值
                     bgGround: "#80deea" // 背景颜色，不给则使用系统自动匹配   
                 },
