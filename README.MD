@@ -483,7 +483,7 @@ func Update(ctx context.Context, table string, id, data interface{}) error {
 {
   "field": "must status",
   "title": "option 状态",
-  "type": "option select|textarea",
+  "type": "option select|select_multiple|textarea",
   "editHidden": "option 编辑时是否隐藏: 1|true",
   "detailsDesc": "option 请给一个排序",
   "detailsHeight": "option 当type为 textarea时设置input框的长 单位px",
