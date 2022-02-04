@@ -488,7 +488,7 @@ func Update(ctx context.Context, table string, id, data interface{}) error {
   "detailsDesc": "option 请给一个排序",
   "detailsHeight": "option 当type为 textarea时设置input框的长 单位px",
   "detailsWidth": "option 当type为 textarea时设置input框的宽 单位px",
-  "showTitle": 1, // 是否将内容添加到标签 'title'属性
+  "showTitle": "是否将内容添加到标签 'title'属性: 1|true",
   "items": [
     {
       "label": "正常",
