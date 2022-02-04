@@ -481,15 +481,16 @@ func Update(ctx context.Context, table string, id, data interface{}) error {
 ##  field 完全配置
 ```json
 {
-  "field": "must status",
-  "title": "option 状态",
-  "type": "option select|select_multiple|textarea|img|number",
-  "editHidden": "option 编辑时是否隐藏: 1|true",
-  "detailsDesc": "option 请给一个排序",
+  "field":         "must status",
+  "title":         "option 标题",
+  "type":          "option select|select_multiple|textarea|img|number",
+  "editHidden":    "option 编辑时是否隐藏: 1|true",
+  "showTitle":     "option 是否将内容添加到标签 'title'属性: 1|true",
+  "detailsDesc":   "option 添加操作时提示描述",
   "detailsHeight": "option 当type为 textarea时设置input框的长 单位px",
-  "detailsWidth": "option 当type为 textarea时设置input框的宽 单位px",
-  "showTitle": "是否将内容添加到标签 'title'属性: 1|true",
-  "imgPrefix": "图片路径前缀，当 type=img时，设置图片的前缀"
+  "detailsWidth":  "option 当type为 textarea时设置input框的宽 单位px",
+  "step":          "option 当type为 number  时设置步长",
+  "imgPrefix":     "option 当type为 img     时设置图片的前缀"
   "items": [
     {
       "label": "正常",
