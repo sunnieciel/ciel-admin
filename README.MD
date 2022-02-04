@@ -470,3 +470,33 @@ func Update(ctx context.Context, table string, id, data interface{}) error {
 - nextjs https://nextjs.org/
 - SWR https://swr.vercel.app/zh-CN/docs/getting-started
 
+
+
+
+
+
+
+
+
+##  field 完全配置
+```json
+{
+  "field": "must status",
+  "title": "option 状态",
+  "type": "option select|textarea",
+  "editHidden": "option 编辑时是否隐藏: 1|true",
+  "detailsDesc": "option 请给一个排序",
+  "detailsHeight": "option 当type为 textarea时设置input框的长 单位px",
+  "detailsWidth": "option 当type为 textarea时设置input框的宽 单位px",
+  "items": [
+    {
+      "label": "正常",
+      "value": 1
+    },
+    {
+      "label": "禁用",
+      "value": 2
+    }
+  ]
+}
+```
