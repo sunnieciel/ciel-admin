@@ -4,7 +4,7 @@ server:
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
   jwtExpireDuration: "7D"
-  rootFilePath: "/home/howl/learn/test/ciel-admin/interface/resource/public/resource/upload"
+  rootFilePath: "/home/howl/learn/ciel-admin/interface/resource/public/resource/upload"
 
 logger:
   level: "all"
