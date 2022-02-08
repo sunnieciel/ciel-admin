@@ -8,7 +8,7 @@ import {Nav} from "../../components/nav";
 import {SearchLi} from "../../components/searchLi";
 import {TableTd} from "../../components/tableTd";
 import {TableFooter} from "../../components/table";
-import {DetailsLi2} from "../../components/detailsLi";
+import {DetailsLi} from "../../components/detailsLi";
 import RoleMenu from "./roleMenu";
 import RoleApi from "./roleApi";
 
@@ -35,8 +35,8 @@ const Role = () => {
         onKeyDown = (e) => (e.key === 'Enter') ? params.page = 1 && onSearch() : "",
         onDelete = async (id) => (confirm("Are you sure?")) ? await del(id) && toast('ok') && mutate() : "",
         onSubmit = async () => {
-            let {code, msg} = details.showType == "update" ? await update(details) : await add(details)
-            if (code == 0) {
+            let {code, msg} = details.showType === "update" ? await update(details) : await add(details)
+            if (code === 0) {
                 toast(msg)
                 mutate()
                 setDetails({showType: "main"})
@@ -88,7 +88,7 @@ const Role = () => {
             <section>
                 <ul>
                     {fields.filter(item => !item.editHidden).map(item =>
-                        <DetailsLi2 items={item.items} type={item.type} key={item.field} field={item.field} label={item.title} height={item.detailsHeight} placeholder={item.detailsDesc} details={details} onDetailsChange={onDetailsChange}/>
+                        <DetailsLi items={item.items} type={item.type} key={item.field} field={item.field} label={item.title} height={item.detailsHeight} placeholder={item.detailsDesc} details={details} onDetailsChange={onDetailsChange}/>
                     )}
                 </ul>
             </section>

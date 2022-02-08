@@ -8,7 +8,7 @@ import {Nav} from "../../components/nav";
 import {SearchLi} from "../../components/searchLi";
 import {TableTd} from "../../components/tableTd";
 import {TableFooter} from "../../components/table";
-import {DetailsLi2} from "../../components/detailsLi";
+import {DetailsLi} from "../../components/detailsLi";
 
 const fields = [
     {field: 'id', editHidden: 1},
@@ -56,7 +56,7 @@ const File = () => {
                 return
             }
 
-            if (details.showType == "update") {
+            if (details.showType === "update") {
                 await update(details)
             } else {
                 if (!details.files) {
@@ -131,7 +131,7 @@ const File = () => {
             <section>
                 <ul>
                     {fields.filter(item => !item.editHidden).map(item =>
-                        <DetailsLi2 items={item.items} type={item.type} key={item.field} field={item.field} label={item.title} height={item.detailsHeight} placeholder={item.detailsDesc} details={details} onDetailsChange={onDetailsChange}/>
+                        <DetailsLi items={item.items} type={item.type} key={item.field} field={item.field} label={item.title} height={item.detailsHeight} placeholder={item.detailsDesc} details={details} onDetailsChange={onDetailsChange}/>
                     )}
                     <li hidden={details.showType === 'update'}>文件<input type={"file"} multiple={true} onChange={e => onDetailsChange(e, 'files')}/></li>
                 </ul>

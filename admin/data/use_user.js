@@ -1,6 +1,7 @@
 import useSWR from "swr";
 
 export default function use_user() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const {data, mutate, error} = useSWR("api_user", userInfo)
     const loading = !data && !error;
     const loggedOut = error && error.status === 403;

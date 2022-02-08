@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import Meta from "../../components/meta";
 import {TableTd} from "../../components/tableTd";
 import {TableFooter} from "../../components/table";
-import {DetailsLi2} from "../../components/detailsLi";
+import {DetailsLi} from "../../components/detailsLi";
 
 const fields = [
     {field: 'id', editHidden: 1},
@@ -94,7 +94,7 @@ const RoleMenu = ({query}) => {
         <section className={'details'} hidden={!(details.showType === "add" || details.showType === "update")}>
             <section>
                 <ul>
-                    <DetailsLi2
+                    <DetailsLi
                         label={'菜单选择'}
                         field={'mid'}
                         details={details}

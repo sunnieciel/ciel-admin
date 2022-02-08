@@ -6,7 +6,7 @@ import {Nav} from "./nav";
 import {TableFooter} from "./table";
 import {defaultPageParam} from "../data/const";
 import request from "../utils/request";
-import {DetailsLi2} from "./detailsLi";
+import {DetailsLi} from "./detailsLi";
 import {SearchLi} from "./searchLi";
 import {TableTd} from "./tableTd";
 
@@ -86,7 +86,7 @@ const DefaultPage = ({
             <h2>Step1 Set info</h2>
             <section>
                 <ul> {fields.filter(item => !item.editHidden).map(item =>
-                    <DetailsLi2
+                    <DetailsLi
                         key={item.field} field={item.field} type={item.type} details={details} onDetailsChange={onDetailsChange}
                         label={item.title} placeholder={item.detailsDesc}
                         items={item.items} step={item.step} height={item.detailsHeight}

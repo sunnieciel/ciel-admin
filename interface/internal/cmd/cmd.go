@@ -96,7 +96,7 @@ var (
 				g.DELETE("/del", controller.File.Del)
 			})
 			s.Run()
-			return nil
+			return
 		},
 	}
 )

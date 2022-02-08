@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import Meta from "../../components/meta";
 import {TableTd} from "../../components/tableTd";
 import {TableFooter} from "../../components/table";
-import {DetailsLi2} from "../../components/detailsLi";
+import {DetailsLi} from "../../components/detailsLi";
 
 const fields = [
     {field: 'id', editHidden: 1},
@@ -33,7 +33,7 @@ const RoleApi = ({query}) => {
         [rid, setRid] = useState(0)
     const
         onDetailsChange = (e, name) => {
-            if (name == 'aid') {
+            if (name === 'aid') {
                 return setDetails({
                     ...details, [name]: Array.from(e.target.selectedOptions, option => {
                         if (option.value) return option.value
@@ -97,7 +97,7 @@ const RoleApi = ({query}) => {
         <section className={'details'} hidden={!(details.showType === "add" || details.showType === "update")}>
             <section>
                 <ul>
-                    <DetailsLi2
+                    <DetailsLi
                         label={'API选择'}
                         field={'aid'}
                         details={details}
