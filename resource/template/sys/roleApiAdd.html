@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{{include "/base/meta.html" .}}
+<body>
+{{include "/base/nav.html" .}}
+<header>
+    <h1>Add Role Disable API</h1>
+</header>
+<main class="w hr">
+    <form action="/roleApi/post" method="post">
+        <h2>Step1 Set Info</h2>
+        <p>Add disable API <select name="aid[]" multiple>
+            {{range .data}}
+            <option value="{{.id}}">{{.group}}-{{.url}}-{{.desc}}</option>
+            {{end}}
+        </select> for Rid <input type="text" value="{{.Query.rid}}" name="rid"></p>
+        <h2>Step2 Go!</h2>
+        <p>Please wait! submit need some time...</p>
+        <input type="button" value="Back" onclick="location.href='/roleApi/list?rid={{.Query.rid}}'">
+        <input type="submit" value="Submit">
+    </form>
+</main>
+</body>
+{{include "/base/footer.html" .}}
+</html>

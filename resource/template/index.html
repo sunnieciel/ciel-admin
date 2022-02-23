@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh">
+{{include "/base/meta.html" .}}
+<body>
+{{include "/base/nav.html" .}}
+<header class="w hr">
+    <h1>Home</h1>
+    {{include "/base/msg.html" .}}
+</header>
+<main class="w">
+    <h2>Hello {{.Session.adminInfo.Admin.uname}}</h2>
+    <p>Welcome to my home</p>
+</main>
+</body>
+{{include "/base/footer.html" .}}
+</html>

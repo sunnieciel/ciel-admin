@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+{{include "/base/meta.html" .}}
+<body>
+{{include "/base/nav.html" .}}
+<header class="w hr">
+    <h1>Role</h1>
+    <section>
+        <ul>
+            <input type="button" value="Add" onclick="showDetails(1)">
+        </ul>
+    </section>
+</header>
+<main class="w hr part">
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Role</td>
+            <td>ACTIONS</td>
+        </tr>
+        {{range .list}}
+        <tr>
+            <td>{{.id}}</td>
+            <td>{{.name}}</td>
+            <td>
+                <input type="button" value="Menu" onclick="location.href='/roleMenu/list?rid={{.id}}'">
+                <input type="button" value="Api" onclick="location.href='/roleApi/list?rid={{.id}}'">
+                <input type="button" value="Edit" onclick="showDetails(0,'{{$.c.UrlPrefix}}/getById?id={{.id}}')" {{if $.c.NoEdit}} hidden {{end}}>
+                <input type="button" value="Del" id="del-btn" onclick="onDel('{{.id}}','{{$.c.UrlPrefix}}/del')">
+            </td>
+        </tr>
+        {{end}}
+    </table>
+    {{include "/base/page.html" .}}
+</main>
+<form class="w hr part details" id="post-form" hidden>
+    <h2>Step1 Set info</h2>
+    <section>
+        <ul>
+            <input type="hidden" name="add" value="{{.Query.add}}">
+            <input type="hidden" name="id" value="{{.data.id}}">
+            {{range .c.Fields}}
+            {{formli .}}
+            {{end}}
+        </ul>
+    </section>
+    <h2>Step2 Go!</h2>
+    <p>Please wait! submit need some times</p>
+    <input type="button" value="Back" onclick="showMain()">
+    <input type="button" value="Submit" id="submit-btn" onclick="onSubmitDetails('{{.c.UrlPrefix}}/post','{{.c.UrlPrefix}}/put',$('#post-form').serialize())">
+</form>
+{{include "/base/footer.html" .}}
+</body>
+</html>

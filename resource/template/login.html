@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{{include "/base/meta.html" .}}
+<body>
+{{include "/base/nav.html" .}}
+<header class="w hr">
+    <h1>Admin</h1>
+    {{include "/base/msg.html" .}}
+</header>
+<main class="w">
+    <form id="login-form" method="post" action="/admin/login">
+        <h2>Login</h2>
+        <p>username <input autocomplete="false" required type="text" name="uname" value="{{.Form.uname}}" id="uname">
+        <p>password <input required type="password" name="pwd" value="{{.Form.pwd}}"></p>
+        <input type="button" value="submit" id="login-btn">
+    </form>
+</main>
+</body>
+<script src="/resource/js/jquery-3.6.0.min.js"></script>
+<script src="/resource/js/notify.min.js"></script>
+<script src="/resource/js/app.js"></script>
+<script>
+    $(function () {
+        $("#login-btn").click(function () {
+            $.post("/admin/login", $("#login-form").serialize(), function (data) {
+                if (data.code === 0) {
+                    $('#uname').notify("Success", {position: "right", className: "success"});
+                    setTimeout(function () {
+                        window.location.href = "/";
+                    }, 1500);
+                } else {
+                    $('#uname').notify(data.msg, {position: "right"});
+                }
+            });
+        });
+    });
+</script>
+</html>

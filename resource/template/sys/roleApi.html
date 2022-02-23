@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+{{include "/base/meta.html" .}}
+<body>
+{{include "/base/nav.html" .}}
+<header class="w hr">
+    <h1>Role Disable API</h1>
+    <ul>
+        <input type="button" value="Add" onclick="showAddRoleApi('{{.Query.rid}}')">
+    </ul>
+</header>
+<main class="w hr part">
+    <table>
+        <tr>
+            {{range .c.Fields}}
+            {{th .}}
+            {{end}}
+            <th>Actions</th>
+        </tr>
+        {{range $dataMap:=.list}}
+        <tr>
+            {{range $field:=$.c.Fields}}
+            {{td $field $dataMap}}
+            {{end}}
+            <td>
+                <input type="button" value="Del" onclick="onDel('{{.id}}','{{$.c.UrlPrefix}}/del?id={{.id}}&rid={{$.Query.rid}}')">
+            </td>
+        </tr>
+        {{end}}
+    </table>
+    <input type="button" value="Back" onclick="location.href='/role/list'">
+</main>
+<form class="w hr part details" id="post-form" hidden>
+    <h2>Step1 Set Info</h2>
+    <p>Add disable API <select name="aid[]" id="aid-select" multiple></select> for Rid <input type="text" value="{{.Query.rid}}" name="rid"></p>
+    <h2>Step2 Go!</h2>
+    <p>Please wait! submit need some time...</p>
+    <input type="button" value="Back" onclick="showMain()">
+    <input type="button" value="Submit" id="submit-btn" onclick="onSubmitRoleApi()">
+</form>
+</body>
+{{include "/base/footer.html" .}}
+<script>
+    const showAddRoleApi = (rid) => {
+        if (!rid) $.notify('rid is empty!', 'error');
+        $.get('/role/noapis?rid=' + rid, function (res) {
+            if (res.data) {
+                let options = ''
+                res.data.forEach(item => {
+                    options += `<option value='${item.id}'>${item.group}-${item.method}-${item.url}- ${item.desc}</option>`
+                })
+                $('#aid-select').html(options)
+            }
+        })
+        $(".part").hide()
+        $(".details").show()
+    }
+    const onSubmitRoleApi = () => {
+        $.post('/roleApi/post', $('#post-form').serialize(), function (res) {
+            if (res.code === 0) {
+                $.notify('Add Success!', {className: 'success', position: 'top center'});
+                setTimeout(() => location.reload(), 1500)
+            } else {
+                $.notify(res.msg, 'error');
+            }
+        })
+    }
+</script>
+</html>

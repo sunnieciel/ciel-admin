@@ -1,0 +1,43 @@
+server:
+  address: ":2222"
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+  serverRoot: "/resource/public"
+  dumpRouterMap: true
+  routeOverWrite: true
+  imgPrefix: "http://localhost:2222/upload/"
+  rootFilePath: "/resource/public/upload/"
+
+logger:
+  path: "logs/default"
+  level: "all"
+  stdout: true
+
+# 模板引擎配置
+viewer:
+  paths:
+    - "resource/template"
+
+# Database.
+database:
+  logger:
+    level: "all"
+    stdout: true
+  default:
+    link: "mysql:ciel_begin:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel_begin"
+    debug: true
+
+redis:
+  default:
+    address: "127.0.0.1:6379"
+    db: 1
+
+# CLI.
+gfcli:
+  gen:
+    dao:
+      - link: "mysql:ciel_begin:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel_begin"
+        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file"
+        removePrefix: "s_"
+        descriptionTag: true
+        noModelComment: true
