@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Content-Type" content="text/html;charset=utf-8">
+    {{include "/app/meta.html" .}}
+    <title>Menu</title>
+</head>
+<body>
+{{include "/app/top.html" .}}
+<div id="wrapper" v-cloak>
+    <div class="w">
+        <div id="main">
+            {{include "/app/nav.html" .}}
+            <div class="box" id="page-title">
+                <div class="box-title">
+                    <img src="/resource/image/golang.png" width="64" alt="Menu">
+                    <div>
+                        <div class="breadcrumb">
+                            <a href="/">CIEL ADMIN</a>
+                            <span class="chevron">&nbsp;›&nbsp;</span>
+                            <span v-text="page.name"></span>
+                        </div>
+                        <div class="intro" v-text="page.desc"></div>
+                    </div>
+                </div>
+                <form method="get" id="search">
+                    <div class="box-action">
+                        <input type="button" class="button" value="添加" @click="showDetails(1)">
+                    </div>
+                </form>
+            </div>
+            <div class="box" id="data" v-show="showType==0">
+                <table id="table">
+                    <tbody>
+                    <tr>
+                        <th width="40">ID</th>
+                        <th>用户名</th>
+                        <th>角色</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr v-for="item in list">
+                        <td v-text="item.id"></td>
+                        <td v-text="item.uname"></td>
+                        <td v-text="filterRid(item.rid)"></td>
+                        <td v-text="filterStatus(item.status)"></td>
+                        <td v-text="item.created_at"></td>
+                        <td v-text="item.updated_at"></td>
+                        <td class="table-action">
+                            <a href="#" @click="showDetails(2,item.id)">编辑</a>
+                            <a href="#" @click="del(item.id)">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                {{include "/app/pagination.html" .}}
+            </div>
+            <form class="box details-form" v-show="showType==1||showType==2">
+                <ul>
+                    <h2>基本信息</h2>
+                    <li><span>用户名</span><input autocomplete="off" v-model="details.uname"></li>
+                    <li><span>密码</span><input autocomplete="off" type="password" v-model="details.pwd"></li>
+                    <li><span>角色</span>
+                        <select name="rid" v-model="details.rid">
+                            <option value="1">超级管理员</option>
+                            <option value="2">管理员</option>
+                        </select>
+                    </li>
+                    <li><span>状态</span><select v-model="details.status">
+                        <option value="1">启用</option>
+                        <option value="2">禁用</option>
+                    </select>
+                </ul>
+                <div class="form-action">
+                    <input type="button" class="button" value="返回" @click="showMain()">
+                    <input type="button" class="button" value="提交" @click="onSubmit()">
+                </div>
+            </form>
+        </div>
+        <div id="right-bar">
+            <div class="box">
+                {{include "/app/nav_right.html" .}}
+            </div>
+        </div>
+    </div>
+</div>
+{{include "/app/footer.html" .}}
+</body>
+<script>
+    $(".role").each(function () {
+        switch ($(this).text()) {
+            case "1":
+                $(this).text("超级管理员")
+                break
+            case "2":
+                $(this).text("管理员")
+                break
+            case "3":
+                $(this).text("普通用户")
+                break
+        }
+    })
+</script>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                list: JSON.parse('{{json .list}}'),
+                details: {},
+                searchData: {
+                    pid: '{{.Query.pid}}',
+                    name: '{{.Query.name}}',
+                },
+                showType: 0, // 0 main 1 add 2update
+                page: {
+                    name: "Admin",
+                    desc: "这里是管理员页面,可以对管理员进行添加,修改,删除等操作。",
+                    urlPrefix: '/admin',
+                }
+            }
+        },
+        methods: {
+            del(id) {
+                if (confirm("确定删除？")) {
+                    $.delete(`${this.page.urlPrefix}/del?id=` + id, (res) => {
+                        if (res.code === 0) {
+                            noticeOk('Success')
+                            setTimeout(() => {
+                                location.reload()
+                            }, 1000)
+                        } else {
+                            noticeError(res.msg)
+                        }
+                    });
+                }
+            },
+            async onSubmit() {
+                let res = {}
+                if (this.showType == 1) {
+                    res = await $.post(`${this.page.urlPrefix}/post`, this.details)
+                } else {
+                    res = await $.put(`${this.page.urlPrefix}/put`, this.details)
+
+                }
+                if (res.code === 0) {
+                    noticeOk('Success')
+                    setTimeout(() => location.reload(), 1000)
+                } else {
+                    noticeError(res.msg)
+                }
+            },
+            async showDetails(type, id) {
+                this.showType = type
+                this.details = {}
+                if (this.showType == 2) {
+                    let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
+                    this.details = res.data
+                }
+            },
+            showMain() {
+                this.showType = 0
+            },
+            onSearch() {
+                this.searchData.page = 1
+                location.href = `${this.page.urlPrefix}/list?` + $.param(this.searchData)
+            },
+            filterStatus(s) {
+                return +s == 1 ? "启用" : "禁用"
+            },
+            filterRid(s) {
+                switch (+s) {
+                    case 1 :
+                        return "超级管理员"
+                    case 2 :
+                        return "管理员"
+                }
+            },
+        }
+    }).mount('#wrapper')
+</script>
+
+</html>

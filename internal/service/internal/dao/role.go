@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"ciel-begin/internal/service/internal/dao/internal"
+	"ciel-admin/internal/service/internal/dao/internal"
 )
 
 // roleDao is the data access object for table s_role.

@@ -1,12 +1,11 @@
 package controller
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/internal/model/entity"
-	"ciel-begin/internal/service"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/res"
-	"ciel-begin/utility/utils/xparam"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xparam"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -16,17 +15,11 @@ type menu struct {
 
 func Menu() *menu {
 	return &menu{SearchConf: &config.SearchConf{
-		PageTitle: "Menu", UrlPrefix: "/menu", T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
+		T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
 		Fields: []*config.Field{
-			{Field: "id", EditHidden: true},
-			{Field: "pid", Type: "number", Search: true, Required: true},
-			{Field: "name", Search: true, Required: true, Like: true},
-			{Field: "path", Search: true, Like: true},
-			{Field: "sort", Type: "number", Step: 0.01, Required: true},
-			{Field: "type", Type: "select", Search: true, Items: []*config.Item{{Value: "1", Text: "Normal"}, {Value: "2", Text: "Group"}}, Required: true},
-			{Field: "status", Type: "select", Search: true, Items: []*config.Item{{Value: "1", Text: "NO"}, {Value: "2", Text: "OFF"}}, Required: true},
-			{Field: "created_at", EditHidden: true},
-			{Field: "updated_at", EditHidden: true},
+			{Field: "pid"},
+			{Field: "name", Like: true},
+			{Field: "path", Like: true},
 		},
 	}}
 }
@@ -38,7 +31,7 @@ func (c *menu) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, consts.DefaultPage, total, data, c)
+	res.PageList(r, "/sys/menu.html", total, data, c)
 }
 func (c *menu) GetById(r *ghttp.Request) {
 	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))

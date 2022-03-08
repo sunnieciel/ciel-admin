@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"ciel-begin/internal/service/internal/dao/internal"
+	"ciel-admin/internal/service/internal/dao/internal"
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"

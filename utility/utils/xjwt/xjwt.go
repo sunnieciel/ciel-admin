@@ -1,7 +1,7 @@
 package xjwt
 
 import (
-	"ciel-begin/internal/consts"
+	"ciel-admin/internal/consts"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"

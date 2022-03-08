@@ -1,4 +1,4 @@
-module ciel-begin
+module ciel-admin
 
 go 1.15
 

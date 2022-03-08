@@ -4,13 +4,24 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/glog"
+	"math"
 )
+
+type PageRes struct {
+	Data       interface{} `json:"data,omitempty"`
+	Other      interface{} `json:"other,omitempty"`
+	TotalCount int64       `json:"totalCount"`
+	PageSize   int64       `json:"pageSize,omitempty"`
+	TotalPage  int64       `json:"totalPage,omitempty"`
+	CurrPage   int64       `json:"currPage,omitempty"`
+	List       interface{} `json:"list"`
+}
 
 func PageList(r *ghttp.Request, page string, total int, list interface{}, info interface{}) {
 	if err := r.Response.WriteTpl(page, g.Map{
 		"list":  list,
 		"total": total,
-		"page":  r.GetPage(total, r.GetQuery("size").Int()).GetContent(3),
+		"page":  r.GetPage(total, r.GetQuery("size").Int()).GetContent(4),
 		"c":     info,
 	}); err != nil {
 		glog.Error(r.Context(), err)
@@ -65,4 +76,17 @@ func OkData(data interface{}, r *ghttp.Request) {
 		"msg":  "ok",
 		"data": data,
 	})
+}
+func OkPage(page, size, total int, data interface{}, r *ghttp.Request) {
+	if size == 0 {
+		size = 10
+	}
+	totalPage := math.Ceil(float64(total) / float64(size)) //这里计算总页数时，要向上取整
+	if totalPage <= 0 {
+		totalPage = 1
+	}
+	if total == 0 || data == nil {
+		data = make([]interface{}, 0)
+	}
+	OkData(PageRes{TotalCount: int64(total), PageSize: int64(size), CurrPage: int64(page), List: data, TotalPage: int64(totalPage)}, r)
 }

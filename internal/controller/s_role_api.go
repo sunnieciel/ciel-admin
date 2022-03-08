@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"ciel-begin/internal/service"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/res"
-	"ciel-begin/utility/utils/xparam"
+	"ciel-admin/internal/service"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xparam"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -15,14 +15,14 @@ type roleApi struct {
 
 func RoleApi() *roleApi {
 	return &roleApi{SearchConf: &config.SearchConf{
-		PageTitle: "RoleApi", PageUrl: "roleApi/list", UrlPrefix: "/roleApi",
-		T1: "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
-		SearchFields: "t1.*,t2.name r_name,t3.url url", Fields: []*config.Field{
-			{Field: "id", Type: "text", Hidden: true, EditHidden: true},
+		PageUrl: "roleApi/list",
+		T1:      "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
+		SearchFields: "t1.*,t2.name r_name,t3.url url ,t3.group,t3.method,t3.desc ", Fields: []*config.Field{
+			{Field: "id"},
 			{Field: "rid"},
 			{Field: "aid"},
-			{Field: "t2.name", QueryFiled: "r_name", Title: "Role", EditHidden: true},
-			{Field: "t3.url", Title: "url", QueryFiled: "url", EditHidden: true},
+			{Field: "t2.name", QueryFiled: "r_name"},
+			{Field: "t3.url"},
 		},
 	}}
 }

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"ciel-begin/internal/model/bo"
-	"ciel-begin/internal/service/internal/dao"
+	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/service/internal/dao"
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"

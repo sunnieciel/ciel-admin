@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"ciel-begin/internal/service/internal/dao/internal"
+	"ciel-admin/internal/service/internal/dao/internal"
 )
 
 // dictDao is the data access object for table s_dict.

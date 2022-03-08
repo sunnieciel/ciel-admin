@@ -1,0 +1,14 @@
+<div class="box " id="nav">
+    <div id="tabs">
+        {{range .Session.adminInfo.Menus}}
+        <a href="#" class="tab system" data="{{.name}}">{{.name}}</a>
+        {{end}}
+    </div>
+    <div id="secondary-tabs">
+        {{range $p:=.Session.adminInfo.Menus}}
+        {{range $child:=$p.Children}}
+        <a href="{{$child.path}}" data="{{$p.name}}" style="display: none">{{$child.name}}</a>
+        {{end}}
+        {{end}}
+    </div>
+</div>

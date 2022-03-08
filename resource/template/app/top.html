@@ -1,0 +1,17 @@
+<div id="top">
+    <div class="w">
+        <a id="logo" href="/" title="way to explore">CIEL ADMIN</a>
+        <div id="tools">
+            <ul>
+                <li><a href="/">首页</a></li>
+                {{if .Session.adminInfo}}
+                <li><a href="#">{{.Session.adminInfo.Admin.uname}}</a></li>
+                <li><a href="#" onclick="updatePwd()">修改密码</a></li>
+                <li><a href="#" onclick="logout()">退出</a></li>
+                {{else}}
+                <li><a href="/login">登录</a></li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+</div>

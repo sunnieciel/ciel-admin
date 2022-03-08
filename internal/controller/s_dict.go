@@ -1,12 +1,11 @@
 package controller
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/internal/model/entity"
-	"ciel-begin/internal/service"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/res"
-	"ciel-begin/utility/utils/xparam"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xparam"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -16,21 +15,17 @@ type dict struct {
 
 func Dict() *dict {
 	return &dict{SearchConf: &config.SearchConf{
-		PageTitle: "Dict", UrlPrefix: "/dict", T1: "s_dict",
+		PageUrl: "/dict/list", T1: "s_dict",
 		Fields: []*config.Field{
-			{Field: "id", EditHidden: true},
-			{Field: "k", Search: true, Like: true},
-			{Field: "v", Search: true, Like: true},
-			{Field: "desc", Search: true, Like: true},
-			{Field: "group", Search: true, Like: true},
-			{Field: "type", Search: true, Type: "select", Items: []*config.Item{
-				{Value: 1, Text: "TEXT"},
-				{Value: 2, Text: "IMG"},
-				{Value: 3, Text: "HTML"},
-			}},
-			{Field: "status", Type: "select", Items: []*config.Item{{Value: "1", Text: "NO"}, {Value: "2", Text: "OFF"}}, Required: true},
-			{Field: "created_at", EditHidden: true},
-			{Field: "updated_at", EditHidden: true},
+			{Field: "id"},
+			{Field: "k", Like: true},
+			{Field: "v", Like: true},
+			{Field: "desc", Like: true},
+			{Field: "group"},
+			{Field: "type"},
+			{Field: "status"},
+			{Field: "created_at"},
+			{Field: "updated_at"},
 		},
 	}}
 }
@@ -42,7 +37,7 @@ func (c *dict) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, consts.DefaultPage, total, data, c)
+	res.PageList(r, "/sys/dict.html", total, data, c)
 }
 func (c *dict) GetById(r *ghttp.Request) {
 	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))

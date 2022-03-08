@@ -1,19 +1,23 @@
 package cmd
 
 import (
-	"ciel-begin/internal/controller"
-	"ciel-begin/internal/service"
+	"ciel-admin/internal/controller"
+	"ciel-admin/internal/service"
 	"context"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/glog"
+	"time"
 )
 
 var (
 	Main = gcmd.Command{
-		Name:  "main",
-		Usage: "main",
-		Brief: "start http server",
+		Name:        "main",
+		Usage:       "main",
+		Brief:       "start http server",
+		Description: "",
+		Arguments:   nil,
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			// 初始化服务
 			service.System().Init()
@@ -89,8 +93,23 @@ var (
 				g.PUT("/put", controller.File().Put)
 				g.POST("/upload", controller.File().Upload)
 			})
+			go func() {
+				var ctx = context.Background()
+				time.Sleep(time.Second * 1)
+				port, err := g.Cfg().Get(ctx, "server.address")
+				if err != nil {
+					panic(err)
+				}
+				glog.Infof(nil, "Server start at :http://localhost%s/login", port)
+			}()
 			s.Run()
 			return nil
 		},
+		FuncWithValue: nil,
+		HelpFunc:      nil,
+		Examples:      "",
+		Additional:    "",
+		Strict:        false,
+		Config:        "",
 	}
 )

@@ -1,49 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
-{{include "/base/meta.html" .}}
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Content-Type" content="text/html;charset=utf-8">
+    {{include "/app/meta.html" .}}
+    <title>Menu</title>
+</head>
 <body>
-{{include "/base/nav.html" .}}
-<header class="w hr">
-    <h1>Role Disable API</h1>
-    <ul>
-        <input type="button" value="Add" onclick="showAddRoleApi('{{.Query.rid}}')">
-    </ul>
-</header>
-<main class="w hr part">
-    <table>
-        <tr>
-            {{range .c.Fields}}
-            {{th .}}
-            {{end}}
-            <th>Actions</th>
-        </tr>
-        {{range $dataMap:=.list}}
-        <tr>
-            {{range $field:=$.c.Fields}}
-            {{td $field $dataMap}}
-            {{end}}
-            <td>
-                <input type="button" value="Del" onclick="onDel('{{.id}}','{{$.c.UrlPrefix}}/del?id={{.id}}&rid={{$.Query.rid}}')">
-            </td>
-        </tr>
-        {{end}}
-    </table>
-    <input type="button" value="Back" onclick="location.href='/role/list'">
-</main>
-<form class="w hr part details" id="post-form" hidden>
-    <h2>Step1 Set Info</h2>
-    <p>Add disable API <select name="aid[]" id="aid-select" multiple></select> for Rid <input type="text" value="{{.Query.rid}}" name="rid"></p>
-    <h2>Step2 Go!</h2>
-    <p>Please wait! submit need some time...</p>
-    <input type="button" value="Back" onclick="showMain()">
-    <input type="button" value="Submit" id="submit-btn" onclick="onSubmitRoleApi()">
-</form>
+{{include "/app/top.html" .}}
+<div id="wrapper">
+    <div class="w">
+        <div id="main">
+            <div class="box" id="page-title">
+                <div class="box-title">
+                    <img src="/resource/image/golang.png" width="64" alt="Menu">
+                    <div>
+                        <div class="breadcrumb">
+                            <a href="/">CIEL ADMIN</a>
+                            <span class="chevron">&nbsp;›&nbsp;</span>
+                            角色API
+                        </div>
+                        <div class="intro">
+                            这里是角色禁用API管理页面,可以对API进行添加,修改,删除等操作。
+                        </div>
+                    </div>
+                </div>
+                <div class="box-action">
+                    <input type="button" class="button" value="添加" onclick="showDetails()">
+                </div>
+            </div>
+            <div class="box" id="data">
+                <table id="table">
+                    <tbody>
+                    <tr>
+                        <th width="40">ID</th>
+                        <th>角色名</th>
+                        <th>URL</th>
+                        <th>分组</th>
+                        <th>方法</th>
+                        <th>DESC</th>
+                        <th>操作</th>
+                    </tr>
+                    {{range .list}}
+                    <tr>
+                        <td>{{.id}}</td>
+                        <td>{{.r_name}}</td>
+                        <td>{{.url}}</td>
+                        <td>{{.group}}</td>
+                        <td>{{.method}}</td>
+                        <td>{{.desc}}</td>
+                        <td class="table-action">
+                            <a href="#" onclick="del('{{.id}}')">删除</a>
+                        </td>
+                    </tr>
+                    {{end}}
+                    </tbody>
+                </table>
+                {{include "/app/pagination.html" .}}
+                <input type="button" value="返回" class="button" onclick="location.href='/role/list'">
+            </div>
+            <form class="box details-form" hidden>
+                <ul>
+                    <h2>基本信息</h2>
+                    <li><input hidden name="id"></li>
+                    <li><span>名称</span><input type="text" value="{{.Query.rid}}" name="rid"></li>
+                    <li><span>菜单</span><select name="aid[]" id="aid-select" multiple></select>
+                    </li>
+                </ul>
+                <div class="form-action">
+                    <input type="button" class="button" value="返回" onclick="showMain()">
+                    <input type="button" class="button" value="提交" id="onSubmitDetails">
+                </div>
+            </form>
+        </div>
+        <div id="right-bar">
+            <div class="box">
+                {{include "/app/nav_right.html" .}}
+            </div>
+        </div>
+    </div>
+</div>
+{{include "/app/footer.html" .}}
 </body>
-{{include "/base/footer.html" .}}
 <script>
-    const showAddRoleApi = (rid) => {
-        if (!rid) $.notify('rid is empty!', 'error');
-        $.get('/role/noapis?rid=' + rid, function (res) {
+    const urlPrefix = "/roleApi";
+
+    function showDetails() {
+        $.get('/role/noapis?rid={{.Query.rid}}', function (res) {
             if (res.data) {
                 let options = ''
                 res.data.forEach(item => {
@@ -52,18 +95,43 @@
                 $('#aid-select').html(options)
             }
         })
-        $(".part").hide()
-        $(".details").show()
+        $("#data").hide()
+        $(".details-form").show()
     }
-    const onSubmitRoleApi = () => {
-        $.post('/roleApi/post', $('#post-form').serialize(), function (res) {
+
+    function showMain() {
+        $(".details-form").hide()
+        document.getElementsByClassName("details-form")[0].reset()
+        $("#data").show()
+    }
+
+    $("#onSubmitDetails").click(function () {
+        let data = $(".details-form").serialize()
+        $.post(`${urlPrefix}/post`, data, (res) => {
             if (res.code === 0) {
-                $.notify('Add Success!', {className: 'success', position: 'top center'});
-                setTimeout(() => location.reload(), 1500)
+                noticeOkEle($(this), 'Success')
+                setTimeout(() => {
+                    location.reload()
+                }, 1000)
             } else {
-                $.notify(res.msg, 'error');
+                noticeErrorEle($(this), res.msg)
             }
-        })
+        });
+    })
+
+    function del(id) {
+        if (confirm("确定删除？")) {
+            $.delete(`${urlPrefix}/del?id=` + id, (res) => {
+                if (res.code === 0) {
+                    noticeOk('Success')
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1000)
+                } else {
+                    noticeError( res.msg)
+                }
+            });
+        }
     }
 </script>
 </html>

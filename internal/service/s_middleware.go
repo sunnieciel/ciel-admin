@@ -1,7 +1,7 @@
 package service
 
 import (
-	"ciel-begin/utility/utils/res"
+	"ciel-admin/utility/utils/res"
 	"errors"
 	"github.com/gogf/gf/v2/net/ghttp"
 )

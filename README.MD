@@ -6,7 +6,14 @@
 
 ciel_admin 是一个简洁的后台管理系统，提供了简单的权限管理功能，和本地文件上传。
 
-前端页面风格参考 https://www.random.org/
+前端页面风格参考 https://www.v2ex.com/ 2022年的风格。
 
-使用到的技术: goframe v2
+使用到的技术:
 
+- 前台 jquery-3.6.0
+- 后台 goframe v2.0.0-rc
+
+## 功能
+
+- 管理员权限
+- 本地文件上传

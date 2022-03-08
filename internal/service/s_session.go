@@ -1,8 +1,8 @@
 package service
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/internal/model/bo"
+	"ciel-admin/internal/consts"
+	"ciel-admin/internal/model/bo"
 	"context"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"

@@ -1,12 +1,16 @@
 package main
 
 import (
-	_ "ciel-begin/internal/packed"
-
-	"ciel-begin/internal/cmd"
+	"ciel-admin/internal/cmd"
+	_ "ciel-admin/internal/packed"
 	"github.com/gogf/gf/v2/os/gctx"
+	_ "net/http/pprof"
 )
 
 func main() {
 	cmd.Main.Run(gctx.New())
 }
+
+/*
+todo pagination 不能放到一个地方
+*/

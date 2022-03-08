@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh">
-{{include "/base/meta.html" .}}
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="Content-Type" content="text/html;charset=utf-8">
+    {{include "/app/meta.html" .}}
+    <title>ADMIN</title>
+</head>
 <body>
-{{include "/base/nav.html" .}}
-<header class="w hr">
-    <h1>Home</h1>
-    {{include "/base/msg.html" .}}
-</header>
-<main class="w">
-    <h2>Hello {{.Session.adminInfo.Admin.uname}}</h2>
-    <p>Welcome to my home</p>
-</main>
+<div id="app">
+
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                {{include "/app/nav.html" .}}
+                <h2>Hello </h2>
+                <p>Welcome to system </p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-{{include "/base/footer.html" .}}
+{{include "/app/footer.html" .}}
+<script>
+    current = $("a[href='/menu/list']")
+    $("#secondary-tabs a[data='" + current.attr("data") + "']").show()
+    $("#tabs a[data='" + current.attr("data") + "']").addClass("tab-current")
+</script>
 </html>

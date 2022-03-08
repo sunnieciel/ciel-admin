@@ -5,9 +5,9 @@
 package dao
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/internal/model/entity"
-	"ciel-begin/internal/service/internal/dao/internal"
+	"ciel-admin/internal/consts"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/internal/dao/internal"
 	"context"
 )
 

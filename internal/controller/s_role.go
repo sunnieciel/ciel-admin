@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"ciel-begin/internal/model/entity"
-	"ciel-begin/internal/service"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/res"
-	"ciel-begin/utility/utils/xparam"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xparam"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -16,12 +17,12 @@ type role struct {
 
 func Role() *role {
 	return &role{SearchConf: &config.SearchConf{
-		PageTitle: "Role", PageUrl: "/role/list", UrlPrefix: "/role",
-		T1: "s_role", Fields: []*config.Field{
-			{Field: "id", Type: "text", EditHidden: true},
-			{Field: "name", Type: "text", Search: true},
-			{Field: "created_at", Type: "text", EditHidden: true},
-			{Field: "updated_at", Type: "text", EditHidden: true},
+		PageUrl: "/role/list",
+		T1:      "s_role", Fields: []*config.Field{
+			{Field: "id"},
+			{Field: "name"},
+			{Field: "created_at"},
+			{Field: "updated_at"},
 		},
 	}}
 }
@@ -46,7 +47,7 @@ func (c *role) Post(r *ghttp.Request) {
 func (c *role) Put(r *ghttp.Request) {
 	d := entity.Role{}
 	_ = r.Parse(&d)
-	if err := service.System().Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := service.System().Update(r.Context(), c.T1, d.Id, g.Map{"name": d.Name}); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)

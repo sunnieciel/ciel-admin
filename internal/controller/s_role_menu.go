@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"ciel-begin/internal/service"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/res"
-	"ciel-begin/utility/utils/xparam"
+	"ciel-admin/internal/service"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xparam"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -15,17 +15,17 @@ type roleMenu struct {
 
 func RoleMenu() *roleMenu {
 	return &roleMenu{SearchConf: &config.SearchConf{
-		PageTitle: "RoleMenu", UrlPrefix: "/roleMenu", NoEdit: true,
+		PageUrl:      "/roleMenu/list",
 		T1:           "s_role_menu",
 		T2:           "s_role  t2 on t1.rid = t2.id",
 		T3:           "s_menu t3 on t1.mid = t3.id",
 		SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
 		Fields: []*config.Field{
-			{Field: "id", EditHidden: true, Hidden: true},
-			{Field: "rid", Title: "Role ID", Search: true},
-			{Field: "t2.name", QueryFiled: "role_name", Title: "Role Name", EditHidden: true},
-			{Field: "mid", Title: "Menu ID", Type: "text"},
-			{Field: "t3.name", QueryFiled: "menu_name", Title: "Menu Name", EditHidden: true},
+			{Field: "id"},
+			{Field: "rid"},
+			{Field: "t2.name", QueryFiled: "role_name", Like: true},
+			{Field: "mid"},
+			{Field: "t3.name", QueryFiled: "menu_name"},
 		},
 	}}
 }

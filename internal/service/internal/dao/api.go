@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"ciel-begin/internal/service/internal/dao/internal"
+	"ciel-admin/internal/service/internal/dao/internal"
 )
 
 // apiDao is the data access object for table s_api.

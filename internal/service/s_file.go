@@ -1,9 +1,9 @@
 package service
 
 import (
-	"ciel-begin/internal/model/entity"
-	"ciel-begin/internal/service/internal/dao"
-	"ciel-begin/utility/utils/res"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/internal/dao"
+	"ciel-admin/utility/utils/res"
 	"context"
 	"errors"
 	"fmt"

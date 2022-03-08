@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-{{include "/base/meta.html" .}}
+<heade class="w hr">
+    <meta charset="UTF-8">
+    <meta name="Content-Type" content="text/html;charset=utf-8">
+    {{include "/app/meta.html" .}}
+    <title>Login</title>
+</heade>
 <body>
-{{include "/base/nav.html" .}}
-<header class="w hr">
-    <h1>Admin</h1>
-    {{include "/base/msg.html" .}}
-</header>
-<main class="w">
-    <form id="login-form" method="post" action="/admin/login">
-        <h2>Login</h2>
-        <p>username <input autocomplete="false" required type="text" name="uname" value="{{.Form.uname}}" id="uname">
-        <p>password <input required type="password" name="pwd" value="{{.Form.pwd}}"></p>
-        <input type="button" value="submit" id="login-btn">
-    </form>
-</main>
+{{include "/app/top.html" .}}
+<div id="wrapper">
+    <div class="w">
+        <div id="main">
+            <div class="box">
+                <div class="header">
+                    <a href="/">CIEL ADMIN</a>
+                    <span class="chevron">&nbsp;›&nbsp;</span>
+                    登录
+                    <li class="fa fa-lock"></li>
+                </div>
+                <form class="box details-form" id="login-form">
+                    <ul>
+                        <li><span>用户名</span><input type="text" name="uname"></li>
+                        <li><span>密码</span><input type="password" name="pwd"></li>
+                    </ul>
+                    <input type="button" value="登录" class="button" id="login-btn" style="margin-left: 130px">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script src="/resource/js/jquery-3.6.0.min.js"></script>
 <script src="/resource/js/notify.min.js"></script>
-<script src="/resource/js/app.js"></script>
 <script>
     $(function () {
         $("#login-btn").click(function () {
             $.post("/admin/login", $("#login-form").serialize(), function (data) {
                 if (data.code === 0) {
-                    $('#uname').notify("Success", {position: "right", className: "success"});
+                    $('#login-btn').notify("Success", {position: "right", className: "success"});
                     setTimeout(function () {
                         window.location.href = "/";
                     }, 1500);
                 } else {
-                    $('#uname').notify(data.msg, {position: "right"});
+                    $('#login-btn').notify(data.msg, {position: "right"});
                 }
             });
         });

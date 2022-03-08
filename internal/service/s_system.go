@@ -1,9 +1,9 @@
 package service
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/xstr"
+	"ciel-admin/internal/consts"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/xstr"
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"

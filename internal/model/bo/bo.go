@@ -1,7 +1,7 @@
 package bo
 
 import (
-	"ciel-begin/internal/model/entity"
+	"ciel-admin/internal/model/entity"
 )
 
 type Admin struct {

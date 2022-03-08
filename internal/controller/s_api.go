@@ -1,12 +1,11 @@
 package controller
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/internal/model/entity"
-	"ciel-begin/internal/service"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/res"
-	"ciel-begin/utility/utils/xparam"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xparam"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -17,19 +16,14 @@ type api struct {
 
 func Api() *api {
 	return &api{SearchConf: &config.SearchConf{
-		PageTitle: "Api", PageUrl: "/api/list",
-		T1: "s_api", UrlPrefix: "/api", Fields: []*config.Field{
-			{Field: "id", EditHidden: true},
-			{Field: "url", Required: true},
-			{Field: "method", Type: "select", Required: true, Items: []*config.Item{
-				{Text: "GET", Value: "GET"},
-				{Text: "POST", Value: "POST"},
-				{Text: "PUT", Value: "PUT"},
-				{Text: "DELETE", Value: "DELETE"}},
-			},
-			{Field: "group", Required: true},
+		PageUrl: "/api/list",
+		T1:      "s_api", Fields: []*config.Field{
+			{Field: "id"},
+			{Field: "url"},
+			{Field: "method"},
+			{Field: "group"},
 			{Field: "desc"},
-			{Field: "status", Type: "select", Search: true, Items: []*config.Item{{Value: "1", Text: "ON"}, {Value: "2", Text: "OFF"}}, Required: true},
+			{Field: "status"},
 		},
 	}}
 }
@@ -41,7 +35,7 @@ func (c *api) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, consts.DefaultPage, total, data, c)
+	res.PageList(r, "/sys/api.html", total, data, c)
 }
 func (c *api) Post(r *ghttp.Request) {
 	d := entity.Api{}

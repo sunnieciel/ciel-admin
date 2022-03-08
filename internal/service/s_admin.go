@@ -1,10 +1,10 @@
 package service
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/internal/model/bo"
-	"ciel-begin/internal/service/internal/dao"
-	"ciel-begin/utility/utils/xpwd"
+	"ciel-admin/internal/consts"
+	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/service/internal/dao"
+	"ciel-admin/utility/utils/xpwd"
 	"context"
 	"errors"
 	"github.com/gogf/gf/v2/net/ghttp"

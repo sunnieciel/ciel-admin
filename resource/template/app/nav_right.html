@@ -1,0 +1,14 @@
+<ul id="right-nav">
+    {{range .Session.adminInfo.Menus}}
+    <li>{{.name}}
+        <ul>
+            {{range .Children}}
+            <li onclick="location.href='{{.path}}'">
+                <div style="background-image: url('/resource/image/golang.png')"></div>
+                <a href="{{.path}}">{{.name}}</a>
+            </li>
+            {{end}}
+        </ul>
+    </li>
+    {{end}}
+</ul>

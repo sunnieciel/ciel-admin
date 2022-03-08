@@ -1,38 +1,33 @@
 package controller
 
 import (
-	"ciel-begin/internal/consts"
-	"ciel-begin/internal/model/entity"
-	"ciel-begin/internal/service"
-	"ciel-begin/manifest/config"
-	"ciel-begin/utility/utils/res"
-	"ciel-begin/utility/utils/xparam"
-	"ciel-begin/utility/utils/xpwd"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service"
+	"ciel-admin/manifest/config"
+	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xparam"
+	"ciel-admin/utility/utils/xpwd"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
 //  ---admin-------------------------------------------------------------------
-type admin struct {
-	*config.SearchConf
-	loginPage string
-}
+type admin struct{ *config.SearchConf }
 
 func Admin() *admin {
 	c := admin{
-		loginPage: "login.html",
 		SearchConf: &config.SearchConf{
-			PageTitle: "Admin", PageUrl: "/admin/list", UrlPrefix: "/admin",
+			PageUrl:      "/admin/list",
 			T1:           "s_admin",
 			SearchFields: "id,rid,uname,status,created_at,updated_at",
 			Fields: []*config.Field{
-				{Field: "id", EditHidden: true},
-				{Field: "uname", Required: true},
-				{Field: "pwd", Hidden: true},
-				{Field: "rid", Title: "Role Id", Type: "select", Search: true, Items: []*config.Item{{Value: "1", Text: "Super Admin"}, {Value: "2", Text: "Admin"}}, Required: true},
-				{Field: "status", Title: "status", Type: "select", Search: true, Items: []*config.Item{{Value: "1", Text: "ON"}, {Value: "2", Text: "OFF"}}, Required: true},
-				{Field: "created_at", EditHidden: true},
-				{Field: "updated_at", EditHidden: true},
+				{Field: "id"},
+				{Field: "uname", Like: true},
+				{Field: "pwd"},
+				{Field: "rid"},
+				{Field: "status"},
+				{Field: "created_at"},
+				{Field: "updated_at"},
 			},
 		}}
 	return &c
@@ -40,7 +35,6 @@ func Admin() *admin {
 func (c *admin) LoginPage(r *ghttp.Request) {
 	res.Page(r, "login.html")
 }
-
 func (c *admin) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -49,11 +43,10 @@ func (c *admin) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, consts.DefaultPage, total, data, c)
+	res.PageList(r, "/sys/admin.html", total, data, c)
 }
 func (c *admin) GetById(r *ghttp.Request) {
-	id := r.GetQuery("id")
-	data, err := service.System().GetById(r.Context(), c.T1, id)
+	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -95,7 +88,6 @@ func (c *admin) Del(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-
 func (c *admin) Login(r *ghttp.Request) {
 	var d struct {
 		Uname string `form:"uname"`
@@ -114,7 +106,7 @@ func (c *admin) Logout(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	r.Response.RedirectTo("/login")
+	res.Ok(r)
 }
 func (c *admin) UpdatePwd(r *ghttp.Request) {
 	var d struct {
