@@ -13,22 +13,21 @@ type roleMenu struct {
 	*config.SearchConf
 }
 
-func RoleMenu() *roleMenu {
-	return &roleMenu{SearchConf: &config.SearchConf{
-		PageUrl:      "/roleMenu/list",
-		T1:           "s_role_menu",
-		T2:           "s_role  t2 on t1.rid = t2.id",
-		T3:           "s_menu t3 on t1.mid = t3.id",
-		SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
-		Fields: []*config.Field{
-			{Field: "id"},
-			{Field: "rid"},
-			{Field: "t2.name", QueryFiled: "role_name", Like: true},
-			{Field: "mid"},
-			{Field: "t3.name", QueryFiled: "menu_name"},
-		},
-	}}
-}
+var RoleMenu = &roleMenu{SearchConf: &config.SearchConf{
+	PageUrl:      "/roleMenu/list",
+	T1:           "s_role_menu",
+	T2:           "s_role  t2 on t1.rid = t2.id",
+	T3:           "s_menu t3 on t1.mid = t3.id",
+	SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
+	Fields: []*config.Field{
+		{Field: "id"},
+		{Field: "rid"},
+		{Field: "t2.name", QueryFiled: "role_name", Like: true},
+		{Field: "mid"},
+		{Field: "t3.name", QueryFiled: "menu_name"},
+	},
+}}
+
 func (c *roleMenu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page

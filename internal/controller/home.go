@@ -8,5 +8,6 @@ import (
 // ---home-------------------------------------------------------------------
 type home struct{}
 
-func Home() *home                          { return &home{} }
+var Home = &home{}
+
 func (c *home) IndexPage(r *ghttp.Request) { res.Page(r, "/index.html") }

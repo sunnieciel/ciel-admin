@@ -14,24 +14,22 @@ import (
 //  ---admin-------------------------------------------------------------------
 type admin struct{ *config.SearchConf }
 
-func Admin() *admin {
-	c := admin{
-		SearchConf: &config.SearchConf{
-			PageUrl:      "/admin/list",
-			T1:           "s_admin",
-			SearchFields: "id,rid,uname,status,created_at,updated_at",
-			Fields: []*config.Field{
-				{Field: "id"},
-				{Field: "uname", Like: true},
-				{Field: "pwd"},
-				{Field: "rid"},
-				{Field: "status"},
-				{Field: "created_at"},
-				{Field: "updated_at"},
-			},
-		}}
-	return &c
-}
+var Admin = &admin{
+	SearchConf: &config.SearchConf{
+		PageUrl:      "/admin/list",
+		T1:           "s_admin",
+		SearchFields: "id,rid,uname,status,created_at,updated_at",
+		Fields: []*config.Field{
+			{Field: "id"},
+			{Field: "uname", Like: true},
+			{Field: "pwd"},
+			{Field: "rid"},
+			{Field: "status"},
+			{Field: "created_at"},
+			{Field: "updated_at"},
+		},
+	}}
+
 func (c *admin) LoginPage(r *ghttp.Request) {
 	res.Page(r, "login.html")
 }

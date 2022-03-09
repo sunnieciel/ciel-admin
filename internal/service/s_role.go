@@ -9,25 +9,27 @@ import (
 	"strings"
 )
 
-type role struct{}
+type sRole struct{}
 
-func Role() *role {
-	return &role{}
+var insRole = &sRole{}
+
+func Role() *sRole {
+	return insRole
 }
 
-func (s *role) RoleNoMenu(ctx context.Context, rid interface{}) (interface{}, error) {
+func (s *sRole) RoleNoMenu(ctx context.Context, rid interface{}) (interface{}, error) {
 	return dao.RoleMenu.RoleNoMenu(ctx, rid)
 }
-func (s *role) AddRoleMenu(ctx context.Context, rid int, mid []int) error {
+func (s *sRole) AddRoleMenu(ctx context.Context, rid int, mid []int) error {
 	return dao.RoleMenu.AddRoleMenu(ctx, rid, mid)
 }
-func (s *role) RoleNoApi(ctx context.Context, rid interface{}) (gdb.List, error) {
+func (s *sRole) RoleNoApi(ctx context.Context, rid interface{}) (gdb.List, error) {
 	return dao.RoleApi.RoleNoApi(ctx, rid)
 }
-func (s *role) AddRoleApi(ctx context.Context, rid int, aid []int) error {
+func (s *sRole) AddRoleApi(ctx context.Context, rid int, aid []int) error {
 	return dao.RoleApi.AddRoleApi(ctx, rid, aid)
 }
-func (s *role) CheckRoleApi(ctx context.Context, rid int, uri string, method string) bool {
+func (s *sRole) CheckRoleApi(ctx context.Context, rid int, uri string, method string) bool {
 	if strings.Contains(uri, "?") {
 		uri = strings.Split(uri, "?")[0]
 	}
@@ -44,6 +46,6 @@ func (s *role) CheckRoleApi(ctx context.Context, rid int, uri string, method str
 	}
 	return true
 }
-func (s *role) Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
+func (s *sRole) Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
 	return dao.RoleMenu.Menus(ctx, rid, pid)
 }

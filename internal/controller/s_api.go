@@ -14,19 +14,18 @@ type api struct {
 	*config.SearchConf
 }
 
-func Api() *api {
-	return &api{SearchConf: &config.SearchConf{
-		PageUrl: "/api/list",
-		T1:      "s_api", Fields: []*config.Field{
-			{Field: "id"},
-			{Field: "url"},
-			{Field: "method"},
-			{Field: "group"},
-			{Field: "desc"},
-			{Field: "status"},
-		},
-	}}
-}
+var Api = &api{SearchConf: &config.SearchConf{
+	PageUrl: "/api/list",
+	T1:      "s_api", Fields: []*config.Field{
+		{Field: "id"},
+		{Field: "url"},
+		{Field: "method"},
+		{Field: "group"},
+		{Field: "desc"},
+		{Field: "status"},
+	},
+}}
+
 func (c *api) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page

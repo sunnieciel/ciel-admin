@@ -13,22 +13,21 @@ type dict struct {
 	*config.SearchConf
 }
 
-func Dict() *dict {
-	return &dict{SearchConf: &config.SearchConf{
-		PageUrl: "/dict/list", T1: "s_dict",
-		Fields: []*config.Field{
-			{Field: "id"},
-			{Field: "k", Like: true},
-			{Field: "v", Like: true},
-			{Field: "desc", Like: true},
-			{Field: "group"},
-			{Field: "type"},
-			{Field: "status"},
-			{Field: "created_at"},
-			{Field: "updated_at"},
-		},
-	}}
-}
+var Dict = &dict{SearchConf: &config.SearchConf{
+	PageUrl: "/dict/list", T1: "s_dict",
+	Fields: []*config.Field{
+		{Field: "id"},
+		{Field: "k", Like: true},
+		{Field: "v", Like: true},
+		{Field: "desc", Like: true},
+		{Field: "group"},
+		{Field: "type"},
+		{Field: "status"},
+		{Field: "created_at"},
+		{Field: "updated_at"},
+	},
+}}
+
 func (c *dict) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page

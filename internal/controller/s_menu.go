@@ -13,16 +13,15 @@ type menu struct {
 	*config.SearchConf
 }
 
-func Menu() *menu {
-	return &menu{SearchConf: &config.SearchConf{
-		T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
-		Fields: []*config.Field{
-			{Field: "pid"},
-			{Field: "name", Like: true},
-			{Field: "path", Like: true},
-		},
-	}}
-}
+var Menu = &menu{SearchConf: &config.SearchConf{
+	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
+	Fields: []*config.Field{
+		{Field: "pid"},
+		{Field: "name", Like: true},
+		{Field: "path", Like: true},
+	},
+}}
+
 func (c *menu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page

@@ -15,20 +15,19 @@ type file struct {
 	*config.SearchConf
 }
 
-func File() *file {
-	return &file{SearchConf: &config.SearchConf{
-		PageUrl: "/file/list", T1: "s_file",
-		Fields: []*config.Field{
-			{Field: "id"},
-			{Field: "img"},
-			{Field: "group", Like: true},
-			{Field: "status"},
-			{Field: "url"},
-			{Field: "created_at"},
-			{Field: "updated_at"},
-		},
-	}}
-}
+var File = &file{SearchConf: &config.SearchConf{
+	PageUrl: "/file/list", T1: "s_file",
+	Fields: []*config.Field{
+		{Field: "id"},
+		{Field: "img"},
+		{Field: "group", Like: true},
+		{Field: "status"},
+		{Field: "url"},
+		{Field: "created_at"},
+		{Field: "updated_at"},
+	},
+}}
+
 func (c *file) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page

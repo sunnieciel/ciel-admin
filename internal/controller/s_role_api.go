@@ -13,19 +13,18 @@ type roleApi struct {
 	*config.SearchConf
 }
 
-func RoleApi() *roleApi {
-	return &roleApi{SearchConf: &config.SearchConf{
-		PageUrl: "roleApi/list",
-		T1:      "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
-		SearchFields: "t1.*,t2.name r_name,t3.url url ,t3.group,t3.method,t3.desc ", Fields: []*config.Field{
-			{Field: "id"},
-			{Field: "rid"},
-			{Field: "aid"},
-			{Field: "t2.name", QueryFiled: "r_name"},
-			{Field: "t3.url"},
-		},
-	}}
-}
+var RoleApi = &roleApi{SearchConf: &config.SearchConf{
+	PageUrl: "roleApi/list",
+	T1:      "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
+	SearchFields: "t1.*,t2.name r_name,t3.url url ,t3.group,t3.method,t3.desc ", Fields: []*config.Field{
+		{Field: "id"},
+		{Field: "rid"},
+		{Field: "aid"},
+		{Field: "t2.name", QueryFiled: "r_name"},
+		{Field: "t3.url"},
+	},
+}}
+
 func (c *roleApi) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page

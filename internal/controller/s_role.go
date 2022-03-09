@@ -15,17 +15,16 @@ type role struct {
 	*config.SearchConf
 }
 
-func Role() *role {
-	return &role{SearchConf: &config.SearchConf{
-		PageUrl: "/role/list",
-		T1:      "s_role", Fields: []*config.Field{
-			{Field: "id"},
-			{Field: "name"},
-			{Field: "created_at"},
-			{Field: "updated_at"},
-		},
-	}}
-}
+var Role = &role{SearchConf: &config.SearchConf{
+	PageUrl: "/role/list",
+	T1:      "s_role", Fields: []*config.Field{
+		{Field: "id"},
+		{Field: "name"},
+		{Field: "created_at"},
+		{Field: "updated_at"},
+	},
+}}
+
 func (c *role) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page

@@ -13,11 +13,13 @@ import (
 	"strings"
 )
 
-//  ---system ------------------------------------------------------------
-type system struct{}
+//  ---sSystem ------------------------------------------------------------
+type sSystem struct{}
 
-func System() *system { return &system{} }
-func (s *system) List(ctx context.Context, c *config.SearchConf) (count int, data gdb.List, err error) {
+var insSystem = &sSystem{}
+
+func System() *sSystem { return insSystem }
+func (s *sSystem) List(ctx context.Context, c *config.SearchConf) (count int, data gdb.List, err error) {
 	db := g.DB().Ctx(ctx).Model(c.T1 + " t1")
 	if c.T2 != "" {
 		db = db.LeftJoin(c.T2)
@@ -67,7 +69,7 @@ func (s *system) List(ctx context.Context, c *config.SearchConf) (count int, dat
 	data = all.List()
 	return
 }
-func (s *system) Add(ctx context.Context, table, data interface{}) error {
+func (s *sSystem) Add(ctx context.Context, table, data interface{}) error {
 	_, err := g.DB().Ctx(ctx).Model(table).Insert(data)
 	if err != nil {
 		glog.Error(ctx, err)
@@ -75,14 +77,14 @@ func (s *system) Add(ctx context.Context, table, data interface{}) error {
 	}
 	return nil
 }
-func (s *system) Del(ctx context.Context, table, id interface{}) (err error) {
+func (s *sSystem) Del(ctx context.Context, table, id interface{}) (err error) {
 	if _, err = g.DB().Ctx(ctx).Model(table).Delete("id", id); err != nil {
 		glog.Error(ctx, err)
 		return
 	}
 	return
 }
-func (s *system) Update(ctx context.Context, table string, id, data interface{}) error {
+func (s *sSystem) Update(ctx context.Context, table string, id, data interface{}) error {
 	// 空值过滤
 	_, err := g.DB().Model(table).Where("id", id).Data(data).Update()
 	if err != nil {
@@ -91,7 +93,7 @@ func (s *system) Update(ctx context.Context, table string, id, data interface{})
 	}
 	return nil
 }
-func (s *system) GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
+func (s *sSystem) GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
 	one, err := g.DB().Ctx(ctx).Model(table).One("id", id)
 	if err != nil {
 		glog.Error(ctx, err)
@@ -99,8 +101,7 @@ func (s *system) GetById(ctx context.Context, table, id interface{}) (gdb.Record
 	}
 	return one, nil
 }
-
-func (s *system) Init() {
+func (s *sSystem) Init() {
 	get, err := g.Cfg().Get(gctx.New(), "server.imgPrefix")
 	if err != nil {
 		panic(err)
