@@ -6,15 +6,17 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-// ---middleware-----------------------------------------------------------------------
-type middleware struct{}
+// ---sMiddleware-----------------------------------------------------------------------
+type sMiddleware struct{}
 
-func Middleware() *middleware { return &middleware{} }
-func (s *middleware) CORS(r *ghttp.Request) {
+var insMiddleware = new(sMiddleware)
+
+func Middleware() *sMiddleware { return insMiddleware }
+func (s *sMiddleware) CORS(r *ghttp.Request) {
 	r.Response.CORSDefault()
 	r.Middleware.Next()
 }
-func (s *middleware) AuthAdmin(r *ghttp.Request) {
+func (s *sMiddleware) AuthAdmin(r *ghttp.Request) {
 	user, err := Session().GetAdmin(r)
 	if err != nil || user == nil {
 		r.Response.RedirectTo("/login")

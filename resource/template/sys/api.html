@@ -155,10 +155,6 @@
             showMain() {
                 this.showType = 0
             },
-            onSearch() {
-                this.searchData.page = 1
-                location.href = `${this.page.urlPrefix}/list?` + $.param(this.searchData)
-            },
             filterStatus(s) {
                 return s == 1 ? "启用" : "禁用"
             },

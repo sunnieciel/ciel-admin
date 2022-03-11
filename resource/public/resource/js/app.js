@@ -39,6 +39,34 @@ function noticeInfo(msg) {
     $.notify(msg, {className: 'info', position: 'top center'})
 }
 
+function logout() {
+    $.ajax({
+        url: '/admin/logout',
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+            if (data.code == 0) {
+                window.location.href = '/login';
+            }
+        }
+    });
+}
+
+function updatePwd() {
+    let old = prompt('Input your old pwd');
+    if (!old) {
+        return
+    }
+    let newPwd = prompt('Input your new pwd');
+    if (!newPwd) {
+        return
+    }
+    $.post("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
+        res.code === 0 ? noticeOkEle($(this), 'Success') : noticeErrorEle($(this), res.msg);
+    });
+}
+
 
 // 添加默认选中
 $("#secondary-tabs a").hide()
@@ -50,16 +78,17 @@ $("#tabs a[data='" + current.attr("data") + "']").addClass("tab-current")
 $(".pagination span").each(function () {
     if (isNaN($(this).text())) $(this).removeClass("GPageSpan")
 })
-
-// 监听tab 切换
-$("#tabs a").click(function () {
-    $("#tabs a").removeClass("tab-current")
-    $(this).addClass("tab-current")
-    $("#secondary-tabs a").hide()
-    $("#secondary-tabs a[data='" + $(this).attr("data") + "']").show()
+$(function () {
+    // 监听tab 切换
+    $("#tabs a").click(function () {
+        $("#tabs a").removeClass("tab-current")
+        $(this).addClass("tab-current")
+        $("#secondary-tabs a").hide()
+        $("#secondary-tabs a[data='" + $(this).attr("data") + "']").show()
+    })
+    // 监听搜索 input enter 事件
+    $("#search input").keydown(function (e) {
+        if (e.keyCode === 13) $("#search").submit()
+    })
 })
 
-// 监听搜索 input enter 事件
-$("#search input").keydown(function (e) {
-    if (e.keyCode === 13) $("#search").submit()
-})

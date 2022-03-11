@@ -16,7 +16,6 @@ var insRole = &sRole{}
 func Role() *sRole {
 	return insRole
 }
-
 func (s *sRole) RoleNoMenu(ctx context.Context, rid interface{}) (interface{}, error) {
 	return dao.RoleMenu.RoleNoMenu(ctx, rid)
 }

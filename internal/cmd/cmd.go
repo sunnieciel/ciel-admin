@@ -93,6 +93,14 @@ var (
 				g.PUT("/put", controller.File.Put)
 				g.POST("/upload", controller.File.Upload)
 			})
+			s.Group("/diary", func(g *ghttp.RouterGroup) {
+				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/list", controller.Diary.List)
+				g.GET("/getById", controller.Diary.GetById)
+				g.DELETE("/del", controller.Diary.Del)
+				g.POST("/post", controller.Diary.Post)
+				g.PUT("/put", controller.Diary.Put)
+			})
 			go func() {
 				var ctx = context.Background()
 				time.Sleep(time.Second * 1)

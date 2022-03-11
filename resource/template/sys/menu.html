@@ -2,116 +2,128 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="Content-Type" content="text/html;charset=utf-8">
     {{include "/app/meta.html" .}}
     <title>Menu</title>
+    <!-- import CSS -->
 </head>
 <body>
-{{include "/app/top.html" .}}
-<div id="wrapper" v-cloak>
-    <div class="w">
-        <div id="main">
-            {{include "/app/nav.html" .}}
-            <div class="box" id="page-title">
-                <div class="box-title">
-                    <img src="/resource/image/golang.png" width="64" alt="Menu">
-                    <div>
-                        <div class="breadcrumb">
-                            <a href="/"> ADMIN</a>
-                            <span class="chevron">&nbsp;›&nbsp;</span>
-                            <span v-text="page.name"></span>
+<div id="app" v-cloak>
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                {{include "/app/nav.html" .}}
+                <div class="box" id="page-title">
+                    <div class="box-title">
+                        <img src="/resource/image/golang.png" width="64" alt="Menu">
+                        <div>
+                            <div class="breadcrumb">
+                                <a href="/"> ADMIN</a>
+                                <span class="chevron">&nbsp;›&nbsp;</span>
+                                <span v-text="page.name"></span>
+                            </div>
+                            <div class="intro" v-text="page.desc"></div>
                         </div>
-                        <div class="intro" v-text="page.desc"></div>
                     </div>
+                    <form action="/menu/list" method="get" id="search">
+                        <div class="box-action">
+                            <el-button size="small" @click="showDetails(1)">添加</el-button>
+                            <span>PID</span> <input type="text" name="pid" value="{{.Query.pid}}" autocomplete="off"/>
+                            <span>菜单名</span> <input type="text" name="name" value="{{.QUery.name}}" autocomplete="off"/>
+                        </div>
+                    </form>
                 </div>
-                <form action="{{.c.PageUrl}}" method="get" id="search">
-                    <div class="box-action">
-                        <input type="button" class="button" value="添加" @click="showDetails(1)">
-                        <span>PID</span> <input v-model="searchData.pid" autocomplete="off" @keyup.enter="onSearch">
-                        <span>菜单名</span> <input v-model="searchData.name" autocomplete="off" @keyup.enter="onSearch">
-                    </div>
-                </form>
-            </div>
-            <div class="box" id="data" v-show="showType==0">
-                <table id="table">
-                    <tbody>
-                    <tr>
-                        <th width="40">ID</th>
-                        <th>PID</th>
-                        <th>角色名</th>
-                        <th>菜单名</th>
-                        <th>类型</th>
-                        <th>排序</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                    </tr>
-                    <tr v-for="item in list">
-                        <td v-text="item.id">
-                        <td v-text="item.pid">
-                        <td v-text="item.name">
-                        <td v-text="item.path">
-                        <td v-text="filterType(item.type)">
-                        <td v-text="item.sort">
-                        <td v-text="filterStatus(item.status)">
-                        <td class="table-action">
-                            <a href="#" @click="showDetails(2,item.id)">编辑</a>
-                            <a href="#" @click="del(item.id)">删除</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                {{include "/app/pagination.html" .}}
-            </div>
-            <form class="box details-form" v-show="showType==1||showType==2">
-                <ul>
-                    <h2>基本信息</h2>
-                    <li><input hidden name="id"></li>
-                    <li><span>PID</span><input autocomplete="off" type="number" v-model="details.pid"></li>
-                    <li><span>名称</span><input autocomplete="off" name="name" v-model="details.name"></li>
-                    <li><span>路径</span><input autocomplete="off" name="path" v-model="details.path"></li>
-                    <li><span>排序</span><input autocomplete="off" type="number" step="0.01" v-model="details.sort"></li>
-                    <li>
-                        <span>类型</span>
-                        <select name="type" v-model="details.type">
-                            <option>请选择</option>
-                            <option value="2">分组</option>
-                            <option value="1">菜单</option>
-                        </select>
-                    </li>
-                    <li>
-                        <span>状态</span>
-                        <select name="status" v-model="details.status">
-                            <option>请选择</option>
-                            <option value="1">启用</option>
-                            <option value="2">禁用</option>
-                        </select>
-                    </li>
-                </ul>
-                <div class="form-action">
-                    <input type="button" class="button" value="返回" @click="showMain()">
-                    <input type="button" class="button" value="提交" @click="onSubmit()">
+                <div class="box" id="data" v-show="showType==0">
+                    <table id="table">
+                        <tbody>
+                        <tr>
+                            <th width="40">ID</th>
+                            <th>PID</th>
+                            <th>角色名</th>
+                            <th>菜单名</th>
+                            <th>类型</th>
+                            <th>排序</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr v-for="item in list">
+                            <td v-text="item.id">
+                            <td v-text="item.pid">
+                            <td v-text="item.name">
+                            <td v-text="item.path">
+                            <td>
+                                <el-tag v-if="item.type==1" type="info" size="small">菜单</el-tag>
+                                <el-tag v-if="item.type==2" type="warning" size="small">分组</el-tag>
+                            </td>
+                            <td v-text="item.sort">
+                            <td>
+                                <el-tag v-if="item.status==1">启用</el-tag>
+                                <el-tag type="danger" v-if="item.status==2">禁用</el-tag>
+                            </td>
+                            <td class="table-action">
+                                <el-button-group>
+                                    <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
+                                    <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
+                                </el-button-group>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {{include "/app/pagination.html" .}}
                 </div>
-            </form>
-        </div>
-        <div id="right-bar">
-            <div class="box">
-                {{include "/app/nav_right.html" .}}
+                <div class="box details-form" v-show="showType==1||showType==2">
+                    <el-form label-width="100px" :model="details" style="max-width: 460px">
+                        <el-form-item label="名称">
+                            <el-input v-model="details.name"></el-input>
+                        </el-form-item>
+                        <el-form-item label="路径">
+                            <el-input v-model="details.path"></el-input>
+                        </el-form-item>
+                        <el-form-item label="PID">
+                            <el-input-number v-model="details.pid"></el-input-number>
+                        </el-form-item>
+                        <el-form-item label="排序">
+                            <el-input-number v-model="details.sort"></el-input-number>
+                        </el-form-item>
+                        <el-form-item label="类型">
+                            <el-select v-model="details.type">
+                                <el-option label="菜单" :value="1"></el-option>
+                                <el-option label="分组" :value="2"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="状态">
+                            <el-select v-model="details.status">
+                                <el-option label="启用" :value="1"></el-option>
+                                <el-option label="禁用" :value="2"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button-group>
+                                <el-button type="info" plain size="small" @click="showMain()">返回</el-button>
+                                <el-button type="primary" plain size="small" @click="onSubmit()">提交</el-button>
+                            </el-button-group>
+                        </el-form-item>
+                    </el-form>
+                </div>
+
+            </div>
+            <div id="right-bar">
+                <div class="box">
+                    {{include "/app/nav_right.html" .}}
+                </div>
             </div>
         </div>
     </div>
+    {{include "/app/footer.html" .}}
 </div>
-{{include "/app/footer.html" .}}
 </body>
+<!-- import JavaScript -->
 <script>
-    Vue.createApp({
+    const app = Vue.createApp({
         data() {
             return {
                 list: JSON.parse('{{json .list}}'),
                 details: {},
-                searchData: {
-                    pid: '{{.Query.pid}}',
-                    name: '{{.Query.name}}',
-                },
                 showType: 0, // 0 main 1 add 2update
                 page: {
                     name: "Menu",
@@ -161,18 +173,9 @@
             showMain() {
                 this.showType = 0
             },
-            onSearch() {
-                this.searchData.page = 1
-                location.href = `${this.page.urlPrefix}/list?` + $.param(this.searchData)
-            },
-            filterStatus(s) {
-                return +s == 1 ? "启用" : "禁用"
-            },
-            filterType(s) {
-                return +s == 1 ? "菜单" : "分组"
-            },
         }
-    }).mount('#wrapper')
+    })
+    app.use(ElementPlus)
+    app.mount('#app')
 </script>
-
 </html>
