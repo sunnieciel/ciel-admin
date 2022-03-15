@@ -17,6 +17,8 @@ admin/build
 # misc
 .DS_Store
 *.pem
+**/node_modules
+**/build
 
 # debug
 npm-debug.log*

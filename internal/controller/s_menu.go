@@ -23,6 +23,7 @@ var Menu = &menu{SearchConf: &config.SearchConf{
 }}
 
 func (c *menu) List(r *ghttp.Request) {
+
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -30,7 +31,7 @@ func (c *menu) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "/sys/menu.html", total, data, c)
+	res.PageList(r, "/sys/menu3.html", total, data, c)
 }
 func (c *menu) GetById(r *ghttp.Request) {
 	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))

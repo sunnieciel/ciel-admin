@@ -18,10 +18,12 @@ type PageRes struct {
 }
 
 func PageList(r *ghttp.Request, page string, total int, list interface{}, info interface{}) {
+	size := r.GetQuery("size").Int()
+	content := r.GetPage(total, size).GetContent(3)
 	if err := r.Response.WriteTpl(page, g.Map{
 		"list":  list,
 		"total": total,
-		"page":  r.GetPage(total, r.GetQuery("size").Int()).GetContent(4),
+		"page":  content,
 		"c":     info,
 	}); err != nil {
 		glog.Error(r.Context(), err)
