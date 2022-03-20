@@ -5,45 +5,42 @@
     <title>Menu</title>
     <script src="https://unpkg.com/vue@next"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="/resource/css/new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-        #app {
-            display: flex;
-        }
-
-        #left {
-            width: 10%;
-            background-color: #f5f5f5;
-            float: left;
-        }
-
-        #right {
-            width: 80%;
-        }
-
-        [v-cloak] {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 <div id="app" v-cloak>
-    <top>
-    </top>
-    <div id="left">
+    <div class="top">
+        <div class="w">
+            <a href="#" id="logo" class="waves-effect waves-light   btn-flat">Ciel</a>
+            <button class="waves-effect waves-light light-blue-text  btn-flat menu">
+                ADMIN
+                <ul class="menu-sub collection">
+                    <li class="collection-item"><a href="#">修改密码</a></li>
+                    <li class="collection-item"><a href="#">退出</a></li>
+                </ul>
+            </button>
+        </div>
     </div>
-    <div id="right">
+    <div class="wrapper">
+        <div class="left">
+            123
+        </div>
+        <div class="main"></div>
     </div>
-
+    <div class="footer"></div>
 </div>
+<!--<iframe width="950" height="534"-->
+<!--        src="https://www.youtube.com/embed/8sJk9AE82kc" title="YouTube video player" frameborder="0"-->
+<!--        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"-->
+<!--        allowfullscreen>-->
+<!--</iframe>-->
 </body>
 <!-- import JavaScript -->
 <script src="/resource/js/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/element-plus"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
     const app = Vue.createApp({
         data() {

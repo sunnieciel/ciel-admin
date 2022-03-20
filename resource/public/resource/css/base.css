@@ -277,8 +277,6 @@ li {
         line-height: 120%;
         border-bottom: 1px solid #e2e2e2;
         color: #999; }
-        #wrapper .w #right-nav > li ul li:first-child {
-          margin-top: 8px; }
         #wrapper .w #right-nav > li ul li {
           background-color: transparent;
           padding: 5px 10px 5px 0;

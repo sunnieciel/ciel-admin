@@ -406,6 +406,7 @@ li {
       max-height: 600px;
       overflow: hidden;
 
+
       &:hover {
         overflow-y: auto;
       }
@@ -418,9 +419,6 @@ li {
         color: #999;
 
         ul {
-          li:first-child {
-            margin-top: 8px;
-          }
 
           li {
             background-color: transparent;
@@ -428,7 +426,6 @@ li {
             font-size: 14px;
             display: flex;
             align-items: center;
-
             div {
               width: 24px;
               height: 24px;
