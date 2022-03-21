@@ -2,140 +2,143 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="Content-Type" content="text/html;charset=utf-8">
-    {{include "/app/meta.html" .}}
     <title>Dict</title>
+    {{include "/app/meta.html" .}}
 </head>
 <body>
-{{include "/app/top.html" .}}
-<div id="wrapper" v-cloak>
-    <div class="w">
-        <div id="main">
-            {{include "/app/nav.html" .}}
-            <div class="box" id="page-title">
-                <div class="box-title">
-                    <img src="/resource/image/golang.png" width="64" alt="Menu">
-                    <div>
-                        <div class="breadcrumb">
-                            <a href="/">CIEL ADMIN</a>
-                            <span class="chevron">&nbsp;›&nbsp;</span>
-                            Dict
-                        </div>
-                        <div class="intro"></div>
-                    </div>
-                </div>
-                <form action="/dict/list" method="get" id="search">
-                    <div class="box-action">
-                        <input type="button" class="button" value="添加" @click="showDetails(1)">
-                        <span>K</span> <input v-model="searchData.k" autocomplete="off">
-                        <span>V</span> <input v-model="searchData.v" autocomplete="off">
-                        <span>Desc</span> <input v-model='searchData.desc' autocomplete="off">
-                    </div>
-                </form>
-            </div>
-            <div class="box" id="data" v-show="showType==0">
-                <table id="table">
-                    <tbody>
-                    <tr>
-                        <th width="40">ID</th>
-                        <th>分组</th>
-                        <th>K</th>
-                        <th>V</th>
-                        <th>描述</th>
-                        <th>类型</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                    </tr>
-                    <tr v-for="item in list">
-                        <td v-text="item.id"></td>
-                        <td v-text="filterGroup(item.group)"></td>
-                        <td v-text="item.k"></td>
-                        <td v-text="item.v"></td>
-                        <td v-text="item.desc"></td>
-                        <td v-text="filterType(item.type)"></td>
-                        <td v-text="filterStatus(item.status)"></td>
-                        <td class="table-action">
-                            <a href="#" @click="showDetails(2,item.id)">编辑</a>
-                            <a href="#" @click="del(item.id)">删除</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                {{include "/app/pagination.html" .}}
-            </div>
-            <form class="box details-form" v-show="showType==1||showType==2">
-                <ul>
-                    <h2>基本信息</h2>
-                    <li><span>K</span><input autocomplete="off" v-model="details.k"></li>
-                    <li><span>V</span><textarea v-model="details.v"></textarea></li>
-                    <li><span>desc</span><input autocomplete="off" v-model="details.desc"></li>
-                    <li><span>group</span>
-                        <select v-model="details.group">
-                            <option value="1">系统</option>
-                            <option value="2">网站</option>
-                            <option value="3">其他</option>
-                        </select>
-                    </li>
-                    <li><span>类型</span>
-                        <select v-model="details.type">
-                            <option value="1">TEXT</option>
-                            <option value="2">IMG</option>
-                            <option value="3">HTML</option>
-                        </select>
-                    </li>
-                    <li><span>状态</span><select v-model="details.status">
-                        <option value="1">启用</option>
-                        <option value="2">禁用</option>
-                    </select>
-                    </li>
-                </ul>
-                <div class="form-action">
-                    <input type="button" class="button" value="返回" @click="showMain()">
-                    <input type="button" class="button" value="提交" @click="onSubmit()">
-                </div>
-            </form>
-        </div>
-        <div id="right-bar">
-            <div class="box">
-                {{include "/app/nav_right.html" .}}
-            </div>
-        </div>
+<div id="app" v-cloak>
+    <div class="nav">
+        {{include "/app/nav.html" .}}
     </div>
+    <div class="page">
+        <div class="box box-bg-2 page-header">
+            {{include "/app/page-header.html" .}}
+        </div>
+        <div class="main box box-bg-2">
+            <form class="page-header-action" id="search">
+                <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                <label class="input">K<input type="text" name="k" value="{{.Query.k}}" autocomplete="off"></label>
+                <label class="input">v<input type="text" name="v" value="{{.Query.v}}" autocomplete="off"></label>
+                <label class="input">desc<input type="text" name="desc" value="{{.Query.desc}}" autocomplete="off"></label>
+            </form>
+            <table>
+                <thead>
+                <tr>
+                    <th width="40">ID</th>
+                    <th width="80">分组</th>
+                    <th width="80">K</th>
+                    <th width="80">V</th>
+                    <th width="80">描述</th>
+                    <th width="80">类型</th>
+                    <th width="80">状态</th>
+                    <th width="160">创建时间</th>
+                    <th width="160">更新时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in list">
+                    <td v-text="item.id">
+                    <td>
+                        <el-tag type="info" v-if="item.group==1">系统</el-tag>
+                        <el-tag type="primary" v-else-if="item.group==2">网站</el-tag>
+                        <el-tag type="info" v-else=>其他</el-tag>
+                    </td>
+                    <td v-text="item.k">
+                    <td v-text="item.v">
+                    <td v-text="item.desc">
+                    <td>
+                        <el-tag type="info" v-if="item.type==1">TEXT</el-tag>
+                        <el-tag type="primary" v-else-if="item.type==2">IMG</el-tag>
+                        <el-tag type="info" v-else-if="item.type=3">HTML</el-tag>
+                    <td>
+                        <el-tag v-if="item.status==1">启用</el-tag>
+                        <el-tag type="danger" v-if="item.status==2">禁用</el-tag>
+                    </td>
+                    <td v-text="item.created_at">
+                    <td v-text="item.updated_at">
+                    <td class="table-action">
+                        <el-button-group>
+                            <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
+                            <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
+                        </el-button-group>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="table-footer">
+                {{include "/app/pagination2.html" .}}
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="30%">
+        <div class="details">
+            <ul>
+                <li><label class="input">K<input v-model="details.k"></label></li>
+                <li><label class="input">v<textarea v-model="details.v"></textarea></label></li>
+                <li><label class="input">desc<input v-model="details.desc"></label></li>
+            </ul>
+            <ul>
+                <li>
+                    <label class="input">GROUP<select v-model="details.group">
+                        <option label="系统" :value="1"></option>
+                        <option label="网站" :value="2"></option>
+                        <option label="其他" :value="2"></option>
+                    </select></label>
+                </li>
+                <li>
+                    <label class="input">类型<select v-model="details.type">
+                        <option label="TEXT" :value="1"></option>
+                        <option label="IMG" :value="2"></option>
+                        <option label="HTML" :value="3"></option>
+                    </select></label>
+                </li>
+                <li>
+                    <label class="input">状态<select v-model="details.status">
+                        <option label="正常" :value="1"></option>
+                        <option label="关闭" :value="2"></option>
+                    </select></label>
+                </li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="onSubmit()" size="small" plain>提交</el-button>
+            </div>
+        </template>
+    </el-dialog>
 </div>
-{{include "/app/footer.html" .}}
 </body>
+{{include "/app/footerjs.html" .}}
 <script>
-    Vue.createApp({
+    const app = Vue.createApp({
         data() {
             return {
+                detailsVisible: false,
+                detailsTitle: '',
                 list: JSON.parse('{{json .list}}'),
                 details: {},
-                searchData: {
-                    k: '{{.Query.k}}',
-                    v: '{{.Query.v}}',
-                    desc: '{{.Query.desc}}',
-                },
                 showType: 0, // 0 main 1 add 2update
                 page: {
                     name: "Dict",
-                    desc: "这里是角色字典管理页面,可以对字典进行添加,修改,删除等操作。",
+                    desc: "这里是Dict管理页面,可以对菜单进行添加,修改,删除等操作。",
                     urlPrefix: '/dict',
                 }
             }
         },
         methods: {
-            del(id) {
+            async del(id) {
                 if (confirm("确定删除？")) {
-                    $.delete(`${this.page.urlPrefix}/del?id=` + id, (res) => {
-                        if (res.code === 0) {
-                            noticeOk('Success')
-                            setTimeout(() => {
-                                location.reload()
-                            }, 1000)
-                        } else {
-                            noticeError(res.msg)
-                        }
-                    });
+                    let res = await $.delete(`${this.page.urlPrefix}/del?id=` + id);
+                    if (res.code === 0) {
+                        this.detailsVisible = false
+                        noticeOk('Success')
+                        setTimeout(() => location.reload(), 1000)
+                    } else {
+                        noticeError(res.msg)
+                    }
                 }
             },
             async onSubmit() {
@@ -147,6 +150,7 @@
 
                 }
                 if (res.code === 0) {
+                    this.detailsVisible = false
                     noticeOk('Success')
                     setTimeout(() => location.reload(), 1000)
                 } else {
@@ -156,42 +160,17 @@
             async showDetails(type, id) {
                 this.showType = type
                 this.details = {}
+                this.detailsTitle = '添加操作'
                 if (this.showType == 2) {
+                    this.detailsTitle = '修改操作'
                     let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
                     this.details = res.data
                 }
+                this.detailsVisible = true
             },
-            showMain() {
-                this.showType = 0
-            },
-            onSearch() {
-                this.searchData.page = 1
-                location.href = `${this.page.urlPrefix}/list?` + $.param(this.searchData)
-            },
-            filterStatus(s) {
-                return s == 1 ? "启用" : "禁用"
-            },
-            filterType(s) {
-                switch (s) {
-                    case 1:
-                        return "TEXT"
-                    case 2:
-                        return "IMG"
-                    case 3:
-                        return "HTML"
-                }
-            },
-            filterGroup(s) {
-                switch (+s) {
-                    case 1:
-                        return "系统"
-                    case 2:
-                        return "网站"
-                    default:
-                        return "其他"
-                }
-            }
         }
-    }).mount('#wrapper')
+    })
+    app.use(ElementPlus)
+    app.mount('#app')
 </script>
 </html>

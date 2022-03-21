@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<heade class="w hr">
+    <meta charset="UTF-8">
+    <meta name="Content-Type" content="text/html;charset=utf-8">
+    <title>Login</title>
+</heade>
+<body>
+<div id="wrapper">
+    <div class="w">
+        <div id="main">
+            <div class="box">
+                <form class="box details-form" id="login-form">
+                    <ul>
+                        <li><span>用户名</span><input type="text" name="uname"></li>
+                        <li><span>密码</span><input type="password" name="pwd"></li>
+                    </ul>
+                    <input type="button" value="登录" class="button" id="login-btn" style="margin-left: 130px">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/resource/js/jquery-3.6.0.min.js"></script>
+<script src="/resource/js/notify.min.js"></script>
+<script>
+    $(function () {
+        $("#login-btn").click(function () {
+            $.post("/admin/login", $("#login-form").serialize(), function (data) {
+                if (data.code === 0) {
+                    $('#login-btn').notify("Success", {position: "right", className: "success"});
+                    setTimeout(function () {
+                        window.location.href = "/";
+                    }, 1500);
+                } else {
+                    $('#login-btn').notify(data.msg, {position: "right"});
+                }
+            });
+        });
+    });
+</script>
+</html>

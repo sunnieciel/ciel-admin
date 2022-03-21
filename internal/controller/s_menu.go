@@ -17,6 +17,7 @@ var Menu = &menu{SearchConf: &config.SearchConf{
 	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
 	Fields: []*config.Field{
 		{Field: "pid"},
+		{Field: "status"},
 		{Field: "name", Like: true},
 		{Field: "path", Like: true},
 	},

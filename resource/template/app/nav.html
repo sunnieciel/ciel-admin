@@ -1,14 +1,22 @@
-<div class="box " id="nav">
-    <div id="tabs">
-        {{range .Session.adminInfo.Menus}}
-        <a href="#" class="tab system" data="{{.name}}">{{.name}}</a>
-        {{end}}
-    </div>
-    <div id="secondary-tabs">
-        {{range $p:=.Session.adminInfo.Menus}}
-        {{range $child:=$p.Children}}
-        <a href="{{$child.path}}" data="{{$p.name}}" style="display: none">{{$child.name}}</a>
-        {{end}}
-        {{end}}
-    </div>
+<div class="box box-bg-1 nav-title ">
+  <img src="/resource/image/golang.png" alt="">
+  <section>
+    <a href="#">Ciel</a>
+    <p>Welcome admin</p>
+  </section>
 </div>
+<ul>
+  {{range .Session.adminInfo.Menus}}
+  <li class="box box-bg-1">
+    <span class="box-title">{{.name}}</span>
+    <ul>
+      {{range .Children}}
+      <li>
+        <img src="/resource/image/golang.png" alt="">
+        <a href="{{.path}}" class="hr">{{.name}}</a>
+      </li>
+      {{end}}
+    </ul>
+  </li>
+  {{end}}
+</ul>

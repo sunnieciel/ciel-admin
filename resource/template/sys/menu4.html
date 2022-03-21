@@ -3,73 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
-    <script src="https://unpkg.com/vue@next"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"/>
-    <link rel="stylesheet" href="/resource/css/apple.css">
+    {{include "/app/meta.html" .}}
 </head>
 <body>
 <div id="app" v-cloak>
     <div class="nav">
-        <div class="box box-bg-1 nav-title ">
-            <img src="/resource/image/golang.png" alt="">
-            <section>
-                <a href="#">Ciel</a>
-                <p>Welcome admin</p>
-            </section>
-        </div>
-        <ul>
-            {{range .Session.adminInfo.Menus}}
-            <li class="box box-bg-1">
-                <span class="box-title">{{.name}}</span>
-                <ul>
-                    {{range .Children}}
-                    <li>
-                        <img src="/resource/image/golang.png" alt="">
-                        <a href="{{.path}}" class="hr">{{.name}}</a>
-                    </li>
-                    {{end}}
-                </ul>
-            </li>
-            {{end}}
-        </ul>
+        {{include "/app/nav.html" .}}
     </div>
     <div class="page">
         <div class="box box-bg-2 page-header">
-            <div class="page-header-info">
-                <img class="page-log" src="/resource/image/golang.png" alt="img">
-                <div>
-                    <div>
-                        <a href="/">CIEL ADMIN</a>
-                        <span class="chevron">&nbsp;›&nbsp;</span>
-                        Menu
-                    </div>
-                    <div class="title-desc">
-                        这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。
-                    </div>
-                </div>
-            </div>
+            {{include "/app/page-header.html" .}}
         </div>
         <div class="main box box-bg-2">
-            <form class="page-header-action">
+            <form class="page-header-action" id="search">
                 <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
-                <label class="input">名称<input type="text"></label>
-                <label class="input">地址<input type="text"></label>
-                <label class="input">状态<select>
+                <label class="input">PID<input type="text" name="pid" value="{{.Query.pid}}" autocomplete="off"></label>
+                <label class="input">名称<input type="text" name="name" value="{{.Query.name}}" autocomplete="off"></label>
+                <label class="input">状态<select name="status" value="{{.Query.status}}">
                     <option value="">请选择</option>
-                    <option value="">类型2</option>
-                    <option value="">类型3</option>
+                    <option value="1">启用</option>
+                    <option value="2">禁用</option>
                 </select></label>
             </form>
             <table>
                 <thead>
                 <tr>
                     <th width="40">ID</th>
-                    <th>PID</th>
-                    <th>角色名</th>
-                    <th>菜单名</th>
-                    <th>类型</th>
-                    <th>排序</th>
-                    <th>状态</th>
+                    <th width="80">PID</th>
+                    <th width="80">角色名</th>
+                    <th width="80">菜单名</th>
+                    <th width="80">类型</th>
+                    <th width="80">排序</th>
+                    <th width="80">状态</th>
+                    <th width="160">创建时间</th>
+                    <th width="160">更新时间</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -88,6 +55,8 @@
                         <el-tag v-if="item.status==1">启用</el-tag>
                         <el-tag type="danger" v-if="item.status==2">禁用</el-tag>
                     </td>
+                    <td v-text="item.created_at">
+                    <td v-text="item.updated_at">
                     <td class="table-action">
                         <el-button-group>
                             <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
@@ -117,14 +86,14 @@
                 </form>
             </div>
         </div>
+        <div class="footer"></div>
     </div>
-    <div class="footer"></div>
-    <el-dialog v-model="outerVisible" title="菜单操作" width="30%">
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="30%">
         <div class="details">
             <ul>
-                <li><label class="input">名称<input type="text" v-model="details.name"></label></li>
-                <li><label class="input">路径<input type="text" v-model="details.path"></label></li>
-                <li><label class="input">路径<input type="text" v-model="details.pid"></label></li>
+                <li><label class="input">名称<input v-model="details.name"></label></li>
+                <li><label class="input">路径<input v-model="details.path"></label></li>
+                <li><label class="input">pid<input v-model="details.pid"></label></li>
                 <li><label class="input">排序<input type="number" v-model="details.sort"></label></li>
             </ul>
             <ul>
@@ -144,45 +113,41 @@
         </div>
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="outerVisible = false">取消</el-button>
-                <el-button type="primary" @click="onSubmit()">提交</el-button>
+                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="onSubmit()" size="small" plain>提交</el-button>
             </div>
         </template>
     </el-dialog>
 </div>
 </body>
-<script src="/resource/js/jquery-3.6.0.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/element-plus"></script>
-<script src="/resource/js/notify.min.js"></script>
-<script src="/resource/js/app.js"></script>
+{{include "/app/footerjs.html" .}}
 <script>
     const app = Vue.createApp({
         data() {
             return {
-                outerVisible: false,
+                detailsVisible: false,
+                detailsTitle: '',
                 list: JSON.parse('{{json .list}}'),
                 details: {},
                 showType: 0, // 0 main 1 add 2update
                 page: {
                     name: "Menu",
-                    desc: "这里是角色菜单权限管理页面,可以对菜单进行添加,修改,删除等操作。",
+                    desc: "这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。",
                     urlPrefix: '/menu',
                 }
             }
         },
         methods: {
-            del(id) {
+            async del(id) {
                 if (confirm("确定删除？")) {
-                    $.delete(`${this.page.urlPrefix}/del?id=` + id, (res) => {
-                        if (res.code === 0) {
-                            noticeOk('Success')
-                            setTimeout(() => {
-                                location.reload()
-                            }, 1000)
-                        } else {
-                            noticeError(res.msg)
-                        }
-                    });
+                    let res = await $.delete(`${this.page.urlPrefix}/del?id=` + id);
+                    if (res.code === 0) {
+                        this.detailsVisible = false
+                        noticeOk('Success')
+                        setTimeout(() => location.reload(), 1000)
+                    } else {
+                        noticeError(res.msg)
+                    }
                 }
             },
             async onSubmit() {
@@ -194,7 +159,7 @@
 
                 }
                 if (res.code === 0) {
-                    this.outerVisible = false
+                    this.detailsVisible = false
                     noticeOk('Success')
                     setTimeout(() => location.reload(), 1000)
                 } else {
@@ -202,16 +167,15 @@
                 }
             },
             async showDetails(type, id) {
-                this.outerVisible = true
                 this.showType = type
                 this.details = {}
+                this.detailsTitle = '添加操作'
                 if (this.showType == 2) {
+                    this.detailsTitle = '修改操作'
                     let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
                     this.details = res.data
                 }
-            },
-            showMain() {
-                this.showType = 0
+                this.detailsVisible = true
             },
         }
     })

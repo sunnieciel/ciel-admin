@@ -62,6 +62,11 @@ li {
           padding-bottom: 10px;
           height: 90%;
           border-bottom: 1px solid #C7C7C7; }
+        #app .page .page-header .page-header-info .title-main {
+          margin-right: auto; }
+        #app .page .page-header .page-header-info .title-right-tool {
+          align-self: start;
+          margin: 12px; }
       #app .page .page-header .page-header-action {
         padding: 0 0 13px 23px;
         display: flex;
@@ -88,7 +93,12 @@ li {
           #app .page .main table tbody tr td {
             padding-left: 6px;
             height: 38px;
-            color: #616161; }
+            max-width: 260px;
+            color: #616161;
+            max-height: 130px;
+            overflow: hidden; }
+            #app .page .main table tbody tr td:hover {
+              overflow: auto; }
           #app .page .main table tbody tr:hover {
             background-color: #E6E5EB; }
       #app .page .main .table-footer {
@@ -120,7 +130,7 @@ li {
 .input {
   margin: 0 6px;
   color: #B0AFB5; }
-  .input input, .input select {
+  .input input, .input select, .input textarea {
     height: 23px;
     width: 99px;
     margin-left: 6px;
@@ -131,9 +141,14 @@ li {
     outline: none;
     color: #ABAAB0;
     transition: all 0.6s ease; }
-    .input input:focus, .input select:focus {
+    .input input:focus, .input select:focus, .input textarea:focus {
       border: 1px solid #B0AFB5;
       box-shadow: 0 0 0 0.2px #B0AFB5; }
+  .input label {
+    display: inline-block; }
+  .input textarea {
+    width: 136px;
+    height: 100px; }
   .input select {
     height: 32px; }
 
@@ -143,11 +158,13 @@ li {
     margin-top: 12px;
     border-collapse: collapse; }
     .details ul li {
+      margin: 6px 0;
       padding-left: 6px;
-      height: 43px;
-      text-align: left; }
-      .details ul li input, .details ul li select {
+      text-align: right; }
+      .details ul li input {
         width: 136px; }
+      .details ul li select {
+        width: 156px; }
 
 .box-bg-1 {
   background-color: #1C1C1E; }

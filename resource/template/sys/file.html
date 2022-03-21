@@ -2,169 +2,99 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="Content-Type" content="text/html;charset=utf-8">
-    {{include "/app/meta.html" .}}
     <title>File</title>
+    {{include "/app/meta.html" .}}
 </head>
 <body>
-{{include "/app/top.html" .}}
-<div id="wrapper">
-    <div class="w">
-        <div id="main">
-            {{include "/app/nav.html" .}}
-            <div class="box" id="page-title">
-                <div class="box-title">
-                    <img src="/resource/image/golang.png" width="64" alt="Menu">
-                    <div>
-                        <div class="breadcrumb">
-                            <a href="/">CIEL ADMIN</a>
-                            <span class="chevron">&nbsp;›&nbsp;</span>
-                            File
-                        </div>
-                        <div class="intro">
-                            这里是角色文件管理页面,可以对文件进行添加,修改,删除等操作。
-                        </div>
-                    </div>
-                </div>
-                <form action="/file/list" method="get" id="search">
-                    <div class="box-action">
-                        <input type="button" class="button" value="添加" onclick="showDetails(1)">
-                        <span>分组</span> <input type="text" name="group" value="{{.Query.group}}" autocomplete="off">
-                    </div>
-                </form>
-            </div>
-            <div class="box" id="data">
-                <table id="table">
-                    <tbody>
-                    <tr>
-                        <th width="40">ID</th>
-                        <th>Full path</th>
-                        <th>DB</th>
-                        <th>Preview</th>
-                        <th>Group</th>
-                        <th>Actions</th>
-                    </tr>
-                    {{range .list}}
-                    <tr>
-                        <td>{{.id}}</td>
-                        <td>{{$.Config.server.imgPrefix}}{{.url}}</td>
-                        <td>{{.url}}</td>
-                        <td><a href='{{$.Config.server.imgPrefix}}{{.url}}' target='_blank'>
-                            <div class="img" style="background-image: url('{{$.Config.server.imgPrefix}}{{.url}}')"></div>
-                        </a></td>
-                        <td class="group">{{.group}}</td>
-                        <td class="table-action">
-                            <a href="#" onclick="showDetails(0,'{{.id}}')">编辑</a>
-                            <a href="#" onclick="del('{{.id}}')">删除</a>
-                        </td>
-                    </tr>
-                    {{end}}
-                    </tbody>
-                </table>
-                {{include "/app/pagination.html" .}}
-            </div>
-            <form class="box details-form" hidden>
-                <ul>
-                    <h2>基本信息</h2>
-                    <li><input hidden name="id"></li>
-                    <li><span>分组</span>
-                        <select name="group">
-                            <option value="1">头像</option>
-                            <option value="2">图片</option>
-                            <option value="3">文件</option>
-                            <option value="4">其他</option>
-                        </select>
-                    </li>
-                    <li><span>url</span><input autocomplete="off" name="url"></li>
-                    <li class="upload-utils">
-                        <span>文件</span><input type="file" id="file" name="file" multiple>
-                    </li>
-                    <li class="upload-utils">
-                        <span></span><input type="button" class="button" value="上传" onclick="uploadFile()" style="width: 72px;text-align: center">
-                    </li>
-                </ul>
-                <div class="form-action">
-                    <input type="button" class="button" value="返回" onclick="showMain()">
-                    <input type="button" class="button" value="提交" id="onSubmitDetails">
-                </div>
-            </form>
-        </div>
-        <div id="right-bar">
-            <div class="box">
-                {{include "/app/nav_right.html" .}}
-            </div>
-        </div>
+<div id="app" v-cloak>
+    <div class="nav">
+        {{include "/app/nav.html" .}}
     </div>
+    <div class="page">
+        <div class="box box-bg-2 page-header">
+            {{include "/app/page-header.html" .}}
+        </div>
+        <div class="main box box-bg-2">
+            <form class="page-header-action" id="search">
+                <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                <label class="input">分组<input type="text" name="group" value="{{.Query.group}}" autocomplete="off"></label>
+
+            </form>
+            <table>
+                <thead>
+                <tr>
+                    <th width="40">ID</th>
+                    <th>Full path</th>
+                    <th>DBName</th>
+                    <th>Preview</th>
+                    <th>Group</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in list">
+                    <td v-text="item.id">
+                    <td v-text="'{{$.Config.server.imgPrefix}}'+item.url">
+                    <td v-text="item.url">
+                    <td>
+                        <a :href="'{{$.Config.server.imgPrefix}}'+item.url" target='_blank'>
+                            <img :src="'{{$.Config.server.imgPrefix}}'+item.url" alt="not fond" style="height: 36px;border-radius: 3px">
+                        </a>
+                    </td>
+                    <td>
+                        <el-tag v-if="item.group==1">头像</el-tag>
+                        <el-tag v-else-if="item.group==2">图片</el-tag>
+                        <el-tag v-else-if="item.group==3">文件</el-tag>
+                        <el-tag v-else>其他</el-tag>
+                    </td>
+                    <td class="table-action">
+                        <el-button-group>
+                            <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
+                            <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
+                        </el-button-group>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="table-footer">
+                {{include "/app/pagination2.html" .}}
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="30%">
+        <div class="details">
+            <ul>
+                <li><label class="input">url<input autocomplete="off" v-model="details.url"></label></li>
+                <li><label class="input">文件<input type="file" id="file" name="file" multiple></label></li>
+                <li class="upload-utils input">
+                    <label>
+                        <el-button onclick="uploadFile()" style="width: 72px">上传</el-button>
+                    </label>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label class="input">分组<select name="group" v-model="details.group">
+                        <option :value="1">头像</option>
+                        <option :value="2">图片</option>
+                        <option :value="3">文件</option>
+                        <option :value="4">其他</option>
+                    </select></label>
+                </li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="onSubmit()" size="small" plain>提交</el-button>
+            </div>
+        </template>
+    </el-dialog>
 </div>
-{{include "/app/footer.html" .}}
 </body>
+{{include "/app/footerjs.html" .}}
 <script>
-    const urlPrefix = "/file";
-    let add = 0 // add or edit
-    // 替换状态展示
-    $(".status").each(function () {
-        if ($(this).text() === "1") $(this).text("启用")
-        else $(this).text("禁用")
-    })
-    // 替换类型展示
-    $('.group').each(function () {
-        if ($(this).text() === "1") $(this).text("头像")
-        else if ($(this).text() === "2") $(this).text("图片")
-        else if ($(this).text() === "3") $(this).text("文件")
-        else if ($(this).text() === "4") $(this).text("其他")
-    })
-
-    function showDetails(type, id) {
-        add = type
-        if (!add) {
-            $.get(`${urlPrefix}/getById?id=` + id, function (res) {
-                for (let i in res.data) {
-                    $(".details-form input[name='" + i + "']").val(res.data[i])
-                    $(".details-form select[name='" + i + "']").find("option[value='" + res.data[i] + "']").attr("selected", "selected")
-                }
-            })
-        } else {
-
-        }
-        $("#data").hide()
-        $(".details-form").show()
-    }
-
-    function showMain() {
-        $(".details-form").hide()
-        document.getElementsByClassName("details-form")[0].reset()
-        $("#data").show()
-    }
-
-    $("#onSubmitDetails").click(function () {
-        let data = $(".details-form").serialize()
-        $.put(`${urlPrefix}/put`, data, (res) => {
-            if (res.code === 0) {
-                noticeOkEle($(this), 'Success')
-                setTimeout(() => {
-                    location.reload()
-                }, 1000)
-            } else {
-                noticeErrorEle($(this), res.msg)
-            }
-        });
-    })
-
-    function del(id) {
-        if (confirm("确定删除？")) {
-            $.delete(`${urlPrefix}/del?id=` + id, (res) => {
-                if (res.code === 0) {
-                    noticeOk('Success')
-                    setTimeout(() => {
-                        location.reload()
-                    }, 1000)
-                } else {
-                    noticeError(res.msg)
-                }
-            });
-        }
-    }
-
     function getFiles() {
         let data = new FormData()
         let files = $('#file')[0].files
@@ -200,5 +130,65 @@
             }
         })
     }
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                detailsVisible: false,
+                detailsTitle: '',
+                list: JSON.parse('{{json .list}}'),
+                details: {},
+                showType: 0, // 0 main 1 add 2update
+                page: {
+                    name: "File",
+                    desc: "这里是File管理页面,可以对菜单进行添加,修改,删除等操作。",
+                    urlPrefix: '/file',
+                }
+            }
+        },
+        methods: {
+            async del(id) {
+                if (confirm("确定删除？")) {
+                    let res = await $.delete(`${this.page.urlPrefix}/del?id=` + id);
+                    if (res.code === 0) {
+                        this.detailsVisible = false
+                        noticeOk('Success')
+                        setTimeout(() => location.reload(), 1000)
+                    } else {
+                        noticeError(res.msg)
+                    }
+                }
+            },
+            async onSubmit() {
+                let res = {}
+                if (this.showType == 1) {
+                    res = await $.post(`${this.page.urlPrefix}/post`, this.details)
+                } else {
+                    res = await $.put(`${this.page.urlPrefix}/put`, this.details)
+
+                }
+                if (res.code === 0) {
+                    this.detailsVisible = false
+                    noticeOk('Success')
+                    setTimeout(() => location.reload(), 1000)
+                } else {
+                    noticeError(res.msg)
+                }
+            },
+            async showDetails(type, id) {
+                this.showType = type
+                this.details = {}
+                this.detailsTitle = '添加操作'
+                if (this.showType == 2) {
+                    this.detailsTitle = '修改操作'
+                    let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
+                    this.details = res.data
+                }
+                this.detailsVisible = true
+            },
+        }
+    })
+    app.use(ElementPlus)
+    app.mount('#app')
 </script>
 </html>

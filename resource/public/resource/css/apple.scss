@@ -96,7 +96,14 @@ li {
           border-bottom: 1px solid #C7C7C7;
         }
 
+        .title-main {
+          margin-right: auto;
+        }
 
+        .title-right-tool {
+          align-self: start;
+          margin: 12px;
+        }
       }
 
       .page-header-action {
@@ -138,7 +145,14 @@ li {
             td {
               padding-left: 6px;
               height: 38px;
+              max-width: 260px;
               color: #616161;
+              max-height: 130px;
+              overflow: hidden;
+
+              &:hover {
+                overflow: auto;
+              }
             }
 
             &:hover {
@@ -192,7 +206,7 @@ li {
   margin: 0 6px;
   color: #B0AFB5;
 
-  input, select {
+  input, select, textarea {
     height: 23px;
     width: 99px;
     margin-left: 6px;
@@ -210,6 +224,15 @@ li {
     }
   }
 
+  label {
+    display: inline-block;
+  }
+
+  textarea {
+    width: 136px;
+    height: 100px;
+  }
+
   select {
     height: 32px;
   }
@@ -224,12 +247,16 @@ li {
     border-collapse: collapse;
 
     li {
+      margin: 6px 0;
       padding-left: 6px;
-      height: 43px;
-      text-align: left;
+      text-align: right;
 
-      input, select {
+      input {
         width: 136px;
+      }
+
+      select {
+        width: 156px;
       }
     }
   }

@@ -63,7 +63,12 @@ function updatePwd() {
         return
     }
     $.post("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
-        res.code === 0 ? noticeOkEle($(this), 'Success') : noticeErrorEle($(this), res.msg);
+        if (res.code == 0) {
+            noticeOk('Success')
+            location.href='/login'
+        } else {
+            noticeError(res.msg)
+        }
     });
 }
 
@@ -90,5 +95,13 @@ $(function () {
     $("#search input").keydown(function (e) {
         if (e.keyCode === 13) $("#search").submit()
     })
+    // 监听搜索里面的 select
+    $("#search select").change(function () {
+        // 搜索
+        $("#search").submit()
+    }).each(function () {
+        // 赋值
+        $(this).find("option[value='" + $(this).attr('value') + "']").attr("selected", true)
+    });
 })
 

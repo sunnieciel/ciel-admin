@@ -2,29 +2,42 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-
-    <meta name="Content-Type" content="text/html;charset=utf-8">
+    <title></title>
     {{include "/app/meta.html" .}}
-    <title>ADMIN</title>
 </head>
 <body>
-<div id="app">
-    {{include "/app/top.html" .}}
-    <div id="wrapper">
-        <div class="w">
-            <div id="main">
-                {{include "/app/nav.html" .}}
-                <h2>Hello </h2>
-                <p>Welcome to system </p>
-            </div>
+<div id="app" v-cloak>
+    <div class="nav">
+        {{include "/app/nav.html" .}}
+    </div>
+    <div class="page">
+        <div class="box box-bg-2 page-header">
+            {{include "/app/page-header.html" .}}
         </div>
+        <div class="main box box-bg-2">
+            <form class="page-header-action" id="search"></form>
+        </div>
+        <div class="footer"></div>
     </div>
 </div>
 </body>
-{{include "/app/footer.html" .}}
+{{include "/app/footerjs.html" .}}
 <script>
-    current = $("a[href='/menu/list']")
-    $("#secondary-tabs a[data='" + current.attr("data") + "']").show()
-    $("#tabs a[data='" + current.attr("data") + "']").addClass("tab-current")
+    const app = Vue.createApp({
+        data() {
+            return {
+                detailsVisible: false,
+                showType: 0, // 0 main 1 add 2update
+                page: {
+                    name: "首页",
+                    desc: "欢迎。",
+                    urlPrefix: '/',
+                }
+            }
+        },
+        methods: {}
+    })
+    app.use(ElementPlus)
+    app.mount('#app')
 </script>
 </html>
