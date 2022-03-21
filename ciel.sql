@@ -43,7 +43,7 @@ CREATE TABLE `s_admin` (
 
 LOCK TABLES `s_admin` WRITE;
 /*!40000 ALTER TABLE `s_admin` DISABLE KEYS */;
-INSERT INTO `s_admin` (`id`, `rid`, `uname`, `pwd`, `status`, `created_at`, `updated_at`) VALUES (1,1,'admin','$2a$10$OpbsX/qgv6vdqbpimG/mU.WCGTEAuFQyf0m8yfAEDifWEFxU4ymku',1,'2022-03-08 08:59:33','2022-03-08 11:28:52'),(18,1,'222','$2a$10$pJ5G2m8CLEHEo0etGszirOWtaMapwLCd1bHtLA/WLgHM8e7R4fdDO',1,'2022-03-08 08:57:23','2022-03-08 08:58:25');
+INSERT INTO `s_admin` (`id`, `rid`, `uname`, `pwd`, `status`, `created_at`, `updated_at`) VALUES (1,1,'admin','$2a$10$Gw7aem8fXbhkUGCiBgBPMey5WrHIY3a8oXejf4aPwloUyA8EksVha',1,'2022-03-08 08:59:33','2022-03-21 08:43:49'),(18,1,'222','$2a$10$pJ5G2m8CLEHEo0etGszirOWtaMapwLCd1bHtLA/WLgHM8e7R4fdDO',1,'2022-03-08 08:57:23','2022-03-21 08:21:26');
 /*!40000 ALTER TABLE `s_admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ CREATE TABLE `s_api` (
   `url` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `method` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `group` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `desc` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `desc` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `status` int DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `s_api` (
 
 LOCK TABLES `s_api` WRITE;
 /*!40000 ALTER TABLE `s_api` DISABLE KEYS */;
-INSERT INTO `s_api` (`id`, `url`, `method`, `group`, `desc`, `status`, `created_at`, `updated_at`) VALUES (2,'/api/del','DELETE','system','222',1,'2022-02-25 17:08:33','2022-02-25 17:08:33'),(3,'/api/post','POST','system','add api',1,'2022-03-08 16:23:22','2022-03-08 16:23:22');
+INSERT INTO `s_api` (`id`, `url`, `method`, `group`, `desc`, `status`, `created_at`, `updated_at`) VALUES (2,'/api/del','DELETE','system','222',1,'2022-02-25 17:08:33','2022-02-25 17:08:33'),(3,'/api/post','POST','system','add api',1,'2022-03-08 16:23:22','2022-03-20 20:38:21');
 /*!40000 ALTER TABLE `s_api` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,8 +87,8 @@ DROP TABLE IF EXISTS `s_dict`;
 CREATE TABLE `s_dict` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `k` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `v` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `desc` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `v` text COLLATE utf8mb4_general_ci NOT NULL,
+  `desc` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `group` varchar(64) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'sys',
   `status` int DEFAULT NULL,
   `type` int NOT NULL DEFAULT '1' COMMENT '1 文本，2 img',
@@ -105,7 +105,7 @@ CREATE TABLE `s_dict` (
 
 LOCK TABLES `s_dict` WRITE;
 /*!40000 ALTER TABLE `s_dict` DISABLE KEYS */;
-INSERT INTO `s_dict` (`id`, `k`, `v`, `desc`, `group`, `status`, `type`, `created_at`, `updated_at`) VALUES (10,'22','22','22','1',1,1,'2022-02-25 15:09:07','2022-02-25 15:09:07'),(11,'2','22222222222222222222222222222221231231232222222222222222222222222222222222222222221','22','1',1,1,'2022-02-27 20:40:57','2022-02-27 20:40:57'),(14,'123','1232','','2',1,2,'2022-02-28 19:37:36','2022-03-08 16:34:39'),(22,'221','2','','2',1,2,'2022-03-08 16:36:11','2022-03-08 16:36:21');
+INSERT INTO `s_dict` (`id`, `k`, `v`, `desc`, `group`, `status`, `type`, `created_at`, `updated_at`) VALUES (10,'22','22','22','1',1,1,'2022-02-25 15:09:07','2022-02-25 15:09:07'),(11,'2','22','22','1',1,1,'2022-02-27 20:40:57','2022-03-21 16:15:46'),(14,'123','1232','','2',1,2,'2022-02-28 19:37:36','2022-03-08 16:34:39'),(22,'221','2','2','2',1,2,'2022-03-08 16:36:11','2022-03-20 20:53:33');
 /*!40000 ALTER TABLE `s_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +124,7 @@ CREATE TABLE `s_file` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `s_file` (
 
 LOCK TABLES `s_file` WRITE;
 /*!40000 ALTER TABLE `s_file` DISABLE KEYS */;
-INSERT INTO `s_file` (`id`, `url`, `group`, `status`, `created_at`, `updated_at`) VALUES (12,'1/2022/02/vy4nK9.png',1,0,NULL,'2022-02-27 20:29:23'),(13,'1/2022/02/BlJKGp.png',1,0,NULL,'2022-03-04 21:07:29');
+INSERT INTO `s_file` (`id`, `url`, `group`, `status`, `created_at`, `updated_at`) VALUES (12,'1/2022/02/vy4nK9.png',1,0,NULL,'2022-02-27 20:29:23'),(13,'1/2022/02/BlJKGp.png',1,0,NULL,'2022-03-21 17:03:05');
 /*!40000 ALTER TABLE `s_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +155,7 @@ CREATE TABLE `s_menu` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `s_menu` (
 
 LOCK TABLES `s_menu` WRITE;
 /*!40000 ALTER TABLE `s_menu` DISABLE KEYS */;
-INSERT INTO `s_menu` (`id`, `pid`, `name`, `path`, `type`, `sort`, `status`, `created_at`, `updated_at`) VALUES (1,-1,'System','',2,1.00,1,'2022-02-27 06:15:01','2022-02-27 06:15:01'),(2,1,'Menu','/menu/list',1,1.10,1,'2022-02-16 11:14:13','2022-03-04 08:14:03'),(3,1,'Role','/role/list',1,1.30,1,'2022-03-04 08:57:14','2022-03-04 08:57:14'),(4,1,'API','/api/list',1,1.20,1,'2022-02-27 05:04:56','2022-02-27 05:04:56'),(5,1,'Admin','/admin/list',1,1.40,1,'2022-03-08 07:45:04','2022-03-08 07:45:04'),(28,1,'Dict','/dict/list',1,1.50,1,'2022-02-27 12:51:48','2022-02-27 12:51:48'),(30,1,'File','/file/list',1,1.60,1,'2022-03-08 08:05:30','2022-03-08 11:40:14');
+INSERT INTO `s_menu` (`id`, `pid`, `name`, `path`, `type`, `sort`, `status`, `created_at`, `updated_at`) VALUES (1,-1,'系统','',2,1.00,1,'2022-02-27 06:15:01','2022-03-21 09:11:57'),(2,1,'菜单','/menu/list',1,1.10,1,'2022-02-16 11:14:13','2022-03-21 09:11:51'),(3,1,'角色','/role/list',1,1.30,1,'2022-03-04 08:57:14','2022-03-21 09:12:02'),(4,1,'API','/api/list',1,1.20,1,'2022-02-27 05:04:56','2022-03-20 12:16:55'),(5,1,'管理员','/admin/list',1,1.40,1,'2022-03-08 07:45:04','2022-03-21 09:12:09'),(28,1,'字典','/dict/list',1,1.50,1,'2022-02-27 12:51:48','2022-03-21 09:12:16'),(30,1,'文件','/file/list',1,1.60,1,'2022-03-08 08:05:30','2022-03-21 09:12:21');
 /*!40000 ALTER TABLE `s_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `s_role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `s_role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -191,7 +191,7 @@ CREATE TABLE `s_role` (
 
 LOCK TABLES `s_role` WRITE;
 /*!40000 ALTER TABLE `s_role` DISABLE KEYS */;
-INSERT INTO `s_role` (`id`, `name`, `created_at`, `updated_at`) VALUES (1,'Super Admin','2022-02-16 11:12:41','2022-02-21 04:46:24'),(2,'Admin','2022-02-16 11:13:11','2022-03-08 08:46:30');
+INSERT INTO `s_role` (`id`, `name`, `created_at`, `updated_at`) VALUES (1,'Super Admin','2022-02-16 11:12:41','2022-02-21 04:46:24'),(2,'Admin','2022-02-16 11:13:11','2022-03-21 07:50:12');
 /*!40000 ALTER TABLE `s_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ CREATE TABLE `s_role_api` (
   PRIMARY KEY (`id`),
   KEY `rid` (`rid`),
   CONSTRAINT `s_role_api_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `s_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +218,6 @@ CREATE TABLE `s_role_api` (
 
 LOCK TABLES `s_role_api` WRITE;
 /*!40000 ALTER TABLE `s_role_api` DISABLE KEYS */;
-INSERT INTO `s_role_api` (`id`, `rid`, `aid`) VALUES (21,2,2);
 /*!40000 ALTER TABLE `s_role_api` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +237,7 @@ CREATE TABLE `s_role_menu` (
   KEY `mid` (`mid`),
   CONSTRAINT `s_role_menu_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `s_role` (`id`) ON DELETE CASCADE,
   CONSTRAINT `s_role_menu_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `s_menu` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,4 +259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-08 19:54:49
+-- Dump completed on 2022-03-21 18:18:00
