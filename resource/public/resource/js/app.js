@@ -14,29 +14,44 @@ jQuery.each(["put", "delete"], function (i, method) {
         });
     };
 });
+//https://codeseven.github.io/toastr/demo.html
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
 
 function noticeOk(msg) {
-    $.notify(msg, {className: 'success', position: 'top center'})
+    toastr.options.timeOut = 2000;
+    toastr['success'](msg);
 }
 
-function noticeOkEle(e, msg) {
-    e.notify(msg, {className: 'success', position: 'right'})
-}
 
 function noticeError(msg) {
-    $.notify(msg, {className: 'error', position: 'top center'})
-}
-
-function noticeErrorEle(e, msg) {
-    e.notify(msg, {className: 'error', position: 'right'})
+    toastr.options.timeOut = 5000;
+    toastr['error'](msg);
 }
 
 function noticeWarning(msg) {
-    $.notify(msg, {className: 'warning', position: 'top center'})
+    toastr.options.timeOut = 5000;
+    toastr['warning'](msg);
 }
 
 function noticeInfo(msg) {
-    $.notify(msg, {className: 'info', position: 'top center'})
+    toastr.options.timeOut = 5000;
+    toastr['info'](msg);
 }
 
 function logout() {
@@ -65,7 +80,7 @@ function updatePwd() {
     $.post("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
         if (res.code == 0) {
             noticeOk('Success')
-            location.href='/login'
+            location.href = '/login'
         } else {
             noticeError(res.msg)
         }
@@ -78,30 +93,3 @@ $("#secondary-tabs a").hide()
 let current = $("a[href='" + location.pathname + "']");
 $("#secondary-tabs a[data='" + current.attr("data") + "']").show()
 $("#tabs a[data='" + current.attr("data") + "']").addClass("tab-current")
-
-// 去除 pagination 里面多余的样式
-$(".pagination span").each(function () {
-    if (isNaN($(this).text())) $(this).removeClass("GPageSpan")
-})
-$(function () {
-    // 监听tab 切换
-    $("#tabs a").click(function () {
-        $("#tabs a").removeClass("tab-current")
-        $(this).addClass("tab-current")
-        $("#secondary-tabs a").hide()
-        $("#secondary-tabs a[data='" + $(this).attr("data") + "']").show()
-    })
-    // 监听搜索 input enter 事件
-    $("#search input").keydown(function (e) {
-        if (e.keyCode === 13) $("#search").submit()
-    })
-    // 监听搜索里面的 select
-    $("#search select").change(function () {
-        // 搜索
-        $("#search").submit()
-    }).each(function () {
-        // 赋值
-        $(this).find("option[value='" + $(this).attr('value') + "']").attr("selected", true)
-    });
-})
-

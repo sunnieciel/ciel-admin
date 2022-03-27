@@ -2,56 +2,59 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Role</title>
     {{include "/app/meta.html" .}}
+    <title>Role</title>
 </head>
 <body>
 <div id="app" v-cloak>
-    <div class="nav">
-        {{include "/app/nav.html" .}}
-    </div>
-    <div class="page">
-        <div class="box box-bg-2 page-header">
-            {{include "/app/page-header.html" .}}
-        </div>
-        <div class="main box box-bg-2">
-            <form class="page-header-action" id="search">
-                <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
-            </form>
-            <table>
-                <thead>
-                <tr>
-                    <th width="40">ID</th>
-                    <th>名称</th>
-                    <th width="160">创建时间</th>
-                    <th width="160">更新时间</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="item in list">
-                    <td v-text="item.id">
-                    <td v-text="item.name"></td>
-                    <td v-text="item.created_at">
-                    <td v-text="item.updated_at">
-                    <td class="table-action">
-                        <el-button-group>
-                            <el-button type="success" size="small" @click="goto('/roleMenu/list?rid='+item.id)">Menu</el-button>
-                            <el-button type="warning" size="small" @click="goto('/roleApi/list?rid='+item.id)">API</el-button>
-                            <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
-                            <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
-                        </el-button-group>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="table-footer">
-                {{include "/app/pagination.html" .}}
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                {{include "/app/nav.html" .}}
+                <div class="box" id="page-title">
+                    <div class="box-title">
+                        {{include "/app/box_title.html" .}}
+                    </div>
+                    <form id="search" class="box-action">
+                        <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                    </form>
+                </div>
+                <div class="box" id="data">
+                    <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th width="40">ID</th>
+                            <th>名称</th>
+                            <th width="160">创建时间</th>
+                            <th width="160">更新时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="item in list">
+                            <td v-text="item.id">
+                            <td v-text="item.name"></td>
+                            <td v-text="item.created_at">
+                            <td v-text="item.updated_at">
+                            <td class="table-action">
+                                <el-button-group>
+                                    <el-button type="success" size="small" @click="goto('/roleMenu/path?rid='+item.id)">Menu</el-button>
+                                    <el-button type="warning" size="small" @click="goto('/roleApi/path?rid='+item.id)">API</el-button>
+                                    <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
+                                    <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
+                                </el-button-group>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {{include "/app/pagination.html" .}}
+                </div>
             </div>
+
         </div>
-        <div class="footer"></div>
     </div>
-    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="30%">
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
         <div class="details">
             <ul>
                 <li><label class="input">名称<input v-model="details.name"></label></li>
@@ -64,36 +67,56 @@
             </div>
         </template>
     </el-dialog>
+    {{include "/app/footer.html" .}}
 </div>
 </body>
-{{include "/app/footerjs.html" .}}
+<!-- import JavaScript -->
 <script>
     const app = Vue.createApp({
         data() {
             return {
                 detailsVisible: false,
                 detailsTitle: '',
-                list: JSON.parse('{{json .list}}'),
+                list: [],
                 details: {},
                 showType: 0, // 0 main 1 add 2update
                 page: {
                     name: "Role",
                     desc: "这里是Role管理页面,可以对菜单进行添加,修改,删除等操作。",
                     urlPrefix: '/role',
-                }
+                }, loading: false,
+                total: 0,
+                search: {page: 1, size: 15},
             }
+        },
+        created() {
+            this.getList();
         },
         methods: {
             goto(url) {
                 location.href = url;
             },
+            sizeChange(size) {
+                this.search.size = size;
+                this.getList();
+            },
+            async getList(page) {
+                this.search.page = page;
+                this.loading = true;
+                let res = await $.get(`${this.page.urlPrefix}/list`, this.search);
+                const {currPage, totalCount, list} = res.data;
+                this.search.page = currPage;
+                this.total = totalCount
+                this.list = list;
+                this.loading = false
+            },
             async del(id) {
                 if (confirm("确定删除？")) {
                     let res = await $.delete(`${this.page.urlPrefix}/del?id=` + id);
                     if (res.code === 0) {
-                        this.detailsVisible = false
+                        await this.getList()
                         noticeOk('Success')
-                        setTimeout(() => location.reload(), 1000)
+                        this.detailsVisible = false
                     } else {
                         noticeError(res.msg)
                     }
@@ -107,14 +130,15 @@
                     res = await $.put(`${this.page.urlPrefix}/put`, this.details)
                 }
                 if (res.code === 0) {
-                    this.detailsVisible = false
                     noticeOk('Success')
-                    setTimeout(() => location.reload(), 1000)
+                    this.detailsVisible = false
+                    await this.getList()
                 } else {
                     noticeError(res.msg)
                 }
             },
             async showDetails(type, id) {
+                this.detailsVisible = true
                 this.showType = type
                 this.details = {}
                 this.detailsTitle = '添加操作'
@@ -123,7 +147,6 @@
                     let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
                     this.details = res.data
                 }
-                this.detailsVisible = true
             },
         }
     })

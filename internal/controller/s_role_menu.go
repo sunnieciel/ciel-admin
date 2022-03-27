@@ -28,6 +28,9 @@ var RoleMenu = &roleMenu{SearchConf: &config.SearchConf{
 	},
 }}
 
+func (c *roleMenu) Path(r *ghttp.Request) {
+	res.Page(r, "sys/roleMenu.html")
+}
 func (c *roleMenu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -36,7 +39,7 @@ func (c *roleMenu) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "sys/roleMenu.html", total, data, c)
+	res.OkPage(page, size, total, data, r)
 }
 func (c *roleMenu) Post(r *ghttp.Request) {
 	var d struct {

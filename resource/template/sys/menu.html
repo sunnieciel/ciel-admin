@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/app/meta.html" .}}
+    <title>Menu</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                {{include "/app/nav.html" .}}
+                <div class="box" id="page-title">
+                    <div class="box-title">
+                        {{include "/app/box_title.html" .}}
+                    </div>
+                    <form id="search" class="box-action">
+                        <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                        <label class="input">PID<input type="text" name="pid" v-model="search.pid" autocomplete="off" @keyup.enter="getList()"></label>
+                        <label class="input">名称<input type="text" name="name" v-model="search.name" autocomplete="off" @keyup.enter="getList()"></label>
+                        <label class="input">状态<select name="status" v-model="search.status" @change="getList()">
+                            <option value="">请选择</option>
+                            <option value="1">启用</option>
+                            <option value="2">禁用</option>
+                        </select></label>
+                    </form>
+                </div>
+                <div class="box" id="data">
+                    <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
+                        <tbody>
+                        <tr>
+                            <th width="30">ID</th>
+                            <th width="30">PID</th>
+                            <th width="80">菜单名</th>
+                            <th width="80">图标</th>
+                            <th width="80">路径</th>
+                            <th width="30">类型</th>
+                            <th width="30">排序</th>
+                            <th width="30">状态</th>
+                            <th width="120">创建时间</th>
+                            <th width="120">更新时间</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr v-for="item in list">
+                            <td v-text="item.id">
+                            <td v-text="item.pid">
+                            <td v-text="item.name">
+                            <td>
+                                <a v-if="item.icon" :href="'{{$.Config.server.imgPrefix}}'+item.icon" target='_blank'>
+                                    <img :src="'{{$.Config.server.imgPrefix}}'+item.icon" alt="not fond" style="height: 36px;border-radius: 3px">
+                                </a>
+                            <span v-else><el-tag type="info" size="small">暂无图片</el-tag></span>
+                            </td>
+                            <td v-text="item.path">
+                            <td>
+                                <el-tag v-if="item.type==1" type="info" size="small">菜单</el-tag>
+                                <el-tag v-if="item.type==2" type="warning" size="small">分组</el-tag>
+                            </td>
+                            <td v-text="item.sort">
+                            <td>
+                                <el-tag v-if="item.status==1">启用</el-tag>
+                                <el-tag type="danger" v-if="item.status==2">禁用</el-tag>
+                            </td>
+                            <td v-text="item.created_at">
+                            <td v-text="item.updated_at">
+                            <td class="table-action">
+                                <el-button-group>
+                                    <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
+                                    <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
+                                </el-button-group>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {{include "/app/pagination.html" .}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
+        <div class="details">
+            <ul>
+                <li><label class="input">名称<input v-model="details.name"></label></li>
+                <li><label class="input">路径<input v-model="details.path"></label></li>
+                <li><label class="input">pid<input v-model="details.pid"></label></li>
+                <li><label class="input">图标<input v-model="details.icon"></label></li>
+                <li><label class="input">排序<input type="number" v-model="details.sort"></label></li>
+            </ul>
+            <ul>
+                <li>
+                    <label class="input">类型<select v-model="details.type">
+                        <option label="菜单" :value="1"></option>
+                        <option label="分组" :value="2"></option>
+                    </select></label>
+                </li>
+                <li>
+                    <label class="input">状态<select v-model="details.status">
+                        <option label="正常" :value="1"></option>
+                        <option label="关闭" :value="2"></option>
+                    </select></label>
+                </li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="onSubmit()" size="small" plain>提交</el-button>
+            </div>
+        </template>
+    </el-dialog>
+    {{include "/app/footer.html" .}}
+</div>
+</body>
+<!-- import JavaScript -->
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+
+                detailsVisible: false,
+                detailsTitle: '',
+                details: {},
+                showType: 0, // 0 main 1 add 2update
+                page: {name: "Menu", desc: "这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。", urlPrefix: '/menu'},
+                list: [], loading: false, total: 0, search: {page: 1, size: 15, status: ''},
+            }
+        },
+        created() {
+            this.getList();
+        },
+        methods: {
+            sizeChange(size) {
+                this.search.size = size;
+                this.getList();
+            },
+            async getList(page) {
+                this.search.page = page;
+                this.loading = true;
+                let res = await $.get(`${this.page.urlPrefix}/list`, this.search);
+                const {currPage, totalCount, list} = res.data;
+                this.search.page = currPage;
+                this.total = totalCount
+                this.list = list;
+                this.loading = false
+            },
+            async del(id) {
+                if (confirm("确定删除？")) {
+                    let res = await $.delete(`${this.page.urlPrefix}/del?id=` + id);
+                    if (res.code === 0) {
+                        await this.getList()
+                        noticeOk('Success')
+                        this.detailsVisible = false
+                    } else {
+                        noticeError(res.msg)
+                    }
+                }
+            },
+            async onSubmit() {
+                let res = {}
+                if (this.showType == 1) {
+                    res = await $.post(`${this.page.urlPrefix}/post`, this.details)
+                } else {
+                    res = await $.put(`${this.page.urlPrefix}/put`, this.details)
+                }
+                if (res.code === 0) {
+                    noticeOk('Success')
+                    this.detailsVisible = false
+                    await this.getList()
+                } else {
+                    noticeError(res.msg)
+                }
+            },
+            async showDetails(type, id) {
+                this.detailsVisible = true
+                this.showType = type
+                this.details = {}
+                this.detailsTitle = '添加操作'
+                if (this.showType == 2) {
+                    this.detailsTitle = '修改操作'
+                    let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
+                    this.details = res.data
+                }
+            },
+        }
+    })
+    app.use(ElementPlus)
+    app.mount('#app')
+</script>
+</html>

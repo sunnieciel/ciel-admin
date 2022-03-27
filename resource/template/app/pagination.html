@@ -1,17 +1,10 @@
-{{.page}}
-<form method="get" class="pagination-form">
-    <label class="input">
-        <select name="size"
-                style="padding: 3px 8px;"
-                class="select"
-                onchange=" location.href = '{{.c.PageUrl}}?' + $('#search').serialize()+`&size=`+$(this).val();">
-            <option value="15">分页</option>
-            <option value="2">2</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="100">200</option>
-        </select>
-    </label>
-</form>
+<el-pagination
+        :currentPage="search.page"
+        :page-size="search.size"
+        :page-sizes="[1,2,5,15,30,50,100, 200, 300, 400]"
+        small="small"
+        background="background"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+        @current-change="getList"
+        @size-change="sizeChange"/>

@@ -15,7 +15,7 @@ li {
   list-style: none; }
 
 .w {
-  max-width: 1060px;
+  max-width: 1660px;
   margin: 0 auto; }
 
 .hr {
@@ -55,19 +55,8 @@ li {
     align-items: center;
     padding: 8px 0 12px 12px;
     background-color: #f9f9f9; }
-    .box .box-action span {
-      display: inline-block;
-      margin: 0 6px;
-      font-size: 14px; }
-    .box .box-action input:not([type="button"]) {
-      width: 100px;
-      border-radius: 3px;
-      border: 1px solid #e2e2e2;
-      padding: 6px;
-      font-size: 14px;
-      color: #666; }
-    .box .box-action .last {
-      margin-right: auto; }
+    .box .box-action label {
+      margin-left: 12px; }
   .box .header {
     padding: 10px;
     font-size: 15px;
@@ -91,6 +80,16 @@ li {
     cursor: pointer;
     background-color: #f9f9f9;
     text-shadow: 0 1px 0 #fff; }
+
+.text-omit {
+  max-width: 783px;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important; }
+
+.report {
+  margin: 22px 0; }
 
 #top {
   height: 44px;
@@ -130,7 +129,7 @@ li {
     padding-top: 20px;
     display: flex; }
     #wrapper .w #main {
-      min-width: 800px; }
+      width: 1550px; }
       #wrapper .w #main #tabs {
         display: flex;
         padding: 10px;
@@ -171,7 +170,7 @@ li {
       #wrapper .w #main #page-title {
         margin-top: 20px; }
       #wrapper .w #main #data {
-        margin-top: 20px; }
+        margin: 20px 0; }
         #wrapper .w #main #data .pagination {
           display: flex;
           align-items: center;
@@ -203,21 +202,29 @@ li {
           border-color: gray; }
           #wrapper .w #main #data #table tr:nth-child(2n) {
             background-color: #f8f8f8; }
-          #wrapper .w #main #data #table tr th {
-            font-weight: 700;
-            border-right: 1px solid #ccc;
-            padding: 3px 12px;
-            text-align: left; }
-          #wrapper .w #main #data #table tr td {
-            display: table-cell;
-            vertical-align: inherit;
-            border: 1px solid #ccc;
-            margin: 0;
-            padding: 0 3px;
-            max-width: 300px;
-            overflow: hidden; }
-            #wrapper .w #main #data #table tr td:hover {
-              overflow: auto; }
+          #wrapper .w #main #data #table tr {
+            transition: all .2s ease; }
+            #wrapper .w #main #data #table tr th {
+              font-weight: 700;
+              font-size: 12px;
+              min-width: 30px;
+              border-right: 1px solid #ccc;
+              padding: 3px 12px;
+              text-align: left; }
+            #wrapper .w #main #data #table tr:hover {
+              background-color: #e2e2e2; }
+            #wrapper .w #main #data #table tr td {
+              display: table-cell;
+              font-size: 14px;
+              vertical-align: inherit;
+              border: 1px solid #ccc;
+              margin: 0;
+              padding: 3px 9px;
+              max-width: 300px;
+              overflow: hidden;
+              white-space: nowrap; }
+              #wrapper .w #main #data #table tr td:hover {
+                overflow: auto; }
           #wrapper .w #main #data #table .table-action a:active, #wrapper .w #main #data #table .table-action a:link, #wrapper .w #main #data #table .table-action a:visited {
             font-size: 12px;
             line-height: 120%;
@@ -258,7 +265,8 @@ li {
             color: #666 !important; }
           #wrapper .w #main .details-form ul li select {
             background-color: #e8e8e8;
-            width: 330px; }
+            width: 330px;
+            color: red; }
           #wrapper .w #main .details-form ul li textarea {
             min-height: 160px; }
         #wrapper .w #main .details-form .form-action {
@@ -277,6 +285,8 @@ li {
         line-height: 120%;
         border-bottom: 1px solid #e2e2e2;
         color: #999; }
+        #wrapper .w #right-nav > li ul li:first-child {
+          margin-top: 8px; }
         #wrapper .w #right-nav > li ul li {
           background-color: transparent;
           padding: 5px 10px 5px 0;
@@ -299,5 +309,55 @@ li {
 #footer {
   margin-top: 20px;
   min-height: 120px; }
+
+.input {
+  margin: 0 6px;
+  color: #B0AFB5;
+  font-size: 13px; }
+  .input input, .input select, .input textarea {
+    height: 19px;
+    width: 99px;
+    margin-left: 6px;
+    padding: 3px 9px;
+    background-color: #F2F2F4;
+    border: 1px solid snow;
+    border-radius: 6px;
+    outline: none;
+    color: #ABAAB0;
+    transition: all 0.6s ease; }
+    .input input:focus, .input select:focus, .input textarea:focus {
+      border: 1px solid #B0AFB5;
+      box-shadow: 0 0 0 0.2px #B0AFB5; }
+  .input input[type='date'] {
+    width: 130px; }
+  .input input[type='file'] {
+    height: 26px; }
+  .input label {
+    display: inline-block; }
+  .input textarea {
+    width: 136px;
+    height: 100px; }
+  .input select {
+    height: 32px; }
+
+.details {
+  display: flex; }
+  .details ul {
+    margin-top: 12px;
+    border-collapse: collapse; }
+    .details ul li {
+      margin: 6px 0;
+      padding-left: 6px;
+      text-align: right; }
+      .details ul li input {
+        width: 136px; }
+      .details ul li select {
+        width: 156px; }
+
+.el-dialog {
+  border-radius: 12px !important; }
+
+.el-button {
+  transition: all 0.6s ease !important; }
 
 /*# sourceMappingURL=base.css.map */

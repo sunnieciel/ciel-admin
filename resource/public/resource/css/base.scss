@@ -1,8 +1,10 @@
-$mainWidth: 800px;
+$mainWidth: 1550px;
+$width: 1660px;
 * {
   padding: 0;
   margin: 0;
 }
+
 
 body {
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, WenQuanYi Micro Hei, Arial, sans-serif;
@@ -20,7 +22,7 @@ li {
 }
 
 .w {
-  max-width: 1060px;
+  max-width: $width;
   margin: 0 auto;
 }
 
@@ -79,23 +81,8 @@ li {
     padding: 8px 0 12px 12px;
     background-color: #f9f9f9;
 
-    span {
-      display: inline-block;
-      margin: 0 6px;
-      font-size: 14px;
-    }
-
-    input:not([type="button"]) {
-      width: 100px;
-      border-radius: 3px;
-      border: 1px solid #e2e2e2;
-      padding: 6px;
-      font-size: 14px;
-      color: #666;
-    }
-
-    .last {
-      margin-right: auto;
+    label {
+      margin-left: 12px;
     }
   }
 
@@ -106,9 +93,6 @@ li {
     border-bottom: 1px solid #e2e2e2;
   }
 
-  .form {
-
-  }
 }
 
 .button {
@@ -132,6 +116,17 @@ li {
   }
 }
 
+.text-omit {
+  max-width: 783px;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important;
+}
+
+.report {
+  margin: 22px 0;
+}
 
 #top {
   height: 44px;
@@ -193,7 +188,7 @@ li {
     display: flex;
 
     #main {
-      min-width: $mainWidth;
+      width: $mainWidth;
 
       #tabs {
         display: flex;
@@ -251,7 +246,7 @@ li {
       }
 
       #data {
-        margin-top: 20px;
+        margin: 20px 0;
 
         .pagination {
           display: flex;
@@ -294,26 +289,39 @@ li {
           }
 
           tr {
+            transition: all .2s ease;
+
             th {
               font-weight: 700;
+              font-size: 12px;
+              min-width: 30px;
               border-right: 1px solid #ccc;
               padding: 3px 12px;
               text-align: left;
             }
 
+            &:hover {
+              background-color: #e2e2e2;
+            }
+
             td {
               display: table-cell;
+              font-size: 14px;
               vertical-align: inherit;
               border: 1px solid #ccc;
               margin: 0;
-              padding: 0 3px;
+              padding: 3px 9px;
               max-width: 300px;
               overflow: hidden;
+              white-space: nowrap;
 
               &:hover {
                 overflow: auto;
               }
+
             }
+
+
           }
 
           .table-action {
@@ -377,6 +385,7 @@ li {
             select {
               background-color: #e8e8e8;
               width: 330px;
+              color: red;
             }
 
             textarea {
@@ -406,7 +415,6 @@ li {
       max-height: 600px;
       overflow: hidden;
 
-
       &:hover {
         overflow-y: auto;
       }
@@ -419,6 +427,9 @@ li {
         color: #999;
 
         ul {
+          li:first-child {
+            margin-top: 8px;
+          }
 
           li {
             background-color: transparent;
@@ -426,6 +437,7 @@ li {
             font-size: 14px;
             display: flex;
             align-items: center;
+
             div {
               width: 24px;
               height: 24px;
@@ -451,4 +463,83 @@ li {
 #footer {
   margin-top: 20px;
   min-height: 120px;
+}
+
+.input {
+  margin: 0 6px;
+  color: #B0AFB5;
+
+  font-size: 13px;
+
+  input, select, textarea {
+    height: 19px;
+    width: 99px;
+    margin-left: 6px;
+    padding: 3px 9px;
+    background-color: #F2F2F4;
+    border: 1px solid snow;
+    border-radius: 6px;
+    outline: none;
+    color: #ABAAB0;
+    transition: all 0.6s ease;
+
+    &:focus {
+      border: 1px solid #B0AFB5;
+      box-shadow: 0 0 0 0.2px #B0AFB5;
+    }
+  }
+  select{
+  }
+
+  input[type='date'] {
+    width: 130px;
+  }
+
+  input[type='file'] {
+    height: 26px;
+  }
+
+  label {
+    display: inline-block;
+  }
+
+  textarea {
+    width: 136px;
+    height: 100px;
+  }
+
+  select {
+    height: 32px;
+  }
+}
+
+.details {
+  display: flex;
+
+  ul {
+    margin-top: 12px;
+    border-collapse: collapse;
+
+    li {
+      margin: 6px 0;
+      padding-left: 6px;
+      text-align: right;
+
+      input {
+        width: 136px;
+      }
+
+      select {
+        width: 156px;
+      }
+    }
+  }
+}
+
+.el-dialog {
+  border-radius: 12px !important;
+}
+
+.el-button {
+  transition: all 0.6s ease !important;
 }

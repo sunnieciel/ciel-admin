@@ -33,7 +33,7 @@ func (c *role) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "/sys/role.html", total, data, c)
+	res.OkPage(page, size, total, data, r)
 }
 func (c *role) Post(r *ghttp.Request) {
 	d := entity.Role{}
@@ -64,4 +64,12 @@ func (c *role) GetById(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.OkData(data, r)
+}
+
+func (c *role) Path(r *ghttp.Request) {
+	icon, err := service.System().GetMenuIcon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/role.html", g.Map{"icon": icon})
 }

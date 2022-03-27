@@ -25,6 +25,10 @@ var RoleApi = &roleApi{SearchConf: &config.SearchConf{
 	},
 }}
 
+func (c *roleApi) Path(r *ghttp.Request) {
+	res.Page(r, "/sys/roleApi.html")
+}
+
 func (c *roleApi) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -33,7 +37,7 @@ func (c *roleApi) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "/sys/roleApi.html", total, data, c)
+	res.OkPage(page, size, total, data, r)
 }
 func (c *roleApi) Post(r *ghttp.Request) {
 	var d struct {

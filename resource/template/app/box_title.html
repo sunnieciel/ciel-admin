@@ -1,0 +1,13 @@
+{{if .data.icon}}
+<img src="{{.data.icon}}" width="64" height="64" alt="Financial">
+{{else}}
+<img src="/resource/image/golang.png" width="64" alt="Financial">
+{{end}}
+<div>
+    <div class="breadcrumb">
+        <a href="/"> ADMIN</a>
+        <span class="chevron">&nbsp;›&nbsp;</span>
+        <span v-text="page.name"></span>
+    </div>
+    <div class="intro" v-text="page.desc"></div>
+</div>

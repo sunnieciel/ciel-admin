@@ -28,6 +28,9 @@ var File = &file{SearchConf: &config.SearchConf{
 	},
 }}
 
+func (c *file) Path(r *ghttp.Request) {
+	res.Page(r, "/sys/file.html")
+}
 func (c *file) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -36,7 +39,7 @@ func (c *file) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "/sys/file.html", total, data, c)
+	res.OkPage(page, size, total, data, r)
 }
 func (c *file) GetById(r *ghttp.Request) {
 	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))

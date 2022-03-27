@@ -33,6 +33,10 @@ var Admin = &admin{
 func (c *admin) LoginPage(r *ghttp.Request) {
 	res.Page(r, "login.html")
 }
+
+func (c *admin) Path(r *ghttp.Request) {
+	res.Page(r, "/sys/admin.html")
+}
 func (c *admin) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -41,7 +45,7 @@ func (c *admin) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "/sys/admin.html", total, data, c)
+	res.OkPage(page, size, total, data, r)
 }
 func (c *admin) GetById(r *ghttp.Request) {
 	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))

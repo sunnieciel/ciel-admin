@@ -36,7 +36,8 @@
             justify-content: center;
             height: 75vh;
             width: 100%;
-            background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mountains-1412683.svg/1280px-Mountains-1412683.svg.png) no-repeat center center;
+            /*background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mountains-1412683.svg/1280px-Mountains-1412683.svg.png) no-repeat center center;*/
+            background: url(https://images.alphacoders.com/278/278953.jpg) no-repeat center center;
             background-size: cover;
         }
 
@@ -118,6 +119,8 @@
             font-weight: bold;
         }
     </style>
+
+    <link rel="stylesheet" href="/resource/css/toastr.min.css"/>
 </header>
 <main>
     <form id="login-form" class="form_class" action="login/login-access.php" method="post">
@@ -137,18 +140,19 @@
     <p>Desenvolvido por <a href="#">JM_Code&trade;</a></p>
 </footer>
 <script src="/resource/js/jquery-3.6.0.min.js"></script>
-<script src="/resource/js/notify.min.js"></script>
+<script src="/resource/js/toastr.min.js"></script>
+<script src="/resource/js/app.js"></script>
 <script>
     $(function () {
         $("#login-btn").click(function () {
             $.post("/admin/login", $("#login-form").serialize(), function (data) {
                 if (data.code === 0) {
-                    $('#login-btn').notify("Success", {position: "right", className: "success"});
+                    noticeOk('Success')
                     setTimeout(function () {
                         window.location.href = "/";
                     }, 1500);
                 } else {
-                    $('#login-btn').notify(data.msg, {position: "right"});
+                    noticeError(data.msg)
                 }
             });
         });

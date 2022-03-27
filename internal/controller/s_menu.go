@@ -6,6 +6,7 @@ import (
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -24,7 +25,6 @@ var Menu = &menu{SearchConf: &config.SearchConf{
 }}
 
 func (c *menu) List(r *ghttp.Request) {
-
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -32,7 +32,7 @@ func (c *menu) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "/sys/menu4.html", total, data, c)
+	res.OkPage(page, size, total, data, r)
 }
 func (c *menu) GetById(r *ghttp.Request) {
 	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))
@@ -66,4 +66,11 @@ func (c *menu) Del(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.Ok(r)
+}
+func (c *menu) Path(r *ghttp.Request) {
+	icon, err := service.System().GetMenuIcon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/menu.html", g.Map{"icon": icon})
 }

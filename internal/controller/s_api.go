@@ -6,6 +6,7 @@ import (
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -34,7 +35,7 @@ func (c *api) List(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.PageList(r, "/sys/api.html", total, data, c)
+	res.OkPage(page, size, total, data, r)
 }
 func (c *api) Post(r *ghttp.Request) {
 	d := entity.Api{}
@@ -65,4 +66,12 @@ func (c *api) GetById(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.OkData(data, r)
+}
+
+func (c *api) Path(r *ghttp.Request) {
+	icon, err := service.System().GetMenuIcon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/api.html", g.Map{"icon": icon})
 }

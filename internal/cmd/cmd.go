@@ -29,6 +29,7 @@ var (
 			})
 			s.Group("/menu", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/path", controller.Menu.Path)
 				g.GET("/list", controller.Menu.List)
 				g.GET("/getById", controller.Menu.GetById)
 				g.DELETE("/del", controller.Menu.Del)
@@ -37,6 +38,7 @@ var (
 			})
 			s.Group("/api", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/path", controller.Api.Path)
 				g.GET("/list", controller.Api.List)
 				g.GET("/getById", controller.Api.GetById)
 				g.DELETE("/del", controller.Api.Del)
@@ -45,6 +47,7 @@ var (
 			})
 			s.Group("/role", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/path", controller.Role.Path)
 				g.GET("/list", controller.Role.List)
 				g.GET("/getById", controller.Role.GetById)
 				g.DELETE("/del", controller.Role.Del)
@@ -55,12 +58,14 @@ var (
 			})
 			s.Group("/roleApi", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/path", controller.RoleApi.Path)
 				g.GET("/list", controller.RoleApi.List)
 				g.DELETE("/del", controller.RoleApi.Del)
 				g.POST("/post", controller.RoleApi.Post)
 			})
 			s.Group("/roleMenu", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/path", controller.RoleMenu.Path)
 				g.GET("/list", controller.RoleMenu.List)
 				g.DELETE("/del", controller.RoleMenu.Del)
 				g.POST("/post", controller.RoleMenu.Post)
@@ -69,6 +74,7 @@ var (
 				g.POST("/login", controller.Admin.Login)
 				g.Middleware(service.Middleware().AuthAdmin)
 				g.GET("/logout", controller.Admin.Logout)
+				g.GET("/path", controller.Admin.Path)
 				g.GET("/list", controller.Admin.List)
 				g.GET("/getById", controller.Admin.GetById)
 				g.DELETE("/del", controller.Admin.Del)
@@ -78,6 +84,7 @@ var (
 			})
 			s.Group("/dict", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/path", controller.Dict.Path)
 				g.GET("/list", controller.Dict.List)
 				g.GET("/getById", controller.Dict.GetById)
 				g.DELETE("/del", controller.Dict.Del)
@@ -86,20 +93,13 @@ var (
 			})
 			s.Group("/file", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/path", controller.File.Path)
 				g.GET("/list", controller.File.List)
 				g.GET("/getById", controller.File.GetById)
 				g.DELETE("/del", controller.File.Del)
 				g.POST("/post", controller.File.Post)
 				g.PUT("/put", controller.File.Put)
 				g.POST("/upload", controller.File.Upload)
-			})
-			s.Group("/diary", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
-				g.GET("/list", controller.Diary.List)
-				g.GET("/getById", controller.Diary.GetById)
-				g.DELETE("/del", controller.Diary.Del)
-				g.POST("/post", controller.Diary.Post)
-				g.PUT("/put", controller.Diary.Put)
 			})
 			go func() {
 				var ctx = context.Background()

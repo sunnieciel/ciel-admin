@@ -5,13 +5,34 @@
 package dao
 
 import (
+	"ciel-admin/internal/consts"
+	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/internal/dao/internal"
+	"context"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 // menuDao is the data access object for table s_menu.
 // You can define custom methods on it to extend its functionality as you wish.
 type menuDao struct {
 	*internal.MenuDao
+}
+
+func (d menuDao) GetByPath(ctx context.Context, path string) (*entity.Menu, error) {
+	var data entity.Menu
+	one, err := d.Ctx(ctx).One("path", path)
+	if err != nil {
+		glog.Error(ctx, err)
+		return nil, err
+	}
+	if one.IsEmpty() {
+		return nil, consts.ErrDataNotFound
+	}
+	if err = one.Struct(&data); err != nil {
+		glog.Error(ctx, err)
+		return nil, err
+	}
+	return &data, nil
 }
 
 var (
