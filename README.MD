@@ -55,6 +55,7 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
     - consts
     - controller
     - model
+        - entity
     - packed
     - service
 - manifest
@@ -62,6 +63,10 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
         - config.yaml
 - resource
 - utility
+- go.mod
+- main.go
+
+详情见：https://goframe.org/pages/viewpage.action?pageId=30740166
 
 ## 快速开始
 
