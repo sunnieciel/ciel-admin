@@ -757,6 +757,8 @@ li {
 }
 
 .el-popper {
+  background-color: var(--color-main-background) !important;
+  color: var(--color-main) !important;
   padding: 22px;
   width: 666px;
   max-height: 560px;
@@ -844,5 +846,9 @@ li {
 .el-tag {
   height: 22px;
   display: flex;
+}
+
+.el-loading-mask {
+  background-color: var(--color-main-background) !important;
 }
 

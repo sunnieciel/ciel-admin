@@ -10,8 +10,6 @@ type rss struct {
 }
 
 func (c rss) Fetch(r *ghttp.Request) {
-	//timeout, cancelFunc := context.WithTimeout(r.Context(), time.Second*15)
-	//defer cancelFunc()
 	data, err := service.Rss().Feftch(r.Context(), r.GetQuery("url").String())
 	if err != nil {
 		res.Err(err, r)
