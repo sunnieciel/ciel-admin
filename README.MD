@@ -8,7 +8,7 @@ FreeKey Admin 是一个简洁的后台管理系统，提供了权限管理功能
 
 使用到的技术:
 
-- 后端:goframe v2:
+- 后端:goframe v2
 - 前端:vue3,element-plus,jquery-3.6.0
 
 数据获取方式是服务端渲染页面，前端 ajax 请求数据。（没有使用 vue 单独创建一个项目，整个项目一键启动。）
