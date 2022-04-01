@@ -2,7 +2,6 @@ package service
 
 import (
 	"ciel-admin/internal/consts"
-	"ciel-admin/internal/oop"
 	"ciel-admin/internal/service/internal/dao"
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/xstr"
@@ -35,7 +34,7 @@ func newSystem() *sSystem {
 	return &sSystem{}
 }
 
-func System() oop.ISystem { return insSystem }
+func System() *sSystem { return insSystem }
 func (s *sSystem) List(ctx context.Context, c *config.SearchConf) (count int, data gdb.List, err error) {
 	db := g.DB().Ctx(ctx).Model(c.T1 + " t1")
 	if c.T2 != "" {
