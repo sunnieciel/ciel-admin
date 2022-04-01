@@ -1,7 +1,0 @@
-{
-  "name": "ciel-admin",
-  "version": "1.0.0",
-  "dependencies": {
-    "rsshub": "^1.0.0-master.d50e094"
-  }
-}

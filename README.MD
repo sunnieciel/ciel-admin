@@ -18,8 +18,8 @@ FreeKey Admin 是一个简洁的后台管理系统，提供了权限管理功能
 - 本地文件上传 ok
 - 夜间模式 ok
 - 常用网站导航 ok
-- 常用RSS订阅 ing
 - CURD文件生成 todo
-- 常用工具集合 todo
 - WebSocket后台聊天功能 todo
 - 日记本功能 todo
+- 常用RSS订阅 ing
+- 常用工具集合 todo
