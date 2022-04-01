@@ -67,7 +67,7 @@ func (c *role) GetById(r *ghttp.Request) {
 }
 
 func (c *role) Path(r *ghttp.Request) {
-	icon, err := service.System().GetMenuIcon(r.Context(), r.URL.Path)
+	icon, err := service.System().Icon(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}

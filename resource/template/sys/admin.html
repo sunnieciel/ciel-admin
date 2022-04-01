@@ -25,11 +25,11 @@
                         <thead>
                         <tr>
                             <th width="40">ID</th>
-                            <th>用户名</th>
-                            <th>角色</th>
-                            <th>状态</th>
-                            <th>创建时间</th>
-                            <th>修改时间</th>
+                            <th width="80">用户名</th>
+                            <th width="80">角色</th>
+                            <th width="80">状态</th>
+                            <th width="80">创建时间</th>
+                            <th width="80">修改时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -62,8 +62,8 @@
 
                     {{include "/app/pagination.html" .}}
                 </div>
+                {{include "/app/nav_bottom.html" .}}
             </div>
-
         </div>
     </div>
     <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
@@ -108,14 +108,23 @@
                 loading: false,
                 total: 0,
                 search: {page: 1, size: 15, status: ''},
-                page: {name: "Admin", desc: "这里是Admin管理页面,可以对菜单进行添加,修改,删除等操作。", urlPrefix: '/admin',}
-
+                page: {name: "Admin", desc: "这里是Admin管理页面,可以对菜单进行添加,修改,删除等操作。", urlPrefix: '/admin',},
+                menus: JSON.parse(localStorage.getItem('menus')),
+                dark: Cookies.get('dark'),
+            }
+        },
+        watch: {
+            dark() { // dark 变动后刷新一下从服务获取dark的css
+                location.reload()
             }
         },
         created() {
             this.getList();
         },
         methods: {
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();
@@ -170,6 +179,7 @@
             },
         }
     })
+    app.config.warnHandler = () => null
     app.use(ElementPlus)
     app.mount('#app')
 </script>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/app/meta.html" .}}
+    <title>导航全部</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                <div class="box" id="page-title ">
+                    <div class="box-title box-title-background-type1">
+                        {{if .data.icon}}
+                        <img src="{{.data.icon}}" width="64" alt="Financial">
+                        {{else}}
+                        <img src="/resource/image/network.png" width="64" alt="Financial">
+                        {{end}}
+                        <div>
+                            <div class="breadcrumb">
+                                <span>位面列表</span>
+                            </div>
+                            <div class="intro">
+                                在这里可查看您添加的所有帮助节点。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box plane-item" v-for="(i,index) in list">
+                    <div class="plane-title" :style="{background: getBackground(i,index),color:getColor(i,index)}">
+                        <img v-if="i.icon" :src="'{{$.Config.server.imgPrefix}}'+i.icon" alt="not fond" style="height: 36px;border-radius: 3px">
+                        <img v-else :src="getIcon(index)" alt="not fond" style="height: 36px;border-radius: 3px">
+                        <span class="plane-name" v-text="i.name"></span>
+                        <span v-text="i.nickname"></span>
+                    </div>
+                    <div class="plane-contnet">
+                        <div v-for="j in i.data">
+                            <a :target="k.local?'_self':'_blank'" :href="k.url" v-for="k in j.children" v-text="k.name"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{include "/app/footer.html" .}}
+</div>
+</body>
+<!-- import JavaScript -->
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                list: [],
+                page: {
+                    name: "123",
+                    desc: "12333",
+                },
+                menus: JSON.parse(localStorage.getItem('menus')),
+                icons: ['1/2022/03/5Eoxb1.png', '1/2022/03/IdGUqj.png', '1/2022/03/2S41in.png', '1/2022/03/mAMoWX.png', '1/2022/03/FdI4Yw.gif', '1/2022/03/BYFY4d.gif'],
+                color: ['#8BD3FF', '#FFCB89', '#EE837D', '#858585', '#7DE594'],
+                background: ['#3D637F', '#323030', '#FFECA6', '#CBCBCB', '#5B8865'],
+                dark: Cookies.get('dark'),
+
+            }
+        },
+        created() {
+            this.getCategoryList()
+        },
+        watch: {
+            dark() { // dark 变动后刷新一下从服务获取dark的css
+                location.reload()
+            }
+        },
+        methods: {
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
+            getIcon(I) {
+                return '{{.Config.server.imgPrefix}}' + this.icons[I % this.icons.length]
+            },
+            getColor(i, I) {
+                if (i.color) {
+                    return i.color
+                }
+                return this.color[I % this.color.length]
+            },
+            getBackground(i, I) {
+                if (i.background) {
+                    return i.background
+                }
+                return this.background[I % this.background.length]
+            },
+
+            async getCategoryList() {
+
+                let res = await $.get('/resource/data/js.json')
+                this.list.push(res)
+                res = await $.get('/resource/data/server.json')
+                this.list.push(res)
+                res = await $.get('/resource/data/css.json')
+                this.list.push(res)
+                res = await $.get('/resource/data/html.json')
+                this.list.push(res)
+                let sys = {name: '系统与业务', nickname: '风之谷', data: []}
+                this.menus.forEach(i => {
+                    let stemp = {'name': i.name}
+                    let children = []
+                    i.Children.forEach(j => {
+                        children.push({name: j.name, url: j.path, local: '222222'})
+                    })
+                    stemp.children = children
+                    sys.data.push(stemp)
+                })
+                this.list.push(sys)
+            },
+        }
+    })
+    app.config.warnHandler = () => null
+    app.use(ElementPlus)
+    app.mount('#app')
+</script>
+</html>

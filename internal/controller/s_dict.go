@@ -6,6 +6,7 @@ import (
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -29,7 +30,11 @@ var Dict = &dict{SearchConf: &config.SearchConf{
 }}
 
 func (c *dict) Path(r *ghttp.Request) {
-	res.Page(r, "/sys/dict.html")
+	icon, err := service.System().Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/dict.html", g.Map{"icon": icon})
 }
 func (c *dict) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)

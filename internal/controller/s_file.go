@@ -29,7 +29,11 @@ var File = &file{SearchConf: &config.SearchConf{
 }}
 
 func (c *file) Path(r *ghttp.Request) {
-	res.Page(r, "/sys/file.html")
+	icon, err := service.System().Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/file.html", g.Map{"icon": icon})
 }
 func (c *file) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)

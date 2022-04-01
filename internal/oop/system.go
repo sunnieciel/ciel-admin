@@ -13,5 +13,5 @@ type ISystem interface {
 	Del(ctx context.Context, table, id interface{}) (err error)
 	GetById(ctx context.Context, table, id interface{}) (gdb.Record, error)
 	Init()
-	GetMenuIcon(ctx context.Context, path string) (string, error)
+	Icon(ctx context.Context, path string) (string, error)
 }

@@ -38,7 +38,6 @@ function noticeOk(msg) {
     toastr['success'](msg);
 }
 
-
 function noticeError(msg) {
     toastr.options.timeOut = 5000;
     toastr['error'](msg);
@@ -88,8 +87,21 @@ function updatePwd() {
 }
 
 
+
+
+
 // 添加默认选中
 $("#secondary-tabs a").hide()
 let current = $("a[href='" + location.pathname + "']");
 $("#secondary-tabs a[data='" + current.attr("data") + "']").show()
 $("#tabs a[data='" + current.attr("data") + "']").addClass("tab-current")
+
+$(function () {
+    // 监听tab 切换
+    $("#tabs a").click(function () {
+        $("#tabs a").removeClass("tab-current")
+        $(this).addClass("tab-current")
+        $("#secondary-tabs a").hide()
+        $("#secondary-tabs a[data='" + $(this).attr("data") + "']").show()
+    })
+})

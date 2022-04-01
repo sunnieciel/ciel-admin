@@ -18,7 +18,7 @@ import (
 //  ---sSystem ------------------------------------------------------------
 type sSystem struct{}
 
-func (s *sSystem) GetMenuIcon(ctx context.Context, path string) (string, error) {
+func (s *sSystem) Icon(ctx context.Context, path string) (string, error) {
 	menu, err := dao.Menu.GetByPath(ctx, path)
 	if err != nil {
 		return "", err
@@ -31,7 +31,7 @@ func (s *sSystem) GetMenuIcon(ctx context.Context, path string) (string, error) 
 
 var insSystem = newSystem()
 
-func newSystem() oop.ISystem {
+func newSystem() *sSystem {
 	return &sSystem{}
 }
 

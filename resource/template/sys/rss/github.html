@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/app/meta.html" .}}
+    <title>Rss/github</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                {{include "/app/nav.html" .}}
+                <div class="box" id="page-title">
+                    <div class="box-title">
+                        {{include "/app/box_title.html" .}}
+                    </div>
+                    <form id="search" class="box-action">
+                        <label class="input">语言<select v-model="search.langeuage" @change="getList()">
+                            <option value="all">全部</option>
+                            <option value="go">go</option>
+                            <option value="html">html</option>
+                            <option value="css">css</option>
+                            <option value="javascript">javascript</option>
+                            <option value="vue">vue</option>
+                            <option value="swift">swift</option>
+                            <option value="java">java</option>
+                            <option value="python">phthon</option>
+                            <option value="ruby">ruby</option>
+                            <option value="php">php</option>
+                            <option value="c">c</option>
+                            <option value="c++">c+</option>
+                            <option value="c%23">C#</option>
+                            <option value="dart">dart</option>
+                            <option value="lua">lua</option>
+                            <option value="objective-c">objective-c</option>
+                            <option value="vim-script">vim-script</option>
+                            <option value="lua">lua</option>
+                            <option value="unknown">未知</option>
+                        </select></label>
+                        <label class="input">排名类型<select v-model="search.type" @change="getList()">
+                            <option value="daily">每日</option>
+                            <option value="weekly">每周</option>
+                            <option value="monthly">每月</option>
+                        </select></label>
+                    </form>
+                </div>
+                <div class="box" id="news" v-loading="loading">
+                    <div class="news-cell" v-for="i in list">
+                        <el-tooltip
+                                effect="light"
+                                :content="i.description"
+                                :show-after="300"
+                                raw-content
+                                placement="bottom-start">
+                            <a class="news-title" v-text="i.title" target="_blank" :href="i.link"></a>
+                        </el-tooltip>
+                        <div class="news-time">
+                            <span class="news-node" v-text="title"></span>
+                            &nbsp;•&nbsp;
+                            <a class="author-info" :href="link" target="_blank" v-text="'from'"></a>
+                            &nbsp;•&nbsp;
+                            <span v-text="pubDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                {{include "/app/nav_bottom.html" .}}
+            </div>
+        </div>
+    </div>
+    {{include "/app/footer.html" .}}
+</div>
+</body>
+<!-- import JavaScript -->
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                page: {name: "Rss/github", desc: "Github语言框架排行榜", urlPrefix: '/rss/github'},
+                list: [], loading: false, total: 0, search: {page: 1, size: 15, status: '', langeuage: 'all', type: 'daily'},
+                title: '',
+                description: '',
+                pubDate: '',
+                link: '',
+                menus: JSON.parse(localStorage.getItem('menus')),
+                dark: Cookies.get('dark'),
+            }
+        },
+        watch: {
+            dark() { // dark 变动后刷新一下从服务获取dark的css
+                location.reload()
+            }
+        },
+        created() {
+            this.getList();
+        },
+        methods: {
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
+            async getList(page) {
+                this.search.page = page;
+                this.loading = true;
+                let url = `https://mshibanami.github.io/GitHubTrendingRSS/${this.search.type}/${this.search.langeuage}.xml`
+                let res = await $.get('/rss/fetch?url=' + url);
+                this.loading = false
+                if (res.code != 0) {
+                    noticeError(res.msg);
+                    return
+                }
+                const {title, pubDate, link, item, description} = res.data.channel;
+                this.list = item
+                this.title = title;
+                this.description = description;
+                this.pubDate = jQuery.timeago(new Date(pubDate));
+                this.link = link;
+            },
+        }
+    })
+    app.config.warnHandler = () => null
+    app.use(ElementPlus)
+    app.mount('#app')
+</script>
+</html>

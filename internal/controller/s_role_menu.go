@@ -74,3 +74,11 @@ func (c *roleMenu) RoleNoApis(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
+
+func (c *roleMenu) CurrentMenus(r *ghttp.Request) {
+	getAdmin, err := service.Session().GetAdmin(r)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(getAdmin.Menus, r)
+}

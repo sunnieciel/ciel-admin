@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/app/meta.html" .}}
+    <title>CSS工具</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div class="box" id="main">
+                <div class="cell">
+                    <span class="title"><a href="/menu/path">Menu</a> / CSS工具</span>
+                    <div class="action"><a href="/sys/path?path=/sys/utils/all.html">浏览全部节点</a></div>
+                </div>
+                <div class="cell" v-for="i in list">
+                    <span class="item-title" v-text="i.name"></span>
+                    <div class="item-content">
+                        <a v-for="j in i.children" :href="j.url" target="_blank" v-text="j.name"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{include "/app/footer.html" .}}
+</div>
+</body>
+<!-- import JavaScript -->
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                list: [],
+                dark: Cookies.get('dark'),
+            }
+        },
+        watch: {
+            dark() { // dark 变动后刷新一下从服务获取dark的css
+                location.reload()
+            }
+        },
+        created() {
+            this.getCategoryList()
+        },
+        methods: {
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
+            async getCategoryList() {
+                let res = await $.get('/resource/data/css.json')
+                this.list = res.data
+            },
+        }
+    })
+    app.config.warnHandler = () => null
+    app.use(ElementPlus)
+    app.mount('#app')
+</script>
+</html>

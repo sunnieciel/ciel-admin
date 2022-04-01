@@ -1,0 +1,226 @@
+{
+  "name": "服务端",
+  "nickname": "黑暗之魂",
+  "data": [
+    {
+      "name": "Golang",
+      "children": [
+        {
+          "name": "Golang",
+          "url": "https://go.dev/"
+        },
+        {
+          "name": "Goframe",
+          "url": "https://goframe.org/display/gf"
+        },
+        {
+          "name": "Gozero",
+          "url": "https://go-zero.dev/cn/"
+        },
+        {
+          "name": "Kratos",
+          "url": "https://go-kratos.dev/"
+        },
+        {
+          "name": "李文周博客",
+          "url": "https://www.liwenzhou.com/posts/Go/golang-menu/"
+        },
+        {
+          "name": "Go语言中文网",
+          "url": "https://studygolang.com/"
+        }
+      ]
+    },
+    {
+      "name": "GoFrame",
+      "children": [
+        {
+          "name": "开发工具",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114260"
+        },
+        {
+          "name": "基本使用",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114155"
+        },
+        {
+          "name": "请求输入",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114483"
+        },
+        {
+          "name": "数据校验",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114367"
+        },
+        {
+          "name": "数据返回",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114485"
+        },
+        {
+          "cid": 2,
+          "name": "数据库ORM ",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114686"
+        },
+        {
+          "name": "gen dao 配置",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=3673173"
+        },
+        {
+          "name": "NoSQL Redis ",
+          "url": "https://goframe.org/display/gf/NoSQL+Redis"
+        },
+        {
+          "name": "缓存管理 ",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114679"
+        },
+        {
+          "name": "HttpClient",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114381"
+        },
+        {
+          "name": "文件上传",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114391"
+        },
+        {
+          "name": "I18N国际化",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=7301640"
+        },
+        {
+          "name": "模板引擎",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114680"
+        },
+        {
+          "name": "字典类型-gmap",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114285"
+        },
+        {
+          "name": "数组类型-garray",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114232"
+        },
+        {
+          "name": "集合类型-gset",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114348"
+        },
+        {
+          "name": "链表类型-glist",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114379"
+        },
+        {
+          "name": "树形类型-gtree",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114167"
+        },
+        {
+          "name": "异步队列通知-gqueue",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=30736666"
+        },
+        {
+          "name": "定时器",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114363"
+        },
+        {
+          "name": "定时任务",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114187"
+        },
+        {
+          "name": "内存锁",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114161"
+        },
+        {
+          "name": "互斥锁",
+          "url": " https://goframe.org/pages/viewpage.action?pageId=1114259"
+        },
+        {
+          "name": "协程管理",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114246"
+        },
+        {
+          "name": "字符串处理",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114327"
+        },
+        {
+          "name": "正则表达式",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114219"
+        },
+        {
+          "name": "编码解码",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114861"
+        },
+        {
+          "name": "MD5算法",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114279"
+        },
+        {
+          "name": "AES算法",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114328"
+        },
+        {
+          "name": "DES算法",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114146"
+        },
+        {
+          "name": "随机数",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114242"
+        },
+        {
+          "name": "唯一数",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114295"
+        },
+        {
+          "name": "类型转换",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114677"
+        },
+        {
+          "name": "WebSocket服务",
+          "url": "https://goframe.org/pages/viewpage.action?pageId=1114298"
+        }
+      ]
+    },
+    {
+      "name": "浏览器",
+      "children": [
+        {
+          "name": "vimium",
+          "url": "https://juejin.cn/post/6844903815943028750"
+        }
+      ]
+    },
+    {
+      "name": "数据库",
+      "children": [
+        {
+          "name": "菜鸟Mysql",
+          "url": "https://www.runoob.com/mysql/mysql-tutorial.html"
+        },
+        {
+          "name": "菜鸟Redis",
+          "url": "https://www.runoob.com/redis/redis-tutorial.html"
+        }
+      ]
+    },
+    {
+      "name": "疑问解答",
+      "children": [
+        {
+          "id": 49,
+          "cid": 5,
+          "name": "Github搜索",
+          "url": "https://github.com/search"
+        },
+        {
+          "name": "Google",
+          "url": "https://www.google.com/"
+        },
+        {
+          "name": "Baidu",
+          "url": "https://www.baidu.com/"
+        },
+        {
+          "name": "Stackoverflow",
+          "url": "https://stackoverflow.com/search"
+        },
+        {
+          "name": "v2ex提问",
+          "url": "https://www.v2ex.com/new/qna"
+        }
+      ]
+    }
+  ]
+}

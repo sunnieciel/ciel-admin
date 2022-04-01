@@ -16,7 +16,7 @@
                     <div class="box-title">
                         {{include "/app/box_title.html" .}}
                     </div>
-                    <form id="search" class="box-action">
+                    <div id="search" class="box-action">
                         <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
                         <label class="input">PID<input type="text" name="pid" v-model="search.pid" autocomplete="off" @keyup.enter="getList()"></label>
                         <label class="input">名称<input type="text" name="name" v-model="search.name" autocomplete="off" @keyup.enter="getList()"></label>
@@ -25,7 +25,7 @@
                             <option value="1">启用</option>
                             <option value="2">禁用</option>
                         </select></label>
-                    </form>
+                    </div>
                 </div>
                 <div class="box" id="data">
                     <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
@@ -41,7 +41,7 @@
                             <th width="30">状态</th>
                             <th width="120">创建时间</th>
                             <th width="120">更新时间</th>
-                            <th>操作</th>
+                            <th width="190">操作</th>
                         </tr>
                         <tr v-for="item in list">
                             <td v-text="item.id">
@@ -51,7 +51,7 @@
                                 <a v-if="item.icon" :href="'{{$.Config.server.imgPrefix}}'+item.icon" target='_blank'>
                                     <img :src="'{{$.Config.server.imgPrefix}}'+item.icon" alt="not fond" style="height: 36px;border-radius: 3px">
                                 </a>
-                            <span v-else><el-tag type="info" size="small">暂无图片</el-tag></span>
+                                <span v-else><el-tag type="info" size="small">暂无图片</el-tag></span>
                             </td>
                             <td v-text="item.path">
                             <td>
@@ -76,6 +76,7 @@
                     </table>
                     {{include "/app/pagination.html" .}}
                 </div>
+                {{include "/app/nav_bottom.html" .}}
             </div>
         </div>
     </div>
@@ -113,24 +114,30 @@
     {{include "/app/footer.html" .}}
 </div>
 </body>
-<!-- import JavaScript -->
 <script>
     const app = Vue.createApp({
         data() {
             return {
-
-                detailsVisible: false,
-                detailsTitle: '',
-                details: {},
                 showType: 0, // 0 main 1 add 2update
+                detailsVisible: false, detailsTitle: '', details: {status: ''},
                 page: {name: "Menu", desc: "这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。", urlPrefix: '/menu'},
                 list: [], loading: false, total: 0, search: {page: 1, size: 15, status: ''},
+                menus: JSON.parse(localStorage.getItem('menus')),
+                dark: Cookies.get('dark'),
             }
         },
         created() {
             this.getList();
         },
+        watch: {
+            dark() { // dark 变动后刷新一下从服务获取dark的css
+                location.reload()
+            }
+        },
         methods: {
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();
@@ -175,7 +182,7 @@
             async showDetails(type, id) {
                 this.detailsVisible = true
                 this.showType = type
-                this.details = {}
+                this.details = {status: 1, type: 1}
                 this.detailsTitle = '添加操作'
                 if (this.showType == 2) {
                     this.detailsTitle = '修改操作'
@@ -185,6 +192,7 @@
             },
         }
     })
+    app.config.warnHandler = () => null
     app.use(ElementPlus)
     app.mount('#app')
 </script>

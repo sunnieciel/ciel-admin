@@ -5,6 +5,7 @@ server:
   serverRoot: "resource/public"
   dumpRouterMap: true
   routeOverWrite: true
+  jwtExpireDuration: "7D"
   imgPrefix: "http://localhost:1211/upload/"
   rootFilePath: "/resource/public/upload/"
 
@@ -38,7 +39,14 @@ gfcli:
   gen:
     dao:
       - link: "mysql:ciel_begin:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel_begin"
-        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_file "
-        removePrefix: "s_"
+        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_file,
+        e_node_item,e_node_sub_category,e_node_category"
+        removePrefix: "s_,e_"
         descriptionTag: true
         noModelComment: true
+
+rss:
+  - "V2EX:/"
+  - "Github:/sys/path/github"
+  - "豆瓣阅读:/sys/path/douban"
+  - "开源中国:/sys/path/oschina"

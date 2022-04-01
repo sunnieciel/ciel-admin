@@ -4,8 +4,10 @@ import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/service/internal/dao"
 	"context"
+	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/text/gstr"
 	"strings"
 )
 
@@ -46,5 +48,35 @@ func (s *sRole) CheckRoleApi(ctx context.Context, rid int, uri string, method st
 	return true
 }
 func (s *sRole) Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
-	return dao.RoleMenu.Menus(ctx, rid, pid)
+	var d = make([]*bo.Menu, 0)
+	get, err := g.Cfg().Get(ctx, "rss")
+	if err != nil {
+		return nil, err
+	}
+	array := get.Array()
+	if len(array) > 0 {
+		children := make([]*bo.Menu, 0)
+		d = append(d, &bo.Menu{
+			Name: "首页",
+			Children: []*bo.Menu{
+				{Name: "V2EX", Path: "/"},
+				{Name: "Github", Path: "/sys/path/github"},
+				{Name: "豆瓣阅读", Path: "/sys/path/douban"},
+				{Name: "开源中国", Path: "/sys/path/oschina"},
+			},
+		})
+		for _, item := range array {
+			split := gstr.Split(fmt.Sprint(item), ":")
+			children = append(children, &bo.Menu{
+				Name: split[0],
+				Path: split[1],
+			})
+		}
+	}
+	menus, err := dao.RoleMenu.Menus(ctx, rid, pid)
+	if err != nil {
+		return nil, err
+	}
+	d = append(d, menus...)
+	return d, err
 }

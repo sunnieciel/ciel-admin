@@ -65,6 +65,7 @@
                     </table>
                     {{include "/app/pagination.html" .}}
                 </div>
+                {{include "/app/nav_bottom.html" .}}
             </div>
 
         </div>
@@ -114,18 +115,28 @@
                 showType: 0, // 0 main 1 add 2update
                 loading: false,
                 total: 0,
-                search: {page: 1, size: 15,status:''},
+                search: {page: 1, size: 15, status: ''},
                 page: {
                     name: "Api",
                     desc: "这里是Api管理页面,可以对菜单进行添加,修改,删除等操作。",
                     urlPrefix: '/api',
-                }
+                },
+                menus: JSON.parse(localStorage.getItem('menus')),
+                dark: Cookies.get('dark'),
             }
         },
         created() {
             this.getList();
         },
+        watch: {
+            dark() { // dark 变动后刷新一下从服务获取dark的css
+                location.reload()
+            }
+        },
         methods: {
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();
@@ -181,6 +192,7 @@
             },
         }
     })
+    app.config.warnHandler = () => null
     app.use(ElementPlus)
     app.mount('#app')
 </script>

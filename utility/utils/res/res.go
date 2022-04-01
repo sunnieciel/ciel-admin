@@ -79,6 +79,7 @@ func OkData(data interface{}, r *ghttp.Request) {
 		"data": data,
 	})
 }
+
 func OkPage(page, size, total int, data interface{}, r *ghttp.Request) {
 	if size == 0 {
 		size = 10

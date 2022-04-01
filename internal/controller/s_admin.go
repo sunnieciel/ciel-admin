@@ -7,6 +7,7 @@ import (
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
 	"ciel-admin/utility/utils/xpwd"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -35,7 +36,11 @@ func (c *admin) LoginPage(r *ghttp.Request) {
 }
 
 func (c *admin) Path(r *ghttp.Request) {
-	res.Page(r, "/sys/admin.html")
+	icon, err := service.System().Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/admin.html", g.Map{"icon": icon})
 }
 func (c *admin) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
