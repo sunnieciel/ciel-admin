@@ -82,7 +82,7 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 ## 使用的框架
 
 - gf 如果您对 gf 不太熟悉，请到gf官网进行相应的学习，gf真的简单又强大。 官网：https://goframe.org/display/gf
-    - bilibili gf HelloWorld 教程 https://www.bilibili.com/video/BV15R4y1G7hq/
+    - bilibili gf HelloWorld教程 Quick Start  https://www.bilibili.com/video/BV15R4y1G7hq/
 - Vue3: https://vuejs.org/
 - element-plus  https://element-plus.org/
 - Jquery: https://www.runoob.com/jquery/jquery-tutorial.html
