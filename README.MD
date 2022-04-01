@@ -76,7 +76,7 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 - 数据库配置 将数据库信息替换成您自己的
 - 图片文件根目录文件夹地址配置：将server.rootFilePath值替换成 /resource/public/upload 该目录所在的绝对路径
 
-3. 启动项目：到项目根目录下执行 gf run main.go
+3. 启动项目：到项目根目录下执行 `gf run main.go`
 4. 浏览器打开 http://localhost:1211/login  默认用户名 admin 密码 1
 
 ## 使用的框架
