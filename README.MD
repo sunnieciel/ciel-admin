@@ -42,9 +42,35 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 
 ## 环境安装
 
-todo
+1. golang环境 安装
+2. mysql 安装
+3. gf 安装
+    - 建议通过 官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选选择办版本 v2.0.0
+    - 如果您使用的linux系统那么可以直接 使用我们准备好的 项目根目录下的 gf 文件(linux版本)(最好将其放到您常用工具的目录下并为其设置环境变量)
+
+## 项目结构
+
+- internal
+    - cmd
+    - consts
+    - controller
+    - model
+    - packed
+    - service
+- manifest
+    - config
+        - config.yaml
+- resource
+- utility
 
 ## 快速开始
 
-todo 
+1. 创建数据库并导入项目根目录下的ciel.sql
+2. 修改config.yaml文件配置
+
+- 数据库配置 将数据库信息替换成您自己的
+- 图片文件根目录文件夹地址配置：将server.rootFilePath值替换成 /resource/public/upload 该目录所在的绝对路径
+
+3. 启动项目：到项目根目录下执行 gf run main.go
+4. 浏览器打开 http://localhost:1211/login  默认用户名 admin 密码 1
 
