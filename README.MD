@@ -70,13 +70,13 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 
 ## 快速开始
 
-1. 创建数据库并导入项目根目录下的ciel.sql
+1. 创建数据库并导入项目根目录下的`ciel.sql`
 2. 修改`config.yaml`文件配置
     - 数据库配置 将数据库信息替换成您自己的
     - 图片文件根目录文件夹地址配置：将`server.rootFilePath`值替换成 `/resource/public/upload` 该目录所在的绝对路径
 
 3. 启动项目：到项目根目录下执行 `gf run main.go`
-4. 浏览器打开 http://localhost:1211/login  默认用户名 admin 密码 1
+4. 浏览器打开 http://localhost:1211/login  默认用户名 `admin` 密码 `1`
 
 ## 使用的框架
 
