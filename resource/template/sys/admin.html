@@ -177,7 +177,6 @@
             async listRoles() {
                 let res = await $.get(`/role/roles`)
                 this.roles = res.data
-                console.log(this.roles)
             },
         }
     })

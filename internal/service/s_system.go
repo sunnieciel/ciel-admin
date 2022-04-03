@@ -474,24 +474,28 @@ func (s *gen) GenCode(ctx context.Context, b *bo.GenCodeInfo) error {
 		glog.Error(ctx, err)
 		return err
 	}
-	err = s.SaveFile(b.Table, template, "", 0)
+	err = s.saveFileFactory(b.Table, template, "", 0)
 
 	// gen cmd
 	template, err = s.fileFactory(b, 1)
 	if err != nil {
 		return err
 	}
-	err = s.SaveFile(b.Table, template, "", 1)
+	err = s.saveFileFactory(b.Table, template, "", 1)
 
-	//// gen html
-	//template, err = s.fileFactory(b, 2)
-	//if err != nil {
-	//	return err
-	//}
-	//err = s.SaveFile(b.Table, template, b.Category, 2)
+	// gen html
+	template, err = s.fileFactory(b, 2)
+	if err != nil {
+		return err
+	}
+	if err = s.saveFileFactory(b.Table, template, b.Category, 2); err != nil {
+		return err
+	}
 
 	// gen api
-	s.genApi(ctx, b.Category, b.StructName)
+	if err = s.genApi(ctx, b.Category, b.StructName); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -507,6 +511,24 @@ func (s gen) fileFactory(b *bo.GenCodeInfo, t int) (string, error) {
 	}
 	return "", nil
 
+}
+func (s *gen) saveFileFactory(fileName string, content string, category string, t int) error {
+	switch t {
+	case 0: // controller
+		p := fmt.Sprintf("%s/internal/controller/%s.go", gfile.MainPkgPath(), fileName)
+		return gfile.PutContents(p, content)
+	case 1: // cmd
+		p := fmt.Sprintf("%s/internal/cmd/sys_router.go", gfile.MainPkgPath())
+		stat, _ := gfile.Stat(p)
+		if err := gfile.Truncate(p, (int)(stat.Size()-2)); err != nil {
+			return err
+		}
+		return gfile.PutContentsAppend(p, content)
+	case 2: // html
+		p := fmt.Sprintf("%s/resource/template/%s/%s.html", gfile.MainPkgPath(), category, fileName)
+		return gfile.PutContents(p, content)
+	}
+	return nil
 }
 func (s *gen) makeControllerStr(b *bo.GenCodeInfo) (string, error) {
 	filePath := fmt.Sprintf("%s/manifest/gen_code_template/controller.text", gfile.MainPkgPath())
@@ -687,25 +709,6 @@ func (s *gen) makeHtmlStr(b *bo.GenCodeInfo) (string, error) {
 	template = strings.ReplaceAll(template, `<li><label class="input">名称<input v-model="details.name"></label></li>`, details)
 	return template, nil
 }
-func (s *gen) SaveFile(fileName string, fileStr string, category string, t int) error {
-	switch t {
-	case 0: // controller
-		p := fmt.Sprintf("%s/internal/controller/%s.go", gfile.MainPkgPath(), fileName)
-		return gfile.PutContents(p, fileStr)
-	case 1: // cmd
-		p := fmt.Sprintf("%s/internal/cmd/sys_router.go", gfile.MainPkgPath())
-		stat, _ := gfile.Stat(p)
-		if err := gfile.Truncate(p, (int)(stat.Size()-2)); err != nil {
-			return err
-		}
-		return gfile.PutContentsAppend(p, fileStr)
-	case 2: // html
-		p := fmt.Sprintf("%s/resource/template/%s/%s.html", gfile.MainPkgPath(), category, fileName)
-		return gfile.PutContents(p, fileStr)
-	}
-	return nil
-}
-
 func (s *gen) genApi(ctx context.Context, category string, name string) error {
 	name = gstr.CaseCamelLower(name)
 	array := []*entity.Api{
