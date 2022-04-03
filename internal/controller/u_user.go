@@ -10,12 +10,14 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-type user struct{ *config.SearchConf }
+type user struct {
+	*config.SearchConf
+}
 
 var User = &user{SearchConf: &config.SearchConf{
-	T1: "u_user", T2: "u_login_log t2 on t1.id = t2.uid", OrderBy: "t1.id desc", SearchFields: "t1.*,t2.ip login_ip",
+	 T1:"u_user",
 	Fields: []*config.Field{
-		{Field: "id", QueryField: ""}, {Field: "t2.ip", Like: true, QueryField: "login_ip"}, {Field: "uname", Like: true, QueryField: ""},
+		{Field: "id"},
 	},
 }}
 

@@ -469,42 +469,46 @@ func (s gen) Tables(ctx context.Context) ([]string, error) {
 }
 func (s *gen) GenCode(ctx context.Context, b *bo.GenCodeInfo) error {
 	// gen controller
-	template, err := s.FileFactory(b, 0)
+	template, err := s.fileFactory(b, 0)
 	if err != nil {
+		glog.Error(ctx, err)
 		return err
 	}
 	err = s.SaveFile(b.Table, template, "", 0)
 
 	// gen cmd
-	template, err = s.FileFactory(b, 1)
+	template, err = s.fileFactory(b, 1)
 	if err != nil {
 		return err
 	}
 	err = s.SaveFile(b.Table, template, "", 1)
 
-	// gen html
-	template, err = s.FileFactory(b, 2)
-	if err != nil {
-		return err
-	}
-	err = s.SaveFile(b.Table, template, b.Category, 2)
+	//// gen html
+	//template, err = s.fileFactory(b, 2)
+	//if err != nil {
+	//	return err
+	//}
+	//err = s.SaveFile(b.Table, template, b.Category, 2)
+
+	// gen api
+	s.genApi(ctx, b.Category, b.StructName)
 	return nil
 }
 
-// FileFactory  t 0:controller 1:cmd 2:html
-func (s gen) FileFactory(b *bo.GenCodeInfo, t int) (string, error) {
+// fileFactory  t 0:controller 1:cmd 2:html
+func (s gen) fileFactory(b *bo.GenCodeInfo, t int) (string, error) {
 	switch t {
 	case 0: // controller
-		return s.MakeControllerStr(b)
+		return s.makeControllerStr(b)
 	case 1: // cmd
-		return s.MakeCmdStr(b)
+		return s.makeCmdStr(b)
 	case 2: // html
-		return s.MakeHtmlStr(b)
+		return s.makeHtmlStr(b)
 	}
 	return "", nil
 
 }
-func (s *gen) MakeControllerStr(b *bo.GenCodeInfo) (string, error) {
+func (s *gen) makeControllerStr(b *bo.GenCodeInfo) (string, error) {
 	filePath := fmt.Sprintf("%s/manifest/gen_code_template/controller.text", gfile.MainPkgPath())
 	template := gfile.GetContents(filePath)
 	// set modName
@@ -565,7 +569,7 @@ func (s *gen) MakeControllerStr(b *bo.GenCodeInfo) (string, error) {
 	template = strings.ReplaceAll(template, "[Tables]", manyTable)
 	return template, nil
 }
-func (s *gen) MakeCmdStr(b *bo.GenCodeInfo) (string, error) {
+func (s *gen) makeCmdStr(b *bo.GenCodeInfo) (string, error) {
 	filePath := fmt.Sprintf("%s/manifest/gen_code_template/cmd.text", gfile.MainPkgPath())
 	template := gfile.GetContents(filePath)
 	// set structName
@@ -573,7 +577,7 @@ func (s *gen) MakeCmdStr(b *bo.GenCodeInfo) (string, error) {
 	template = strings.ReplaceAll(template, "Menu", gstr.CaseCamel(b.StructName))
 	return template, nil
 }
-func (s *gen) MakeHtmlStr(b *bo.GenCodeInfo) (string, error) {
+func (s *gen) makeHtmlStr(b *bo.GenCodeInfo) (string, error) {
 	filePath := fmt.Sprintf("%s/manifest/gen_code_template/menu.html", gfile.MainPkgPath())
 	template := gfile.GetContents(filePath)
 	// set [desc]
@@ -698,6 +702,28 @@ func (s *gen) SaveFile(fileName string, fileStr string, category string, t int) 
 	case 2: // html
 		p := fmt.Sprintf("%s/resource/template/%s/%s.html", gfile.MainPkgPath(), category, fileName)
 		return gfile.PutContents(p, fileStr)
+	}
+	return nil
+}
+
+func (s *gen) genApi(ctx context.Context, category string, name string) error {
+	name = gstr.CaseCamelLower(name)
+	array := []*entity.Api{
+		{Url: fmt.Sprintf("/%s/del", name), Method: "DELETE", Group: category, Desc: fmt.Sprintf("删除%s", name), Status: 1},
+		{Url: fmt.Sprintf("/%s/post", name), Method: "POST", Group: category, Desc: fmt.Sprintf("添加%s", name), Status: 1},
+		{Url: fmt.Sprintf("/%s/put", name), Method: "PUT", Group: category, Desc: fmt.Sprintf("修改%s", name), Status: 1},
+	}
+	for _, i := range array {
+		count, err := dao.Api.Ctx(ctx).Count("url", i.Url)
+		if err != nil {
+			return err
+		}
+		if count != 0 {
+			continue
+		}
+		if _, err = dao.Api.Ctx(ctx).Insert(i); err != nil {
+			return err
+		}
 	}
 	return nil
 }
