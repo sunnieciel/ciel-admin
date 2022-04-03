@@ -114,7 +114,12 @@
 
     function uploadFile() {
         let data = getFiles();
-        data.append("group", $('.details input[name="group"]').val())
+        let g = $('.details select[name="group"]').val()
+        if (g == null) {
+            noticeWarning('请选择分组')
+            return
+        }
+        data.append("group", g)
         $.ajax({
             url: '/file/upload',
             type: 'post',

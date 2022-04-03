@@ -38,11 +38,7 @@
                             <td v-text="item.id"></td>
                             <td v-text="item.uname"></td>
                             <td>
-                                <el-tag v-if="item.rid==1" type="danger">超级管理员</el-tag>
-                                <el-tag v-else-if="item.rid==2" type="warning">管理员</el-tag>
-                                <el-tag v-else-if="item.rid==18" type="warning">代理</el-tag>
-                                <el-tag v-else-if="item.rid==19" type="warning">财务</el-tag>
-                                <el-tag v-else>其他</el-tag>
+                                <el-tag v-text="item.role_name"></el-tag>
                             </td>
                             <td>
                                 <el-tag v-if="item.status==1">启用</el-tag>
@@ -74,8 +70,7 @@
             </ul>
             <ul>
                 <li><label class="input">角色<select name="rid" v-model="details.rid">
-                    <option value="1">超级管理员</option>
-                    <option value="2">管理员</option>
+                    <option v-for="i in roles" :value="i.id" v-text="i.name"></option>
                 </select></label></li>
                 <li>
                     <label class="input">状态<select v-model="details.status">
@@ -111,6 +106,7 @@
                 page: {name: "Admin", desc: "这里是Admin管理页面,可以对菜单进行添加,修改,删除等操作。", urlPrefix: '/admin',},
                 menus: JSON.parse(localStorage.getItem('menus')),
                 dark: Cookies.get('dark'),
+                roles: []
             }
         },
         watch: {
@@ -120,6 +116,7 @@
         },
         created() {
             this.getList();
+            this.listRoles()
         },
         methods: {
             setDark() {
@@ -176,6 +173,11 @@
                     let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
                     this.details = res.data
                 }
+            },
+            async listRoles() {
+                let res = await $.get(`/role/roles`)
+                this.roles = res.data
+                console.log(this.roles)
             },
         }
     })

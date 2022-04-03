@@ -458,7 +458,8 @@ li {
       text-align: right; }
       .details ul li label {
         min-width: 224px;
-        display: inline-block; }
+        display: inline-block;
+        text-align: -webkit-right; }
       .details ul li input {
         width: 136px; }
       .details ul li select {

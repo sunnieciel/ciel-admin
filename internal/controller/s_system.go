@@ -245,6 +245,14 @@ func (c *role) Path(r *ghttp.Request) {
 	res.Page(r, "/sys/role.html", g.Map{"icon": icon})
 }
 
+func (c *role) Roles(r *ghttp.Request) {
+	data, err := service.Role().Roles(r.Context())
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(data, r)
+}
+
 // ---roleApi-------------------------------------------------------------------
 
 var RoleApi = &roleApi{SearchConf: &config.SearchConf{
@@ -367,15 +375,13 @@ var Admin = &admin{
 	SearchConf: &config.SearchConf{
 		PageUrl:      "/admin/list",
 		T1:           "s_admin",
-		SearchFields: "id,rid,uname,status,created_at,updated_at",
+		T2:           "s_role t2 on t1.rid = t2.id",
+		SearchFields: "t1.id,t1.rid,t1.uname,t1.status,t1.created_at,t1.updated_at,t2.name role_name",
 		Fields: []*config.Field{
 			{Field: "id"},
 			{Field: "uname", Like: true},
-			{Field: "pwd"},
 			{Field: "rid"},
 			{Field: "status"},
-			{Field: "created_at"},
-			{Field: "updated_at"},
 		},
 	}}
 

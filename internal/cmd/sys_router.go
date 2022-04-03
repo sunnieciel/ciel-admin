@@ -35,6 +35,7 @@ func registerSysRouter(s *ghttp.Server) {
 		g.GET("/path", controller.Role.Path)
 		g.GET("/list", controller.Role.List)
 		g.GET("/getById", controller.Role.GetById)
+		g.GET("/roles", controller.Role.Roles) // select all role info
 		g.DELETE("/del", controller.Role.Del)
 		g.GET("/nomenus", controller.RoleMenu.RoleNoMenus)
 		g.GET("/noapis", controller.RoleMenu.RoleNoApis)
@@ -105,7 +106,6 @@ func registerSysRouter(s *ghttp.Server) {
 		g.Middleware(service.Middleware().AuthAdmin)
 		g.GET("/fetch", controller.Rss.Fetch)
 	})
-
 	s.Group("/user", func(g *ghttp.RouterGroup) {
 		g.Middleware(service.Middleware().AuthAdmin)
 		g.GET("/path", controller.User.Path)

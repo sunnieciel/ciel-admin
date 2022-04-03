@@ -230,6 +230,14 @@ func (s *role) Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) 
 	return d, err
 }
 
+func (s *role) Roles(ctx context.Context) (gdb.Result, error) {
+	all, err := dao.Role.Ctx(ctx).All()
+	if err != nil {
+		return nil, err
+	}
+	return all, nil
+}
+
 // ---session ------------------------------------------------------------
 
 func Session() *session { return &session{} }
