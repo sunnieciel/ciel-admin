@@ -53,7 +53,7 @@ gfcli:
 
 添加 `u_user,u_login_log` 和`removePrefix: "u_"`
 
-### step3 项目根目录下是所有 gf 工具生成这两张表的相关代码
+### step3 项目根目录下是使用 gf 工具生成这两张表的相关代码
 
 ```yaml
 gf gen dao
