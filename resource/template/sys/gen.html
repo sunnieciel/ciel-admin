@@ -39,11 +39,11 @@
                     <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
                         <tbody>
                         <tr>
+                            <th width="80">排序</th>
                             <th width="30">字段</th>
                             <th width="30">标题</th>
                             <th width="80">Comment</th>
                             <th width="80">查询请求字段</th>
-                            <th width="80">排序</th>
                             <th width="80">查询类型</th>
                             <th width="190">操作</th>
                         </tr>
@@ -96,20 +96,13 @@
     <el-dialog v-model="fieldDetailsVisible" title="字段详情" width="32%">
         <div class="details">
             <ul>
-                <li><label class="input">标题 <input v-model="fieldDetails.Title"></label></li>
                 <li><label class="input">字段 <input v-model="fieldDetails.Name"></label></li>
-                <li><label class="input">详情备注 <input v-model="fieldDetails.Comment"></label></li>
                 <li><label class="input">排序 <input type="number" step="0.01" v-model="fieldDetails.sort"></label></li>
+                <li><label class="input">标题 <input v-model="fieldDetails.Title"></label></li>
+                <li><label class="input">详情备注 <input v-model="fieldDetails.Comment"></label></li>
                 <li><label class="input" title="当关联多表查询时，该值应该为数据库查询时 as 的值 eg: select t1.*,t2.ip login_ip from u_user t1 left join u_login_log t2 on t1.id = t2.uid. 该值就应该为 login_ip">查询请求字段 <input v-model="fieldDetails.QueryField"></label></li>
             </ul>
             <ul>
-                <li>
-                    <label class="input">编辑详情类型<select v-model="fieldDetails.DetailsType">
-                        <option :value="'show'">展示</option>
-                        <option :value="'no-show'">不展示</option>
-                        <option :value="'disabled'">禁用(Disabled)</option>
-                    </select></label>
-                </li>
                 <li>
                     <label class="input">查询类型<select v-model="fieldDetails.SearchType">
                         <option :value="">不查询</option>
@@ -122,6 +115,14 @@
                         <option :value="'in'">in</option>
                     </select></label>
                 </li>
+                <li>
+                    <label class="input">编辑详情类型<select v-model="fieldDetails.DetailsType">
+                        <option :value="'show'">展示</option>
+                        <option :value="'no-show'">不展示</option>
+                        <option :value="'disabled'">禁用(Disabled)</option>
+                    </select></label>
+                </li>
+
             </ul>
         </div>
         <template #footer>

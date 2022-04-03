@@ -14,7 +14,6 @@ import (
 	"strings"
 )
 
-//  ---sSystem ------------------------------------------------------------
 type sSystem struct{}
 
 func (s *sSystem) Icon(ctx context.Context, path string) (string, error) {

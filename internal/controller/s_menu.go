@@ -10,6 +10,20 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
+type menu struct {
+	*config.SearchConf
+}
+
+var Menu = &menu{SearchConf: &config.SearchConf{
+	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
+	Fields: []*config.Field{
+		{Field: "pid"},
+		{Field: "status"},
+		{Field: "name", Like: true},
+		{Field: "path", Like: true},
+	},
+}}
+
 func (c *menu) Path(r *ghttp.Request) {
 	icon, err := service.System().Icon(r.Context(), r.URL.Path)
 	if err != nil {
@@ -60,17 +74,3 @@ func (c *menu) Del(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-
-type menu struct {
-	*config.SearchConf
-}
-
-var Menu = &menu{SearchConf: &config.SearchConf{
-	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
-	Fields: []*config.Field{
-		{Field: "pid"},
-		{Field: "status"},
-		{Field: "name", Like: true},
-		{Field: "path", Like: true},
-	},
-}}

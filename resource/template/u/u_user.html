@@ -18,9 +18,9 @@
                     </div>
                     <div id="search" class="box-action">
                         <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
-                        <label class='input'>id<input type='text'  v-model='search.id' autocomplete='off' @keyup.enter='getList()'></label> 
- <label class='input'>uname<input type='text'  v-model='search.uname' autocomplete='off' @keyup.enter='getList()'></label> 
- <label class='input'>login_ip<input type='text'  v-model='search.login_ip' autocomplete='off' @keyup.enter='getList()'></label> 
+                        <label class='input'>id<input type='text' v-model='search.id' autocomplete='off' @keyup.enter='getList()'></label>
+                        <label class='input'>uname<input type='text' v-model='search.uname' autocomplete='off' @keyup.enter='getList()'></label>
+                        <label class='input'>login_ip<input type='text' v-model='search.login_ip' autocomplete='off' @keyup.enter='getList()'></label>
 
                     </div>
                 </div>
@@ -28,24 +28,24 @@
                     <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
                         <tbody>
                         <tr>
-                                             <th width='30'>id</th>
-                  <th width='80'>uname</th>
-                  <th width='80'>nickname</th>
-                  <th width='80'>email</th>
-                  <th width='80'>login_ip</th>
-                  <th width='120'>created_at</th>
-                  <th width='120'>updated_at</th>
+                            <th width='30'>id</th>
+                            <th width='80'>uname</th>
+                            <th width='80'>nickname</th>
+                            <th width='80'>email</th>
+                            <th width='80'>login_ip</th>
+                            <th width='120'>created_at</th>
+                            <th width='120'>updated_at</th>
 
                             <th width="190">操作</th>
                         </tr>
                         <tr v-for="item in list">
-                                               <td v-text='item.id'>
-                    <td v-text='item.uname'>
-                    <td v-text='item.nickname'>
-                    <td v-text='item.email'>
-                    <td v-text='item.login_ip'>
-                    <td v-text='item.created_at'>
-                    <td v-text='item.updated_at'>
+                            <td v-text='item.id'>
+                            <td v-text='item.uname'>
+                            <td v-text='item.nickname'>
+                            <td v-text='item.email'>
+                            <td v-text='item.login_ip'>
+                            <td v-text='item.created_at'>
+                            <td v-text='item.updated_at'>
 
                             <td class="table-action">
                                 <el-button-group>
@@ -65,9 +65,9 @@
     <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
         <div class="details">
             <ul>
-                                <li><label class='input'>uname<input v-model='details.uname' disabled></label></li>
-                <li><label class='input'>nickname<input v-model='details.nickname' ></label></li>
-                <li><label class='input'>email<input v-model='details.email' ></label></li>
+                <li><label class='input'>uname<input v-model='details.uname' disabled></label></li>
+                <li><label class='input'>nickname<input v-model='details.nickname'></label></li>
+                <li><label class='input'>email<input v-model='details.email'></label></li>
 
             </ul>
         </div>
