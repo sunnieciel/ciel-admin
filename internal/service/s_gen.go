@@ -34,11 +34,9 @@ func (s *gen) Fields(ctx context.Context, tableName string) (map[string]*gdb.Tab
 	}
 	return fields, nil
 }
-
 func (s gen) Tables(ctx context.Context) ([]string, error) {
 	return g.DB().Tables(ctx)
 }
-
 func (s *gen) GenCode(ctx context.Context, b *bo.GenCodeInfo) error {
 	// gen controller
 	template, err := s.FileFactory(b, 0)
@@ -76,7 +74,6 @@ func (s gen) FileFactory(b *bo.GenCodeInfo, t int) (string, error) {
 	return "", nil
 
 }
-
 func (s *gen) MakeControllerStr(b *bo.GenCodeInfo) (string, error) {
 	path := fmt.Sprintf("%s/manifest/gen_code_template/controller.text", gfile.MainPkgPath())
 	template := gfile.GetContents(path)
@@ -256,7 +253,6 @@ func (s *gen) MakeHtmlStr(b *bo.GenCodeInfo) (string, error) {
 	template = strings.ReplaceAll(template, `<li><label class="input">名称<input v-model="details.name"></label></li>`, details)
 	return template, nil
 }
-
 func (s *gen) SaveFile(fileName string, fileStr string, category string, t int) error {
 	switch t {
 	case 0: // controller
