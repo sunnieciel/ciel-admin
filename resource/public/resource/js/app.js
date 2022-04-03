@@ -86,10 +86,6 @@ function updatePwd() {
     });
 }
 
-
-
-
-
 // 添加默认选中
 $("#secondary-tabs a").hide()
 let current = $("a[href='" + location.pathname + "']");
