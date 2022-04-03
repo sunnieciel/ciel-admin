@@ -7,9 +7,14 @@ import (
 
 type Field struct {
 	Field      string
-	QueryFiled string
+	QueryField string
 	Value      interface{}
 	Like       bool // 是否模糊搜索
+	GT         bool // >
+	GTE        bool // >=
+	LT         bool // <
+	LTE        bool // <=
+	In         bool // in
 }
 
 type SearchConf struct {
@@ -31,10 +36,10 @@ func (s *SearchConf) FilterConditions(ctx context.Context) []*Field {
 	request := g.RequestFromCtx(ctx)
 	data := make([]*Field, 0)
 	for _, field := range s.Fields {
-		if field.QueryFiled == "" {
-			field.QueryFiled = field.Field
+		if field.QueryField == "" {
+			field.QueryField = field.Field
 		}
-		field.Value = request.GetQuery(field.QueryFiled)
+		field.Value = request.GetQuery(field.QueryField)
 		data = append(data, field)
 	}
 	return data

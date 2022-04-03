@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/app/meta.html" .}}
+    <title>[Menu]</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                {{include "/app/nav.html" .}}
+                <div class="box" id="page-title">
+                    <div class="box-title">
+                        {{include "/app/box_title.html" .}}
+                    </div>
+                    <div id="search" class="box-action">
+                        <el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                       [<label class="input">PID<input type="text" name="pid" v-model="search.pid" autocomplete="off" @keyup.enter="getList()"></label>]
+                    </div>
+                </div>
+                <div class="box" id="data">
+                    <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
+                        <tbody>
+                        <tr>
+                           [<th width="30">ID</th>]
+                            <th width="190">操作</th>
+                        </tr>
+                        <tr v-for="item in list">
+                           [<td v-text="item.id">]
+                            <td class="table-action">
+                                <el-button-group>
+                                    <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
+                                    <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
+                                </el-button-group>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {{include "/app/pagination.html" .}}
+                </div>
+                {{include "/app/nav_bottom.html" .}}
+            </div>
+        </div>
+    </div>
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
+        <div class="details">
+            <ul>
+                <li><label class="input">名称<input v-model="details.name"></label></li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="onSubmit()" size="small" plain>提交</el-button>
+            </div>
+        </template>
+    </el-dialog>
+    {{include "/app/footer.html" .}}
+</div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                showType: 0, // 0 main 1 add 2update
+                detailsVisible: false, detailsTitle: '', details: {status: ''},
+                list: [], loading: false, total: 0, search: {page: 1, size: 15, status: ''},
+                menus: JSON.parse(localStorage.getItem('menus')), dark: Cookies.get('dark'),
+                page: {name: "[Menu]", desc: "[desc]", urlPrefix: '/[menu]'},
+            }
+        },
+        created() {
+            this.getList();
+        },
+        watch: {
+            dark() {
+                location.reload()
+            }
+        },
+        methods: {
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
+            sizeChange(size) {
+                this.search.size = size;
+                this.getList();
+            },
+            async getList(page) {
+                this.search.page = page;
+                this.loading = true;
+                let res = await $.get(`${this.page.urlPrefix}/list`, this.search);
+                const {currPage, totalCount, list} = res.data;
+                this.search.page = currPage;
+                this.total = totalCount
+                this.list = list;
+                this.loading = false
+            },
+            async del(id) {
+                if (confirm("确定删除？")) {
+                    let res = await $.delete(`${this.page.urlPrefix}/del?id=` + id);
+                    if (res.code === 0) {
+                        await this.getList()
+                        noticeOk('Success')
+                        this.detailsVisible = false
+                    } else {
+                        noticeError(res.msg)
+                    }
+                }
+            },
+            async onSubmit() {
+                let res = {}
+                if (this.showType == 1) {
+                    res = await $.post(`${this.page.urlPrefix}/post`, this.details)
+                } else {
+                    res = await $.put(`${this.page.urlPrefix}/put`, this.details)
+                }
+                if (res.code === 0) {
+                    noticeOk('Success')
+                    this.detailsVisible = false
+                    await this.getList()
+                } else {
+                    noticeError(res.msg)
+                }
+            },
+            async showDetails(type, id) {
+                this.detailsVisible = true
+                this.showType = type
+                this.details = {status: 1, type: 1}
+                this.detailsTitle = '添加操作'
+                if (this.showType == 2) {
+                    this.detailsTitle = '修改操作'
+                    let res = await $.get(`${this.page.urlPrefix}/getById?id=` + id)
+                    this.details = res.data
+                }
+            },
+        }
+    })
+    app.config.warnHandler = () => null
+    app.use(ElementPlus)
+    app.mount('#app')
+</script>
+</html>

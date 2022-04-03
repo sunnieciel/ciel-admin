@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/app/meta.html" .}}
+    <title>Menu</title>
+    <style>
+        .temp li label input {
+            width: 320px;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    {{include "/app/top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div id="main">
+                {{include "/app/nav.html" .}}
+                <div class="box" id="page-title">
+                    <div class="box-title">
+                        {{include "/app/box_title.html" .}}
+                    </div>
+                    <div id="search" class="box-action">
+                        <el-button type="primary" plain size="small" @click="showDetails(1)">数据表</el-button>
+                        <label class="input" title="请输入英文的模块名称">模块分类<input type="text" v-model="genCodeData.category" autocomplete="off" @keyup.enter="getList()"></label>
+                        <label class="input" title="页面展示名称">页面名称<input type="text" v-model="genCodeData.title" autocomplete="off" @keyup.enter="getList()"></label>
+                        <label class="input">页面简介<input type="text" v-model="genCodeData.desc" autocomplete="off" @keyup.enter="getList()"></label>
+                        <label class="input" title="">结构体名称<input type="text" v-model="genCodeData.structName" autocomplete="off" @keyup.enter="getList()"></label>
+                        <el-button
+                                title="设置 查询字段，排序字段，T2,T3,T4,T5,T6"
+                                type="info" plain size="small" @click="moreGenDataVisible = true">更多配置
+                        </el-button>
+                        <el-button type="info" plain size="small" @click="addField()">添加一行</el-button>
+                        <el-button type="warning" plain size="small" @click="onGen()">生成</el-button>
+                    </div>
+                </div>
+                <div class="box" id="data">
+                    <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
+                        <tbody>
+                        <tr>
+                            <th width="30">字段</th>
+                            <th width="30">标题</th>
+                            <th width="80">Comment</th>
+                            <th width="80">查询请求字段</th>
+                            <th width="80">排序</th>
+                            <th width="80">查询类型</th>
+                            <th width="190">操作</th>
+                        </tr>
+                        <tr v-for="item in fields">
+                            <td v-text="item.Name">
+                            <td v-text="item.Title">
+                            <td v-text="item.Comment">
+                            <td v-text="item.QueryField">
+                            <td v-text="item.sort">
+                            <td>
+                                <e-tag v-if="item.SearchType" type="info" v-text="item.SearchType"></e-tag>
+                                <el-tag v-else type="info">不查询</el-tag>
+                            </td>
+                            <td class="table-action">
+                                <el-button-group>
+                                    <el-button type="primary" plain size="small" @click="showFieldDetails(item)">编辑</el-button>
+                                    <el-button type="success" plain size="small" @click="del(item)">删除</el-button>
+                                </el-button-group>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                {{include "/app/nav_bottom.html" .}}
+            </div>
+
+        </div>
+    </div>
+    <!--    Select Fields Visible-->
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="20%">
+        <div class="details">
+            <ul>
+                <li>
+                    <label class="input">数据表<select v-model="details.table">
+                        <option value="">请选择</option>
+                        <option v-for="i in tables" :label="i" :value="i"></option>
+                    </select></label>
+                </li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="onSelectFileds()" size="small" plain>查询字段</el-button>
+            </div>
+        </template>
+    </el-dialog>
+    <!--    fieldDetailsVisible-->
+    <el-dialog v-model="fieldDetailsVisible" title="字段详情" width="32%">
+        <div class="details">
+            <ul>
+                <li><label class="input">标题 <input v-model="fieldDetails.Title"></label></li>
+                <li><label class="input">字段 <input v-model="fieldDetails.Name"></label></li>
+                <li><label class="input">详情备注 <input v-model="fieldDetails.Comment"></label></li>
+                <li><label class="input">排序 <input type="number" step="0.01" v-model="fieldDetails.sort"></label></li>
+                <li><label class="input" title="当关联多表查询时，该值应该为数据库查询时 as 的值 eg: select t1.*,t2.ip login_ip from u_user t1 left join u_login_log t2 on t1.id = t2.uid. 该值就应该为 login_ip">查询请求字段 <input v-model="fieldDetails.QueryField"></label></li>
+            </ul>
+            <ul>
+                <li>
+                    <label class="input">编辑详情类型<select v-model="fieldDetails.DetailsType">
+                        <option :value="'show'">展示</option>
+                        <option :value="'no-show'">不展示</option>
+                        <option :value="'disabled'">禁用(Disabled)</option>
+                    </select></label>
+                </li>
+                <li>
+                    <label class="input">查询类型<select v-model="fieldDetails.SearchType">
+                        <option :value="">不查询</option>
+                        <option :value="'='">=</option>
+                        <option :value="'like'">Like</option>
+                        <option :value="'>'">></option>
+                        <option :value="'<'"><</option>
+                        <option :value="'>='">>=</option>
+                        <option :value="'<='"><=</option>
+                        <option :value="'in'">in</option>
+                    </select></label>
+                </li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="fieldDetailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="udpateField()" size="small" plain>修改</el-button>
+            </div>
+        </template>
+    </el-dialog>
+
+    <el-dialog v-model="moreGenDataVisible" title="更多配置" width="26%">
+        <div class="details">
+            <ul class="temp">
+                <li><label class="input">模块分类 <input v-model="genCodeData.category"></label></li>
+                <li><label class="input">页面名称 <input v-model="genCodeData.title"></label></li>
+                <li><label class="input">页面简介 <input v-model="genCodeData.desc"></label></li>
+                <li><label class="input">结构体名称 <input v-model="genCodeData.structName"></label></li>
+                <li><label class="input">T1 <input v-model="genCodeData.table"></label></li>
+                <li><label class="input">T2 <input v-model="genCodeData.t2"></label></li>
+                <li><label class="input">T3 <input v-model="genCodeData.t3"></label></li>
+                <li><label class="input">T4 <input v-model="genCodeData.t4"></label></li>
+                <li><label class="input">T5 <input v-model="genCodeData.t5"></label></li>
+                <li><label class="input">T6 <input v-model="genCodeData.t6"></label></li>
+                <li><label class="input">查询字段<input v-model="genCodeData.QueryField"></label></li>
+                <li><label class="input">排序规则 <input v-model="genCodeData.OrderBy"></label></li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="moreGenDataVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="moreGenDataVisible = false" size="small" plain>确定</el-button>
+            </div>
+        </template>
+    </el-dialog>
+    {{include "/app/footer.html" .}}
+</div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                showType: 0, // 0 main 1 add 2update
+                detailsVisible: false, detailsTitle: '', details: {table: ''},
+                list: [], loading: false,
+                menus: JSON.parse(localStorage.getItem('menus')), dark: Cookies.get('dark'),
+                page: {name: "代码生成", desc: "这里是代码生成页面。"},
+                tables: [],
+                fields: [],
+                fieldDetails: [],
+                fieldDetailsVisible: false,
+                genCodeData: {},
+                moreGenDataVisible: false
+            }
+        },
+        created() {
+            this.getList();
+        },
+        watch: {
+            dark() { // dark 变动后刷新一下从服务获取dark的css
+                location.reload()
+            },
+            fields: {
+                handler(val) {
+                    this.fields = val.sort((a, b) => a.sort - b.sort);
+                },
+                deep: true
+            }
+        },
+        methods: {
+            addField() {
+                this.fields.push({
+                    name: '',
+                    type: '',
+                    desc: '',
+                    sort: 0
+                });
+            },
+            async onGen() {
+                this.genCodeData.fields = this.fields
+                let res = await $.post('/gen/genCode', this.genCodeData);
+                if (res.code != 0) {
+                    noticeError(res.msg)
+                    return;
+                }
+                noticeOk('生成成功')
+            },
+            del(i) {
+                this.fields.map((item, index) => {
+                    if (item.Name == i.Name) {
+                        this.fields.splice(index, 1);
+                    }
+                })
+            },
+
+            // 修改字段
+            udpateField() {
+                for (let i = 0; i < this.fields.length; i++) {
+                    let stemp = this.fields[i];
+                    if (stemp.Name == this.fieldDetails.Name) {
+                        this.fields[i] = this.fieldDetails;
+                    }
+                }
+                this.fieldDetailsVisible = false;
+            },
+            showFieldDetails(item) {
+                this.fieldDetails = item
+                if (!item.Select) {
+                    this.fieldDetails.Select = 2
+                }
+                this.fieldDetailsVisible = true
+            },
+            setDark() {
+                Cookies.set('dark', this.dark);
+            },
+            async showDetails() {
+                this.detailsVisible = true
+                this.detailsTitle = '添加操作'
+
+            },
+            async onSelectFileds() {
+                let t = this.details.table;
+                let category = t.substring(0, t.indexOf('_'));
+                let structName = t.substring(t.indexOf('_') + 1);
+                this.genCodeData.table = this.details.table
+                this.genCodeData.title = this.details.table
+                this.genCodeData.category = category
+                this.genCodeData.structName = structName
+                this.genCodeData.desc = `这里是${this.details.table}页面可以对数据进行相应的操作。`
+                let res = await $.get("/gen/fields?table=" + this.details.table)
+                if (res.code != 0) {
+                    noticeWarning(res.msg)
+                    return
+                }
+                this.fields = []
+                let sort = 10
+                for (let i in res.data) {
+                    let d = res.data;
+                    d[i].sort = sort
+                    d[i].Title = d[i].Name
+                    this.fields.push(d[i])
+                    sort++
+                }
+                this.detailsVisible = false
+            },
+            async getList() {
+                this.loading = true;
+                let res = await $.get(`/gen/tables`);
+                this.tables = res.data
+                this.loading = false
+            },
+        }
+    })
+    app.config.warnHandler = () => null
+    app.use(ElementPlus)
+    app.mount('#app')
+</script>
+</html>

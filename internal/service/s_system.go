@@ -20,10 +20,10 @@ type sSystem struct{}
 func (s *sSystem) Icon(ctx context.Context, path string) (string, error) {
 	menu, err := dao.Menu.GetByPath(ctx, path)
 	if err != nil {
-		return "", err
+		return "", nil
 	}
 	if menu.Icon == "" {
-		return "", err
+		return "", nil
 	}
 	return consts.ImgPrefix + menu.Icon, err
 }

@@ -10,20 +10,13 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-type menu struct {
-	*config.SearchConf
+func (c *menu) Path(r *ghttp.Request) {
+	icon, err := service.System().Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/menu.html", g.Map{"icon": icon})
 }
-
-var Menu = &menu{SearchConf: &config.SearchConf{
-	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
-	Fields: []*config.Field{
-		{Field: "pid"},
-		{Field: "status"},
-		{Field: "name", Like: true},
-		{Field: "path", Like: true},
-	},
-}}
-
 func (c *menu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -67,10 +60,17 @@ func (c *menu) Del(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *menu) Path(r *ghttp.Request) {
-	icon, err := service.System().Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/menu.html", g.Map{"icon": icon})
+
+type menu struct {
+	*config.SearchConf
 }
+
+var Menu = &menu{SearchConf: &config.SearchConf{
+	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
+	Fields: []*config.Field{
+		{Field: "pid"},
+		{Field: "status"},
+		{Field: "name", Like: true},
+		{Field: "path", Like: true},
+	},
+}}

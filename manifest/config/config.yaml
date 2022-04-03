@@ -5,9 +5,10 @@ server:
   serverRoot: "resource/public"
   dumpRouterMap: true
   routeOverWrite: true
-  jwtExpireDuration: "7D"
-  imgPrefix: "http://localhost:1211/upload/"
-  rootFilePath: "/resource/public/upload/"
+  jwtExpireDuration: "7D" # 7 days
+  imgPrefix: "http://localhost:1211/upload/" # 图片前缀
+  rootFilePath: "/resource/public/upload/"  # 文件上传路径
+  modName: "ciel-admin"  # 生成文件时使用
 
 logger:
   path: "logs/default"
@@ -40,11 +41,11 @@ gfcli:
     dao:
       - link: "mysql:ciel_begin:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel_begin"
         tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_file,
-        e_node_item,e_node_sub_category,e_node_category"
-        removePrefix: "s_,e_"
+        u_user,u_login_log
+        "
+        removePrefix: "s_,u_"
         descriptionTag: true
         noModelComment: true
-
 rss:
   - "V2EX:/"
   - "Github:/sys/path/github"

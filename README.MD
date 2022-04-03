@@ -83,3 +83,7 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 - Vue3: https://vuejs.org/
 - element-plus  https://element-plus.org/
 - Jquery: https://www.runoob.com/jquery/jquery-tutorial.html
+
+## 使用说明
+
+- [多表查询CURD代码生成](./documents/gen_curd.md)

@@ -24,8 +24,6 @@ var Dict = &dict{SearchConf: &config.SearchConf{
 		{Field: "group"},
 		{Field: "type"},
 		{Field: "status"},
-		{Field: "created_at"},
-		{Field: "updated_at"},
 	},
 }}
 

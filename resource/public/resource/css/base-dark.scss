@@ -678,6 +678,11 @@ li {
       padding-left: 6px;
       text-align: right;
 
+      label {
+        min-width: 224px;
+        display: inline-block;
+      }
+
       input {
         width: 136px;
       }

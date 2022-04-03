@@ -20,7 +20,7 @@ var RoleApi = &roleApi{SearchConf: &config.SearchConf{
 		{Field: "id"},
 		{Field: "rid"},
 		{Field: "aid"},
-		{Field: "t2.name", QueryFiled: "r_name"},
+		{Field: "t2.name", QueryField: "r_name"},
 		{Field: "t3.url"},
 	},
 }}

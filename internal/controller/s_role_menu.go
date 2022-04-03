@@ -22,9 +22,9 @@ var RoleMenu = &roleMenu{SearchConf: &config.SearchConf{
 	Fields: []*config.Field{
 		{Field: "id"},
 		{Field: "rid"},
-		{Field: "t2.name", QueryFiled: "role_name", Like: true},
+		{Field: "t2.name", QueryField: "role_name", Like: true},
 		{Field: "mid"},
-		{Field: "t3.name", QueryFiled: "menu_name"},
+		{Field: "t3.name", QueryField: "menu_name"},
 	},
 }}
 

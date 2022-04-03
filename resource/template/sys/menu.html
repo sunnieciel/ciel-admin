@@ -120,17 +120,16 @@
             return {
                 showType: 0, // 0 main 1 add 2update
                 detailsVisible: false, detailsTitle: '', details: {status: ''},
-                page: {name: "Menu", desc: "这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。", urlPrefix: '/menu'},
                 list: [], loading: false, total: 0, search: {page: 1, size: 15, status: ''},
-                menus: JSON.parse(localStorage.getItem('menus')),
-                dark: Cookies.get('dark'),
+                menus: JSON.parse(localStorage.getItem('menus')), dark: Cookies.get('dark'),
+                page: {name: "Menu", desc: "这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。", urlPrefix: '/menu'},
             }
         },
         created() {
             this.getList();
         },
         watch: {
-            dark() { // dark 变动后刷新一下从服务获取dark的css
+            dark() {
                 location.reload()
             }
         },
