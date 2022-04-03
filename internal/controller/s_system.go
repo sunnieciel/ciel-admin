@@ -611,7 +611,7 @@ func (c *file) Del(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	p := gfile.Pwd() + path.String() + "/" + f.Url
-	if gfile.Exists(p) {
+	if gfile.Exists(p) && gfile.IsFile(p) {
 		_ = gfile.Remove(p)
 	}
 	if err := service.System().Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
