@@ -27,6 +27,7 @@ type (
 	roleMenu struct{ *config.SearchConf }
 	dict     struct{ *config.SearchConf }
 	file     struct{ *config.SearchConf }
+	menu     struct{ *config.SearchConf }
 )
 
 var (
@@ -58,68 +59,64 @@ func (s sys) Douban(r *ghttp.Request) {
 	res.Page(r, "/sys/rss/douban.html", g.Map{"icon": "/resource/image/github.png"})
 }
 
-// ---Rss-------------------------------------------------------------------
+// ---Menu-------------------------------------------------------------------
 
-func (c rss) Fetch(r *ghttp.Request) {
-	data, err := service.Rss().Feftch(r.Context(), r.GetQuery("url").String())
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
+var Menu = &menu{SearchConf: &config.SearchConf{
+	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
+	Fields: []*config.Field{
+		{Field: "pid"},
+		{Field: "status"},
+		{Field: "name", Like: true},
+		{Field: "path", Like: true},
+	},
+}}
 
-// ---Gen Code-------------------------------------------------------------------
-
-func (c gen) Path(r *ghttp.Request) {
+func (c *menu) Path(r *ghttp.Request) {
 	icon, err := service.System().Icon(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/gen.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/menu.html", g.Map{"icon": icon})
 }
-func (c gen) Tables(r *ghttp.Request) {
-	data, err := service.Gen().Tables(r.Context())
+func (c *menu) List(r *ghttp.Request) {
+	page, size := res.GetPage(r)
+	c.Page = page
+	c.Size = size
+	total, data, err := service.System().List(r.Context(), c.SearchConf)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkPage(page, size, total, data, r)
+}
+func (c *menu) GetById(r *ghttp.Request) {
+	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.OkData(data, r)
 }
-func (c gen) Fields(r *ghttp.Request) {
-	var d struct {
-		Table string `v:"required#名表不能为空"`
-	}
-	err := r.Parse(&d)
-	if err != nil {
+func (c *menu) Post(r *ghttp.Request) {
+	d := entity.Menu{}
+	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	data, err := service.Gen().Fields(r.Context(), d.Table)
-	res.OkData(data, r)
+	if err := service.System().Add(r.Context(), c.T1, &d); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
 }
-func (c gen) GenCode(r *ghttp.Request) {
-	var d bo.GenCodeInfo
-	err := r.Parse(&d)
-	if err != nil {
+func (c *menu) Put(r *ghttp.Request) {
+	d := entity.Menu{}
+	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	form := r.GetForm("fields")
-	d.Fields = make([]*bo.Field, 0)
-	glog.Info(r.Context(), form)
-	for _, v := range form.Map() {
-		stemp := v.(map[string]interface{})
-		field := bo.Field{
-			Name:        gconv.String(stemp["Name"]),
-			Comment:     gconv.String(stemp["Comment"]),
-			Type:        gconv.String(stemp["Type"]),
-			SearchType:  gconv.String(stemp["SearchType"]),
-			QueryField:  gconv.String(stemp["QueryField"]),
-			Sort:        gconv.Int(stemp["sort"]),
-			DetailsType: gconv.String(stemp["DetailsType"]),
-		}
-		d.Fields = append(d.Fields, &field)
+	if err := service.System().Update(r.Context(), c.T1, d.Id, &d); err != nil {
+		res.Err(err, r)
 	}
-
-	err = service.Gen().GenCode(r.Context(), &d)
-	if err != nil {
+	res.Ok(r)
+}
+func (c *menu) Del(r *ghttp.Request) {
+	if err := service.System().Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -265,7 +262,6 @@ var RoleApi = &roleApi{SearchConf: &config.SearchConf{
 func (c *roleApi) Path(r *ghttp.Request) {
 	res.Page(r, "/sys/roleApi.html")
 }
-
 func (c *roleApi) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -625,6 +621,73 @@ func (c *file) Del(r *ghttp.Request) {
 }
 func (c *file) Upload(r *ghttp.Request) {
 	if err := service.File().Upload(r.Context(), r); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+
+// ---Rss-------------------------------------------------------------------
+
+func (c rss) Fetch(r *ghttp.Request) {
+	data, err := service.Rss().Feftch(r.Context(), r.GetQuery("url").String())
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(data, r)
+}
+
+// ---Gen Code-------------------------------------------------------------------
+
+func (c gen) Path(r *ghttp.Request) {
+	icon, err := service.System().Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/gen.html", g.Map{"icon": icon})
+}
+func (c gen) Tables(r *ghttp.Request) {
+	data, err := service.Gen().Tables(r.Context())
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(data, r)
+}
+func (c gen) Fields(r *ghttp.Request) {
+	var d struct {
+		Table string `v:"required#名表不能为空"`
+	}
+	err := r.Parse(&d)
+	if err != nil {
+		res.Err(err, r)
+	}
+	data, err := service.Gen().Fields(r.Context(), d.Table)
+	res.OkData(data, r)
+}
+func (c gen) GenCode(r *ghttp.Request) {
+	var d bo.GenCodeInfo
+	err := r.Parse(&d)
+	if err != nil {
+		res.Err(err, r)
+	}
+	form := r.GetForm("fields")
+	d.Fields = make([]*bo.Field, 0)
+	glog.Info(r.Context(), form)
+	for _, v := range form.Map() {
+		stemp := v.(map[string]interface{})
+		field := bo.Field{
+			Name:        gconv.String(stemp["Name"]),
+			Comment:     gconv.String(stemp["Comment"]),
+			Type:        gconv.String(stemp["Type"]),
+			SearchType:  gconv.String(stemp["SearchType"]),
+			QueryField:  gconv.String(stemp["QueryField"]),
+			Sort:        gconv.Int(stemp["sort"]),
+			DetailsType: gconv.String(stemp["DetailsType"]),
+		}
+		d.Fields = append(d.Fields, &field)
+	}
+
+	err = service.Gen().GenCode(r.Context(), &d)
+	if err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
