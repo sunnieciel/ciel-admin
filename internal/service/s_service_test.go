@@ -15,7 +15,6 @@ func TestFetch(t *testing.T) {
 	}
 	g.Dump(data)
 }
-
 func TestGen_GetTableInfo(t *testing.T) {
 	info, err := Gen().Fields(nil, "s_dict")
 	if err != nil {
@@ -23,7 +22,6 @@ func TestGen_GetTableInfo(t *testing.T) {
 	}
 	g.Dump(info)
 }
-
 func TestListTables(t *testing.T) {
 	ctx := context.TODO()
 	tables, err := Gen().Tables(ctx)
@@ -32,7 +30,6 @@ func TestListTables(t *testing.T) {
 	}
 	g.Dump(tables)
 }
-
 func TestGetProjectName(t *testing.T) {
 	g.Dump(fmt.Sprintf("%s/internal/controller", gfile.MainPkgPath()))
 }

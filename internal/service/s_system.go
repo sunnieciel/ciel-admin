@@ -113,8 +113,7 @@ func (s *system) List(ctx context.Context, c *config.SearchConf) (count int, dat
 	return
 }
 func (s *system) Add(ctx context.Context, table, data interface{}) error {
-	_, err := g.DB().Ctx(ctx).Model(table).Insert(data)
-	if err != nil {
+	if _, err := g.DB().Ctx(ctx).Model(table).Insert(data); err != nil {
 		glog.Error(ctx, err)
 		return err
 	}
