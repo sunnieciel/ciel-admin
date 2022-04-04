@@ -519,6 +519,11 @@ func (s *gen) saveFileFactory(fileName string, content string, category string, 
 		return gfile.PutContents(p, content)
 	case 1: // cmd
 		p := fmt.Sprintf("%s/internal/cmd/sys_router.go", gfile.MainPkgPath())
+		// 判断是否已经包含该路由了，如果是则不再添加
+		if strings.Contains(gfile.GetContents(p), content) {
+			return nil
+		}
+		// 裁剪文件
 		stat, _ := gfile.Stat(p)
 		if err := gfile.Truncate(p, (int)(stat.Size()-2)); err != nil {
 			return err

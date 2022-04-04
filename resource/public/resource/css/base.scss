@@ -264,11 +264,6 @@ li {
   }
 }
 
-
-#logo {
-  color: var(--color-main) !important;
-}
-
 #top {
   height: 44px;
   border-bottom: 1px solid rgba(0, 0, 0, .22);
@@ -316,7 +311,10 @@ li {
       }
     }
   }
+}
 
+#logo {
+  color: var(--color-main) !important;
 }
 
 #wrapper {
