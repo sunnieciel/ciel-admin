@@ -59,6 +59,8 @@
                             </td>
                             <td class="table-action">
                                 <el-button-group>
+                                    <el-button type="info" plain size="small" @click="move(item,1)">上移</el-button>
+                                    <el-button type="info" plain size="small" @click="move(item,2)">下移</el-button>
                                     <el-button type="primary" plain size="small" @click="showFieldDetails(item)">编辑</el-button>
                                     <el-button type="success" plain size="small" @click="del(item)">删除</el-button>
                                 </el-button-group>
@@ -186,12 +188,25 @@
             },
             fields: {
                 handler(val) {
-                    this.fields = val.sort((a, b) => a.sort - b.sort);
+                    // this.fields = val.sort((a, b) => a.sort - b.sort);
                 },
                 deep: true
             }
         },
         methods: {
+            // 根据type和相邻的元素交换位置
+            move(item, type) {
+                let index = this.fields.indexOf(item);
+                if (type === 1) {
+                    if (index === 0) return;
+                    this.fields.splice(index, 1);
+                    this.fields.splice(index - 1, 0, item);
+                } else {
+                    if (index === this.fields.length - 1) return;
+                    this.fields.splice(index, 1);
+                    this.fields.splice(index + 1, 0, item);
+                }
+            },
             addField() {
                 this.fields.push({
                     name: '',
