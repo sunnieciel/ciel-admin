@@ -322,7 +322,9 @@ li {
   min-height: 566px;
   background-color: var(--color-border-1);
   background-image: url("/resource/image/shadow_light.png");
-  background-repeat: repeat-x;
+  //background-image: url(//www.v2ex.com/static/img/shadow.png), url(//static.v2ex.com/tiles/grid.png);
+  background-position: 0 0, 0 50%;
+  background-repeat: repeat-x, repeat;
 
   .w {
     display: flex;
