@@ -122,6 +122,7 @@ var (
 			})
 			s.Group("/rss", func(g *ghttp.RouterGroup) {
 				g.Middleware(service.Middleware().AuthAdmin)
+				g.GET("/v2ex", controller.Rss.V2ex)
 				g.GET("/fetch", controller.Rss.Fetch)
 			})
 			go func() {

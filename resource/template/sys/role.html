@@ -39,8 +39,8 @@
                             <td v-text="item.updated_at">
                             <td class="table-action">
                                 <el-button-group>
-                                    <el-button type="success" size="small" @click="goto('/roleMenu/path?rid='+item.id)">Menu</el-button>
-                                    <el-button type="warning" size="small" @click="goto('/roleApi/path?rid='+item.id)">API</el-button>
+                                    <el-button type="success" plain size="small" @click="goto('/roleMenu/path?rid='+item.id)">Menu</el-button>
+                                    <el-button type="warning" plain size="small" @click="goto('/roleApi/path?rid='+item.id)">API</el-button>
                                     <el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>
                                     <el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>
                                 </el-button-group>

@@ -612,6 +612,15 @@ func (s *gen) makeHtmlStr(b *bo.GenCodeInfo) (string, error) {
 	// set [menu]
 	template = strings.ReplaceAll(template, "[menu]", gstr.CaseCamelLower(b.StructName))
 	template = strings.ReplaceAll(template, "[Menu]", gstr.CaseCamel(b.StructName))
+	if b.AddBtn == 2 {
+		template = strings.ReplaceAll(template, `<el-button type="primary" plain size="small" @click="showDetails(1)">添加</el-button>`, "")
+	}
+	if b.UpdateBtn == 2 {
+		template = strings.ReplaceAll(template, `<el-button type="primary" plain size="small" @click="showDetails(2,item.id)">编辑</el-button>`, "")
+	}
+	if b.DelBtn == 2 {
+		template = strings.ReplaceAll(template, `<el-button type="success" plain size="small" @click="del(item.id)">删除</el-button>`, "")
+	}
 
 	// set tr and td
 	var (
@@ -622,6 +631,9 @@ func (s *gen) makeHtmlStr(b *bo.GenCodeInfo) (string, error) {
 		return b.Fields[i].Sort < b.Fields[j].Sort
 	})
 	for _, i := range b.Fields {
+		if i.Show == 2 {
+			continue
+		}
 		width := 80
 		switch i.Name {
 		case "id":

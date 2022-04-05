@@ -104,8 +104,7 @@
             },
             async getList() {
                 this.loading = true
-                let url = `https://www.v2ex.com/index.xml`
-                const res = await $.get("/rss/fetch?url=" + url)
+                const res = await $.get("/rss/v2ex")
                 this.loading = false
                 if (res.code == 0) {
                     this.list = res.data.entry

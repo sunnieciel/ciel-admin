@@ -642,6 +642,14 @@ func (c rss) Fetch(r *ghttp.Request) {
 	res.OkData(data, r)
 }
 
+func (c rss) V2ex(r *ghttp.Request) {
+	data, err := service.Rss().Feftch(r.Context(), "https://www.v2ex.com/index.xml")
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(data, r)
+}
+
 // ---Gen Code-------------------------------------------------------------------
 
 func (c gen) Path(r *ghttp.Request) {
@@ -688,6 +696,8 @@ func (c gen) GenCode(r *ghttp.Request) {
 			QueryField:  gconv.String(stemp["QueryField"]),
 			Sort:        gconv.Int(stemp["sort"]),
 			DetailsType: gconv.String(stemp["DetailsType"]),
+			Title:       gconv.String(stemp["Title"]),
+			Show:        gconv.Int(stemp["show"]),
 		}
 		d.Fields = append(d.Fields, &field)
 	}

@@ -1,3 +1,21 @@
+:root {
+  --width: 1200px; // 1660px
+  --main-width: 1200px; // 1550px
+  --box-spacing: 20px;
+  --color-main: #333;
+  --color-main-background: #fff;
+  --color-link-1: #556;
+  --color-link-2: #778087; // tabs use
+  --color-link-1-hover: #99a;
+  --color-border-1: #e2e2e2;
+  --color-border-2: #c2c2c2;
+  --color-box-background: #fff;
+  --color-desc: #ccc;
+  --color-input-1: #B0AFB5;
+  --color-input-2: #ABAAB0;
+  --color-box-action-background: #f9f9f9;
+}
+
 // footer
 * {
   padding: 0;
@@ -322,9 +340,7 @@ li {
   min-height: 566px;
   background-color: var(--color-border-1);
   background-image: url("/resource/image/shadow_light.png");
-  //background-image: url(//www.v2ex.com/static/img/shadow.png), url(//static.v2ex.com/tiles/grid.png);
-  background-position: 0 0, 0 50%;
-  background-repeat: repeat-x, repeat;
+  background-repeat: repeat-x;
 
   .w {
     display: flex;
@@ -441,7 +457,7 @@ li {
             th {
               font-weight: 700;
               font-size: 12px;
-              min-width: 30px;
+              min-width: 77px;
               padding: 3px 12px;
               text-align: left;
             }
@@ -458,7 +474,7 @@ li {
               border-top: 1px solid var(--color-desc);
               margin: 0;
               padding: 1px 9px;
-              max-width: 300px;
+              max-width: 166px;
               height: 34px;
               overflow: hidden;
               white-space: nowrap;
@@ -791,20 +807,3 @@ li {
   }
 }
 
-:root {
-  --width: 1200px; // 1660px
-  --main-width: 1200px; // 1550px
-  --box-spacing: 20px;
-  --color-main: #333;
-  --color-main-background: #fff;
-  --color-link-1: #556;
-  --color-link-2: #778087; // tabs use
-  --color-link-1-hover: #99a;
-  --color-border-1: #e2e2e2;
-  --color-border-2: #c2c2c2;
-  --color-box-background: #fff;
-  --color-desc: #ccc;
-  --color-input-1: #B0AFB5;
-  --color-input-2: #ABAAB0;
-  --color-box-action-background: #f9f9f9;
-}

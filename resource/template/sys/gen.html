@@ -39,6 +39,7 @@
                     <table id="table" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
                         <tbody>
                         <tr>
+                            <th width="58">字段移动</th>
                             <th width="30">字段</th>
                             <th width="30">标题</th>
                             <th width="80">备注</th>
@@ -48,6 +49,12 @@
                             <th width="190">操作</th>
                         </tr>
                         <tr v-for="item in fields">
+                            <td>
+                                <el-button-group>
+                                    <el-button type="info" plain size="small" @click="move(item,1)">上移</el-button>
+                                    <el-button type="info" plain size="small" @click="move(item,2)">下移</el-button>
+                                </el-button-group>
+                            </td>
                             <td v-text="item.Name">
                             <td v-text="item.Title">
                             <td v-text="item.Comment">
@@ -59,8 +66,7 @@
                             </td>
                             <td class="table-action">
                                 <el-button-group>
-                                    <el-button type="info" plain size="small" @click="move(item,1)">上移</el-button>
-                                    <el-button type="info" plain size="small" @click="move(item,2)">下移</el-button>
+
                                     <el-button type="primary" plain size="small" @click="showFieldDetails(item)">编辑</el-button>
                                     <el-button type="success" plain size="small" @click="del(item)">删除</el-button>
                                 </el-button-group>
@@ -105,6 +111,7 @@
                 <li><label class="input" title="当关联多表查询时，该值应该为数据库查询时 as 的值 eg: select t1.*,t2.ip login_ip from u_user t1 left join u_login_log t2 on t1.id = t2.uid. 该值就应该为 login_ip">查询请求字段 <input v-model="fieldDetails.QueryField"></label></li>
             </ul>
             <ul>
+
                 <li>
                     <label class="input">查询类型<select v-model="fieldDetails.SearchType">
                         <option :value="">不查询</option>
@@ -124,7 +131,12 @@
                         <option :value="'disabled'">禁用(Disabled)</option>
                     </select></label>
                 </li>
-
+                <li>
+                    <label class="input">字段是否展示<select v-model="fieldDetails.show">
+                        <option :value="1">展示</option>
+                        <option :value="2">不展示</option>
+                    </select></label>
+                </li>
             </ul>
         </div>
         <template #footer>
@@ -150,7 +162,20 @@
                 <li><label class="input">T6 <input v-model="genCodeData.t6"></label></li>
                 <li><label class="input">查询字段<input v-model="genCodeData.QueryField"></label></li>
                 <li><label class="input">排序规则 <input v-model="genCodeData.OrderBy"></label></li>
+                <li><label class="input">添加按钮 <select v-model="genCodeData.addBtn">
+                    <option :value="1">展示</option>
+                    <option :value="2">不展示</option>
+                </select></label></li>
+                <li><label class="input">修改按钮 <select v-model="genCodeData.updateBtn">
+                    <option :value="1">展示</option>
+                    <option :value="2">不展示</option>
+                </select></label></li>
+                <li><label class="input">删除按钮 <select v-model="genCodeData.delBtn">
+                    <option :value="1">展示</option>
+                    <option :value="2">不展示</option>
+                </select></label></li>
             </ul>
+
         </div>
         <template #footer>
             <div class="dialog-footer">
@@ -216,6 +241,10 @@
                 });
             },
             async onGen() {
+                // 将数组元素的sort属性设置为index
+                this.fields.forEach((item, index) => {
+                    item.sort = index;
+                });
                 this.genCodeData.fields = this.fields
                 let res = await $.post('/gen/genCode', this.genCodeData);
                 if (res.code != 0) {
@@ -261,6 +290,10 @@
                 let t = this.details.table;
                 let category = t.substring(0, t.indexOf('_'));
                 let structName = t.substring(t.indexOf('_') + 1);
+                this.genCodeData = {}
+                this.genCodeData.addBtn = 1
+                this.genCodeData.updateBtn = 1
+                this.genCodeData.delBtn = 1
                 this.genCodeData.table = this.details.table
                 this.genCodeData.title = this.details.table
                 this.genCodeData.category = category
@@ -276,7 +309,10 @@
                 for (let i in res.data) {
                     let d = res.data;
                     d[i].sort = sort
-                    d[i].Title = d[i].Name
+                    d[i].Title = d[i].Comment ? d[i].Comment : d[i].Name
+                    d[i].show = 1
+                    d[i].DetailsType = 'show'
+                    d[i].SearchType = ''
                     this.fields.push(d[i])
                     sort++
                 }

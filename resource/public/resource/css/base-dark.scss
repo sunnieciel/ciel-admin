@@ -460,7 +460,7 @@ li {
             th {
               font-weight: 700;
               font-size: 12px;
-              min-width: 30px;
+              min-width: 77px;
               padding: 3px 12px;
               text-align: left;
             }
@@ -477,7 +477,7 @@ li {
               border-top: 1px solid #393f4e;
               margin: 0;
               padding: 1px 9px;
-              max-width: 300px;
+              max-width: 176px;
               height: 34px;
               overflow: hidden;
               white-space: nowrap;
@@ -807,7 +807,6 @@ li {
     text-shadow: 0 1px 0 var(--color-box-background);
   }
 
-  // 改变el-select 的默认样式
   input, select {
     background-color: #001d25;
     border: 1px solid #001d25;

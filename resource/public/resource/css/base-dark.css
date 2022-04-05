@@ -320,7 +320,7 @@ li {
             #wrapper .w #main #data #table tr th {
               font-weight: 700;
               font-size: 12px;
-              min-width: 30px;
+              min-width: 77px;
               padding: 3px 12px;
               text-align: left; }
             #wrapper .w #main #data #table tr:hover {
@@ -333,7 +333,7 @@ li {
               border-top: 1px solid #393f4e;
               margin: 0;
               padding: 1px 9px;
-              max-width: 300px;
+              max-width: 176px;
               height: 34px;
               overflow: hidden;
               white-space: nowrap; }

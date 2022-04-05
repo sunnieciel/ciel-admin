@@ -10,6 +10,9 @@ type GenCodeInfo struct {
 	Fields                 []*Field
 	OrderBy                string
 	QueryField             string
+	AddBtn                 int
+	UpdateBtn              int
+	DelBtn                 int
 }
 type Field struct {
 	Name        string
@@ -20,4 +23,5 @@ type Field struct {
 	Title       string
 	Sort        int
 	DetailsType string // show no-show disabled
+	Show        int    // 字段是否展示 1 展示 2 不展示
 }
