@@ -133,7 +133,8 @@ var (
 				if err != nil {
 					panic(err)
 				}
-				glog.Infof(nil, "Server start at :http://localhost%s/login", port)
+				rootIp, err := g.Cfg().Get(ctx, "server.rootIp")
+				glog.Infof(nil, "Server start at :http://%s%s/login", rootIp, port)
 			}()
 			s.Run()
 			return nil
