@@ -114,6 +114,8 @@ var (
 				g.POST("/genCode", controller.Gen.GenCode)
 			})
 			s.Group("/sys", func(g *ghttp.RouterGroup) {
+				g.GET("/ws", controller.Ws.GetAdminWs)
+				g.GET("/noticeAdmin", controller.Ws.NoticeAdmin)
 				g.Middleware(service.Middleware().AuthAdmin)
 				g.GET("/path", controller.Sys.Path)
 				g.GET("/path/github", controller.Sys.PathGithub)
@@ -121,7 +123,6 @@ var (
 				g.GET("/path/douban", controller.Sys.Douban)
 			})
 			s.Group("/rss", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
 				g.GET("/v2ex", controller.Rss.V2ex)
 				g.GET("/fetch", controller.Rss.Fetch)
 			})

@@ -10,6 +10,7 @@ import (
 	"ciel-admin/utility/utils/xpwd"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/util/gconv"
@@ -28,6 +29,7 @@ type (
 	dict     struct{ *config.SearchConf }
 	file     struct{ *config.SearchConf }
 	menu     struct{ *config.SearchConf }
+	ws       struct{}
 )
 
 var (
@@ -35,6 +37,7 @@ var (
 	Sys  = &sys{}
 	Rss  = &rss{}
 	Gen  = &gen{}
+	Ws   = &ws{}
 )
 
 // ---home-------------------------------------------------------------------
@@ -703,6 +706,44 @@ func (c gen) GenCode(r *ghttp.Request) {
 	}
 
 	err = service.Gen().GenCode(r.Context(), &d)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+
+// --- Ws ------------------------------------------------------------------------
+
+func (w ws) GetUserWs(r *ghttp.Request) {
+	service.Ws().GetUserWs(r)
+}
+func (w ws) GetAdminWs(r *ghttp.Request) {
+	service.Ws().GetAdminWs(r)
+}
+func (w ws) NoticeUser(r *ghttp.Request) {
+	var d struct {
+		Uid     int `v:"required"`
+		OrderId int `v:"required"`
+	}
+	err := r.Parse(&d)
+	if err != nil {
+		res.Err(err, r)
+	}
+	err = service.Ws().NoticeUser(gctx.New(), d.Uid, d)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+func (w ws) NoticeAdmin(r *ghttp.Request) {
+	var d struct {
+		Msg string `v:"required" json:"msg"`
+	}
+	err := r.Parse(&d)
+	if err != nil {
+		res.Err(err, r)
+	}
+	err = service.Ws().NoticeAllAdmin(r.Context(), d)
 	if err != nil {
 		res.Err(err, r)
 	}

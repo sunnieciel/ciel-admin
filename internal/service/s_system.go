@@ -11,9 +11,12 @@ import (
 	"ciel-admin/utility/utils/xpwd"
 	"ciel-admin/utility/utils/xredis"
 	"ciel-admin/utility/utils/xstr"
+	"ciel-admin/utility/utils/xuser"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/encoding/gxml"
 	"github.com/gogf/gf/v2/frame/g"
@@ -49,6 +52,10 @@ type (
 	admin      struct{}
 	middleware struct{}
 	gen        struct{ ModName string }
+	ws         struct {
+		users  *gmap.Map
+		admins *gmap.Map
+	}
 )
 
 var (
@@ -60,6 +67,7 @@ var (
 	sAdmin      = &admin{}
 	sMiddleware = &middleware{}
 	sGen        = newGen()
+	sWs         = newWs()
 )
 
 // ---System --------------------------------------------------------------------------------------------------
@@ -742,6 +750,93 @@ func (s *gen) genApi(ctx context.Context, category string, name string) error {
 			continue
 		}
 		if _, err = dao.Api.Ctx(ctx).Insert(i); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// ---Ws-------------------------------------------------------
+func newWs() *ws {
+	w := ws{}
+	w.users = gmap.New(true)
+	w.admins = gmap.New(true)
+	return &w
+}
+func Ws() *ws {
+	return sWs
+}
+func (w *ws) GetUserWs(r *ghttp.Request) {
+	ws, err := r.WebSocket()
+	if err != nil {
+		res.Err(err, r)
+	}
+	uid := xuser.Uid(r)
+	w.users.Set(uid, ws)
+	w.printUserWs()
+	for {
+		messageType, msg, err := ws.ReadMessage()
+		if err != nil {
+			w.users.Remove(uid)
+			w.printUserWs()
+			return
+		}
+		glog.Info(gctx.New(), "ws:user msg ", messageType, msg)
+	}
+}
+func (w *ws) GetAdminWs(r *ghttp.Request) {
+	ws, err := r.WebSocket()
+	if err != nil {
+		res.Err(err, r)
+	}
+	aid := r.Get("aid").Int64()
+	w.admins.Set(aid, ws)
+	w.printAdminWs()
+	for {
+		messageType, msg, err := ws.ReadMessage()
+		if err != nil {
+			w.admins.Remove(aid)
+			w.printAdminWs()
+			return
+		}
+		glog.Info(gctx.New(), "ws:admin msg ", messageType, msg)
+	}
+}
+func (w *ws) printUserWs() {
+	glog.Infof(gctx.New(), "user连接个数%v %v", len(w.users.Map()), w.users.Keys())
+}
+func (w *ws) printAdminWs() {
+	glog.Infof(gctx.New(), "admin连接个数%v %v", len(w.admins.Map()), w.admins.Keys())
+}
+func (w *ws) NoticeAllUser(ctx context.Context, msg interface{}) error {
+	if w.users.Size() == 0 {
+		return nil
+	}
+	marshal, _ := json.Marshal(msg)
+	for _, item := range w.users.Values() {
+		if err := item.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
+			glog.Error(ctx, err)
+			return err
+		}
+	}
+	return nil
+}
+func (w *ws) NoticeAllAdmin(ctx context.Context, msg interface{}) error {
+	marshal, _ := json.Marshal(msg)
+	for _, item := range w.admins.Values() {
+		if err := item.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
+			glog.Error(ctx, err)
+			return err
+		}
+	}
+	return nil
+}
+func (w *ws) NoticeUser(ctx context.Context, uid int, msg interface{}) error {
+	marshal, _ := json.Marshal(msg)
+	item := w.users.Get(uid)
+	if item != nil {
+		if err := item.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
+			glog.Error(ctx, err)
 			return err
 		}
 	}
