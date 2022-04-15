@@ -43,8 +43,7 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 1. golang环境 安装
 2. mysql 安装
 3. gf 安装
-    - 建议通过 官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选选择办版本 v2.0.0
-    - 如果您使用的linux系统那么可以直接 使用我们准备好的 项目根目录下的 gf 文件(linux版本)(最好将其放到您常用工具的目录下并为其设置环境变量)
+    - 建议通过 官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选选择版本 v2.0.0
 
 ## 项目结构
 
@@ -87,3 +86,7 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 ## 使用说明
 
 - [多表查询CURD代码生成](./documents/gen_curd.md)
+
+## 反馈
+
+使用过程中如果遇见什么问题，可以发issue或发邮件1211sciel@gmail.com 我看到后会及时回复的。 
