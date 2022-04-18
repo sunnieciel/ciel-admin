@@ -18,7 +18,7 @@ Free Key Admin(自由钥匙) 一个 V2EX(v2ex.com)风格 Go 语言写的个人�
 - 本地文件上传 ok
 - 夜间模式 ok
 - 常用网站导航 ok
-- CURD文件生成 todo
+- CURD文件生成 ok
 - WebSocket后台聊天功能 todo
 - 日记本功能 todo
 - 常用RSS订阅 ing
