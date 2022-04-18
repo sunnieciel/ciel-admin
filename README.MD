@@ -43,7 +43,7 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 1. golang环境 安装
 2. mysql 安装
 3. gf 安装
-    - 建议通过 官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选选择版本 v2.0.0
+    - 通过官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选择版本 v2.0.0
 
 ## 项目结构
 
