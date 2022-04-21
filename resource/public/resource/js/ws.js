@@ -24,11 +24,6 @@
 //     // ws数据返回处理
 //     ws.onmessage = function (result) {
 //         const {msg} = JSON.parse(result.data);
-//         switch (location.pathname) {
-//             case "/topUp/list":
-//             case "/withdrawal/list":
-//                 window.location.reload();
-//                 break
 //         }
 //         let utterance = new SpeechSynthesisUtterance(msg);
 //         speechSynthesis.speak(utterance);
