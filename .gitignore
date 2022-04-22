@@ -56,3 +56,13 @@ interface/main
 interface/output/
 interface/manifest/output/
 
+/dist
+# local env files
+.env.*.local
+# Editor directories and files
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
