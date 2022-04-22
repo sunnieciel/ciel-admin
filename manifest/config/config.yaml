@@ -9,6 +9,7 @@ server:
   imgPrefix: "http://localhost:1211/upload/" # 图片前缀
   rootFilePath: "/resource/public/upload/"  # 文件上传路径
   modName: "ciel-admin"  # 生成文件时使用
+  rootIp: "localhost"
 
 logger:
   path: "logs/default"
