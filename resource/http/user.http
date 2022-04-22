@@ -1,0 +1,25 @@
+### 用户注册
+POST {{url}}/v1/user/register
+Content-Type: application/json
+
+{
+  "uname": "user222",
+  "pwd": "FM0WPhQb"
+}
+
+> {% client.global.set("token", response.body.data.token); %}
+
+### 用户登录
+POST {{url}}/v1/user/login
+Content-Type: application/json
+
+{
+  "uname": "user222",
+  "pwd": "FM0WPhQb"
+}
+
+> {% client.global.set("token", response.body.data.token); %}
+
+### 登录信息
+GET {{url}}/v1/user/info
+Authorization: {{token}}
