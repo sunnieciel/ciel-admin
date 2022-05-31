@@ -42,7 +42,7 @@ create table u_login_log
 gfcli:
   gen:
     dao:
-      - link: "mysql:ciel_begin:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel_begin"
+      - link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
         tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_file,
         u_user,u_login_log
         "
