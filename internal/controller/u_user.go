@@ -2,7 +2,7 @@ package controller
 
 import (
 	"ciel-admin/internal/model/entity"
-	"ciel-admin/internal/service"
+	"ciel-admin/internal/service/sys"
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -15,14 +15,14 @@ type user struct {
 }
 
 var User = &user{SearchConf: &config.SearchConf{
-	 T1:"u_user",
+	T1: "u_user",
 	Fields: []*config.Field{
 		{Field: "id"},
 	},
 }}
 
 func (c *user) Path(r *ghttp.Request) {
-	icon, err := service.System().Icon(r.Context(), r.URL.Path)
+	icon, err := sys.Icon(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -32,14 +32,14 @@ func (c *user) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := service.System().List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.SearchConf)
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.OkPage(page, size, total, data, r)
 }
 func (c *user) GetById(r *ghttp.Request) {
-	data, err := service.System().GetById(r.Context(), c.T1, xparam.ID(r))
+	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -50,7 +50,7 @@ func (c *user) Post(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := service.System().Add(r.Context(), c.T1, &d); err != nil {
+	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -60,13 +60,13 @@ func (c *user) Put(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := service.System().Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
 func (c *user) Del(r *ghttp.Request) {
-	if err := service.System().Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)

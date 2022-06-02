@@ -1,0 +1,446 @@
+html {
+    background-color: var(--bg-1);
+}
+
+a {
+    background-color: rgba(255, 0, 0, 0);
+}
+
+a:active, a:link, a:visited {
+    color: var(--link-1);
+}
+
+h2 {
+    border-bottom: 1px solid var(--box-border);
+}
+
+/*------set ---------------------*/
+.bg-1 {
+    background-color: var(--bg-1);
+}
+
+.bg-2 {
+    background-color: var(--bg-2);
+}
+
+.bg-3 {
+    background-color: var(--bg-3);
+}
+
+
+/*form*/
+.form, .form-group input {
+    color: var(--black-1);
+}
+
+
+.form-group input {
+    border: 1px solid var(--box-border);
+    background-color: var(--box-bg);
+}
+
+/*box*/
+.box {
+    color: var(--box);
+    background-color: var(--box-bg);
+    border-bottom: 1px solid var(--box-border);
+}
+
+/*cell*/
+.cell {
+    border-bottom: 1px solid var(--box-border);
+    color: var(--cell);
+}
+
+
+.cell-hover:hover {
+    background-color: var(--cell-hover);
+    box-shadow: var(--cell-hover-shadow);
+}
+
+.cell-hover:hover .desc-1 {
+    color: var(--cell-hover-desc);
+}
+
+.cell h1 {
+    color: var(--black-1);
+}
+
+.cell-flag {
+    color: var(--cell-flag);
+    border-right: 1px solid var(--cell-flag-border);
+}
+
+.cell-tools {
+    background: var(--cell-tools-bg);
+}
+
+/*link*/
+.link-1 {
+    color: var(--link-1) !important;
+}
+
+.link-1:hover {
+    color: var(--link-1-hover) !important;
+}
+
+.link-2 {
+    color: var(--link-2) !important;
+}
+
+.link-2:hover {
+    color: var(--link-2-hover) !important;
+    background-color: var(--link-2-hover-bg) !important;
+}
+
+.link-2-active {
+    color: var(--link-2-active) !important;
+    background-color: var(--link-2-active-bg) !important;
+}
+
+.link-2-active:hover {
+    color: var(--link-2-active) !important;
+    background-color: var(--gray-3) !important;
+}
+
+.link-3 {
+    color: var(--link-3);
+}
+
+.link-3:hover {
+    color: var(--link-3-hover);
+}
+
+.link-4:hover {
+    color: var(--link-4-hover);
+}
+
+.link-5 {
+    color: var(--link-5) !important;
+    text-shadow: 0 1px 0 var(--link-5-shadow);
+}
+
+.link-5:hover {
+    color: var(--link-5-hover) !important;
+    background-color: var(--link-5-hover-bg);
+}
+
+.link-6 {
+    border-bottom: 3px solid var(--link-6-border) !important;
+}
+
+.link-7:hover {
+    color: var(--link-7-hover) !important;
+    border-bottom: 3px solid var(--link-7-hover-border);
+}
+
+/*tag*/
+.tag-2 {
+    color: var(--tag-2) !important;
+    background-color: var(--tag-2-bg);
+}
+
+.tag-2:hover {
+    background-color: var(--tag-2-hover-bg);
+}
+
+.tag, .tag-3 {
+    color: var(--tag-1) !important;
+    background-color: var(--tag-1-bg) !important;
+}
+
+.tag:hover, .tag-3:hover, .tag-normal {
+    color: var(--tag-1-hover) !important;
+    background-color: var(--tag-1-hover-bg) !important;
+}
+
+.tag-normal {
+    color: var(--tag-1) !important;
+    background-image: linear-gradient(#eee, #fff) !important;
+}
+
+.tag-rare {
+    color: var(--tag-2) !important;
+    background-image: linear-gradient(#40c914, #2c8f0c);
+}
+
+.tag-rare .tag-3 {
+    color: var(--tag-2) !important;
+    background-color: #39ac14 !important;
+}
+
+.tag-rare .tag-3:hover {
+    transition: background-color 0.3s ease-in-out;
+    color: var(--tag-2) !important;
+    background-color: #45bc1f !important;
+}
+
+.tag-inherited {
+    color: var(--tag-2) !important;
+    background-image: linear-gradient(#90caf9, #1e88e5);
+}
+
+.tag-inherited .tag-3 {
+    color: #e3f2fd !important;
+    background-color: #1976d2 !important;
+}
+
+.tag-inherited .desc-1 {
+    color: #e3f2fd !important;
+}
+
+.tag-inherited .tag-3:hover {
+    transition: all 0.3s ease;
+    color: #e3f2fd !important;
+    background-color: #1e88e5 !important;
+}
+
+.tag-only {
+    color: #fff8e1 !important;
+    background-image: linear-gradient(#fdd835, #f9a825);
+}
+
+.tag-only .tag-3 {
+    color: #fff8e1 !important;
+    background: #e2910f !important;
+}
+
+.tag-only .tag-3:hover {
+    transition: background-color 0.3s ease-in-out;
+    color: #fff8e1 !important;
+    background: #e9a83f !important;
+}
+
+.tag-only .desc-1 {
+    color: #fff8e1 !important;
+}
+
+
+.tag-epic {
+    color: #fff8e1 !important;
+    background-image: linear-gradient(#ff7043, #d84315);
+}
+
+.tag-epic .tag-3 {
+    color: #fbe9e7 !important;
+    background: #bf360c !important;
+}
+
+.tag-epic .tag-3:hover {
+    transition: background-color 0.3s ease-in-out;
+    color: #fff8e1 !important;
+    background: #5e1905 !important;
+}
+
+.tag-legend {
+    color: #fff8e1 !important;
+    background-image: linear-gradient(#ab47bc, #8e24aa);
+}
+
+.tag-legend .tag-3 {
+    color: #fbe9e7 !important;
+    background: #7b1fa2 !important;
+}
+
+.tag-legend .tag-3:hover {
+    transition: background-color 0.3s ease-in-out;
+    color: #fff8e1 !important;
+    background-color: #ab47bc !important;
+}
+
+.tag-myth {
+    color: #fff8e1 !important;
+    background-image: linear-gradient(#f44336, #d50000);
+}
+
+.tag-myth .tag-3 {
+    color: #fbe9e7 !important;
+    background: #b71c1c !important;
+}
+
+.tag-myth .tag-3:hover {
+    color: #fff8e1 !important;
+    background: #f44336 !important;
+}
+
+.btn {
+    color: var(--btn-1) !important;
+    background-color: var(--btn-1-bg);
+    text-shadow: 0 1px 0 var(--white-1);
+    box-shadow: 0 1px 0 rgba(66, 66, 77, .1);
+    border: 1px solid rgba(80, 80, 90, .2);
+    border-bottom-color: rgba(80, 80, 90, .35);
+    text-decoration: none;
+}
+
+/*desc*/
+.desc-1 {
+    color: var(--desc-1) !important;
+}
+
+.desc-2 {
+    color: var(--desc-2);
+    text-shadow: 0 1px 0 var(--desc-2-shadow);
+}
+
+.msg-primary, .msg-warning {
+    color: #333;
+}
+
+.msg-primary {
+    background-color: #f3faff;
+    border-left: 5px solid #c7e8ff;
+    border-bottom: 1px solid var(--box-border);
+
+}
+
+.msg-warning {
+    background-color: #ffffc0;
+    border-left: 5px solid #fff000;
+    border-bottom: 1px solid var(--box-border);
+}
+
+/* input*/
+.input input, .input textarea, .input select {
+    color: var(--input-1);
+    background-color: var(--input-1-bg);
+    border: 1px solid var(--snow);
+}
+
+.input input:focus, input:focus-visible {
+    border: 1px solid var(--input-1);
+}
+
+/*nav*/
+.sub-nav {
+    background-color: var(--bg-2);
+    border-bottom: 1px solid var(--box-border);
+}
+
+
+/* --------------------part -------------------*/
+
+.top-right-mobile-menu {
+    background-color: var(--box-bg);
+    box-shadow: 0 2px 25px rgba(0, 0, 0, .2);
+}
+
+/*color*/
+.color-gray {
+    color: var(--desc-2) !important;
+}
+
+.color-blue {
+    color: var(--blue-1) !important;
+}
+
+.color-green {
+    color: var(--green-1) !important;
+}
+
+.color-red {
+    color: var(--red-1) !important;
+}
+
+.color-white-1 {
+    color: var(--white-1) !important;
+}
+
+.bg-color-dark {
+    background-color: var(--black-2);
+}
+
+.color-box-color-bg {
+    color: var(--box-bg);
+}
+
+
+/*table*/
+.th-1, .td-1, .td-1-desc {
+    border-right: 1px solid var(--box-border);
+    border-bottom: 1px solid var(--box-border);
+    text-shadow: 0 1px 0 #fff;
+    background: linear-gradient(top, #f5f5f5 0, #e2e2e2 100%);
+}
+
+.th-1 {
+    text-shadow: 0 1px 0 #fff;
+    background: linear-gradient(top, #f5f5f5 0, #e2e2e2 100%);
+}
+
+.td-1 {
+    color: var(--black-1);
+}
+
+.td-1-desc {
+    color: var(--desc-2);
+}
+
+
+.content-1 {
+    color: var(--black-1);
+    border-bottom: 1px solid var(--box-border);
+}
+
+
+.active:hover {
+    background-color: #445;
+    color: #fff !important;
+}
+
+.logo {
+    color: var(--black-1) !important;
+}
+
+/*---------------------other-------------------*/
+.money {
+    background: #f5f5f5;
+    color: #666;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.money:hover {
+    color: var(--desc-2);
+    background: #f9f9f9;
+}
+
+::placeholder {
+    color: var(--white-3);
+}
+
+/*正文背景选择*/
+.cell .desc div > label {
+    color: var(--desc-2);
+}
+
+/*---------------------layout------------------------------*/
+.page span:nth-last-child(1), .page span:nth-last-child(2) {
+    color: var(--desc-2);
+}
+
+.GPageLink {
+    background-color: var(--box-bg);
+    border: 1px solid var(--box-border);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.GPageLink:hover {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+.GPageSpan, .current {
+    background-color: #f0f0f0;
+    border: 1px solid #bbb;
+}
+
+/* wrapper*/
+#wrapper {
+    background-color: var(--bg-3);
+}
+
+#footer {
+    border-top: 1px solid rgba(0, 0, 0, .22);
+    background-color: var(--box-bg);
+    color: var(--white-3);
+}

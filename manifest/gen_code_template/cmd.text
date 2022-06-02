@@ -1,9 +1,9 @@
 	s.Group("/menu", func(g *ghttp.RouterGroup) {
-		g.Middleware(service.Middleware().AuthAdmin)
+		g.Middleware(sys.AuthAdmin)
 		g.GET("/path", controller.Menu.Path)
 		g.GET("/list", controller.Menu.List)
 		g.GET("/getById", controller.Menu.GetById)
-		g.Middleware(service.Middleware().LockAction)
+		g.Middleware(sys.LockAction)
 		g.DELETE("/del", controller.Menu.Del)
 		g.POST("/post", controller.Menu.Post)
 		g.PUT("/put", controller.Menu.Put)

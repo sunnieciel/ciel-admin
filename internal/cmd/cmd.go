@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"ciel-admin/internal/controller"
-	"ciel-admin/internal/service"
+	"ciel-admin/internal/service/sys"
 	"context"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -20,8 +20,8 @@ var (
 		Arguments:   nil,
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			// 初始化服务
-			service.System().Init()
-			g.View().BindFuncMap(service.View().BindFuncMap())
+			sys.Init()
+			g.View().BindFuncMap(sys.BindFuncMap())
 			s := g.Server()
 			registerGenFileRouter(s) // 注册生成的代码路由
 
@@ -30,17 +30,17 @@ var (
 				g.GET("/login", controller.Admin.LoginPage)
 			})
 			s.Group("/menu", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Menu.Path)
 				g.GET("/list", controller.Menu.List)
 				g.GET("/getById", controller.Menu.GetById)
-				g.Middleware(service.Middleware().LockAction)
+				g.Middleware(sys.LockAction)
 				g.DELETE("/del", controller.Menu.Del)
 				g.POST("/post", controller.Menu.Post)
 				g.PUT("/put", controller.Menu.Put)
 			})
 			s.Group("/api", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Api.Path)
 				g.GET("/list", controller.Api.List)
 				g.GET("/getById", controller.Api.GetById)
@@ -49,7 +49,7 @@ var (
 				g.PUT("/put", controller.Api.Put)
 			})
 			s.Group("/role", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Role.Path)
 				g.GET("/list", controller.Role.List)
 				g.GET("/getById", controller.Role.GetById)
@@ -62,14 +62,14 @@ var (
 				g.PUT("/put", controller.Role.Put)
 			})
 			s.Group("/roleApi", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.RoleApi.Path)
 				g.GET("/list", controller.RoleApi.List)
 				g.DELETE("/del", controller.RoleApi.Del)
 				g.POST("/post", controller.RoleApi.Post)
 			})
 			s.Group("/roleMenu", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.RoleMenu.Path)
 				g.GET("/list", controller.RoleMenu.List)
 				g.DELETE("/del", controller.RoleMenu.Del)
@@ -77,7 +77,7 @@ var (
 			})
 			s.Group("/admin", func(g *ghttp.RouterGroup) {
 				g.POST("/login", controller.Admin.Login)
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/logout", controller.Admin.Logout)
 				g.GET("/path", controller.Admin.Path)
 				g.GET("/list", controller.Admin.List)
@@ -88,7 +88,7 @@ var (
 				g.POST("/updatePwd", controller.Admin.UpdatePwd)
 			})
 			s.Group("/dict", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Dict.Path)
 				g.GET("/list", controller.Dict.List)
 				g.GET("/getById", controller.Dict.GetById)
@@ -97,7 +97,7 @@ var (
 				g.PUT("/put", controller.Dict.Put)
 			})
 			s.Group("/file", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.File.Path)
 				g.GET("/list", controller.File.List)
 				g.GET("/getById", controller.File.GetById)
@@ -107,16 +107,15 @@ var (
 				g.POST("/upload", controller.File.Upload)
 			})
 			s.Group("/gen", func(g *ghttp.RouterGroup) {
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Gen.Path)
 				g.GET("/tables", controller.Gen.Tables)
 				g.GET("/fields", controller.Gen.Fields)
-				g.POST("/genCode", controller.Gen.GenCode)
 			})
 			s.Group("/sys", func(g *ghttp.RouterGroup) {
 				g.GET("/ws", controller.Ws.GetAdminWs)
 				g.GET("/noticeAdmin", controller.Ws.NoticeAdmin)
-				g.Middleware(service.Middleware().AuthAdmin)
+				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Sys.Path)
 				g.GET("/path/github", controller.Sys.PathGithub)
 				g.GET("/path/oschina", controller.Sys.OsChina)

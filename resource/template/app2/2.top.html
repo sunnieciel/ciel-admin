@@ -1,0 +1,12 @@
+<div class="w flex-center top"><a href="/" class="logo mr-auto">FREE KEY</a>
+  <div class="top-pc fs-15 top-right">
+    {{if .Session.adminInfo}}
+    <a class="link-1 " href="#">{{.Session.adminInfo.Admin.uname}}</a>
+    <a class="link-1" href="#" onclick="updatePwd()">修改密码</a>
+    <a class="link-1" href="#" onclick="logout()">登出</a>
+    {{else}}
+    <a href="/" class="link-1">首页</a>
+    <a href="/login" class="login link-1">登录</a>
+    {{end}}
+  </div>
+</div>

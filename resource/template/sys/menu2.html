@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Menu</title>
+    {{include "/app2/1.meta.html" .}}
+</head>
+<body>
+<div id="app">
+    <!--top模块-->
+    {{include "/app2/2.top.html" .}}
+    <div id="wrapper">
+        <div class="w">
+            <div class="wrapper-left">
+                <!--导航栏模块-->
+                {{include "/app2/3.nav.html" .}}
+                <!--页面信息模块-->
+                <div class="box no-bottom-border">
+                    <!--页面信息-->
+                    {{include "/app2/4.basePageInfo.html" .}}
+                    <!-- 搜索栏-->
+                    <div class="cell">
+                        <a class="tag-epic mr-12" style="text-decoration: none" href="">添加</a>
+                        {{include "/app2/6.search.html" .}}
+                    </div>
+                </div>
+                <!--数据模块-->
+                <div class="box no-bottom-border">
+                    <table class="table-1" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
+                        <tbody>
+                        <!--表头-->
+                        <tr>
+                            <th v-for="i in pageConf.fields" v-text="i.label"></th>
+                        </tr>
+                        <!--数据-->
+                        <tr v-for="i in list">
+                            <td v-for="j in pageConf.fields">
+                                <!--根据不同的字段类型展示不同的结果-->
+                                <div v-if="j.type==='img'">
+                                    <a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" rarget='_blank'> <img class="icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a>
+                                    <span v-else><span class="tag-normal">暂无图片</span></span>
+                                </div>
+                                <div v-else-if="j.type=='select'">
+                                    <span v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label" :class="k.class"></span>
+                                </div>
+                                <div v-else-if="j.type=='operate'">
+                                    <a class="link-1" @click="showDetails(2,i[id])">编辑</a>
+                                    <a class="link-1" @click="del(i[id])">删除</a>
+                                </div>
+                                <span v-else v-text="i[j.field]"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {{include "/app2/5.pagination.html" .}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{{include "/app2/z.footerJs.html" .}}
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                pageConf: {
+                    name: "Menu",
+                    desc: "这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。",
+                    urlPrefix: '/menu',
+                    icon: '/upload/1/2022/03/FdI4Yw.gif',
+                    fields: [
+                        {field: 'id', label: 'ID'},
+                        {field: 'pid', label: 'pid', search: 1},
+                        {field: 'name', label: '菜单名', search: 1},
+                        {field: 'icon', label: '图标', type: 'img'},
+                        {field: 'path', label: '路径'},
+                        {field: 'type', label: '类型', type: 'select', options: [{value: 1, label: '菜单', class: 'tag-rare'}, {value: 2, label: '分组', class: 'tag-only'}]},
+                        {field: 'sort', label: '排序', type: 'number'},
+                        {field: 'status', label: '状态', type: 'select', options: [{value: 1, label: '启用', class: 'tag-normal'}, {value: 2, label: '禁用', class: 'tag-myth'}]},
+                        {field: 'created_at', label: '创建时间', type: 'time'},
+                        {field: 'updated_at', label: '更新时间', type: 'time'},
+                        {label: '操作', type: 'operate'}
+                    ],
+                },
+                search: {page: 1, size: 15, status: ''},
+                list: [],
+                loading: false,
+                total: 0,
+                totalPage: 0,
+            }
+        },
+        created() {
+            this.getList()
+        },
+        computed: {
+            mid: function () {
+                let res = this.search.page
+                if (res < 3) {
+                    res = 3
+                }
+                if (res > this.totalPage - 3) {
+                    res = this.totalPage - 2
+                }
+                return res
+            },
+        },
+        methods: {
+            sizeChange(size) {
+                this.search.size = size;
+                this.getList();
+            },
+            async getList(page) {
+                this.loading = true;
+                if (page) {
+                    this.search.page = page;
+                }
+                this.search.page = this.search.page > this.totalPage ? this.totalPage : this.search.page <= 1 ? 1 : this.search.page;
+                let res = await $.get(`${this.pageConf.urlPrefix}/list`, this.search);
+                const {currPage, totalCount, totalPage, list} = res.data;
+                this.search.page = currPage;
+                this.total = totalCount
+                this.list = list;
+                this.totalPage = totalPage;
+                this.loading = false
+            },
+        }
+    })
+    app.config.warnHandler = () => null
+    app.use(ElementPlus)
+    app.mount('#app')
+</script>
+</html>
