@@ -41,7 +41,8 @@
                                         <span v-else><span class="tag-normal">暂无图片</span></span>
                                     </div>
                                     <div v-else-if="j.type=='select'">
-                                        <span v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label" :class="k.class"></span>
+                                        <!--                                        <span v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label" :class="k.class"></span>-->
+                                        <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
                                     </div>
                                     <div v-else-if="j.type=='operate'">
                                         <el-button-group>
@@ -111,9 +112,9 @@
                         {field: 'name', label: '菜单名', search: 1},
                         {field: 'icon', label: '图标', type: 'img'},
                         {field: 'path', label: '路径'},
-                        {field: 'type', label: '类型', type: 'select', options: [{value: 1, label: '菜单', class: 'tag-rare'}, {value: 2, label: '分组', class: 'tag-only'}]},
+                        {field: 'type', label: '类型', type: 'select', options: [{value: 1, label: '菜单', type: 'primary'}, {value: 2, label: '分组', type: 'warning'}]},
                         {field: 'sort', label: '排序', type: 'number'},
-                        {field: 'status', label: '状态', type: 'select', options: [{value: 1, label: '启用', class: 'tag-normal'}, {value: 2, label: '禁用', class: 'tag-myth'}]},
+                        {field: 'status', label: '状态', type: 'select', options: [{value: 1, label: '启用', type: 'info'}, {value: 2, label: '禁用', type: 'danger'}]},
                         {field: 'created_at', label: '创建时间', type: 'time'},
                         {field: 'updated_at', label: '更新时间', type: 'time'},
                         {label: '操作', type: 'operate'}
