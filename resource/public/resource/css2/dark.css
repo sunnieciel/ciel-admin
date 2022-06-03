@@ -282,6 +282,25 @@ h2 {
     color: var(--desc-2-dark);
 }
 
+.table-1 {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    border-color: gray;
+    color: #fff
+}
+
+.table-1 tr:nth-child(2n) {
+    background-color: #001d25;
+}
+
+.table-1 tr:hover {
+    background-color: #001d25;
+    box-shadow: 6px 6px 6px rgba(158, 144, 158, .3) inset;
+}
+
+.table-1 td {
+    border-top: 1px solid #393f4e;
+}
+
 /*msg*/
 .msg-primary, .msg-warning {
     border-left: 5px solid #d5a320db;
@@ -297,11 +316,18 @@ h2 {
 }
 
 /* input*/
+.input {
+    color: var(--white-3);
+}
 
-.input, .input input, .input textarea, .input select {
-    color: var(--input-1);
-    background-color: var(--input-1-bg);
-    border: 1px solid var(--snow);
+.input input, .input select, .input textarea {
+    color: #ABAAB0;
+    background-color: #001d25;
+    border: 1px solid #001d25;
+}
+
+.input input:focus, .input select:focus, .input textarea:focus {
+    border: 1px #3e5874 solid;
 }
 
 .input input:focus, input:focus-visible {
@@ -446,4 +472,13 @@ h2 {
     border-top: 1px solid rgba(0, 0, 0, .22);
     background-color: var(--box-dark-bg);
     color: var(--gray-2);
+}
+
+/*element ui*/
+.el-dialog {
+    background-color: var(--box-dark-bg);
+}
+
+.el-dialog__title {
+    color: var(--white-3)
 }

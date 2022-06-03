@@ -8,5 +8,10 @@
     <a href="/" class="link-1">首页</a>
     <a href="/login" class="login link-1">登录</a>
     {{end}}
+    {{if eq .Cookie.dark 1}}
+    <a href="#" onclick="setDark(0)" class="light-toggle"><img src="/resource/image/toggle-dark.png" align="absmiddle" height="10" alt="Light"></a>
+    {{else}}
+    <a href="#" onclick="setDark(1)" class="light-toggle"><img src="/resource/image/toggle-light.png" align="absmiddle" height="10" alt="Light"></a>
+    {{end}}
   </div>
 </div>

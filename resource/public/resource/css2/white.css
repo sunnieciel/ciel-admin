@@ -283,6 +283,20 @@ h2 {
     text-shadow: 0 1px 0 var(--desc-2-shadow);
 }
 
+/*table*/
+.table-1 tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+
+.table-1 tr:hover {
+    background-color: #eeeeee;
+    box-shadow: 6px 6px 6px rgba(224, 224, 224, 0.9) inset
+}
+
+.table-1 td {
+    border-top: 1px solid #ccc;
+}
+
 .msg-primary, .msg-warning {
     color: #333;
 }

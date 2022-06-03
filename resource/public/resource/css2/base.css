@@ -441,15 +441,16 @@ a:hover {
 
 /* input*/
 .input {
-    font-size: 14px;
+    margin: 0 6px;
+    font-size: 13px;
 }
 
 .input input, .input textarea, .input select {
     width: 99px;
+    margin-left: 6px;
     padding: 3px 9px;
     border-radius: 15px;
     outline: none;
-    margin: 3px 12px 3px 0;
 }
 
 .input input:focus, input:focus-visible {
@@ -490,9 +491,6 @@ a:hover {
     border-collapse: collapse;
 }
 
-.table-1 tr:nth-child(2n) {
-    background-color: #f8f8f8;
-}
 
 .table-1 tr th {
     font-weight: 700;
@@ -504,13 +502,10 @@ a:hover {
 
 .table-1 tr:hover {
     transition: all 0.3s ease;
-    background-color: #eeeeee;
-    box-shadow: 6px 6px 6px rgba(224, 224, 224, 0.9) inset
 }
 
 .table-1 td {
     font-size: 13px;
-    border-top: 1px solid #ccc;
     margin: 0;
     padding: 1px 9px;
     height: 34px;
@@ -993,10 +988,6 @@ a:hover {
     padding: 6px;
 }
 
-.el-pagination input:focus, select:focus {
-    border: 1px solid var(--color-input-1);
-    box-shadow: 0 0 0 0.2px var(--color-input-1);
-}
 
 @media screen and (max-width: 779px) {
     :root {
