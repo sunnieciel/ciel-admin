@@ -12,16 +12,15 @@
         <div class="w">
             <div class="wrapper-left">
                 <div>
-                    <!--页面信息模块-->
-                    {{include "/app2/3.nav.html" .}}
                     <!--导航栏模块-->
+                    {{include "/app2/3.nav.html" .}}
                     <div class="box no-bottom-border">
                         <!--页面信息-->
                         {{include "/app2/4.basePageInfo.html" .}}
                         <!-- 搜索栏-->
                         <div class="cell">
                             <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
-                            {{include "/app2/6.search.html" .}}
+                            {{include "/app2/5.search.html" .}}
                         </div>
                     </div>
                     <!--数据模块-->
@@ -30,70 +29,49 @@
                             <tbody>
                             <!--表头-->
                             <tr>
-                                <th v-for="i in pageConf.fields" v-text="i.label"></th>
+                                <th v-for="i in pageConf.fields">
+                                    <span v-if="!i.notShow" v-text="i.label"></span>
+                                </th>
                             </tr>
                             <!--数据-->
                             <tr v-for="i in list">
                                 <td v-for="j in pageConf.fields">
                                     <!--根据不同的字段类型展示不同的结果-->
-                                    <div v-if="j.type==='img'">
-                                        <a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" rarget='_blank'> <img class="icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a>
-                                        <span v-else><span class="tag-normal">暂无图片</span></span>
+                                    <!--filter not show field-->
+                                    <div v-if="!j.notShow">
+                                        <!--img-->
+                                        <div v-if="j.type==='img'">
+                                            <a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" rarget='_blank'> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a>
+                                            <span v-else><span class="tag-normal">暂无图片</span></span>
+                                        </div>
+                                        <!--select-->
+                                        <div v-else-if="j.type=='select'">
+                                            <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
+                                        </div>
+                                        <!--operate-->
+                                        <div v-else-if="j.type=='operate'">
+                                            <el-button-group>
+                                                <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
+                                                <el-button type="success" plain size="small" @click="del(i.id)">删除</el-button>
+                                            </el-button-group>
+                                        </div>
+                                        <!--text-->
+                                        <span v-else v-text="i[j.field]"></span>
                                     </div>
-                                    <div v-else-if="j.type=='select'">
-                                        <!--                                        <span v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label" :class="k.class"></span>-->
-                                        <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
-                                    </div>
-                                    <div v-else-if="j.type=='operate'">
-                                        <el-button-group>
-                                            <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                            <el-button type="success" plain size="small" @click="del(i.id)">删除</el-button>
-                                        </el-button-group>
-                                    </div>
-                                    <span v-else v-text="i[j.field]"></span>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        {{include "/app2/5.pagination.html" .}}
+                        <!-- 分页信息-->
+                        <el-pagination :currentPage="search.page" :page-size="search.size" :page-sizes="[1,2,5,15,30,50,100, 200, 300, 400]" small="small" background="background" layout="total, sizes, prev, pager, next, jumper" :total="total" @current-change="getList" @size-change="sizeChange"/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
-        <div class="details">
-            <ul>
-                <li><label class="input">名称<input v-model="details.name"></label></li>
-                <li><label class="input">路径<input v-model="details.path"></label></li>
-                <li><label class="input">pid<input v-model="details.pid"></label></li>
-                <li><label class="input">图标<input v-model="details.icon"></label></li>
-                <li><label class="input">排序<input type="number" v-model="details.sort"></label></li>
-            </ul>
-            <ul>
-                <li>
-                    <label class="input">类型<select v-model="details.type">
-                        <option label="菜单" :value="1"></option>
-                        <option label="分组" :value="2"></option>
-                    </select></label>
-                </li>
-                <li>
-                    <label class="input">状态<select v-model="details.status">
-                        <option label="正常" :value="1"></option>
-                        <option label="关闭" :value="2"></option>
-                    </select></label>
-                </li>
-            </ul>
-        </div>
-        <template #footer>
-            <div class="dialog-footer">
-                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
-                <el-button type="primary" @click="onSubmit()" size="small" plain>提交</el-button>
-            </div>
-        </template>
-    </el-dialog>
+    <!--弹框-->
+    {{include "/app2/7.details.html" .}}
 </div>
-
 </body>
 {{include "/app2/z.footerJs.html" .}}
 <script>
@@ -108,15 +86,15 @@
                     icon: '/upload/1/2022/03/FdI4Yw.gif',
                     fields: [
                         {field: 'id', label: 'ID'},
-                        {field: 'pid', label: 'pid', search: 1},
+                        {field: 'pid', label: 'pid', search: 1,},
                         {field: 'name', label: '菜单名', search: 1},
                         {field: 'icon', label: '图标', type: 'img'},
                         {field: 'path', label: '路径'},
                         {field: 'type', label: '类型', type: 'select', options: [{value: 1, label: '菜单', type: 'primary'}, {value: 2, label: '分组', type: 'warning'}]},
                         {field: 'sort', label: '排序', type: 'number'},
-                        {field: 'status', label: '状态', type: 'select', options: [{value: 1, label: '启用', type: 'info'}, {value: 2, label: '禁用', type: 'danger'}]},
-                        {field: 'created_at', label: '创建时间', type: 'time'},
-                        {field: 'updated_at', label: '更新时间', type: 'time'},
+                        {field: 'status', label: '状态', type: 'select', options: [{value: 1, label: '正常', type: 'info'}, {value: 2, label: '禁用', type: 'danger'}]},
+                        {field: 'created_at', label: '创建时间'},
+                        {field: 'updated_at', label: '更新时间', notShow: 1},
                         {label: '操作', type: 'operate'}
                     ],
                 },
@@ -130,18 +108,6 @@
         },
         created() {
             this.getList()
-        },
-        computed: {
-            mid: function () {
-                let res = this.search.page
-                if (res < 3) {
-                    res = 3
-                }
-                if (res > this.totalPage - 3) {
-                    res = this.totalPage - 2
-                }
-                return res
-            },
         },
         methods: {
             sizeChange(size) {

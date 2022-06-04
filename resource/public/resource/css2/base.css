@@ -390,8 +390,8 @@ a:hover {
     text-decoration: none !important;
 }
 
-/*icon*/
-.icon {
+/*s-icon*/
+.s-icon {
     width: 48px;
     height: 48px;
     vertical-align: bottom;
@@ -400,16 +400,16 @@ a:hover {
     box-shadow: var(--elevation-box-shadow-2);
 }
 
-.icon:hover {
+.s-icon:hover {
     box-shadow: var(--elevation-box-shadow-6);
 }
 
-.icon-large {
+.s-icon-large {
     width: 64px;
     height: 64px;
 }
 
-.icon-76 {
+.s-icon-76 {
     width: 76px;
     height: 76px;
 }

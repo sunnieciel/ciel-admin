@@ -482,3 +482,71 @@ h2 {
 .el-dialog__title {
     color: var(--white-3)
 }
+
+
+/*element ui pagination style rewrite*/
+.el-pagination {
+    margin-top: 1px;
+    padding: 5px !important;
+    font-size: 14px;
+    line-height: 120%;
+    border-radius: 0 0 3px 3px;
+    border-top: 1px solid var(--color-border-1);
+}
+
+.el-scrollbar {
+    background-color: #001d25;
+    box-shadow: none;
+}
+
+.el-pagination--small span:not([class*=suffix]) {
+    margin-left: 12px;
+}
+
+.el-select__popper.el-popper[role=tooltip] {
+    background: var(--el-color-white);
+    border: 1px solid #292b2d;
+    box-shadow: var(--el-box-shadow-light);
+}
+
+.el-select-dropdown__item:hover {
+    background-color: #18222d;
+}
+
+.el-select-dropdown__item.selected {
+    color: var(--el-color-primary);
+}
+
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+    background-color: #18222d;
+}
+
+.el-input__inner {
+    background-color: #001d25;
+    outline: none;
+    box-shadow: none;
+    border-radius: 15px;
+}
+
+.el-input__inner:hover, .el-select .el-input__inner:focus {
+    box-shadow: none !important;
+}
+
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+    background-color: #001d2552;
+    color: var(--el-text-color-regular);
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #212f3e;
+    color: #1876ca;
+}
+
+.el-pagination.is-background .btn-next:disabled, .el-pagination.is-background .btn-prev:disabled {
+    color: var(--el-text-color-placeholder);
+    background-color: #001d25;
+}
+
+.el-pagination--small span:not([class*=suffix]), .el-input__inner {
+    color: #d2d2d2;
+}
