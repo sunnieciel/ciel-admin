@@ -1,3 +1,7 @@
+[v-cloak] {
+    display: none !important;
+}
+
 /* element ui */
 .el-dialog {
     border-radius: 12px !important;

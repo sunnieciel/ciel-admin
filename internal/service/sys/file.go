@@ -53,6 +53,6 @@ func UploadFile(ctx context.Context, r *ghttp.Request) error {
 	}
 	return nil
 }
-func GetFileById(ctx context.Context, id uint64) (*entity.File, error) {
+func GetFileById(ctx context.Context, id interface{}) (*entity.File, error) {
 	return dao.File.GetById(ctx, id)
 }

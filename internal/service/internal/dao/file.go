@@ -17,7 +17,7 @@ type fileDao struct {
 	*internal.FileDao
 }
 
-func (d fileDao) GetById(ctx context.Context, id uint64) (*entity.File, error) {
+func (d fileDao) GetById(ctx context.Context, id interface{}) (*entity.File, error) {
 	var data entity.File
 	one, err := d.Ctx(ctx).Where("id", id).One()
 	if err != nil {

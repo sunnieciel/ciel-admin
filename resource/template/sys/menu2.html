@@ -1,76 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-    <title>Menu</title>
     {{include "/app2/1.meta.html" .}}
 </head>
 <body>
-<div id="app">
+<div id="app" v-cloak>
     <!--top模块-->
     {{include "/app2/2.top.html" .}}
     <div id="wrapper">
         <div class="w">
             <div class="wrapper-left">
-                <div>
-                    <!--导航栏模块-->
-                    {{include "/app2/3.nav.html" .}}
-                    <div class="box no-bottom-border">
-                        <!--页面信息-->
-                        {{include "/app2/4.basePageInfo.html" .}}
-                        <!-- 搜索栏-->
-                        <div class="cell">
-                            <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
-                            {{include "/app2/5.search.html" .}}
-                        </div>
+                <!--导航栏模块-->
+                {{include "/app2/3.nav.html" .}}
+                <div class="box no-bottom-border">
+                    {{include "/app2/4.basePageInfo.html" .}}
+                    <!-- 搜索栏-->
+                    <div class="cell">
+                        <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                        {{include "/app2/5.search.html" .}}
                     </div>
-                    <!--数据模块-->
-                    <div class="box no-bottom-border">
-                        <table class="table-1" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
-                            <tbody>
-                            <!--表头-->
-                            <tr>
-                                <th v-for="i in pageConf.fields">
-                                    <span v-if="!i.notShow" v-text="i.label"></span>
-                                </th>
-                            </tr>
-                            <!--数据-->
-                            <tr v-for="i in list">
-                                <td v-for="j in pageConf.fields">
-                                    <!--根据不同的字段类型展示不同的结果-->
-                                    <!--filter not show field-->
-                                    <div v-if="!j.notShow">
-                                        <!--img-->
-                                        <div v-if="j.type==='img'">
-                                            <a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" rarget='_blank'> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a>
-                                            <span v-else><span class="tag-normal">暂无图片</span></span>
-                                        </div>
-                                        <!--select-->
-                                        <div v-else-if="j.type=='select'">
-                                            <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
-                                        </div>
-                                        <!--operate-->
-                                        <div v-else-if="j.type=='operate'">
-                                            <el-button-group>
-                                                <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                                <el-button type="success" plain size="small" @click="del(i.id)">删除</el-button>
-                                            </el-button-group>
-                                        </div>
-                                        <!--text-->
-                                        <span v-else v-text="i[j.field]"></span>
+                </div>
+                <!--数据模块-->
+                <div class="box no-bottom-border">
+                    <table class="table-1" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
+                        <tbody>
+                        <!--表头-->
+                        <tr>
+                            <th v-for="i in pageConf.fields">
+                                <span v-if="!i.notShow" v-text="i.label"></span>
+                            </th>
+                        </tr>
+                        <!--数据-->
+                        <tr v-for="i in list">
+                            <td v-for="j in pageConf.fields">
+                                <!--根据不同的字段类型展示不同的结果-->
+                                <!--filter not show field-->
+                                <div v-if="!j.notShow">
+                                    <div v-if="j.type==='img'">
+                                        <a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" rarget='_blank'> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a>
+                                        <span v-else><span class="tag-normal">暂无图片</span></span>
                                     </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <!-- 分页信息-->
-                        <el-pagination :currentPage="search.page" :page-size="search.size" :page-sizes="[1,2,5,15,30,50,100, 200, 300, 400]" small="small" background="background" layout="total, sizes, prev, pager, next, jumper" :total="total" @current-change="getList" @size-change="sizeChange"/>
-                    </div>
+                                    <div v-else-if="j.type=='select'">
+                                        <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
+                                    </div>
+                                    <div v-else-if="j.type=='operate'">
+                                        <el-button-group>
+                                            <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
+                                            <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
+                                        </el-button-group>
+                                    </div>
+                                    <span v-else v-text="i[j.field]"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- 分页信息-->
+                    <el-pagination :currentPage="search.page" :page-size="search.size" :page-sizes="[1,2,5,15,30,50,100, 200, 300, 400]" small="small" background="background" layout="total, sizes, prev, pager, next, jumper" :total="total" @current-change="getList" @size-change="sizeChange"/>
                 </div>
             </div>
         </div>
     </div>
     <!--弹框-->
     {{include "/app2/7.details.html" .}}
+    {{include "/app2/8.footer.html" .}}
 </div>
 </body>
 {{include "/app2/z.footerJs.html" .}}
@@ -78,35 +71,14 @@
     const app = Vue.createApp({
         data() {
             return {
-                //config
-                pageConf: {
-                    name: "Menu",
-                    desc: "这里是Menu管理页面,可以对菜单进行添加,修改,删除等操作。",
-                    urlPrefix: '/menu',
-                    icon: '/upload/1/2022/03/FdI4Yw.gif',
-                    fields: [
-                        {field: 'id', label: 'ID'},
-                        {field: 'pid', label: 'pid', search: 1,},
-                        {field: 'name', label: '菜单名', search: 1},
-                        {field: 'icon', label: '图标', type: 'img'},
-                        {field: 'path', label: '路径'},
-                        {field: 'type', label: '类型', type: 'select', options: [{value: 1, label: '菜单', type: 'primary'}, {value: 2, label: '分组', type: 'warning'}]},
-                        {field: 'sort', label: '排序', type: 'number'},
-                        {field: 'status', label: '状态', type: 'select', options: [{value: 1, label: '正常', type: 'info'}, {value: 2, label: '禁用', type: 'danger'}]},
-                        {field: 'created_at', label: '创建时间'},
-                        {field: 'updated_at', label: '更新时间', notShow: 1},
-                        {label: '操作', type: 'operate'}
-                    ],
-                },
-                // search
-                search: {page: 1, size: 15, status: ''},
-                // data
-                list: [], loading: false, total: 0, totalPage: 0,
-                // details
-                details: {status: ''}, detailsVisible: false, detailsTitle: '', showType: 0 // 1 add 2 update,
+                pageConf: {}, search: {page: 1, size: 15, status: ''}, // config & search
+                list: [], loading: false, total: 0, totalPage: 0, // data
+                details: {status: ''}, detailsVisible: false, detailsTitle: '', showType: 0 // 1 add 2 update, // details
             }
         },
-        created() {
+        async created() {
+            this.pageConf = await $.get('/resource/table/menu.json')
+            document.title = this.pageConf.name
             this.getList()
         },
         methods: {
@@ -119,8 +91,7 @@
                 if (page) {
                     this.search.page = page;
                 }
-                this.search.page = this.search.page > this.totalPage ? this.totalPage : this.search.page <= 1 ? 1 : this.search.page;
-                let res = await $.get(`${this.pageConf.urlPrefix}/list`, this.search);
+                let res = await $.get(`${this.pageConf.urlPrefix}`, this.search);
                 const {currPage, totalCount, totalPage, list} = res.data;
                 this.search.page = currPage;
                 this.total = totalCount
@@ -135,16 +106,16 @@
                 this.detailsTitle = '添加操作'
                 if (type === 2) {
                     this.detailsTitle = '修改操作'
-                    let res = await $.get(`${this.pageConf.urlPrefix}/getById?id=` + id)
+                    let res = await $.get(`${this.pageConf.urlPrefix}` + id)
                     this.details = res.data
                 }
             },
             async onSubmit() {
                 let res = {}
                 if (this.showType === 1) {
-                    res = await $.post(`${this.pageConf.urlPrefix}/post`, this.details)
+                    res = await $.post(`${this.pageConf.urlPrefix}`, this.details)
                 } else {
-                    res = await $.put(`${this.pageConf.urlPrefix}/put`, this.details)
+                    res = await $.put(`${this.pageConf.urlPrefix}`, this.details)
                 }
                 if (res.code === 0) {
                     noticeOk('Success')
@@ -154,9 +125,9 @@
                     noticeError(res.msg)
                 }
             },
-            async del(id) {
+            async onDel(id) {
                 if (confirm("确定删除？")) {
-                    let res = await $.delete(`${this.pageConf.urlPrefix}/del?id=` + id);
+                    let res = await $.delete(`${this.pageConf.urlPrefix}` + id);
                     if (res.code === 0) {
                         await this.getList(this.search.page)
                         noticeOk('Success')

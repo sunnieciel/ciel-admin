@@ -32,12 +32,12 @@ var (
 			s.Group("/menu", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Menu.Path)
-				g.GET("/list", controller.Menu.List)
-				g.GET("/getById", controller.Menu.GetById)
+				g.GET("/", controller.Menu.List)
+				g.GET("/:id", controller.Menu.GetById)
 				g.Middleware(sys.LockAction)
-				g.DELETE("/del", controller.Menu.Del)
-				g.POST("/post", controller.Menu.Post)
-				g.PUT("/put", controller.Menu.Put)
+				g.DELETE("/:id", controller.Menu.Del)
+				g.POST("/", controller.Menu.Post)
+				g.PUT("/", controller.Menu.Put)
 			})
 			s.Group("/api", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
