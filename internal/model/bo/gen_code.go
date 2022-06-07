@@ -1,27 +1,37 @@
 package bo
 
-type GenCodeInfo struct {
-	Table                  string `v:"required#表名不能为空"`
-	StructName             string `v:"required#结构体名称"`
-	Category               string `v:"required#请输入类别"`
-	Desc                   string `v:"required#请输入描述"`
-	Title                  string `v:"required#请输入标题"`
+import "github.com/gogf/gf/v2/database/gdb"
+
+type GenConf struct {
+	Table      string
+	StructName string `v:"required#结构体名称"`
+	HtmlGroup  string
+	PageName   string
+	PageDesc   string
+	AddBtn     int
+	UpdateBtn  int
+	DelBtn     int
+	UrlPrefix  string
+
 	T1, T2, T3, T4, T5, T6 string
-	Fields                 []*Field
 	OrderBy                string
 	QueryField             string
-	AddBtn                 int
-	UpdateBtn              int
-	DelBtn                 int
+	Fields                 []*GenFiled
 }
-type Field struct {
-	Name        string
-	Comment     string
-	Type        string
-	SearchType  string
-	QueryField  string
-	Title       string
-	Sort        int
-	DetailsType string // show no-show disabled
-	Show        int    // 字段是否展示 1 展示 2 不展示
+type GenFiled struct {
+	*gdb.TableField
+	Label     string //  label is empty, use name
+	FieldType string // select number text date datetime
+	EditHide  int    // 1 true
+	NotShow   int    // 1 true  not show in table
+	Comment   string // is comment is not empty ,add el-tag comment
+	Options   []*FieldOption
+
+	SelectType int // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=
+	QueryName  string
+}
+type FieldOption struct {
+	Value interface{}
+	Label string
+	Type  string // primary info success warning danger
 }

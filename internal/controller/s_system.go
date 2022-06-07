@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/manifest/config"
@@ -19,14 +20,13 @@ type (
 	cSys     struct{}
 	rss      struct{}
 	gen      struct{}
-	api      struct{ *config.SearchConf }
-	role     struct{ *config.SearchConf }
-	roleApi  struct{ *config.SearchConf }
-	admin    struct{ *config.SearchConf }
-	roleMenu struct{ *config.SearchConf }
-	dict     struct{ *config.SearchConf }
-	file     struct{ *config.SearchConf }
-	menu     struct{ *config.SearchConf }
+	api      struct{ *config.Search }
+	role     struct{ *config.Search }
+	roleApi  struct{ *config.Search }
+	admin    struct{ *config.Search }
+	roleMenu struct{ *config.Search }
+	dict     struct{ *config.Search }
+	file     struct{ *config.Search }
 	ws       struct{}
 )
 
@@ -60,80 +60,16 @@ func (s cSys) Douban(r *ghttp.Request) {
 	res.Page(r, "/sys/rss/douban.html", g.Map{"icon": "/resource/image/github.png"})
 }
 
-// ---Menu-------------------------------------------------------------------
-
-var Menu = &menu{SearchConf: &config.SearchConf{
-	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
-	Fields: []*config.Field{
-		{Field: "pid"},
-		{Field: "status"},
-		{Field: "name", Like: true},
-		{Field: "path", Like: true},
-	},
-}}
-
-func (c *menu) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/menu2.html", g.Map{"icon": icon})
-}
-func (c *menu) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *menu) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *menu) Post(r *ghttp.Request) {
-	d := entity.Menu{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *menu) Put(r *ghttp.Request) {
-	d := entity.Menu{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *menu) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-
 // ---api-------------------------------------------------------------------
 
-var Api = &api{SearchConf: &config.SearchConf{
-	PageUrl: "/api/list",
-	T1:      "s_api", Fields: []*config.Field{
-		{Field: "id"},
-		{Field: "url"},
-		{Field: "method"},
-		{Field: "group"},
-		{Field: "desc"},
-		{Field: "status"},
+var Api = &api{Search: &config.Search{
+	T1: "s_api", Fields: []*config.Field{
+		{Name: "id"},
+		{Name: "url"},
+		{Name: "method"},
+		{Name: "group"},
+		{Name: "desc"},
+		{Name: "status"},
 	},
 }}
 
@@ -141,7 +77,7 @@ func (c *api) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -170,8 +106,7 @@ func (c *api) Del(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *api) GetById(r *ghttp.Request) {
-	id := r.GetQuery("id")
-	data, err := sys.GetById(r.Context(), c.T1, id)
+	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -182,18 +117,17 @@ func (c *api) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/api.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/s_api.html", g.Map{"icon": icon})
 }
 
 // ---role-------------------------------------------------------------------
 
-var Role = &role{SearchConf: &config.SearchConf{
-	PageUrl: "/role/list",
-	T1:      "s_role", Fields: []*config.Field{
-		{Field: "id"},
-		{Field: "name"},
-		{Field: "created_at"},
-		{Field: "updated_at"},
+var Role = &role{Search: &config.Search{
+	T1: "s_role", Fields: []*config.Field{
+		{Name: "id"},
+		{Name: "name"},
+		{Name: "created_at"},
+		{Name: "updated_at"},
 	},
 }}
 
@@ -201,7 +135,7 @@ func (c *role) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -230,8 +164,7 @@ func (c *role) Del(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *role) GetById(r *ghttp.Request) {
-	id := r.GetQuery("id")
-	data, err := sys.GetById(r.Context(), c.T1, id)
+	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -243,7 +176,7 @@ func (c *role) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/role.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/s_role.html", g.Map{"icon": icon})
 }
 
 func (c *role) Roles(r *ghttp.Request) {
@@ -256,15 +189,14 @@ func (c *role) Roles(r *ghttp.Request) {
 
 // ---roleApi-------------------------------------------------------------------
 
-var RoleApi = &roleApi{SearchConf: &config.SearchConf{
-	PageUrl: "roleApi/list",
-	T1:      "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
+var RoleApi = &roleApi{Search: &config.Search{
+	T1: "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
 	SearchFields: "t1.*,t2.name r_name,t3.url url ,t3.group,t3.method,t3.desc ", Fields: []*config.Field{
-		{Field: "id"},
-		{Field: "rid"},
-		{Field: "aid"},
-		{Field: "t2.name", QueryField: "r_name"},
-		{Field: "t3.url"},
+		{Name: "id"},
+		{Name: "rid"},
+		{Name: "aid"},
+		{Name: "t2.name", QueryName: "r_name"},
+		{Name: "t3.url"},
 	},
 }}
 
@@ -275,7 +207,7 @@ func (c *roleApi) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -301,18 +233,17 @@ func (c *roleApi) Del(r *ghttp.Request) {
 
 // ---roleMenu-------------------------------------------------------------------
 
-var RoleMenu = &roleMenu{SearchConf: &config.SearchConf{
-	PageUrl:      "/roleMenu/list",
+var RoleMenu = &roleMenu{Search: &config.Search{
 	T1:           "s_role_menu",
 	T2:           "s_role  t2 on t1.rid = t2.id",
 	T3:           "s_menu t3 on t1.mid = t3.id",
 	SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
 	Fields: []*config.Field{
-		{Field: "id"},
-		{Field: "rid"},
-		{Field: "t2.name", QueryField: "role_name", Like: true},
-		{Field: "mid"},
-		{Field: "t3.name", QueryField: "menu_name"},
+		{Name: "id"},
+		{Name: "rid"},
+		{Name: "t2.name", QueryName: "role_name", SearchType: 2},
+		{Name: "mid"},
+		{Name: "t3.name", QueryName: "menu_name"},
 	},
 }}
 
@@ -323,7 +254,7 @@ func (c *roleMenu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -373,16 +304,15 @@ func (c *roleMenu) CurrentMenus(r *ghttp.Request) {
 //  ---admin-------------------------------------------------------------------
 
 var Admin = &admin{
-	SearchConf: &config.SearchConf{
-		PageUrl:      "/admin/list",
+	Search: &config.Search{
 		T1:           "s_admin",
 		T2:           "s_role t2 on t1.rid = t2.id",
 		SearchFields: "t1.id,t1.rid,t1.uname,t1.status,t1.created_at,t1.updated_at,t2.name role_name",
 		Fields: []*config.Field{
-			{Field: "id"},
-			{Field: "uname", Like: true},
-			{Field: "rid"},
-			{Field: "status"},
+			{Name: "id"},
+			{Name: "uname", SearchType: 2},
+			{Name: "rid"},
+			{Name: "status"},
 		},
 	}}
 
@@ -394,13 +324,13 @@ func (c *admin) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/admin.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/s_admin.html", g.Map{"icon": icon})
 }
 func (c *admin) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -485,16 +415,16 @@ func (c *admin) UpdatePwd(r *ghttp.Request) {
 
 // --- Dict ------------------------------------------------------------------
 
-var Dict = &dict{SearchConf: &config.SearchConf{
-	PageUrl: "/dict/list", T1: "s_dict",
+var Dict = &dict{Search: &config.Search{
+	T1: "s_dict",
 	Fields: []*config.Field{
-		{Field: "id"},
-		{Field: "k", Like: true},
-		{Field: "v", Like: true},
-		{Field: "desc", Like: true},
-		{Field: "group"},
-		{Field: "type"},
-		{Field: "status"},
+		{Name: "id"},
+		{Name: "k", SearchType: 2},
+		{Name: "v", SearchType: 2},
+		{Name: "desc", SearchType: 2},
+		{Name: "group"},
+		{Name: "type"},
+		{Name: "status"},
 	},
 }}
 
@@ -509,7 +439,7 @@ func (c *dict) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -551,16 +481,16 @@ func (c *dict) Del(r *ghttp.Request) {
 
 // --- File -------------------------------------------------------------------
 
-var File = &file{SearchConf: &config.SearchConf{
-	PageUrl: "/file/list", T1: "s_file",
+var File = &file{Search: &config.Search{
+	T1: "s_file",
 	Fields: []*config.Field{
-		{Field: "id"},
-		{Field: "img"},
-		{Field: "group", Like: true},
-		{Field: "status"},
-		{Field: "url"},
-		{Field: "created_at"},
-		{Field: "updated_at"},
+		{Name: "id"},
+		{Name: "img"},
+		{Name: "group", SearchType: 2},
+		{Name: "status"},
+		{Name: "url"},
+		{Name: "created_at"},
+		{Name: "updated_at"},
 	},
 }}
 
@@ -575,7 +505,7 @@ func (c *file) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
-	total, data, err := sys.List(r.Context(), c.SearchConf)
+	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -658,7 +588,7 @@ func (c gen) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/gen.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/gen2.html", g.Map{"icon": icon})
 }
 func (c gen) Tables(r *ghttp.Request) {
 	data, err := sys.Tables(r.Context())
@@ -677,6 +607,14 @@ func (c gen) Fields(r *ghttp.Request) {
 	}
 	data, err := sys.Fields(r.Context(), d.Table)
 	res.OkData(data, r)
+}
+
+func (c gen) GenFile(r *ghttp.Request) {
+	var d *bo.GenConf
+	if err := sys.GenFile(r.Context(), d); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
 }
 
 // --- Ws ------------------------------------------------------------------------

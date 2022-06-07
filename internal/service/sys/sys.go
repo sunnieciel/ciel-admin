@@ -5,6 +5,7 @@ import (
 	"ciel-admin/internal/service/internal/dao"
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/xstr"
+	"ciel-admin/utility/utils/xtime"
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
@@ -14,7 +15,7 @@ import (
 	"strings"
 )
 
-func List(ctx context.Context, c *config.SearchConf) (count int, data gdb.List, err error) {
+func List(ctx context.Context, c *config.Search) (count int, data gdb.List, err error) {
 	db := g.DB().Ctx(ctx).Model(c.T1 + " t1")
 	if c.T2 != "" {
 		db = db.LeftJoin(c.T2)
@@ -28,20 +29,50 @@ func List(ctx context.Context, c *config.SearchConf) (count int, data gdb.List, 
 	if c.T5 != "" {
 		db = db.LeftJoin(c.T5)
 	}
+	if c.T6 != "" {
+		db = db.LeftJoin(c.T6)
+	}
 	conditions := c.FilterConditions(ctx)
 	if len(conditions) > 0 {
 		for _, item := range conditions {
-			field := item.Field
+			field := item.Name
 			if g.IsEmpty(item.Value) {
 				continue
 			}
 			if !strings.Contains(field, ".") {
 				field = "t1." + field
 			}
-			if item.Like {
-				db = db.WhereLike(field, xstr.Like(gconv.String(item.Value)))
-			} else {
+			switch item.SearchType {
+			case 1:
 				db = db.Where(field, item.Value)
+			case 2: // like
+				db = db.WhereLike(field, xstr.Like(gconv.String(item.Value)))
+			case 3: // >
+				db = db.WhereGT(field, item.Value)
+			case 4: // <
+				db = db.WhereLT(field, item.Value)
+			case 5: // >=
+				db = db.WhereGTE(field, item.Value)
+			case 6: // <=
+				db = db.WhereLTE(field, item.Value)
+			case 7: // !=
+				db = db.WhereNot(field, item.Value)
+			case 8: //date
+				if c.Begin != "" {
+					db = db.Where(field, ">=", c.Begin)
+				}
+				if c.End != "" {
+					db = db.Where(field, "<=", c.End)
+				}
+			case 9: // date start
+				if c.Begin != "" {
+					db = db.Where(field, ">=", xtime.BeginOfDateStr(c.Begin))
+				}
+				if c.End != "" {
+					db = db.Where(field, "<=", xtime.EndOfDateStr(c.End))
+				}
+			default:
+				continue
 			}
 		}
 	}
@@ -95,13 +126,17 @@ func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
 }
 func Icon(ctx context.Context, path string) (string, error) {
 	menu, err := dao.Menu.GetByPath(ctx, path)
+	icon := menu.Icon
 	if err != nil {
 		return "", nil
 	}
-	if menu.Icon == "" {
+	if icon == "" {
 		return "", nil
 	}
-	return consts.ImgPrefix + menu.Icon, err
+	if strings.HasPrefix(icon, "http") {
+		return icon, nil
+	}
+	return consts.ImgPrefix + icon, err
 }
 func Init() {
 	get, err := g.Cfg().Get(gctx.New(), "server.imgPrefix")
