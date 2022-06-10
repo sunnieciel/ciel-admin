@@ -3,68 +3,142 @@
 <head>
     <meta charset="UTF-8">
     {{include "/app2/1.meta.html" .}}
+    <title>代码生成</title>
 </head>
+<style>
+    .table-item {
+        display: block;
+        cursor: pointer;
+        border-radius: 12px;
+        padding: 3px 12px;
+        transition: all 0.5s ease;
+    }
+
+    .table-item:hover {
+        text-decoration: none !important;
+    }
+
+    .table-list {
+        position: absolute;
+        top: 108px;
+        left: -120px;
+        max-height: 666px;
+        overflow-y: hidden;
+    }
+
+    .table-list:hover {
+        overflow-y: auto;
+    }
+</style>
+{{if eq .Cookie.dark 1}}
+<style>
+    .table-item:hover, .table-item-active {
+        background-color: #253761;
+        color: #00a0e9;
+    }
+</style>
+{{else}}
+<style>
+    .table-item:hover, .table-item-active {
+        background-color: #f2f2f4;
+        color: #00a0e9;
+        font-weight: 500;
+    }
+</style>
+{{end}}
 <body>
 <div id="app" v-cloak>
     {{include "/app2/2.top.html" .}}
     <div id="wrapper">
         <div class="w">
-            <div class="wrapper-left">
+            <div class="wrapper-left" style="position: relative">
+                <!--选择数据表-->
+                <div class="box table-list">
+                    <label class="input">
+                        <el-tag type="info" size="small">请选择数据表</el-tag>
+                        <div v-model="genConf.T1">
+                            <a class="mt-5 table-item " v-for="i,index in tables" :value="i" v-text="i" @click="getFields(i,index)" :class="[index==assistant.tableItemActive?'table-item-active':'']"></a>
+                        </div>
+                    </label>
+                </div>
                 {{include "/app2/3.nav.html" .}}
                 <div class="box no-bottom-border">
                     {{include "/app2/4.basePageInfo.html" .}}
+                    <!--基本配置-->
                     <div class="cell">
-                        <el-button class="mr-12" type="primary" plain size="small" @click="getTables()">查询数据表</el-button>
                         <div class="mt-10">
-                            <el-tag type="info" size="small">基本信息</el-tag>
-                            <label class="input">分组 <input v-model="genConf.HtmlGroup"></label>
-                            <label class="input">结构体 <input v-model="genConf.StructName"></label>
-                            <label class="input">页面名称 <input v-model="genConf.PageName"></label>
-                            <label class="input">说明 <input v-model="genConf.PageDesc"></label>
-                            <label class="input">查询字段 <input v-model="genConf.QueryField"></label>
-                            <label class="input">排序规则 <input v-model="genConf.OrderBy"></label>
-                            <br>
-                            <el-tag type="warning" size="small">关联查询</el-tag>
-                            <label class="input">T1 <input v-model="genConf.Table"></label>
-                            <label class="input">T2 <input v-model="genConf.T2"></label>
-                            <label class="input">T3 <input v-model="genConf.T3"></label>
-                            <label class="input">T4 <input v-model="genConf.T4"></label>
-                            <label class="input">T5 <input v-model="genConf.T5"></label>
-                            <label class="input">T6 <input v-model="genConf.T6"></label>
-                            <br>
-                            <el-tag type="success" size="small">操作按钮</el-tag>
-                            <label class="input">添加按钮 <select v-model="genConf.AddBtn">
-                                <option value="0">是</option>
-                                <option value="1">否</option>
-                            </select></label>
-                            <label class="input">修改按钮 <select v-model="genConf.UpdateBtn">
-                                <option value="0">是</option>
-                                <option value="1">否</option>
-                            </select></label>
-                            <label class="input">删除按钮 <select v-model="genConf.DelBtn">
-                                <option value="0">是</option>
-                                <option value="1">否</option>
-                            </select></label>
+                            <div class="flex-baseline">
+                                <el-tag type="info" size="small">菜单信息</el-tag>
+                                <div style="flex: 1">
+                                    <label class="input">一级菜单 <input v-model="genConf.MenuLevel1"></label>
+                                    <label class="input">页面菜单 <input v-model="genConf.MenuLevel2"></label>
+                                    <label class="input">页面Logo <input v-model="genConf.MenuLogo"></label>
+                                </div>
+                            </div>
+                            <div class="flex-baseline">
+                                <el-tag type="primary" size="small">基本信息</el-tag>
+                                <div style="flex: 1">
+                                    <label class="input">页面分组 <input v-model="genConf.HtmlGroup"></label>
+                                    <label class="input">结构体 <input v-model="genConf.StructName"></label>
+                                    <label class="input">页面名称 <input v-model="genConf.PageName"></label>
+                                    <label class="input">说明 <input v-model="genConf.PageDesc"></label>
+                                    <label class="input">页面图标 <input v-model="genConf.icon"></label>
+                                    <label class="input">排序规则 <input v-model="genConf.OrderBy"></label>
+                                </div>
+                            </div>
+                            <div class="flex-center">
+                                <el-tag type="warning" size="small">关联查询</el-tag>
+                                <div style="flex: 1">
+                                    <label class="input">T1 <input v-model="genConf.T1"></label>
+                                    <label class="input">T2 <input v-model="genConf.T2"></label>
+                                    <label class="input">T3 <input v-model="genConf.T3"></label>
+                                    <label class="input">T4 <input v-model="genConf.T4"></label>
+                                    <label class="input">T5 <input v-model="genConf.T5"></label>
+                                    <label class="input">T6 <input v-model="genConf.T6"></label>
+                                    <label class="input">查询字段 <input v-model="genConf.QueryField"></label>
+                                </div>
+                            </div>
+                            <div class="flex-center">
+                                <el-tag type="success" size="small">操作按钮</el-tag>
+                                <div>
+                                    <label class="input">添加按钮 <select v-model="genConf.AddBtn">
+                                        <option value="0">是</option>
+                                        <option value="1">否</option>
+                                    </select></label>
+                                    <label class="input">修改按钮 <select v-model="genConf.UpdateBtn">
+                                        <option value="0">是</option>
+                                        <option value="1">否</option>
+                                    </select></label>
+                                    <label class="input">删除按钮 <select v-model="genConf.DelBtn">
+                                        <option value="0">是</option>
+                                        <option value="1">否</option>
+                                    </select></label>
+                                </div>
+                            </div>
+                            <el-button class="mt-10" type="primary" plain size="small" @click="addRow()">添加一行</el-button>
+                            <el-button class="mt-10" type="danger" plain size="small" @click="submitGenCode()">生成代码</el-button>
                         </div>
                     </div>
                 </div>
+                <!--Fields-->
                 <div class="box no-bottom-border">
                     <table class="table-1">
                         <tbody>
                         <tr>
                             <th>字段</th>
                             <th>标题</th>
+                            <th>查询时字段名</th>
                             <th>备注</th>
                             <th>字段类型</th>
                             <th>展示</th>
-                            <th>编辑时隐藏</th>
+                            <th>编辑时展示</th>
                             <th>查询类型</th>
-                            <th>查询时字段名</th>
                             <th>操作</th>
                         </tr>
                         <tr v-for="i in fields">
                             <td v-text="i.Name"></td>
                             <td v-text="i.Label"></td>
+                            <td v-text="i.QueryName"></td>
                             <td v-text="i.Comment"></td>
                             <td v-text="i.FieldType"></td>
                             <td>
@@ -72,56 +146,107 @@
                                 <el-tag v-else size="small" type="warning">否</el-tag>
                             </td>
                             <td>
-                                <el-tag v-if="i.EditHide==0" size="small" type="info">否</el-tag>
-                                <el-tag v-else size="small" type="warning">是</el-tag>
+                                <el-tag v-if="i.EditHide==0" size="small" type="info">是</el-tag>
+                                <el-tag v-else size="small" type="warning">否</el-tag>
                             </td>
                             <td>
-                                <el-tag v-if="!i.SelectType" size="small" type="info">不查询</el-tag>
-                                <el-tag v-else-if="i.SelectType==1" size="small" type="info">=</el-tag>
-                                <el-tag v-else-if="i.SelectType==2" size="small" type="info">like</el-tag>
-                                <el-tag v-else-if="i.SelectType==3" size="small" type="info">></el-tag>
-                                <el-tag v-else-if="i.SelectType==4" size="small" type="info"><</el-tag>
-                                <el-tag v-else-if="i.SelectType==5" size="small" type="info">>=</el-tag>
-                                <el-tag v-else-if="i.SelectType==6" size="small" type="info"><=</el-tag>
-                                <el-tag v-else-if="i.SelectType==7" size="small" type="info">!=</el-tag>
-                                <el-tag v-else-if="i.SelectType==8" size="small" type="info">日期</el-tag>
-                                <el-tag v-else-if="i.SelectType==9" size="small" type="info">日期(一天开始到结束)=</el-tag>
+                                <el-tag v-if="i.SearchType==0" size="small" type="info">不查询</el-tag>
+                                <el-tag v-else-if="i.SearchType==1" size="small" type="primary">=</el-tag>
+                                <el-tag v-else-if="i.SearchType==2" size="small" type="primary">like</el-tag>
+                                <el-tag v-else-if="i.SearchType==3" size="small" type="primary">></el-tag>
+                                <el-tag v-else-if="i.SearchType==4" size="small" type="primary"><</el-tag>
+                                <el-tag v-else-if="i.SearchType==5" size="small" type="primary">>=</el-tag>
+                                <el-tag v-else-if="i.SearchType==6" size="small" type="primary"><=</el-tag>
+                                <el-tag v-else-if="i.SearchType==7" size="small" type="primary">!=</el-tag>
+                                <el-tag v-else-if="i.SearchType==8" size="small" type="primary">日期</el-tag>
+                                <el-tag v-else-if="i.SearchType==9" size="small" type="primary">日期(一天开始到结束)=</el-tag>
                             </td>
-                            <td v-text="i.QueryName"></td>
                             <td class="table-action">
                                 <el-button-group>
-                                    <el-button type="primary" plain size="small" @click="showFieldDetails(item)">编辑</el-button>
-                                    <el-button type="success" plain size="small" @click="del(item)">删除</el-button>
+                                    <el-button type="primary" plain size="small" @click="showFieldDetails(i)">编辑</el-button>
+                                    <el-button type="success" plain size="small" @click="removeRow(i)">删除</el-button>
                                 </el-button-group>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <!--Field detail-->
+                <el-dialog v-model="dialogVisible" title="编辑" width="36%">
+                    <div class="details">
+                        <ul>
+                            <li><label class="input">字段名称 <input v-model="fieldDetail.Name"> </label></li>
+                            <li><label class="input">标题 <input v-model="fieldDetail.Label"> </label></li>
+                            <li><label class="input">备注<input v-model="fieldDetail.Comment"></label></li>
+                            <li><label class="input">排序<input type="number" v-model="fieldDetail.Index"></label></li>
+                            <li><label class="input">查询字段<input v-model="fieldDetail.QueryName"> </label>
+                                <br>
+                                <el-tag type="info" size="small">多表查询时，入参时的字段。eg: select t1.*, t2.ip
+                                    from u_user t1
+                                    left join u_login_log t2 on t1.id = t2.uid
+                                    where t2.ip = 333
+                                    这种情况下，查询字段为ip,字段名称为 t2.ip
+                                </el-tag>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li><label class="input">字段类型 <select v-model="fieldDetail.FieldType">
+                                <option :value="'text'">text</option>
+                                <option :value="'select'">select</option>
+                                <option :value="'number'">number</option>
+                            </select></label></li>
+                            <li v-show="this.fieldDetail.FieldType==='select'">
+                                <div class="input" style="display: flex;">
+                                    <span>字段选项</span>
+                                    <div style="flex:1">
+                                        <div v-for="(i,index) of fieldDetail.Options">
+                                            <input style="width: 52px" title="Name" placeholder="Name" v-model="fieldDetail.Options[index].Name">
+                                            <input style="width: 52px" title="Value" placeholder="Value" v-model="fieldDetail.Options[index].Value">
+                                            <select class="mr-3 mt-3" title="el-tag's type" style="width: 90px" placeholder="Type" v-model="fieldDetail.Options[index].Type">
+                                                <option :value="'primary'">primary</option>
+                                                <option :value="'success'">success</option>
+                                                <option :value="'info'">info</option>
+                                                <option :value="'warning'">warning</option>
+                                                <option :value="'danger'">danger</option>
+                                            </select>
+                                            <a href="#" class=" tag-inherited" @click="addFieldOption(index)">+</a>
+                                            <a href="#" class="tag-rare" @click="removeFieldOption(index)">-</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><label class="input">展示 <select v-model="fieldDetail.NotShow">
+                                <option :value="0">是</option>
+                                <option :value="1">否</option>
+                            </select></label></li>
+                            <li><label class="input">编辑时展示 <select v-model="fieldDetail.EditHide">
+                                <option :value="0">是</option>
+                                <option :value="1">否</option>
+                            </select></label></li>
+                            <li><label class="input">查询类型 <select v-model="fieldDetail.SearchType">
+                                <option :value="0">不查询</option>
+                                <option :value="1">=</option>
+                                <option :value="2">like</option>
+                                <option :value="3">></option>
+                                <option :value="4"><</option>
+                                <option :value="5">>=</option>
+                                <option :value="6"><=</option>
+                                <option :value="7">!=</option>
+                                <option :value="8">date</option>
+                                <option :value="9">date(start to end)</option>
+                            </select></label></li>
+                        </ul>
+                    </div>
+                    <template #footer>
+                        <div class="dialog-footer">
+                            <el-button @click="dialogVisible = false" size="small" plain>取消</el-button>
+                            <el-button type="primary" @click="this.dialogVisible = false" size="small" plain>确定</el-button>
+                        </div>
+                    </template>
+                </el-dialog>
             </div>
         </div>
     </div>
-    <el-dialog v-model="dialogVisible" title="选择数据表" width="26%">
-        <div class="details">
-            <ul>
-                <li>
-                    <label class="input">
-                        <span>数据表</span>
-                        <select v-model="genConf.Table" @change="getFields()">
-                            <option value="">请选择</option>
-                            <option v-for="i in tables" :value="i" v-text="i"></option>
-                        </select>
-                    </label>
-                </li>
-            </ul>
-        </div>
-        <template #footer>
-            <div class="dialog-footer">
-                <el-button @click="dialogVisible = false" size="small" plain>取消</el-button>
-                <el-button type="primary" @click="getFields()" size="small" plain>确定</el-button>
-            </div>
-        </template>
-    </el-dialog>
 </div>
 </body>
 {{include "/app2/8.footer_no_dialog.html" .}}
@@ -135,6 +260,10 @@
                     desc: '这里是代码生成页面',
                     icon: "{{.data.icon}}",
                 },
+
+                assistant: {
+                    tableItemActive: -1,
+                },
                 tables: [],
                 dialogVisible: false,
                 fields: [
@@ -143,11 +272,11 @@
                         Label: '', //  label is empty, use name
                         Comment: '',
                         FieldType: '', // select number text date datetime
+                        QueryName: '',
+                        Index: 0,
                         EditHide: 0,
                         NotShow: 0,
-                        SelectType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=
-                        QueryName: '',
-                        Sort: 0,
+                        SelectType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=,8 date,9 date(start to end)
                         Options: [
                             {
                                 Name: '',
@@ -157,8 +286,10 @@
                         ]
                     }
                 ],
+                fieldDetail: {},
                 genConf: {
-                    Table: '',
+                    T1: '', T2: '', T3: '', T4: '', T5: '', T6: '',
+                    Icon: '',
                     StructName: '',
                     HtmlGroup: '',
                     PageName: '',
@@ -167,28 +298,35 @@
                     AddBtn: 0,
                     UpdateBtn: 0,
                     DelBtn: 0,
-                    T2: '',
-                    T3: '',
-                    T4: '',
-                    T5: '',
-                    T6: '',
                     OrderBy: '',
                     QueryField: '',
                 }
             }
         },
+        watch: {
+            fields: {
+                handler(val) {
+                    this.fields = val.sort((a, b) => a.Index - b.Index)
+                },
+                deep: true
+            },
+        },
         created() {
             this.fields = []
+            this.getTables()
         },
         methods: {
             async getTables() {
                 let res = await $.get('/gen/tables')
                 this.tables = res.data
-                this.dialogVisible = true
             },
-            async getFields() {
-                this.dialogVisible = false
-                let res = await $.get('/gen/fields', {table: this.genConf.Table})
+            async getFields(table, index) {
+                this.assistant.tableItemActive = index
+                if (table === '') {
+                    return
+                }
+                this.genConf.T1 = table
+                let res = await $.get('/gen/fields', {table: table})
                 if (res.code !== 0) {
                     noticeError(res.msg)
                     return
@@ -198,19 +336,98 @@
                     let d = res.data[i]
                     d.Label = d.Comment ? d.Comment : d.Name
                     d.FieldType = 'text'
+                    d.QueryName = d.Name
                     d.EditHide = 0
                     d.NotShow = 0
                     d.SearchType = 0
+                    d.Options = [{Name: '正常', Value: '1', Type: 'success'}, {Name: '禁用', Value: '2', Type: 'danger'},]
+                    switch (d.Name) {
+                        case "created_at":
+                        case "updated_at":
+                        case "id":
+                        case "pwd":
+                            d.EditHide = 1
+                            break
+                        case "status":
+                            d.FieldType = 'select'
+                            break
+                    }
+                    switch (d.Name) {
+                        case "pwd":
+                        case "password":
+                            d.NotShow = 1
+                            break
+                    }
                     this.fields.push(d)
                 }
-                let t = this.genConf.Table
-                this.genConf.PageDesc = `这里是${t}页面可以对数据进行相应的操作。`
+                let t = this.genConf.T1
+                this.genConf.PageDesc = `这里是${t.substring(t.indexOf('_') + 1)}页面可以对数据进行相应的操作。`
                 this.genConf.HtmlGroup = t.substring(0, t.indexOf('_'));
                 this.genConf.StructName = t.substring(t.indexOf('_') + 1);
                 this.genConf.PageName = t.substring(t.indexOf('_') + 1);
                 this.genConf.OrderBy = "t1.id desc"
                 this.genConf.QueryField = "t1.*"
-            }
+            },
+            async submitGenCode() {
+                let data = {'genConf': this.genConf, 'fields': this.fields}
+                let res = await $.post("/gen", data)
+                if (res.code !== 0) {
+                    noticeError(res.msg)
+                } else {
+                    noticeOk('代码生成成功')
+                }
+            },
+            showFieldDetails(i) {
+                this.fieldDetail = i
+                this.dialogVisible = true
+            },
+            addRow() {
+                this.fields.push(
+                    {
+                        Name: '',
+                        Label: '', //  label is empty, use name
+                        Comment: '',
+                        FieldType: 'text', // select number text date datetime
+                        QueryName: '',
+                        Index: this.fields.length,
+                        EditHide: 0,
+                        NotShow: 0,
+                        SearchType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=,8 date,9 date(start to end)
+                        Options: [
+                            {
+                                Name: '',
+                                Value: '',
+                                Type: 'primary', // primary info success warning danger
+                            }
+                        ]
+                    }
+                )
+            },
+            removeRow(i) {
+                this.fields.map((item, index) => {
+                    if (item.Name === i.Name) {
+                        this.fields.splice(index, 1)
+                    }
+                })
+            },
+            addFieldOption(index) {
+                this.fieldDetail.Options.splice(index + 1, 0, {
+                    Name: '',
+                    Value: '',
+                    Type: 'primary', // primary info success warning danger
+                })
+            },
+            removeFieldOption(i) {
+                if (this.fieldDetail.Options.length === 1) {
+                    noticeWarning('至少要有一个选项')
+                    return
+                }
+                this.fieldDetail.Options.map((item, index) => {
+                    if (i === index) {
+                        this.fieldDetail.Options.splice(index, 1)
+                    }
+                })
+            },
         }
     })
     app.config.warnHandler = () => null

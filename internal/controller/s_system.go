@@ -8,11 +8,15 @@ import (
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
 	"ciel-admin/utility/utils/xpwd"
+	"errors"
+	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
+	"sort"
 )
 
 type (
@@ -312,7 +316,7 @@ var Admin = &admin{
 			{Name: "id"},
 			{Name: "uname", SearchType: 2},
 			{Name: "rid"},
-			{Name: "status"},
+			{Name: "status", QueryName: ""},
 		},
 	}}
 
@@ -610,8 +614,44 @@ func (c gen) Fields(r *ghttp.Request) {
 }
 
 func (c gen) GenFile(r *ghttp.Request) {
-	var d *bo.GenConf
-	if err := sys.GenFile(r.Context(), d); err != nil {
+	var d bo.GenConf
+	// set genConf
+	genConf := r.Get("genConf")
+	if err := genConf.Struct(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := d.SetUrlPrefix(); err != nil {
+		res.Err(err, r)
+	}
+	// set fields
+	d.Fields = make([]*bo.GenFiled, 0)
+	for _, v := range r.Get("fields").MapStrVarDeep() {
+		f := &bo.GenFiled{}
+		if err := v.Struct(f); err != nil {
+			res.Err(err, r)
+		}
+		if f.FieldType == "select" {
+			f.Options = make([]*bo.FieldOption, 0)
+			for _, v := range v.Map()["Options"].(map[string]interface{}) {
+				f.Options = append(f.Options, &bo.FieldOption{
+					Value: v.(map[string]interface{})["Value"].(string),
+					Type:  v.(map[string]interface{})["Type"].(string),
+					Label: v.(map[string]interface{})["Name"].(string),
+				})
+				if gstr.IsNumeric(fmt.Sprint(v.(map[string]interface{})["Value"])) {
+					sort.Slice(f.Options, func(i, j int) bool { return gconv.Int(f.Options[i].Value) < gconv.Int(f.Options[j].Value) })
+				}
+			}
+		}
+		d.Fields = append(d.Fields, f)
+	}
+	sort.Slice(d.Fields, func(i, j int) bool {
+		return d.Fields[i].Index < d.Fields[j].Index
+	})
+	if len(d.Fields) == 0 {
+		res.Err(errors.New("字段不能为空"), r)
+	}
+	if err := sys.GenFile(r.Context(), &d); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)

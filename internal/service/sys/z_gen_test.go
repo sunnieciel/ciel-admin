@@ -2,7 +2,12 @@ package sys
 
 import (
 	"ciel-admin/internal/model/bo"
+	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/olekukonko/tablewriter"
+	"math"
+	"strings"
 	"testing"
 )
 
@@ -17,10 +22,10 @@ func TestGen(t *testing.T) {
 	c := &bo.GenConf{}
 	c.HtmlGroup = "sys"
 	c.PageName = "Admin"
-	c.Table = "s_admin"
+	c.T1 = "s_admin"
 	c.UrlPrefix = "/admin/"
 	c.Fields = make([]*bo.GenFiled, 0)
-	fields, err := Fields(nil, c.Table)
+	fields, err := Fields(nil, c.T1)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,10 +33,10 @@ func TestGen(t *testing.T) {
 		f := bo.GenFiled{TableField: field}
 		c.Fields = append(c.Fields, &f)
 		if field.Name == "group" {
-			f.SelectType = 1
+			f.SearchType = 1
 		}
 		if field.Name == "status" {
-			f.SelectType = 1
+			f.SearchType = 1
 			f.FieldType = "select"
 		}
 	}
@@ -39,4 +44,29 @@ func TestGen(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+}
+func TestString(t *testing.T) {
+	//data := [][]string{
+	//	[]string{"A", "The Good", "500"},
+	//	[]string{"B", "The Very very Bad Man", "288"},
+	//	[]string{"C", "The Ugly", "120"},
+	//	[]string{"D", "The Gopher", "800"},
+	//}
+	s := &strings.Builder{}
+	table := tablewriter.NewWriter(s)
+	table.SetHeader([]string{"步骤", "名称", "用时"})
+	table.Render()
+	fmt.Println(s.String())
+	//for _, v := range data {
+	//	table.Append(v)
+	//	table.Render()
+	//	fmt.Println(s.String())
+	//}
+}
+
+func TestNum(t *testing.T) {
+	glog.Debug(nil, math.Ceil(1.0))
+}
+func round(x float64) int {
+	return int(math.Floor(x + 0/5))
 }

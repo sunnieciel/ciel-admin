@@ -35,6 +35,23 @@ func (d menuDao) GetByPath(ctx context.Context, path string) (*entity.Menu, erro
 	return &data, nil
 }
 
+func (d menuDao) GetByName(ctx context.Context, name string) (*entity.Menu, error) {
+	var data entity.Menu
+	one, err := d.Ctx(ctx).One("name", name)
+	if err != nil {
+		glog.Error(ctx, err)
+		return nil, nil
+	}
+	if one.IsEmpty() {
+		return nil, consts.ErrDataNotFound
+	}
+	if err = one.Struct(&data); err != nil {
+		glog.Error(ctx, err)
+		return nil, err
+	}
+	return &data, nil
+}
+
 var (
 	// Menu is globally public accessible object for table s_menu operations.
 	Menu = menuDao{

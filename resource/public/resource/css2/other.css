@@ -42,5 +42,14 @@ button {
 .details ul li select {
     margin-left: 3px;
     width: 156px;
+    border: 1px solid rgba(204, 204, 204, 0);
 }
 
+.el-tag {
+    white-space: break-spaces !important;
+    max-width: 156px;
+    height: auto !important;
+    padding: 3px 9px !important;
+    line-height: 1.1 !important;
+    text-align: left;
+}

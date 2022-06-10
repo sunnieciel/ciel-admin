@@ -24,6 +24,7 @@ type UserColumns struct {
 	Nickname  string //
 	Pwd       string //
 	Email     string //
+	Status    string //
 	CreatedAt string //
 	UpdatedAt string //
 }
@@ -35,6 +36,7 @@ var userColumns = UserColumns{
 	Nickname:  "nickname",
 	Pwd:       "pwd",
 	Email:     "email",
+	Status:    "status",
 	CreatedAt: "created_at",
 	UpdatedAt: "updated_at",
 }

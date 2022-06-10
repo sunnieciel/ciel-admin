@@ -17,6 +17,7 @@ type User struct {
 	Nickname  interface{} //
 	Pwd       interface{} //
 	Email     interface{} //
+	Status    interface{} //
 	CreatedAt *gtime.Time //
 	UpdatedAt *gtime.Time //
 }

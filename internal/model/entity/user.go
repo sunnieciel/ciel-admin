@@ -15,6 +15,7 @@ type User struct {
 	Nickname  string      `json:"nickname"  description:""`
 	Pwd       string      `json:"pwd"       description:""`
 	Email     string      `json:"email"     description:""`
+	Status    int         `json:"status"    description:""`
 	CreatedAt *gtime.Time `json:"createdAt" description:""`
 	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
 }
