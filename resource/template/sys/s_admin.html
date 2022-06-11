@@ -67,32 +67,54 @@
         data() {
             return {
                 pageConf: {
-                    name: "Admin",
-                    desc: "这里是Admin管理页面,可以对菜单进行添加,修改,删除等操作。",
+                    name: "admin",
+                    desc: "这里是admin页面可以对数据进行相应的操作。",
                     urlPrefix: "/admin/",
                     icon: "{{.data.icon}}",
                     fields: [
                         {field: "id", label: "ID"},
-                        {field: "rid", label: "rid"}, {field: "uname", label: "uname"},
-                        {field: "pwd", label: "pwd", notShow: 1}, {field: "status", label: "status", search: 1, type: 'select', options: [{value: "", label: "请选择", type: "info"}, {value: "1", label: "正常", type: "primary"}, {value: "2", label: "禁用", type: "danger"},]},
+                        {field: "rid", label: "rid", notShow: 1},
+                        {field: "uname", label: "用户名", search: 1},
+                        {field: "role_name", label: "角色名", search: 1, editHide: 1, type: 'select'},
+                        {
+                            field: "status",
+                            label: "状态",
+                            search: 1,
+                            type: 'select',
+                            options: [{value: '', label: '请选择'}, {value: "1", label: "正常", type: "success"}, {value: "2", label: "禁用", type: "danger"},]
+                        },
                         {field: "created_at", label: "创建时间"},
                         {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}
                     ]
                 },
-                search: {page: 1, size: 15, status: ''}, // config & search
+                search: {page: 1, size: 15, status: '', role_name: ''}, // config & search
                 list: [], loading: false, total: 0, totalPage: 0, // data
-                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0 // 1 add 2 update, // details
+                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0, // 1 add 2 update, // details
+                roles: [],
             }
         },
         async created() {
             document.title = this.pageConf.name
             this.getList()
+            await this.getRoles()
+            for (let i = this.pageConf.fields.length - 1; i >= 0; i--) {
+                if (this.pageConf.fields[i].field === 'role_name') {
+                    this.pageConf.fields[i].options = [{value: '', label: '请选择'}]
+                    this.roles.forEach(item => {
+                        this.pageConf.fields[i].options.push({value: item.name, label: item.name})
+                    })
+                }
+            }
         },
         methods: {
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();
+            },
+            async getRoles() {
+                let res = await $.get("/role/roles")
+                this.roles = res.data
             },
             async getList(page) {
                 this.loading = true;

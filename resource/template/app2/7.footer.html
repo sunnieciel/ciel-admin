@@ -16,7 +16,7 @@
         </ul>
         <ul>
             <li v-for="i in pageConf.fields">
-                <label v-if="i.type=='select'" class="input">
+                <label v-if="i.type=='select' && !i.editHide==1" class="input">
                     <span v-text="i.label"></span>
                     <select v-model="details[i.field]" @change="getList()">
                         <option v-for="j in i.options" :value="j.value" v-text="j.label"></option>

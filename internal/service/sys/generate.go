@@ -324,10 +324,10 @@ func genHtml(ctx context.Context, c *bo.GenConf) error {
 		}
 		// append select options
 		if i.FieldType == "select" {
-			field += ",type:'select',options:["
+			field += `,type:'select',options:[{value:"", label:"请选择"},]`
 			if len(i.Options) == 0 {
 				i.Options = make([]*bo.FieldOption, 0)
-				i.Options = append(i.Options, &bo.FieldOption{Value: "", Label: "请选择", Type: "info"}, &bo.FieldOption{Value: 1, Label: "正常", Type: "primary"}, &bo.FieldOption{Value: 2, Label: "禁用", Type: "danger"})
+				i.Options = append(i.Options, &bo.FieldOption{Value: 1, Label: "正常", Type: "primary"}, &bo.FieldOption{Value: 2, Label: "禁用", Type: "danger"})
 			}
 			for _, j := range i.Options {
 				field += fmt.Sprintf(`{value: "%v", label: "%v", type: "%v"},`, j.Value, j.Label, j.Type)

@@ -7,7 +7,6 @@ import (
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
-	"ciel-admin/utility/utils/xpwd"
 	"errors"
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
@@ -32,6 +31,8 @@ type (
 	cDict    struct{ *config.Search }
 	file     struct{ *config.Search }
 	ws       struct{}
+
+	cAdmin struct{ *config.Search }
 )
 
 var (
@@ -307,30 +308,21 @@ func (c *roleMenu) CurrentMenus(r *ghttp.Request) {
 
 //  ---admin-------------------------------------------------------------------
 
-var Admin = &admin{
-	Search: &config.Search{
-		T1:           "s_admin",
-		T2:           "s_role t2 on t1.rid = t2.id",
-		SearchFields: "t1.id,t1.rid,t1.uname,t1.status,t1.created_at,t1.updated_at,t2.name role_name",
-		Fields: []*config.Field{
-			{Name: "id"},
-			{Name: "uname", SearchType: 2},
-			{Name: "rid"},
-			{Name: "status", QueryName: ""},
-		},
-	}}
+var Admin = &cAdmin{Search: &config.Search{
+	T1: "s_admin", T2: "s_role t2 on t1.rid = t2.id", OrderBy: "t1.id desc", SearchFields: "t1.id,t1.uname,t1.rid,t1.status,t1.created_at,t1.updated_at,t2.name role_name",
+	Fields: []*config.Field{
+		{Name: "uname", SearchType: 2, QueryName: "uname"}, {Name: "t2.name", SearchType: 1, QueryName: "role_name"}, {Name: "status", SearchType: 1, QueryName: "status"},
+	},
+}}
 
-func (c *admin) LoginPage(r *ghttp.Request) {
-	res.Page(r, "login.html")
-}
-func (c *admin) Path(r *ghttp.Request) {
+func (c *cAdmin) Path(r *ghttp.Request) {
 	icon, err := sys.Icon(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.Page(r, "/sys/s_admin.html", g.Map{"icon": icon})
 }
-func (c *admin) List(r *ghttp.Request) {
+func (c *cAdmin) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -340,50 +332,43 @@ func (c *admin) List(r *ghttp.Request) {
 	}
 	res.OkPage(page, size, total, data, r)
 }
-func (c *admin) GetById(r *ghttp.Request) {
+func (c *cAdmin) GetById(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
-	gMap := data.GMap()
-	gMap.Remove("pwd")
-	res.OkData(gMap.Map(), r)
+	res.OkData(data, r)
 }
-func (c *admin) Post(r *ghttp.Request) {
+func (c *cAdmin) Post(r *ghttp.Request) {
 	d := entity.Admin{}
-	_ = r.Parse(&d)
-	m := gconv.Map(d)
-	if d.Pwd != "" {
-		m["pwd"] = xpwd.GenPwd(d.Pwd)
-	} else {
-		delete(m, "pwd")
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
 	}
-	if err := sys.Add(r.Context(), c.T1, m); err != nil {
+	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
-func (c *admin) Put(r *ghttp.Request) {
+func (c *cAdmin) Put(r *ghttp.Request) {
 	d := entity.Admin{}
-	_ = r.Parse(&d)
-	m := gconv.Map(d)
-	if d.Pwd != "" {
-		m["pwd"] = xpwd.GenPwd(d.Pwd)
-	} else {
-		delete(m, "pwd")
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
 	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
-func (c *admin) Del(r *ghttp.Request) {
+func (c *cAdmin) Del(r *ghttp.Request) {
 	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
-func (c *admin) Login(r *ghttp.Request) {
+func (c *cAdmin) LoginPage(r *ghttp.Request) {
+	res.Page(r, "login.html")
+}
+func (c *cAdmin) Login(r *ghttp.Request) {
 	var d struct {
 		Uname string `form:"uname"`
 		Pwd   string `form:"pwd"`
@@ -396,14 +381,14 @@ func (c *admin) Login(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *admin) Logout(r *ghttp.Request) {
+func (c *cAdmin) Logout(r *ghttp.Request) {
 	err := sys.Logout(r.Context())
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
-func (c *admin) UpdatePwd(r *ghttp.Request) {
+func (c *cAdmin) UpdatePwd(r *ghttp.Request) {
 	var d struct {
 		OldPwd string `v:"required"`
 		NewPwd string `v:"required"`
