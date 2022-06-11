@@ -34,6 +34,7 @@ var (
 				g.GET("/path", controller.Menu.Path)
 				g.GET("/", controller.Menu.List)
 				g.GET("/:id", controller.Menu.GetById)
+				g.GET("/level1", controller.Menu.ListLevel1) // 获取一级菜单
 				g.Middleware(sys.LockAction)
 				g.DELETE("/:id", controller.Menu.Del)
 				g.POST("/", controller.Menu.Post)
@@ -90,11 +91,12 @@ var (
 			s.Group("/dict", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Dict.Path)
-				g.GET("/list", controller.Dict.List)
-				g.GET("/getById", controller.Dict.GetById)
-				g.DELETE("/del", controller.Dict.Del)
-				g.POST("/post", controller.Dict.Post)
-				g.PUT("/put", controller.Dict.Put)
+				g.GET("/", controller.Dict.List)
+				g.GET("/:id", controller.Dict.GetById)
+				g.Middleware(sys.LockAction)
+				g.DELETE("/:id", controller.Dict.Del)
+				g.POST("/", controller.Dict.Post)
+				g.PUT("/", controller.Dict.Put)
 			})
 			s.Group("/file", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)

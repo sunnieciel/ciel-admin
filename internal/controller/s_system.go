@@ -29,7 +29,7 @@ type (
 	roleApi  struct{ *config.Search }
 	admin    struct{ *config.Search }
 	roleMenu struct{ *config.Search }
-	dict     struct{ *config.Search }
+	cDict    struct{ *config.Search }
 	file     struct{ *config.Search }
 	ws       struct{}
 )
@@ -419,27 +419,21 @@ func (c *admin) UpdatePwd(r *ghttp.Request) {
 
 // --- Dict ------------------------------------------------------------------
 
-var Dict = &dict{Search: &config.Search{
-	T1: "s_dict",
+var Dict = &cDict{Search: &config.Search{
+	T1: "s_dict", OrderBy: "t1.id desc", SearchFields: "t1.*",
 	Fields: []*config.Field{
-		{Name: "id"},
-		{Name: "k", SearchType: 2},
-		{Name: "v", SearchType: 2},
-		{Name: "desc", SearchType: 2},
-		{Name: "group"},
-		{Name: "type"},
-		{Name: "status"},
+		{Name: "k", SearchType: 2, QueryName: "k"}, {Name: "group", SearchType: 1, QueryName: "group"}, {Name: "type", SearchType: 1, QueryName: "type"}, {Name: "status", SearchType: 1, QueryName: "status"},
 	},
 }}
 
-func (c *dict) Path(r *ghttp.Request) {
+func (c *cDict) Path(r *ghttp.Request) {
 	icon, err := sys.Icon(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/dict.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/s_dict.html", g.Map{"icon": icon})
 }
-func (c *dict) List(r *ghttp.Request) {
+func (c *cDict) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -449,14 +443,14 @@ func (c *dict) List(r *ghttp.Request) {
 	}
 	res.OkPage(page, size, total, data, r)
 }
-func (c *dict) GetById(r *ghttp.Request) {
+func (c *cDict) GetById(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.OkData(data, r)
 }
-func (c *dict) Post(r *ghttp.Request) {
+func (c *cDict) Post(r *ghttp.Request) {
 	d := entity.Dict{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -466,7 +460,7 @@ func (c *dict) Post(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *dict) Put(r *ghttp.Request) {
+func (c *cDict) Put(r *ghttp.Request) {
 	d := entity.Dict{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -476,7 +470,7 @@ func (c *dict) Put(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *dict) Del(r *ghttp.Request) {
+func (c *cDict) Del(r *ghttp.Request) {
 	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		res.Err(err, r)
 	}

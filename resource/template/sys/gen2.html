@@ -70,7 +70,13 @@
                             <div class="flex-baseline">
                                 <el-tag type="info" size="small">菜单信息</el-tag>
                                 <div style="flex: 1">
-                                    <label class="input">一级菜单 <input v-model="genConf.MenuLevel1"></label>
+                                    <label class="input">一级菜单
+                                        <input v-model="genConf.MenuLevel1" list="menus">
+                                        <datalist id="menus">
+                                            <option v-for="i in menus" :value="i" v-text="i"></option>
+                                        </datalist>
+
+                                    </label>
                                     <label class="input">页面菜单 <input v-model="genConf.MenuLevel2"></label>
                                     <label class="input">页面Logo <input v-model="genConf.MenuLogo"></label>
                                 </div>
@@ -131,6 +137,7 @@
                             <th>备注</th>
                             <th>字段类型</th>
                             <th>展示</th>
+                            <th>编辑时禁用</th>
                             <th>编辑时展示</th>
                             <th>查询类型</th>
                             <th>操作</th>
@@ -144,6 +151,10 @@
                             <td>
                                 <el-tag v-if="i.NotShow==0" size="small" type="info">是</el-tag>
                                 <el-tag v-else size="small" type="warning">否</el-tag>
+                            </td>
+                            <td>
+                                <el-tag v-if="i.EditDisabled==0" size="small" type="info">否</el-tag>
+                                <el-tag v-else size="small" type="warning">是</el-tag>
                             </td>
                             <td>
                                 <el-tag v-if="i.EditHide==0" size="small" type="info">是</el-tag>
@@ -215,14 +226,6 @@
                                     </div>
                                 </div>
                             </li>
-                            <li><label class="input">展示 <select v-model="fieldDetail.NotShow">
-                                <option :value="0">是</option>
-                                <option :value="1">否</option>
-                            </select></label></li>
-                            <li><label class="input">编辑时展示 <select v-model="fieldDetail.EditHide">
-                                <option :value="0">是</option>
-                                <option :value="1">否</option>
-                            </select></label></li>
                             <li><label class="input">查询类型 <select v-model="fieldDetail.SearchType">
                                 <option :value="0">不查询</option>
                                 <option :value="1">=</option>
@@ -234,6 +237,18 @@
                                 <option :value="7">!=</option>
                                 <option :value="8">date</option>
                                 <option :value="9">date(start to end)</option>
+                            </select></label></li>
+                            <li><label class="input">编辑时展示 <select v-model="fieldDetail.EditHide">
+                                <option :value="0">是</option>
+                                <option :value="1">否</option>
+                            </select></label></li>
+                            <li><label class="input">编辑时禁用 <select v-model="fieldDetail.EditDisabled">
+                                <option :value="0">否</option>
+                                <option :value="1">是</option>
+                            </select></label></li>
+                            <li><label class="input">展示 <select v-model="fieldDetail.NotShow">
+                                <option :value="0">是</option>
+                                <option :value="1">否</option>
                             </select></label></li>
                         </ul>
                     </div>
@@ -275,6 +290,7 @@
                         QueryName: '',
                         Index: 0,
                         EditHide: 0,
+                        EditDisabled: 0,
                         NotShow: 0,
                         SelectType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=,8 date,9 date(start to end)
                         Options: [
@@ -300,7 +316,8 @@
                     DelBtn: 0,
                     OrderBy: '',
                     QueryField: '',
-                }
+                },
+                menus: [],
             }
         },
         watch: {
@@ -314,8 +331,13 @@
         created() {
             this.fields = []
             this.getTables()
+            this.getMenus()
         },
         methods: {
+            async getMenus() {
+                let res = await $.get("/menu/level1")
+                this.menus = res.data
+            },
             async getTables() {
                 let res = await $.get('/gen/tables')
                 this.tables = res.data
@@ -339,6 +361,7 @@
                     d.QueryName = d.Name
                     d.EditHide = 0
                     d.NotShow = 0
+                    d.EditDisabled = 0
                     d.SearchType = 0
                     d.Options = [{Name: '正常', Value: '1', Type: 'success'}, {Name: '禁用', Value: '2', Type: 'danger'},]
                     switch (d.Name) {
@@ -391,6 +414,7 @@
                         QueryName: '',
                         Index: this.fields.length,
                         EditHide: 0,
+                        EditDisabled: 0,
                         NotShow: 0,
                         SearchType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=,8 date,9 date(start to end)
                         Options: [

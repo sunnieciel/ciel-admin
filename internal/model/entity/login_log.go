@@ -14,4 +14,5 @@ type LoginLog struct {
 	Uid       int         `json:"uid"       description:""`
 	Ip        string      `json:"ip"        description:""`
 	CreatedAt *gtime.Time `json:"createdAt" description:""`
+	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
 }

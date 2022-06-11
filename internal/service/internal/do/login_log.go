@@ -16,4 +16,5 @@ type LoginLog struct {
 	Uid       interface{} //
 	Ip        interface{} //
 	CreatedAt *gtime.Time //
+	UpdatedAt *gtime.Time //
 }

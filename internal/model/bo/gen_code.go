@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/text/gstr"
-	"strings"
 )
 
 type GenConf struct {
@@ -32,19 +31,19 @@ func (s *GenConf) SetUrlPrefix() error {
 	if s.T1 == "" {
 		return errors.New("表名称不能为空")
 	}
-	d := strings.Split(s.T1, "_")[1]
-	s.UrlPrefix = fmt.Sprint("/", gstr.CaseCamelLower(d), "/")
+	s.UrlPrefix = fmt.Sprint("/", gstr.CaseCamelLower(s.StructName), "/")
 	return nil
 }
 
 type GenFiled struct {
 	*gdb.TableField
-	Label     string //  label is empty, use name
-	FieldType string // select number text date datetime
-	EditHide  int    // 1 true
-	NotShow   int    // 1 true  not show in table
-	Comment   string // is comment is not empty ,add el-tag comment
-	Options   []*FieldOption
+	Label        string //  label is empty, use name
+	FieldType    string // select number text date datetime
+	EditHide     int    // 1 true
+	NotShow      int    // 1 true  not show in table
+	EditDisabled int
+	Comment      string // is comment is not empty ,add el-tag comment
+	Options      []*FieldOption
 
 	SearchType int // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=
 	QueryName  string

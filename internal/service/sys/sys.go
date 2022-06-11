@@ -145,3 +145,7 @@ func Init() {
 	}
 	consts.ImgPrefix = get.String()
 }
+
+func MenusLevel1(ctx context.Context) ([]gdb.Value, error) {
+	return dao.Menu.Ctx(ctx).Array("name", "pid=-1")
+}

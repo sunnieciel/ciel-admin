@@ -76,3 +76,11 @@ func (c *menu) Del(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
+
+func (c *menu) ListLevel1(r *ghttp.Request) {
+	level1, err := sys.MenusLevel1(r.Context())
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(level1, r)
+}

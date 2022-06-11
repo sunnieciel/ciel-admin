@@ -67,13 +67,13 @@
         data() {
             return {
                 pageConf: {
-                    name: "user",
-                    desc: "这里是user页面可以对数据进行相应的操作。",
-                    urlPrefix: "/user/",
+                    name: "login_log",
+                    desc: "这里是login_log页面可以对数据进行相应的操作。",
+                    urlPrefix: "/loginLog/",
                     icon: "{{.data.icon}}",
                     fields: [
                         {field: "id", label: "ID"},
-                        {field: "uname", label: "uname", editDisabled: 1,search:1},{field: "nickname", label: "nickname"},{field: "pwd", label: "pwd", editHide: 1},{field: "email", label: "email"},{field: "status", label: "status",type:'select',options:[{value: "1", label: "正常", type: "success"},{value: "2", label: "禁用", type: "danger"},]},
+                        {field: "uid", label: "uid"},{field: "ip", label: "ip"},
                         {field: "created_at", label: "创建时间"},
                         {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}

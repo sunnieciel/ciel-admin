@@ -8,9 +8,9 @@
                     && i.field!='created_at'
                     && i.field!='updated_at'
                     && i.type!='operate'
-                    && !i.hide" class="input">
+                    && !i.editHide==1" class="input">
                     <span v-text="i.label"></span>
-                    <input v-if="i.type!='select'" v-model="details[i.field]" autocomplete="off" @keyup.enter="getList()">
+                    <input :disabled="i.editDisabled?true:false" v-if="i.type!='select'" v-model="details[i.field]" autocomplete="off" @keyup.enter="getList()">
                 </label>
             </li>
         </ul>

@@ -23,6 +23,7 @@ type LoginLogColumns struct {
 	Uid       string //
 	Ip        string //
 	CreatedAt string //
+	UpdatedAt string //
 }
 
 //  loginLogColumns holds the columns for table u_login_log.
@@ -31,6 +32,7 @@ var loginLogColumns = LoginLogColumns{
 	Uid:       "uid",
 	Ip:        "ip",
 	CreatedAt: "created_at",
+	UpdatedAt: "updated_at",
 }
 
 // NewLoginLogDao creates and returns a new DAO object for table data access.

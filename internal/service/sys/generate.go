@@ -13,6 +13,7 @@ import (
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/text/gstr"
 	"math"
@@ -69,39 +70,78 @@ func genMenu(ctx context.Context, d *bo.GenConf) error {
 	if menuLeve2 == "" {
 		return errors.New("菜单不能为空")
 	}
-	menuLogo := d.MenuLogo
-	if menuLogo == "" {
-		menuLogo = xicon.GenIcon()
-	}
 	menu1, err := dao.Menu.GetByName(ctx, menuLevel1)
+	m1Sort, m2Sort := 0.0, 0.0
 	if err != nil {
 		if err == consts.ErrDataNotFound {
+			glog.Debug(ctx, "一级菜单不存在")
 			// 新增一级菜单
 			maxSort, err := dao.Menu.Ctx(ctx).Max("sort")
 			if err != nil {
 				return err
 			}
+			m1Sort = math.Ceil(maxSort)
+			m2Sort = m1Sort + 0.1
 			id, err := dao.Menu.Ctx(ctx).InsertAndGetId(&entity.Menu{
 				Pid:    -1,
 				Name:   menuLevel1,
 				Type:   2,
-				Sort:   math.Ceil(maxSort),
+				Sort:   m1Sort,
 				Status: 1,
 			})
 			if err != nil {
 				return err
 			}
+			glog.Debugf(ctx, "新增一级菜单,排序为%v", m1Sort)
 			menu1 = &entity.Menu{Id: int(id)}
 			goto here
 		}
 		return err
+	} else {
+		// select max sort from menu1'children
+		childrenMaxSort, err := dao.Menu.Ctx(ctx).Where("pid=?", menu1.Id).Max("sort")
+		if err != nil {
+			return err
+		}
+		if childrenMaxSort == 0 {
+			m2Sort += m1Sort + 0.1
+		} else {
+			m2Sort += childrenMaxSort + 0.1
+		}
+		glog.Debugf(ctx, "查询一级菜单，子菜单最大排序为%t", menu1.Sort)
 	}
 	if menu1.Type != 2 {
 		return errors.New("一级菜单必须为分组菜单")
 	}
 here:
 	// 新增二级菜单
-
+	menuLogo := d.MenuLogo
+	if menuLogo == "" {
+		menuLogo = xicon.GenIcon()
+	}
+	menu2Path := fmt.Sprintf("/%s/path", gstr.CaseCamelLower(d.StructName))
+	// count path
+	glog.Debug(ctx, "检查二级菜单是否存在")
+	pathCount, err := dao.Menu.Ctx(ctx).Where("path=?", menu2Path).Count()
+	if err != nil {
+		return err
+	}
+	if pathCount > 0 {
+		glog.Warning(ctx, "菜单路径已存在,未执行插入菜单操作")
+		return nil
+	}
+	if _, err = dao.Menu.Ctx(ctx).Insert(&entity.Menu{
+		Pid:    menu1.Id,
+		Icon:   menuLogo,
+		Path:   menu2Path,
+		Sort:   m2Sort,
+		Name:   menuLeve2,
+		Status: 1,
+		Type:   1,
+	}); err != nil {
+		return err
+	}
+	glog.Debugf(ctx, "新增二级菜单,排序为%v", m2Sort)
 	return nil
 }
 func genController(ctx context.Context, d *bo.GenConf) error {
@@ -119,9 +159,27 @@ func genController(ctx context.Context, d *bo.GenConf) error {
 	caseCamel := gstr.CaseCamel(d.StructName)
 	temp = gstr.Replace(temp, "Menu", caseCamel)
 
+	// tables
+	tables := fmt.Sprintf(`T1:"%s"`, d.T1)
+	if d.T2 != "" {
+		tables += fmt.Sprintf(`,T2:"%s"`, d.T2)
+	}
+	if d.T3 != "" {
+		tables += fmt.Sprintf(`,T3:"%s"`, d.T3)
+	}
+	if d.T4 != "" {
+		tables += fmt.Sprintf(`,T4:"%s"`, d.T4)
+	}
+	if d.T5 != "" {
+		tables += fmt.Sprintf(`,T5:"%s"`, d.T5)
+	}
+	if d.T6 != "" {
+		tables += fmt.Sprintf(`,T6:"%s"`, d.T6)
+	}
+	temp = gstr.Replace(temp, "[tables]", tables)
+
 	// t1
-	t1 := d.T1
-	temp = gstr.Replace(temp, "[t1]", t1)
+	temp = gstr.Replace(temp, "[t1]", d.T1)
 
 	// group
 	group := d.HtmlGroup
@@ -246,7 +304,20 @@ func genHtml(ctx context.Context, c *bo.GenConf) error {
 			i.Label = i.Name
 		}
 		// base
-		field += fmt.Sprintf(`field: "%s", label: "%s"`, i.Name, i.Label)
+		f := i.QueryName
+		if f == "" {
+			f = i.Name
+		}
+		field += fmt.Sprintf(`field: "%s", label: "%s"`, f, i.Label)
+
+		// editHide
+		if i.EditHide == 1 {
+			field += `, editHide: 1`
+		}
+		if i.EditDisabled == 1 {
+			field += `, editDisabled: 1`
+		}
+
 		// append search
 		if i.SearchType != 0 {
 			field += fmt.Sprintf(",search:1")
