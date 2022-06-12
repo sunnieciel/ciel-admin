@@ -5,13 +5,12 @@
         <a class="link-1" href="#" onclick="updatePwd()">修改密码</a>
         <a class="link-1" href="#" onclick="logout()">登出</a>
         {{else}}
-        <a href="/" class="link-1">首页</a>
         <a href="/login" class="login link-1">登录</a>
         {{end}}
         {{if eq .Cookie.dark 1}}
         <a href="#" onclick="setDark(0)" class="light-toggle"><img src="/resource/image/toggle-dark.png" height="10" alt="Light"></a>
         {{else}}
-        <a href="#" onclick="setDark(1)" class="light-toggle"><img src="/resource/image/toggle-light.png"  height="10" alt="Light"></a>
+        <a href="#" onclick="setDark(1)" class="light-toggle"><img src="/resource/image/toggle-light.png" height="10" alt="Light"></a>
         {{end}}
     </div>
 </div>

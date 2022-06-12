@@ -49,15 +49,6 @@ func Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
 	array := get.Array()
 	if len(array) > 0 {
 		children := make([]*bo.Menu, 0)
-		d = append(d, &bo.Menu{
-			Name: "首页",
-			Children: []*bo.Menu{
-				{Name: "V2EX", Path: "/"},
-				{Name: "Github", Path: "/sys/path/github"},
-				{Name: "豆瓣阅读", Path: "/sys/path/douban"},
-				{Name: "开源中国", Path: "/sys/path/oschina"},
-			},
-		})
 		for _, item := range array {
 			split := gstr.Split(fmt.Sprint(item), ":")
 			children = append(children, &bo.Menu{
