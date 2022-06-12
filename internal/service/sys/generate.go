@@ -108,7 +108,7 @@ func genMenu(ctx context.Context, d *bo.GenConf) error {
 		} else {
 			m2Sort += childrenMaxSort + 0.1
 		}
-		glog.Debugf(ctx, "查询一级菜单，子菜单最大排序为%t", menu1.Sort)
+		glog.Debugf(ctx, "查询一级菜单，子菜单最大排序为%v", menu1.Sort)
 	}
 	if menu1.Type != 2 {
 		return errors.New("一级菜单必须为分组菜单")
@@ -324,7 +324,7 @@ func genHtml(ctx context.Context, c *bo.GenConf) error {
 		}
 		// append select options
 		if i.FieldType == "select" {
-			field += `,type:'select',options:[{value:"", label:"请选择"},]`
+			field += `,type:'select',options:[{value:"", label:"请选择"},`
 			if len(i.Options) == 0 {
 				i.Options = make([]*bo.FieldOption, 0)
 				i.Options = append(i.Options, &bo.FieldOption{Value: 1, Label: "正常", Type: "primary"}, &bo.FieldOption{Value: 2, Label: "禁用", Type: "danger"})

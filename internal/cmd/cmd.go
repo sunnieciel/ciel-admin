@@ -79,14 +79,16 @@ var (
 			s.Group("/admin", func(g *ghttp.RouterGroup) {
 				g.POST("/login", controller.Admin.Login)
 				g.Middleware(sys.AuthAdmin)
-				g.GET("/logout", controller.Admin.Logout)
 				g.GET("/path", controller.Admin.Path)
 				g.GET("/", controller.Admin.List)
 				g.GET("/:id", controller.Admin.GetById)
 				g.DELETE("/:id", controller.Admin.Del)
 				g.POST("/", controller.Admin.Post)
 				g.PUT("/", controller.Admin.Put)
-				g.POST("/updatePwd", controller.Admin.UpdatePwd)
+				g.GET("/logout", controller.Admin.Logout)
+				g.PUT("/updatePwd", controller.Admin.UpdatePwd)
+				g.PUT("/updatePwdWithoutOldPwd", controller.Admin.UpdatePwdWithoutOldPwd)
+				g.PUT("/updateUname", controller.Admin.UpdateUname)
 			})
 			s.Group("/dict", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)

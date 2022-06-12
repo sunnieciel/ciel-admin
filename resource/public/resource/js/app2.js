@@ -74,7 +74,7 @@ function updatePwd() {
     if (!newPwd) {
         return
     }
-    $.post("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
+    $.put("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
         if (res.code == 0) {
             noticeOk('Success')
             location.href = '/login'

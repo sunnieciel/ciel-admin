@@ -26,13 +26,11 @@ type (
 	api      struct{ *config.Search }
 	role     struct{ *config.Search }
 	roleApi  struct{ *config.Search }
-	admin    struct{ *config.Search }
 	roleMenu struct{ *config.Search }
 	cDict    struct{ *config.Search }
-	file     struct{ *config.Search }
+	cFile    struct{ *config.Search }
+	cAdmin   struct{ *config.Search }
 	ws       struct{}
-
-	cAdmin struct{ *config.Search }
 )
 
 var (
@@ -311,7 +309,7 @@ func (c *roleMenu) CurrentMenus(r *ghttp.Request) {
 var Admin = &cAdmin{Search: &config.Search{
 	T1: "s_admin", T2: "s_role t2 on t1.rid = t2.id", OrderBy: "t1.id desc", SearchFields: "t1.id,t1.uname,t1.rid,t1.status,t1.created_at,t1.updated_at,t2.name role_name",
 	Fields: []*config.Field{
-		{Name: "uname", SearchType: 2, QueryName: "uname"}, {Name: "t2.name", SearchType: 1, QueryName: "role_name"}, {Name: "status", SearchType: 1, QueryName: "status"},
+		{Name: "uname", SearchType: 2, QueryName: "uname"}, {Name: "t2.id", SearchType: 1, QueryName: "rid"}, {Name: "status", SearchType: 1, QueryName: "status"},
 	},
 }}
 
@@ -401,6 +399,32 @@ func (c *cAdmin) UpdatePwd(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
+func (c *cAdmin) UpdateUname(r *ghttp.Request) {
+	var d struct {
+		Uname string `v:"required"`
+		Id    int64  `v:"required"`
+	}
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := sys.UpdateAdminUname(r.Context(), d.Id, d.Uname); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+func (c *cAdmin) UpdatePwdWithoutOldPwd(r *ghttp.Request) {
+	var d struct {
+		Pwd string `v:"required"`
+		Id  string `v:"required"`
+	}
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := sys.UpdateAdminPwdWithoutOldPwd(r.Context(), d.Id, d.Pwd); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
 
 // --- Dict ------------------------------------------------------------------
 
@@ -464,27 +488,21 @@ func (c *cDict) Del(r *ghttp.Request) {
 
 // --- File -------------------------------------------------------------------
 
-var File = &file{Search: &config.Search{
-	T1: "s_file",
+var File = &cFile{Search: &config.Search{
+	T1: "s_file", OrderBy: "t1.id desc", SearchFields: "t1.*",
 	Fields: []*config.Field{
-		{Name: "id"},
-		{Name: "img"},
-		{Name: "group", SearchType: 2},
-		{Name: "status"},
-		{Name: "url"},
-		{Name: "created_at"},
-		{Name: "updated_at"},
+		{Name: "url", SearchType: 2, QueryName: "url"}, {Name: "group", SearchType: 1, QueryName: "group"}, {Name: "status", SearchType: 1, QueryName: "status"},
 	},
 }}
 
-func (c *file) Path(r *ghttp.Request) {
+func (c *cFile) Path(r *ghttp.Request) {
 	icon, err := sys.Icon(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/file.html", g.Map{"icon": icon})
+	res.Page(r, "/s/s_file.html", g.Map{"icon": icon})
 }
-func (c *file) List(r *ghttp.Request) {
+func (c *cFile) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -494,14 +512,14 @@ func (c *file) List(r *ghttp.Request) {
 	}
 	res.OkPage(page, size, total, data, r)
 }
-func (c *file) GetById(r *ghttp.Request) {
+func (c *cFile) GetById(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.OkData(data, r)
 }
-func (c *file) Post(r *ghttp.Request) {
+func (c *cFile) Post(r *ghttp.Request) {
 	d := entity.File{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -511,7 +529,7 @@ func (c *file) Post(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *file) Put(r *ghttp.Request) {
+func (c *cFile) Put(r *ghttp.Request) {
 	d := entity.File{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -521,7 +539,7 @@ func (c *file) Put(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *file) Del(r *ghttp.Request) {
+func (c *cFile) Del(r *ghttp.Request) {
 	f, err := sys.GetFileById(r.Context(), xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
@@ -539,7 +557,7 @@ func (c *file) Del(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *file) Upload(r *ghttp.Request) {
+func (c *cFile) Upload(r *ghttp.Request) {
 	if err := sys.UploadFile(r.Context(), r); err != nil {
 		res.Err(err, r)
 	}
@@ -555,7 +573,6 @@ func (c rss) Fetch(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
-
 func (c rss) V2ex(r *ghttp.Request) {
 	data, err := sys.FetchRss(r.Context(), "https://www.v2ex.com/index.xml")
 	if err != nil {

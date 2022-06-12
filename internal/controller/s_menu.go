@@ -19,8 +19,7 @@ type menu struct{ *config.Search }
 var Menu = &menu{Search: &config.Search{
 	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
 	Fields: []*config.Field{
-		{Name: "pid"},
-		{Name: "status"},
+		{Name: "pid", SearchType: 1},
 		{Name: "name", SearchType: 2},
 		{Name: "path", SearchType: 2},
 	},

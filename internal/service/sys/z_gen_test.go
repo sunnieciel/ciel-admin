@@ -2,6 +2,7 @@ package sys
 
 import (
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/utility/utils/xpwd"
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/glog"
@@ -67,6 +68,7 @@ func TestString(t *testing.T) {
 func TestNum(t *testing.T) {
 	glog.Debug(nil, math.Ceil(1.0))
 }
-func round(x float64) int {
-	return int(math.Floor(x + 0/5))
+
+func TestPwd(t *testing.T) {
+	fmt.Println(xpwd.GenPwd("1"))
 }

@@ -16,7 +16,7 @@
                     {{include "/app2/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
                     <div class="cell">
-                        <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                        <el-button class="mr-12" type="primary" plain size="small" @click="uploadVisible=true">上传图片</el-button>
                         {{include "/app2/5.search.html" .}}
                     </div>
                 </div>
@@ -44,8 +44,6 @@
                                         <el-button-group>
                                             <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
                                             <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
-                                            <el-button type="warning" plain size="small" @click="onUpdatePwd(i.id)">密码</el-button>
-                                            <el-button type="danger" plain size="small" @click="onUpdateUname(i.id)">用户名</el-button>
                                         </el-button-group>
                                     </div>
                                     <span v-else v-text="i[j.field]"></span>
@@ -61,6 +59,30 @@
     </div>
     <!--弹框-->
     {{include "/app2/7.footer.html" .}}
+
+    <el-dialog v-model="uploadVisible" :title="detailsTitle" width="36%">
+        <div class="details">
+            <ul>
+                <li><label class="input">文件<input style="width:220px" type="file" id="file" name="file" multiple></label></li>
+            </ul>
+            <ul>
+                <li>
+                    <label class="input">分组<select name="group" v-model="details.group">
+                        <option :value="1">头像</option>
+                        <option :value="2">图片</option>
+                        <option :value="3">文件</option>
+                        <option :value="4">其他</option>
+                    </select></label>
+                </li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="uploadVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="uploadFile()" size="small" plain>提交</el-button>
+            </div>
+        </template>
+    </el-dialog>
 </div>
 </body>
 {{include "/app2/z.footerJs.html" .}}
@@ -69,51 +91,35 @@
         data() {
             return {
                 pageConf: {
-                    name: "admin",
-                    desc: "这里是admin页面可以对数据进行相应的操作。",
-                    urlPrefix: "/admin/",
+                    name: "file",
+                    desc: "这里是file页面可以对数据进行相应的操作。",
+                    urlPrefix: "/file/",
                     icon: "{{.data.icon}}",
                     fields: [
                         {field: "id", label: "ID"},
-                        {field: "uname", label: "用户名", search: 1},
-                        {
-                            field: "status",
-                            label: "状态",
-                            search: 1,
-                            type: 'select',
-                            options: [{value: '', label: '请选择'}, {value: "1", label: "正常", type: "success"}, {value: "2", label: "禁用", type: "danger"},]
-                        },
-                        {field: "rid", label: "角色", search: 1, type: 'select'},
+                        {field: "url", label: "文件名", search: 1},
+                        {field: "url", label: "预览", type: "img", editHide: 1},
+                        {field: "group", label: "分组", search: 1, type: 'select', options: [{value: "", label: "请选择"}, {value: "4", label: "其他", type: "info"}, {value: "1", label: "头像", type: "success"}, {value: "2", label: "图片", type: "warning"}, {value: "3", label: "文件", type: "primary"},]},
+                        {field: "status", label: "状态", search: 1, type: 'select', options: [{value: "", label: "请选择"}, {value: "1", label: "正常", type: "success"}, {value: "2", label: "禁用", type: "danger"},]},
                         {field: "created_at", label: "创建时间"},
                         {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}
                     ]
                 },
-                search: {page: 1, size: 15, status: '', rid: ''}, // config & search
+                search: {page: 1, size: 15, status: '',group:''}, // config & search
                 list: [], loading: false, total: 0, totalPage: 0, // data
-                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0, // 1 add 2 update, // details
-                roles: [],
+                details: {status: '', group: 4}, detailsVisible: false, detailsTitle: '添加操作', showType: 0, // 1 add 2 update, // details
+                uploadVisible: false,
             }
         },
         async created() {
             document.title = this.pageConf.name
             this.getList()
-            await this.getRoles()
-            for (let i = this.pageConf.fields.length - 1; i >= 0; i--) {
-                if (this.pageConf.fields[i].field === 'rid') {
-                    this.pageConf.fields[i].options = [{value: '', label: '请选择'}]
-                    this.roles.forEach(item => this.pageConf.fields[i].options.push({value: item.id, label: item.name}))
-                }
-            }
         },
         methods: {
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();
-            },
-            async getRoles() {
-                let res = await $.get("/role/roles")
-                this.roles = res.data
             },
             async getList(page) {
                 this.loading = true;
@@ -165,32 +171,46 @@
                     }
                 }
             },
-
-            async onUpdatePwd(id) {
-                let pwd = prompt('请输入新的密码',)
-                if (pwd) {
-                    let res = await $.put(`${this.pageConf.urlPrefix}/updatePwdWithoutOldPwd`, {id, pwd})
-                    if (res.code === 0) {
-                        noticeOk('Success')
-                        await this.getList(this.search.page)
-                    } else {
-                        noticeError(res.msg)
+            getFiles() {
+                let data = new FormData()
+                let files = $('#file')[0].files
+                for (let i = 0; i, files.length; i++) {
+                    let item = files[i]
+                    if (!item) {
+                        return data
                     }
+                    data.append('file', item)
                 }
+                return data
             },
-        },
-        async onUpdateUname(id) {
-            let uname = prompt('请输入新的用户名',)
-            if (uname) {
-                let res = await $.put(`${this.pageConf.urlPrefix}/updateUname`, {id, uname})
-                if (res.code === 0) {
-                    noticeOk('Success')
-                    await this.getList(this.search.page)
-                } else {
-                    noticeError(res.msg)
+            uploadFile() {
+                let data = this.getFiles();
+                let g = $('.details select[name="group"]').val()
+                if (g == null) {
+                    noticeWarning('请选择分组')
+                    return
                 }
+                data.append("group", g)
+                $.ajax({
+                    url: '/file/upload',
+                    type: 'post',
+                    cache: false,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                }).done(res => {
+                    const {code, msg} = res
+                    if (code === 0) {
+                        noticeOk(msg)
+                        setTimeout(() => {
+                            location.reload()
+                        }, 1000)
+                    } else {
+                        noticeError(msg)
+                    }
+                })
             }
-        },
+        }
     })
     app.config.warnHandler = () => null
     app.use(ElementPlus)

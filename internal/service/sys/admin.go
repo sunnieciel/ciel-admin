@@ -7,6 +7,7 @@ import (
 	"ciel-admin/utility/utils/xpwd"
 	"context"
 	"errors"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
@@ -52,4 +53,24 @@ func UpdateAdminPwd(ctx context.Context, pwd string, pwd2 string) error {
 		return err
 	}
 	return dao.Admin.Update(ctx, u)
+}
+func UpdateAdminUname(ctx context.Context, id, uname interface{}) error {
+	count, err := dao.Admin.Ctx(ctx).Count("uname", uname)
+	if err != nil {
+		return err
+	}
+	if count != 0 {
+		return consts.ErrUnameExist
+	}
+	if _, err = dao.Admin.Ctx(ctx).Update(g.Map{"uname": uname}, "id", id); err != nil {
+		return err
+	}
+	return nil
+}
+func UpdateAdminPwdWithoutOldPwd(ctx context.Context, id, pwd interface{}) error {
+	_, err := dao.Admin.Ctx(ctx).Update(g.Map{"pwd": xpwd.GenPwd(pwd.(string))}, "id", id)
+	if err != nil {
+		return err
+	}
+	return nil
 }
