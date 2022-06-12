@@ -6,11 +6,7 @@ jQuery.each(["put", "delete"], function (i, method) {
             data = undefined;
         }
         return jQuery.ajax({
-            url: url,
-            type: method,
-            dataType: 'json',
-            data: data,
-            success: callback
+            url: url, type: method, dataType: 'json', data: data, success: callback
         });
     };
 });
@@ -86,10 +82,9 @@ function updatePwd() {
 
 // 添加默认选中
 $(".sub-nav a").hide()
-let current = $("a[href='" + location.pathname + "']");
-$(".sub-nav a[data='" + current.attr("data") + "']").show()
-$(".nav a[data='" + current.attr("data") + "']").addClass("link-2-active")
-
+let current = $(".sub-nav a[href='" + location.pathname + "']"); // 找到张.sub-nav 下面地址为当前路径的url
+$(".sub-nav a[data='" + current.attr("data") + "']").show()     // 将当前的url显示出来
+$(".nav a[data='" + current.attr("data") + "']").addClass("link-2-active") // 将 .nav 中具有相同data属性的a标签添加active类
 
 // 监听tab 切换
 $(function () {

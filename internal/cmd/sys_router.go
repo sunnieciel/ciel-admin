@@ -47,4 +47,12 @@ func registerGenFileRouter(s *ghttp.Server) {
 		g.POST("/", controller.File.Post)
 		g.PUT("/", controller.File.Put)
 	})
+	s.Group("/roleApi", func(g *ghttp.RouterGroup) {
+		g.Middleware(sys.AuthAdmin)
+		g.GET("/path", controller.RoleApi.Path)
+		g.GET("/", controller.RoleApi.List)
+		g.Middleware(sys.LockAction)
+		g.DELETE("/:id", controller.RoleApi.Del)
+		g.POST("/", controller.RoleApi.Post)
+	})
 }

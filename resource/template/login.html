@@ -146,13 +146,9 @@
         $("#login-btn").click(function () {
             $.post("/admin/login", $("#login-form").serialize(), async function (data) {
                 if (data.code === 0) {
-                    let res = await $.get("/role/currentMenus");
-                    if (res.code === 0) {
-                        localStorage.setItem("menus", JSON.stringify(res.data));
-                    }
                     noticeOk('Success')
                     setTimeout(function () {
-                        window.location.href = "/menu/path";
+                        window.location.href = "{{.Config.home}}";
                     }, 1500);
                 } else {
                     noticeError(data.msg)

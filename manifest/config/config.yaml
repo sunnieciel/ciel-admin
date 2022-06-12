@@ -12,6 +12,7 @@ server:
   rootIp: "localhost"
   rootPath: "/home/holw/learn/ciel-admin/"
 
+
 logger:
   path: "logs/default"
   level: "all"
@@ -48,8 +49,5 @@ gfcli:
         removePrefix: "s_,u_"
         descriptionTag: true
         noModelComment: true
-rss:
-  - "V2EX:/"
-  - "Github:/sys/path/github"
-  - "豆瓣阅读:/sys/path/douban"
-  - "开源中国:/sys/path/oschina"
+
+home: "/menu/path"

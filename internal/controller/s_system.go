@@ -25,7 +25,7 @@ type (
 	gen      struct{}
 	api      struct{ *config.Search }
 	role     struct{ *config.Search }
-	roleApi  struct{ *config.Search }
+	cRoleApi struct{ *config.Search }
 	roleMenu struct{ *config.Search }
 	cDict    struct{ *config.Search }
 	cFile    struct{ *config.Search }
@@ -138,12 +138,10 @@ func (c *menu) ListLevel1(r *ghttp.Request) {
 
 var Api = &api{Search: &config.Search{
 	T1: "s_api", Fields: []*config.Field{
-		{Name: "id"},
-		{Name: "url"},
-		{Name: "method"},
-		{Name: "group"},
-		{Name: "desc"},
-		{Name: "status"},
+		{Name: "method", SearchType: 1},
+		{Name: "group", SearchType: 1},
+		{Name: "desc", SearchType: 2},
+		{Name: "status", SearchType: 1},
 	},
 }}
 
@@ -159,6 +157,9 @@ func (c *api) List(r *ghttp.Request) {
 }
 func (c *api) Post(r *ghttp.Request) {
 	d := entity.Api{}
+	if d.Status == 0 {
+		res.Err(errors.New("状态不能为空"), r)
+	}
 	_ = r.Parse(&d)
 	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
 		res.Err(err, r)
@@ -168,6 +169,9 @@ func (c *api) Post(r *ghttp.Request) {
 func (c *api) Put(r *ghttp.Request) {
 	d := entity.Api{}
 	_ = r.Parse(&d)
+	if d.Status == 0 {
+		res.Err(errors.New("状态不能为空"), r)
+	}
 	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
 		res.Err(err, r)
 	}
@@ -263,7 +267,7 @@ func (c *role) Roles(r *ghttp.Request) {
 
 // ---roleApi-------------------------------------------------------------------
 
-var RoleApi = &roleApi{Search: &config.Search{
+var RoleApi = &cRoleApi{Search: &config.Search{
 	T1: "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
 	SearchFields: "t1.*,t2.name r_name,t3.url url ,t3.group,t3.method,t3.desc ", Fields: []*config.Field{
 		{Name: "id"},
@@ -274,10 +278,7 @@ var RoleApi = &roleApi{Search: &config.Search{
 	},
 }}
 
-func (c *roleApi) Path(r *ghttp.Request) {
-	res.Page(r, "/sys/roleApi.html")
-}
-func (c *roleApi) List(r *ghttp.Request) {
+func (c *cRoleApi) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -287,7 +288,7 @@ func (c *roleApi) List(r *ghttp.Request) {
 	}
 	res.OkPage(page, size, total, data, r)
 }
-func (c *roleApi) Post(r *ghttp.Request) {
+func (c *cRoleApi) Post(r *ghttp.Request) {
 	var d struct {
 		Rid int
 		Aid []int
@@ -298,7 +299,14 @@ func (c *roleApi) Post(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *roleApi) Del(r *ghttp.Request) {
+func (c *cRoleApi) Path(r *ghttp.Request) {
+	icon, err := sys.Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/s_role_api.html", g.Map{"icon": icon})
+}
+func (c *cRoleApi) Del(r *ghttp.Request) {
 	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		res.Err(err, r)
 	}
@@ -313,10 +321,9 @@ var RoleMenu = &roleMenu{Search: &config.Search{
 	T3:           "s_menu t3 on t1.mid = t3.id",
 	SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
 	Fields: []*config.Field{
-		{Name: "id"},
-		{Name: "rid"},
-		{Name: "t2.name", QueryName: "role_name", SearchType: 2},
-		{Name: "mid"},
+		{Name: "rid", SearchType: 1},
+		{Name: "t2.name", QueryName: "role_name", SearchType: 1},
+		{Name: "mid", SearchType: 1},
 		{Name: "t3.name", QueryName: "menu_name"},
 	},
 }}
@@ -571,7 +578,7 @@ func (c *cFile) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/s/s_file.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/s_file.html", g.Map{"icon": icon})
 }
 func (c *cFile) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
