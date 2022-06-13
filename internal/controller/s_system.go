@@ -19,25 +19,24 @@ import (
 )
 
 type (
-	home      struct{}
-	cSys      struct{}
-	rss       struct{}
-	gen       struct{}
-	api       struct{ *config.Search }
-	role      struct{ *config.Search }
-	cRoleApi  struct{ *config.Search }
-	cRoleMenu struct{ *config.Search }
-	cDict     struct{ *config.Search }
-	cFile     struct{ *config.Search }
-	cAdmin    struct{ *config.Search }
-	menu      struct{ *config.Search }
-	ws        struct{}
+	home          struct{}
+	cSys          struct{}
+	gen           struct{}
+	api           struct{ *config.Search }
+	role          struct{ *config.Search }
+	cRoleApi      struct{ *config.Search }
+	cRoleMenu     struct{ *config.Search }
+	cDict         struct{ *config.Search }
+	cFile         struct{ *config.Search }
+	cAdmin        struct{ *config.Search }
+	cMenu         struct{ *config.Search }
+	cOperationLog struct{ *config.Search }
+	ws            struct{}
 )
 
 var (
 	Home = &home{}
 	Sys  = &cSys{}
-	Rss  = &rss{}
 	Gen  = &gen{}
 	Ws   = &ws{}
 )
@@ -54,19 +53,10 @@ func (s cSys) Path(r *ghttp.Request) {
 	path := r.GetQuery("path")
 	res.Page(r, path.String())
 }
-func (s cSys) PathGithub(r *ghttp.Request) {
-	res.Page(r, "/sys/rss/github.html", g.Map{"icon": "/resource/image/github.png"})
-}
-func (s cSys) OsChina(r *ghttp.Request) {
-	res.Page(r, "/sys/rss/oschina.html", g.Map{"icon": "/resource/image/github.png"})
-}
-func (s cSys) Douban(r *ghttp.Request) {
-	res.Page(r, "/sys/rss/douban.html", g.Map{"icon": "/resource/image/github.png"})
-}
 
-// ---menu-----------------------------------------------------------------
+// ---Menu-----------------------------------------------------------------
 
-var Menu = &menu{Search: &config.Search{
+var Menu = &cMenu{Search: &config.Search{
 	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
 	Fields: []*config.Field{
 		{Name: "pid", SearchType: 1},
@@ -75,14 +65,14 @@ var Menu = &menu{Search: &config.Search{
 	},
 }}
 
-func (c *menu) Path(r *ghttp.Request) {
+func (c *cMenu) Path(r *ghttp.Request) {
 	icon, err := sys.Icon(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/menu2.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/s_menu.html", g.Map{"icon": icon})
 }
-func (c *menu) List(r *ghttp.Request) {
+func (c *cMenu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -92,14 +82,14 @@ func (c *menu) List(r *ghttp.Request) {
 	}
 	res.OkPage(page, size, total, data, r)
 }
-func (c *menu) GetById(r *ghttp.Request) {
+func (c *cMenu) GetById(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.OkData(data, r)
 }
-func (c *menu) Post(r *ghttp.Request) {
+func (c *cMenu) Post(r *ghttp.Request) {
 	d := entity.Menu{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -109,7 +99,7 @@ func (c *menu) Post(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *menu) Put(r *ghttp.Request) {
+func (c *cMenu) Put(r *ghttp.Request) {
 	d := entity.Menu{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -119,14 +109,14 @@ func (c *menu) Put(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *menu) Del(r *ghttp.Request) {
+func (c *cMenu) Del(r *ghttp.Request) {
 	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
 
-func (c *menu) ListLevel1(r *ghttp.Request) {
+func (c *cMenu) ListLevel1(r *ghttp.Request) {
 	level1, err := sys.MenusLevel1(r.Context())
 	if err != nil {
 		res.Err(err, r)
@@ -661,21 +651,64 @@ func (c *cFile) Upload(r *ghttp.Request) {
 	res.Ok(r)
 }
 
-// ---Rss-------------------------------------------------------------------
+// --- OperationLog ------------------------------------------------------------------------
 
-func (c rss) Fetch(r *ghttp.Request) {
-	data, err := sys.FetchRss(r.Context(), r.GetQuery("url").String())
+var OperationLog = &cOperationLog{Search: &config.Search{
+	T1: "s_operation_log", T2: "s_admin t2 on t1.uid = t2.id", OrderBy: "t1.id desc", SearchFields: "t1.*,t2.uname",
+	Fields: []*config.Field{
+		{Name: "t2.uname", SearchType: 2, QueryName: "uname"}, {Name: "content", SearchType: 2, QueryName: "content"}, {Name: "method", SearchType: 1, QueryName: "method"}, {Name: "uri", SearchType: 2, QueryName: "uri"}, {Name: "ip", SearchType: 2, QueryName: "ip"},
+	},
+}}
+
+func (c *cOperationLog) Path(r *ghttp.Request) {
+	icon, err := sys.Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/s_operation_log.html", g.Map{"icon": icon})
+}
+func (c *cOperationLog) List(r *ghttp.Request) {
+	page, size := res.GetPage(r)
+	c.Page = page
+	c.Size = size
+	total, data, err := sys.List(r.Context(), c.Search)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkPage(page, size, total, data, r)
+}
+func (c *cOperationLog) GetById(r *ghttp.Request) {
+	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.OkData(data, r)
 }
-func (c rss) V2ex(r *ghttp.Request) {
-	data, err := sys.FetchRss(r.Context(), "https://www.v2ex.com/index.xml")
-	if err != nil {
+func (c *cOperationLog) Post(r *ghttp.Request) {
+	d := entity.OperationLog{}
+	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	res.OkData(data, r)
+	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+func (c *cOperationLog) Put(r *ghttp.Request) {
+	d := entity.OperationLog{}
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+func (c *cOperationLog) Del(r *ghttp.Request) {
+	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
 }
 
 // ---Gen Code-------------------------------------------------------------------
@@ -685,7 +718,7 @@ func (c gen) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/gen2.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/gen.html", g.Map{"icon": icon})
 }
 func (c gen) Tables(r *ghttp.Request) {
 	data, err := sys.Tables(r.Context())

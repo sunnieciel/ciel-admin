@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    {{include "/app2/1.meta.html" .}}
+    {{include "/app/1.meta.html" .}}
 </head>
 <body>
 <div id="app" v-cloak>
     <!--top模块-->
-    {{include "/app2/2.top.html" .}}
+    {{include "/app/2.top.html" .}}
     <div id="wrapper">
         <div class="w">
             <div class="wrapper-left">
                 <!--导航栏模块-->
                 <div class="box no-bottom-border">
-                    {{include "/app2/4.basePageInfo.html" .}}
+                    {{include "/app/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
                     <div class="cell">
                         <el-button class="mr-12" type="info" plain size="small" onclick="location.href='/role/path'">返回</el-button>
                         <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
-                        {{include "/app2/5.search.html" .}}
+                        {{include "/app/5.search.html" .}}
                     </div>
                 </div>
                 <!--数据模块-->
@@ -57,7 +57,7 @@
         </div>
     </div>
     <!--弹框-->
-    {{include "/app2/8.footer_no_dialog.html" .}}
+    {{include "/app/8.footer_no_dialog.html" .}}
     <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
         <div class="details">
             <ul>
@@ -75,7 +75,7 @@
 
 </div>
 </body>
-{{include "/app2/z.footerJs.html" .}}
+{{include "/app/z.footerJs.html" .}}
 <script>
     const app = Vue.createApp({
         data() {

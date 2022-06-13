@@ -16,7 +16,7 @@
                     {{include "/app/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
                     <div class="cell">
-                        <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+
                         {{include "/app/5.search.html" .}}
                     </div>
                 </div>
@@ -42,8 +42,6 @@
                                     </div>
                                     <div v-else-if="j.type=='operate'">
                                         <el-button-group>
-                                            <el-button type="danger" plain size="small" @click="goto('/roleMenu/path?rid='+i.id)">Menu</el-button>
-                                            <el-button type="warning" plain size="small" @click="goto('/roleApi/path?rid='+i.id)">API</el-button>
                                             <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
                                             <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
                                         </el-button-group>
@@ -69,15 +67,21 @@
         data() {
             return {
                 pageConf: {
-                    name: "ROLE",
-                    desc: "这里是ROLE管理页面,可以对菜单进行添加,修改,删除等操作。",
-                    urlPrefix: "/role/",
+                    name: "操作日志",
+                    desc: "这里是操作日志页面可以对数据进行相应的操作。",
+                    urlPrefix: "/operationLog/",
                     icon: "{{.data.icon}}",
                     fields: [
                         {field: "id", label: "ID"},
-                        {field: "name", label: "name"},
+                        {field: "uname", label: "用户名", editHide: 1, search: 1}, {field: "uid", label: "uid", notShow: 1}, {field: "content", label: "内容", search: 1}, {field: "response", label: "响应"}, {
+                            field: "method",
+                            label: "请求方法",
+                            search: 1,
+                            type: 'select',
+                            editDisabled: 1,
+                            options: [{value: "", label: "请选择"}, {value: "POST", label: "POST", type: "primary"}, {value: "GET", label: "GET", type: "success"}, {value: "DELETE", label: "DELETE", type: "danger"}, {value: "PUT", label: "PUT", type: "warning"},]
+                        }, {field: "uri", label: "uri", editDisabled: 1, search: 1}, {field: "ip", label: "ip", editDisabled: 1, search: 1}, {field: "use_time", label: "耗时(ms)", editDisabled: 1},
                         {field: "created_at", label: "创建时间"},
-                        {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}
                     ]
                 },
@@ -91,9 +95,6 @@
             this.getList()
         },
         methods: {
-            goto(url) {
-                location.href = url;
-            },
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();

@@ -2,13 +2,16 @@ package sys
 
 import (
 	"ciel-admin/internal/consts"
+	"ciel-admin/internal/service/internal/dao"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xjwt"
 	"ciel-admin/utility/utils/xredis"
 	"errors"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/glog"
 	"net/http"
+	"time"
 )
 
 func CORS(r *ghttp.Request) {
@@ -56,4 +59,47 @@ func LockAction(r *ghttp.Request) {
 	}
 	r.Middleware.Next()
 	lock.Unlock()
+}
+func AdminAction(r *ghttp.Request) {
+	user, err := GetAdmin(r)
+	if err != nil || user == nil {
+		r.Response.RedirectTo("/login")
+		return
+	}
+	uid := user.Admin.Id
+	content := ""
+	method := r.Method
+	ctx := r.Context()
+	uri := r.RequestURI
+	ip := r.GetClientIp()
+	begin := time.Now().UnixMilli()
+
+	switch method {
+	case "GET", "DELETE":
+		content = r.GetUrl()
+	case "POST", "PUT":
+		content = r.GetBodyString()
+		if content == "" {
+			content = r.Request.PostForm.Encode()
+		}
+		if content == "" {
+			content = r.Request.Form.Encode()
+		}
+	}
+	r.Middleware.Next()
+	response := r.Response.BufferString()
+	useTime := time.Now().UnixMilli() - begin
+	data := g.Map{
+		"uid":      uid,
+		"content":  content,
+		"method":   method,
+		"uri":      uri,
+		"response": response,
+		"use_time": useTime,
+		"ip":       ip,
+	}
+	_, err = dao.OperationLog.Ctx(ctx).Insert(data)
+	if err != nil {
+		glog.Error(ctx, err)
+	}
 }

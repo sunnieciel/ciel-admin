@@ -119,10 +119,10 @@ here:
 	if menuLogo == "" {
 		menuLogo = xicon.GenIcon()
 	}
-	menu2Path := fmt.Sprintf("/%s/path", gstr.CaseCamelLower(d.StructName))
+	menuPath := fmt.Sprintf("/%s/path", gstr.CaseCamelLower(d.StructName))
 	// count path
 	glog.Debug(ctx, "检查二级菜单是否存在")
-	pathCount, err := dao.Menu.Ctx(ctx).Where("path=?", menu2Path).Count()
+	pathCount, err := dao.Menu.Ctx(ctx).Where("path=?", menuPath).Count()
 	if err != nil {
 		return err
 	}
@@ -133,7 +133,7 @@ here:
 	if _, err = dao.Menu.Ctx(ctx).Insert(&entity.Menu{
 		Pid:    menu1.Id,
 		Icon:   menuLogo,
-		Path:   menu2Path,
+		Path:   menuPath,
 		Sort:   m2Sort,
 		Name:   menuLeve2,
 		Status: 1,
@@ -289,6 +289,26 @@ func genHtml(ctx context.Context, c *bo.GenConf) error {
 	if err != nil {
 		return err
 	}
+
+	// replace add
+	if c.AddBtn == 0 {
+		temp = gstr.Replace(temp, "[add]", `<el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>`)
+	} else {
+		temp = gstr.Replace(temp, "[add]", "")
+	}
+	// replace edit
+	if c.DelBtn == 0 {
+		temp = gstr.Replace(temp, "[del]", `<el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>`)
+	} else {
+		temp = gstr.Replace(temp, "[del]", "")
+	}
+	// replace edit
+	if c.UpdateBtn == 0 {
+		temp = gstr.Replace(temp, "[edit]", `<el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>`)
+	} else {
+		temp = gstr.Replace(temp, "[edit]", "")
+	}
+
 	// replace fields
 	if len(c.Fields) == 0 {
 		return errors.New("fields can't be empty")

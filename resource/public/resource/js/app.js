@@ -6,11 +6,7 @@ jQuery.each(["put", "delete"], function (i, method) {
             data = undefined;
         }
         return jQuery.ajax({
-            url: url,
-            type: method,
-            dataType: 'json',
-            data: data,
-            success: callback
+            url: url, type: method, dataType: 'json', data: data, success: callback
         });
     };
 });
@@ -55,10 +51,7 @@ function noticeInfo(msg) {
 
 function logout() {
     $.ajax({
-        url: '/admin/logout',
-        type: 'get',
-        dataType: 'json',
-        success: function (data) {
+        url: '/admin/logout', type: 'get', dataType: 'json', success: function (data) {
             console.log(data)
             if (data.code == 0) {
                 window.location.href = '/login';
@@ -66,6 +59,7 @@ function logout() {
         }
     });
 }
+
 
 function updatePwd() {
     let old = prompt('Input your old pwd');
@@ -76,7 +70,7 @@ function updatePwd() {
     if (!newPwd) {
         return
     }
-    $.post("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
+    $.put("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
         if (res.code == 0) {
             noticeOk('Success')
             location.href = '/login'
@@ -87,19 +81,22 @@ function updatePwd() {
 }
 
 // 添加默认选中
-$("#secondary-tabs a").hide()
-let current = $("a[href='" + location.pathname + "']");
-$("#secondary-tabs a[data='" + current.attr("data") + "']").show()
-$("#tabs a[data='" + current.attr("data") + "']").addClass("tab-current")
+$(".sub-nav a").hide()
+let current = $(".sub-nav a[href='" + location.pathname + "']"); // 找到张.sub-nav 下面地址为当前路径的url
+$(".sub-nav a[data='" + current.attr("data") + "']").show()     // 将当前的url显示出来
+$(".nav a[data='" + current.attr("data") + "']").addClass("link-2-active") // 将 .nav 中具有相同data属性的a标签添加active类
 
+// 监听tab 切换
 $(function () {
-    // 监听tab 切换
-    $("#tabs a").click(function () {
-        $("#tabs a").removeClass("tab-current")
-        $(this).addClass("tab-current")
-        $("#secondary-tabs a").hide()
-        $("#secondary-tabs a[data='" + $(this).attr("data") + "']").show()
+    $(".nav a").hover(function () {
+        $(".nav a").removeClass("link-2-active")
+        $(this).addClass("link-2-active")
+        $(".sub-nav a").hide()
+        $(".sub-nav a[data='" + $(this).attr("data") + "']").show()
     })
 })
 
-
+function setDark(value) {
+    Cookies.set('dark', value)
+    location.reload()
+}

@@ -1,13 +1,8 @@
 # Free Key Admin 自由钥匙 - 个人的后台管理系统
 
-## 更新说明
-
-v1.0.6 版本正在更新当中
-如要使用请从tags下载v1.0.5版本,不要直接 git clone 
-
 ## 说明
 
-Free Key Admin(自由钥匙) 一个 V2EX(v2ex.com)风格 Go 语言写的个人后台管理系统，提供了权限管理,CURD文件生成,常用网站工具导航，本地文件上传等基本功能。
+free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后台管理系统，提供了权限管理,CURD文件生成,本地文件上传等基本功能。
 
 使用到的技术:
 
@@ -22,26 +17,18 @@ Free Key Admin(自由钥匙) 一个 V2EX(v2ex.com)风格 Go 语言写的个人�
 - 字典管理 ok
 - 本地文件上传 ok
 - 夜间模式 ok
-- 常用网站导航 ok
 - CURD文件生成 ok
 - WebSocket后台聊天功能 todo
 - 日记本功能 todo
-- 常用RSS订阅 ing
 - 常用工具集合 todo
 
-这是菜单页面 （图标我选择的是小时候喜欢的哆啦 A 梦 hh ）![](./resource/1.png) ![](./resource/2.png)
+这是菜单页面 （图标选择的是小时候喜欢的哆啦 A 梦 ）![](./documents/home1.png) ![](./documents/home2.png)
 
-Dialog 修改或添加数据 ![](./resource/3.png) ![](./resource/4.png)
+Dialog 修改或添加数据 ![](./documents/home3.png) ![](./documents/home4.png)
 
-角色页面 （图标是小时候喜欢的足球小将） ![](./resource/5.png)
+角色页面 （图标是小时候喜欢的足球小将） ![](./documents/home5.png) ![](./documents/home6.png)
 
-常用工具栏之服务端工具页面![](./resource/6.png) ![](./resource/7.png)
-
-位面列表页面（不同的模块我备注了觉得不错的昵称）![](./resource/8.png)
-
-V2EX RSS 资讯页面![](./resource/9.png) ![](./resource/10.png)
-
-Github RSS 框架语言排行榜页面![](./resource/11.png)
+代码生成 页面  ![](./documents/home7.png) ![](./documents/home8.png)
 
 ## 环境安装
 
@@ -86,10 +73,6 @@ Github RSS 框架语言排行榜页面![](./resource/11.png)
 - Vue3: https://vuejs.org/
 - element-plus  https://element-plus.org/
 - Jquery: https://www.runoob.com/jquery/jquery-tutorial.html
-
-## 使用说明
-
-- [多表查询CURD代码生成](./documents/gen_curd.md)
 
 ## 反馈
 

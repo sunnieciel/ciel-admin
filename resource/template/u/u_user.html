@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    {{include "/app2/1.meta.html" .}}
+    {{include "/app/1.meta.html" .}}
 </head>
 <body>
 <div id="app" v-cloak>
     <!--top模块-->
-    {{include "/app2/2.top.html" .}}
+    {{include "/app/2.top.html" .}}
     <div id="wrapper">
         <div class="w">
             <div class="wrapper-left">
                 <!--导航栏模块-->
-                {{include "/app2/3.nav.html" .}}
+                {{include "/app/3.nav.html" .}}
                 <div class="box no-bottom-border">
-                    {{include "/app2/4.basePageInfo.html" .}}
+                    {{include "/app/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
                     <div class="cell">
                         <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
-                        {{include "/app2/5.search.html" .}}
+                        {{include "/app/5.search.html" .}}
                     </div>
                 </div>
                 <!--数据模块-->
@@ -58,10 +58,10 @@
         </div>
     </div>
     <!--弹框-->
-    {{include "/app2/7.footer.html" .}}
+    {{include "/app/7.footer.html" .}}
 </div>
 </body>
-{{include "/app2/z.footerJs.html" .}}
+{{include "/app/z.footerJs.html" .}}
 <script>
     const app = Vue.createApp({
         data() {
@@ -73,7 +73,7 @@
                     icon: "{{.data.icon}}",
                     fields: [
                         {field: "id", label: "ID"},
-                        {field: "uname", label: "uname", editDisabled: 1,search:1},{field: "nickname", label: "nickname"},{field: "pwd", label: "pwd", editHide: 1},{field: "email", label: "email"},{field: "status", label: "status",type:'select',options:[{value: "1", label: "正常", type: "success"},{value: "2", label: "禁用", type: "danger"},]},
+                        {field: "uname", label: "uname"},{field: "nickname", label: "nickname"},{field: "pwd", label: "pwd", editHide: 1},{field: "email", label: "email"},{field: "status", label: "status",type:'select',options:[{value:"", label:"请选择"},{value: "1", label: "正常", type: "success"},{value: "2", label: "禁用", type: "danger"},]},
                         {field: "created_at", label: "创建时间"},
                         {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}

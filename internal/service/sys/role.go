@@ -4,10 +4,8 @@ import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/service/internal/dao"
 	"context"
-	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/text/gstr"
 	"strings"
 )
 
@@ -42,21 +40,6 @@ func CheckRoleApi(ctx context.Context, rid int, uri string, method string) bool 
 }
 func Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
 	var d = make([]*bo.Menu, 0)
-	get, err := g.Cfg().Get(ctx, "rss")
-	if err != nil {
-		return nil, err
-	}
-	array := get.Array()
-	if len(array) > 0 {
-		children := make([]*bo.Menu, 0)
-		for _, item := range array {
-			split := gstr.Split(fmt.Sprint(item), ":")
-			children = append(children, &bo.Menu{
-				Name: split[0],
-				Path: split[1],
-			})
-		}
-	}
 	menus, err := dao.RoleMenu.Menus(ctx, rid, pid)
 	if err != nil {
 		return nil, err
