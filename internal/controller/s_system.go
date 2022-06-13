@@ -19,19 +19,19 @@ import (
 )
 
 type (
-	home     struct{}
-	cSys     struct{}
-	rss      struct{}
-	gen      struct{}
-	api      struct{ *config.Search }
-	role     struct{ *config.Search }
-	cRoleApi struct{ *config.Search }
-	roleMenu struct{ *config.Search }
-	cDict    struct{ *config.Search }
-	cFile    struct{ *config.Search }
-	cAdmin   struct{ *config.Search }
-	menu     struct{ *config.Search }
-	ws       struct{}
+	home      struct{}
+	cSys      struct{}
+	rss       struct{}
+	gen       struct{}
+	api       struct{ *config.Search }
+	role      struct{ *config.Search }
+	cRoleApi  struct{ *config.Search }
+	cRoleMenu struct{ *config.Search }
+	cDict     struct{ *config.Search }
+	cFile     struct{ *config.Search }
+	cAdmin    struct{ *config.Search }
+	menu      struct{ *config.Search }
+	ws        struct{}
 )
 
 var (
@@ -315,23 +315,25 @@ func (c *cRoleApi) Del(r *ghttp.Request) {
 
 // ---roleMenu-------------------------------------------------------------------
 
-var RoleMenu = &roleMenu{Search: &config.Search{
+var RoleMenu = &cRoleMenu{Search: &config.Search{
 	T1:           "s_role_menu",
 	T2:           "s_role  t2 on t1.rid = t2.id",
 	T3:           "s_menu t3 on t1.mid = t3.id",
+	OrderBy:      "t1.id desc",
 	SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
 	Fields: []*config.Field{
 		{Name: "rid", SearchType: 1},
-		{Name: "t2.name", QueryName: "role_name", SearchType: 1},
-		{Name: "mid", SearchType: 1},
-		{Name: "t3.name", QueryName: "menu_name"},
 	},
 }}
 
-func (c *roleMenu) Path(r *ghttp.Request) {
-	res.Page(r, "sys/roleMenu.html")
+func (c *cRoleMenu) Path(r *ghttp.Request) {
+	icon, err := sys.Icon(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.Page(r, "/sys/s_role_menu.html", g.Map{"icon": icon})
 }
-func (c *roleMenu) List(r *ghttp.Request) {
+func (c *cRoleMenu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
 	c.Size = size
@@ -341,7 +343,14 @@ func (c *roleMenu) List(r *ghttp.Request) {
 	}
 	res.OkPage(page, size, total, data, r)
 }
-func (c *roleMenu) Post(r *ghttp.Request) {
+func (c *cRoleMenu) GetById(r *ghttp.Request) {
+	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(data, r)
+}
+func (c *cRoleMenu) Post(r *ghttp.Request) {
 	var d struct {
 		Rid int
 		Mid []int
@@ -352,13 +361,23 @@ func (c *roleMenu) Post(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
-func (c *roleMenu) Del(r *ghttp.Request) {
+func (c *cRoleMenu) Put(r *ghttp.Request) {
+	d := entity.RoleMenu{}
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+func (c *cRoleMenu) Del(r *ghttp.Request) {
 	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
-func (c *roleMenu) RoleNoMenus(r *ghttp.Request) {
+func (c *cRoleMenu) RoleNoMenus(r *ghttp.Request) {
 	rid := r.GetQuery("rid")
 	data, err := sys.RoleNoMenu(r.Context(), rid)
 	if err != nil {
@@ -366,7 +385,7 @@ func (c *roleMenu) RoleNoMenus(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
-func (c *roleMenu) RoleNoApis(r *ghttp.Request) {
+func (c *cRoleMenu) RoleNoApis(r *ghttp.Request) {
 	rid := r.GetQuery("rid")
 	data, err := sys.RoleNoApi(r.Context(), rid)
 	if err != nil {
@@ -374,7 +393,7 @@ func (c *roleMenu) RoleNoApis(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
-func (c *roleMenu) CurrentMenus(r *ghttp.Request) {
+func (c *cRoleMenu) CurrentMenus(r *ghttp.Request) {
 	getAdmin, err := sys.GetAdmin(r)
 	if err != nil {
 		res.Err(err, r)

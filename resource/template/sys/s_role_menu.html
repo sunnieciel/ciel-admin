@@ -10,7 +10,6 @@
     <div id="wrapper">
         <div class="w">
             <div class="wrapper-left">
-                <!--导航栏模块-->
                 <div class="box no-bottom-border">
                     {{include "/app2/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
@@ -42,6 +41,7 @@
                                     </div>
                                     <div v-else-if="j.type=='operate'">
                                         <el-button-group>
+                                            <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
                                             <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
                                         </el-button-group>
                                     </div>
@@ -62,7 +62,7 @@
         <div class="details">
             <ul>
                 <li><label class="input">角色ID<input type="text" v-model="details.rid" name="rid"></label></li>
-                <li><label class="input">API<select v-model="details.aid" name="aid[]" id="aid-select" multiple style="height: 230px;width: 288px"></select></label></li>
+                <li><label class="input">API<select v-model="details.mid" name="mid[]" id="aid-select" multiple style="height: 230px;width: 288px"></select></label></li>
             </ul>
         </div>
         <template #footer>
@@ -72,7 +72,6 @@
             </div>
         </template>
     </el-dialog>
-
 </div>
 </body>
 {{include "/app2/z.footerJs.html" .}}
@@ -81,23 +80,20 @@
         data() {
             return {
                 pageConf: {
-                    name: "role_api",
-                    desc: "这里是role_api页面可以对数据进行相应的操作。",
-                    urlPrefix: "/roleApi/",
+                    name: "role_menu",
+                    desc: "这里是role_menu页面可以对数据进行相应的操作。",
+                    urlPrefix: "/roleMenu/",
                     icon: "{{.data.icon}}",
                     fields: [
                         {field: "id", label: "ID"},
-                        {field: "r_name", label: "角色"},
-                        {field: "group", label: "分组"},
-                        {field: "url", label: "URL"},
-                        {field: "method", label: "方法"},
-                        {field: "desc", label: "说明"},
+                        {field: "role_name", label: "角色名"},
+                        {field: "menu_name", label: "菜单名"},
                         {label: "操作", type: "operate"}
                     ]
                 },
                 search: {page: 1, size: 15, status: ''}, // config & search
                 list: [], loading: false, total: 0, totalPage: 0, // data
-                details: {status: '', rid: "{{.Query.rid}}", aid: []}, detailsVisible: false, detailsTitle: '添加操作', showType: 0 // 1 add 2 update, // details
+                details: {status: '', rid: "{{.Query.rid}}", mid: []}, detailsVisible: false, detailsTitle: '添加操作', showType: 0 // 1 add 2 update, // details
             }
         },
         async created() {
@@ -114,7 +110,6 @@
                 if (page) {
                     this.search.page = page;
                 }
-
                 this.search.rid = "{{.Query.rid}}";
                 let res = await $.get(`${this.pageConf.urlPrefix}`, this.search);
                 const {currPage, totalCount, totalPage, list} = res.data;
@@ -127,19 +122,20 @@
             async showDetails(type, id) {
                 this.detailsVisible = true
                 this.showType = type
-                this.details = {rid: '{{.Query.rid}}', aid: []}
-                let res = await $.get('/role/noapis?rid={{.Query.rid}}')
-                if (res.data) {
-                    let options = ''
-                    res.data.forEach(item => {
-                        options += `<option value='${item.id}'>${item.group}-${item.method}-${item.url}- ${item.desc}</option>`
-                    })
-                    $('#aid-select').html(options)
-                }
+                this.details = {rid: "{{.Query.rid}}", mid: []}
+                $.get('/role/nomenus?rid={{.Query.rid}}', function (res) {
+                    if (res.data) {
+                        let options = ''
+                        res.data.forEach(item => {
+                            options += `<option value='${item.id}'>${item.name}-${item.path}</option>`
+                        })
+                        $('#aid-select').html(options)
+                    }
+                })
             },
             async onSubmit() {
-                let res = {}
-                res = await $.post(`${this.pageConf.urlPrefix}`, this.details)
+                console.log(this.details)
+                let res = await $.post(`${this.pageConf.urlPrefix}`, this.details)
                 if (res.code === 0) {
                     noticeOk('Success')
                     this.detailsVisible = false
