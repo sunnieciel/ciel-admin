@@ -19,7 +19,7 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 - 夜间模式 ok
 - CURD文件生成 ok
 - WebSocket后台聊天功能 todo
-- 日记本功能 todo
+- 记事本功能 todo
 - 常用工具集合 todo
 
 这是菜单页面 （图标选择的是小时候喜欢的哆啦 A 梦 ）![](./documents/home1.png) ![](./documents/home2.png)
