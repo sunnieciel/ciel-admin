@@ -23,6 +23,7 @@ var (
 			sys.Init()
 			g.View().BindFuncMap(sys.BindFuncMap())
 			s := g.Server()
+			registerInterface(s)     // 注册对外提供功能的接口
 			registerGenFileRouter(s) // 注册生成的代码路由
 
 			s.Group("/", func(g *ghttp.RouterGroup) {
@@ -136,6 +137,17 @@ var (
 				g.GET("/fields", controller.Gen.Fields)
 				g.Middleware(sys.LockAction, sys.AdminAction)
 				g.POST("/", controller.Gen.GenFile)
+			})
+
+			s.Group("/loginLog", func(g *ghttp.RouterGroup) {
+				g.Middleware(sys.AuthAdmin)
+				g.GET("/path", controller.LoginLog.Path)
+				g.GET("/", controller.LoginLog.List)
+				g.GET("/:id", controller.LoginLog.GetById)
+				g.Middleware(sys.LockAction)
+				g.DELETE("/:id", controller.LoginLog.Del)
+				g.POST("/", controller.LoginLog.Post)
+				g.PUT("/", controller.LoginLog.Put)
 			})
 			s.Group("/sys", func(g *ghttp.RouterGroup) {
 				g.GET("/ws", controller.Ws.GetAdminWs)

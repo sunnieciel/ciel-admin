@@ -7,6 +7,7 @@
     border-radius: 12px !important;
     box-shadow: 0 6px 6px rgba(0, 0, 0, .1) inset !important;
     opacity: .96 !important;
+    min-width: 300px;
 }
 
 button {
@@ -14,8 +15,11 @@ button {
     display: inline-flex !important;
 }
 
+
 .details {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .details ul {
@@ -31,6 +35,12 @@ button {
 
 .details ul li label {
     min-width: 224px;
+
+    display: flex;
+}
+
+.details ul li label span {
+    min-width: 54px;
     display: inline-block;
 }
 

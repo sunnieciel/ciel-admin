@@ -46,7 +46,7 @@
                                             [del]
                                         </el-button-group>
                                     </div>
-                                    <span v-else v-text="i[j.field]"></span>
+                                    <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
                                 </div>
                             </td>
                         </tr>

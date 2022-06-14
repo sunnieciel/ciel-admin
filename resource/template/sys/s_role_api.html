@@ -45,7 +45,7 @@
                                             <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
                                         </el-button-group>
                                     </div>
-                                    <span v-else v-text="i[j.field]"></span>
+                                    <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
                                 </div>
                             </td>
                         </tr>
@@ -61,8 +61,8 @@
     <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
         <div class="details">
             <ul>
-                <li><label class="input">角色ID<input type="text" v-model="details.rid" name="rid"></label></li>
-                <li><label class="input">API<select v-model="details.aid" name="aid[]" id="aid-select" multiple style="height: 230px;width: 288px"></select></label></li>
+                <li><label class="input"><span>角色ID</span><input type="text" v-model="details.rid" name="rid"></label></li>
+                <li><label class="input"><span>API</span><select v-model="details.aid" name="aid[]" id="aid-select" multiple style="height: 519px;width: 382px"></select></label></li>
             </ul>
         </div>
         <template #footer>
@@ -81,8 +81,8 @@
         data() {
             return {
                 pageConf: {
-                    name: "role_api",
-                    desc: "这里是role_api页面可以对数据进行相应的操作。",
+                    name: "角色禁用API",
+                    desc: "这里是角色禁用API页面,对角色禁用的相关API在此进行管理",
                     urlPrefix: "/roleApi/",
                     icon: "{{.data.icon}}",
                     fields: [
@@ -132,7 +132,7 @@
                 if (res.data) {
                     let options = ''
                     res.data.forEach(item => {
-                        options += `<option value='${item.id}'>${item.group}-${item.method}-${item.url}- ${item.desc}</option>`
+                        options += `<option value='${item.id}'>${item.group}-${item.method}- ${item.desc}</option>`
                     })
                     $('#aid-select').html(options)
                 }

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"ciel-admin/internal/consts"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/sys"
@@ -571,6 +572,18 @@ func (c *cDict) Del(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.Ok(r)
+}
+
+func (c *cDict) GetByKey(r *ghttp.Request) {
+	s := r.Get("key").String()
+	if s == "" {
+		res.Err(consts.ErrParamEmpty, r)
+	}
+	v, err := sys.DictGetByKey(r.Context(), s)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(v, r)
 }
 
 // --- File -------------------------------------------------------------------

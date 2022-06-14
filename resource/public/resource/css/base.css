@@ -493,13 +493,21 @@ a:hover {
     border-collapse: collapse;
 }
 
-
 .table-1 tr th {
     font-weight: 700;
     font-size: 12px;
     padding: 1px 9px;
     text-align: left;
     white-space: nowrap;
+}
+
+.table-1 tr:first-child {
+    cursor: pointer;
+}
+
+/*让一行居中*/
+.table-1 tr th:first-child {
+    text-align: center;
 }
 
 .table-1 tr:hover {
@@ -514,6 +522,10 @@ a:hover {
     overflow: hidden;
     white-space: nowrap;
     max-width: 366px;
+}
+
+.table-1 td span {
+    cursor: pointer;
 }
 
 .table-1 td:hover {

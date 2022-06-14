@@ -1,5 +1,5 @@
 <div class="cell flex bg-color-dark color-box-color-bg">
-    <img class="s-icon s-icon-large" :src="pageConf.icon" alt="Financial">
+    <img class="s-icon s-icon-large" :src="pageConf.icon?pageConf.icon:'/resource/image/golang.png'" alt="Financial">
     <div class="flex-1">
         <div class="flex-between">
             <div><a class="color-blue" href="{{.Config.home}}">FREE KEY</a> &nbsp;›&nbsp; <span v-text="pageConf.name"></span></div>

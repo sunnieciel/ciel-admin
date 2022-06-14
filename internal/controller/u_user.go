@@ -12,15 +12,14 @@ import (
 	"ciel-admin/utility/utils/xparam"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 type cUser struct{ *config.Search }
 
 var User = &cUser{Search: &config.Search{
-	T1:"u_user", OrderBy: "t1.id desc", SearchFields: "t1.*",
-	Fields: []*config.Field{
-		
-	},
+	T1: "u_user", OrderBy: "t1.id desc", SearchFields: "t1.*",
+	Fields: []*config.Field{},
 }}
 
 func (c *cUser) Path(r *ghttp.Request) {
@@ -68,8 +67,10 @@ func (c *cUser) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *cUser) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
-		res.Err(err, r)
-	}
+	array := r.Get("ids").Array()
+	glog.Debug(r.Context(), array)
+	//if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	//	res.Err(err, r)
+	//}
 	res.Ok(r)
 }

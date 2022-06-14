@@ -5,13 +5,34 @@
 package dao
 
 import (
+	"ciel-admin/internal/consts"
+	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/internal/dao/internal"
+	"context"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 // dictDao is the data access object for table s_dict.
 // You can define custom methods on it to extend its functionality as you wish.
 type dictDao struct {
 	*internal.DictDao
+}
+
+func (d dictDao) GetByKey(ctx context.Context, key string) (*entity.Dict, error) {
+	var data entity.Dict
+	one, err := d.Ctx(ctx).One("k", key)
+	if err != nil {
+		glog.Error(ctx, err)
+		return nil, err
+	}
+	if one.IsEmpty() {
+		return nil, consts.ErrDataNotFound
+	}
+	if err = one.Struct(&data); err != nil {
+		glog.Error(ctx, err)
+		return nil, err
+	}
+	return &data, nil
 }
 
 var (

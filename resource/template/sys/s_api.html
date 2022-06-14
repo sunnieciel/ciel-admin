@@ -37,7 +37,7 @@
                                 <!--filter not show field-->
                                 <div v-if="!j.notShow">
                                     <div v-if="j.type==='img'"><a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" target="_blank"> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a> <span v-else class="tag-normal">暂无图片</span></div>
-                                    <div v-else-if="j.type=='select'">
+                                    <div v-else-if="j.type=='select'" @click="showDetails(2,i.id)">
                                         <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
                                     </div>
                                     <div v-else-if="j.type=='operate'">
@@ -46,7 +46,7 @@
                                             <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
                                         </el-button-group>
                                     </div>
-                                    <span v-else v-text="i[j.field]"></span>
+                                    <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
                                 </div>
                             </td>
                         </tr>
@@ -63,6 +63,8 @@
 </body>
 {{include "/app/z.footerJs.html" .}}
 <script>
+
+    //other
     const app = Vue.createApp({
         data() {
             return {
@@ -73,26 +75,25 @@
                     icon: "{{.data.icon}}",
                     fields: [
                         {field: "id", label: "ID"},
-                        {field: "url", label: "url"}, {field: "method", label: "method"}, {field: "group", label: "group", search: 1}, {field: "desc", label: "desc"}, {
-                            field: "status",
-                            label: "status",
-                            search: 1,
-                            type: 'select',
-                            options: [{value: "", label: "请选择", type: "info"}, {value: "1", label: "正常", type: "primary"}, {value: "2", label: "禁用", type: "danger"},]
-                        },
+                        {field: "group", label: "分组", search: 1, type: 'select'},
+                        {field: "desc", label: "说明"},
+                        {field: "method", label: "方法", search: 1, type: 'select', options: [{value: '', label: '请选择'}, {value: 'GET', label: 'GET', type: 'success'}, {value: 'POST', label: 'POST', type: 'primary'}, {value: 'PUT', label: 'PUT', type: 'warning'}, {value: 'DELETE', label: 'DELETE', type: 'danger'}]},
+                        {field: "url", label: "URL"},
+                        // {field: "status", label: "状态", search: 1, type: 'select', options: [{value: "", label: "请选择", type: "info"}, {value: "1", label: "正常", type: "primary"}, {value: "2", label: "禁用", type: "danger"},]},
                         {field: "created_at", label: "创建时间"},
                         {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}
                     ]
                 },
-                search: {page: 1, size: 15, status: ''}, // config & search
+                search: {page: 1, size: 15, status: '', method: '', group: ''}, // config & search
                 list: [], loading: false, total: 0, totalPage: 0, // data
-                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0 // 1 add 2 update, // details
+                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0, // 1 add 2 update, // details
             }
         },
         async created() {
             document.title = this.pageConf.name
             this.getList()
+            await this.getGroup()
         },
         methods: {
             sizeChange(size) {
@@ -149,10 +150,22 @@
                     }
                 }
             },
+            async getGroup() {
+                let res = await $.get(`/v1/dict/key/api_group`)
+                let group = [{value: '', label: '请选择'}]
+                res.data.split(',').forEach((i, index) => group.push({value: i, label: i, type: selectType(index)}))
+                for (let i = this.pageConf.fields.length - 1; i >= 0; i--) {
+                    if (this.pageConf.fields[i].field === 'group') {
+                        this.pageConf.fields[i].options = group
+                        return
+                    }
+                }
+            },
         }
     })
     app.config.warnHandler = () => null
     app.use(ElementPlus)
     app.mount('#app')
+
 </script>
 </html>

@@ -45,7 +45,7 @@
                                             <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
                                         </el-button-group>
                                     </div>
-                                    <span v-else v-text="i[j.field]"></span>
+                                    <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
                                 </div>
                             </td>
                         </tr>
@@ -62,7 +62,7 @@
         <div class="details">
             <ul>
                 <li><label class="input">角色ID<input type="text" v-model="details.rid" name="rid"></label></li>
-                <li><label class="input">API<select v-model="details.mid" name="mid[]" id="aid-select" multiple style="height: 230px;width: 288px"></select></label></li>
+                <li><label class="input">API<select v-model="details.mid" name="mid[]" id="aid-select" multiple style="height: 519px;width: 382px"></select></label></li>
             </ul>
         </div>
         <template #footer>
@@ -87,7 +87,7 @@
                     fields: [
                         {field: "id", label: "ID"},
                         {field: "role_name", label: "角色名"},
-                        {field: "menu_name", label: "菜单名"},
+                        {field: "menu_name", label: "菜单/分组"},
                         {label: "操作", type: "operate"}
                     ]
                 },
@@ -127,7 +127,7 @@
                     if (res.data) {
                         let options = ''
                         res.data.forEach(item => {
-                            options += `<option value='${item.id}'>${item.name}-${item.path}</option>`
+                            options += `<option value='${item.id}'>${item.name}-${item.path ? item.path : '--------------'}</option>`
                         })
                         $('#aid-select').html(options)
                     }

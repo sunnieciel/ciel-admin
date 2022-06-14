@@ -107,6 +107,13 @@ func Del(ctx context.Context, table, id interface{}) (err error) {
 	}
 	return
 }
+func BatchDel(ctx context.Context, table string, ids []interface{}) error {
+	if _, err := g.DB().Ctx(ctx).Model(table).WhereIn("id", ids).Delete(); err != nil {
+		glog.Error(ctx, err)
+		return err
+	}
+	return nil
+}
 func Update(ctx context.Context, table string, id, data interface{}) error {
 	// 空值过滤
 	_, err := g.DB().Model(table).Where("id", id).Data(data).Update()
@@ -126,6 +133,9 @@ func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
 }
 func Icon(ctx context.Context, path string) (string, error) {
 	menu, err := dao.Menu.GetByPath(ctx, path)
+	if err != nil {
+		return "", nil
+	}
 	icon := menu.Icon
 	if err != nil {
 		return "", nil

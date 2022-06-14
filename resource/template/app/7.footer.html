@@ -10,7 +10,7 @@
                     && i.type!='operate'
                     && !i.editHide==1" class="input">
                     <span v-text="i.label"></span>
-                    <input :disabled="i.editDisabled?true:false" v-if="i.type!='select'" v-model="details[i.field]" autocomplete="off" @keyup.enter="getList()">
+                    <input :disabled="i.editDisabled?true:false" v-if="i.type!='select'" v-model="details[i.field]" autocomplete="off" @keyup.enter="onSubmit()">
                 </label>
             </li>
         </ul>
@@ -32,4 +32,3 @@
         </div>
     </template>
 </el-dialog>
-
