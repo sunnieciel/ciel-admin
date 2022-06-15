@@ -107,7 +107,7 @@ func Del(ctx context.Context, table, id interface{}) (err error) {
 	}
 	return
 }
-func BatchDel(ctx context.Context, table string, ids []interface{}) error {
+func DelBatch(ctx context.Context, table string, ids []interface{}) error {
 	if _, err := g.DB().Ctx(ctx).Model(table).WhereIn("id", ids).Delete(); err != nil {
 		glog.Error(ctx, err)
 		return err

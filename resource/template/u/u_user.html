@@ -16,7 +16,7 @@
                     {{include "/app/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
                     <div class="cell">
-                        <el-button :disabled="batchDelDisabled" type="danger" @click="showDetails(1)" size="small" plain>批量删除</el-button>
+                        <el-button :disabled="batchDelDisabled" type="danger" @click="onBatchDel(list.filter(i => i.delCheckBox === true).map(i => i.id))" size="small" plain>批量删除</el-button>
                         <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
                         {{include "/app/5.search.html" .}}
                     </div>
@@ -28,10 +28,8 @@
                         <!--表头-->
                         <tr>
                             <th v-for="i in pageConf.fields">
-                                <div v-if="!i.notShow">
-                                    <span v-if="i.type=='delCheckBox'"><el-checkbox @change="batchDelCheckChange" label="" size="large"/></span>
-                                    <span v-else v-text="i.label"></span>
-                                </div>
+                                <span v-if="i.type=='delCheckBox'"><el-checkbox @change="batchDelCheckChange" label="" size="large"/></span>
+                                <span v-else v-text="i.label"></span>
                             </th>
                         </tr>
                         <!--数据-->
@@ -41,16 +39,16 @@
                                 <!--filter not show field-->
                                 <div v-if="!j.notShow">
                                     <div v-if="j.type==='img'"><a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" target="_blank"> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a> <span v-else class="tag-normal">暂无图片</span></div>
-                                    <div v-else-if="j.type=='delCheckBox'" style="text-align: center">
-                                        <el-checkbox @change="delBoxChange" v-model="i.delCheckBox" label="" size="large"/>
-                                    </div>
                                     <div v-else-if="j.type=='select'">
                                         <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
+                                    </div>
+                                    <div v-else-if="j.type=='delCheckBox'" style="text-align: center">
+                                        <el-checkbox @change="delBoxChange" v-model="i.delCheckBox" label="" size="large"/>
                                     </div>
                                     <div v-else-if="j.type=='operate'">
                                         <el-button-group>
                                             <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                            <el-button type="success" plain size="small" @click="onDel(i)">删除</el-button>
+                                            <el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>
                                         </el-button-group>
                                     </div>
                                     <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
@@ -79,14 +77,9 @@
                     urlPrefix: "/user/",
                     icon: "{{.data.icon}}",
                     fields: [
-                        {label: '全选', type: 'delCheckBox'},
+                        {type: 'delCheckBox', editHide: 1},
                         {field: "id", label: "ID"},
-                        {field: "uname", label: "uname"}, {field: "nickname", label: "nickname"}, {field: "pwd", label: "pwd", editHide: 1}, {field: "email", label: "email"}, {
-                            field: "status",
-                            label: "status",
-                            type: 'select',
-                            options: [{value: "", label: "请选择"}, {value: "1", label: "正常", type: "success"}, {value: "2", label: "禁用", type: "danger"},]
-                        },
+                        {field: "uname", label: "uname"},{field: "nickname", label: "nickname"},{field: "pwd", label: "pwd", editHide: 1},{field: "email", label: "email"},{field: "status", label: "status",type:'select',options:[{value:"", label:"请选择"},{value: "1", label: "正常", type: "success"},{value: "2", label: "禁用", type: "danger"},]},
                         {field: "created_at", label: "创建时间"},
                         {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}
@@ -101,20 +94,7 @@
             document.title = this.pageConf.name
             this.getList()
         },
-        computed: {
-            batchDelDisabled() {
-                return this.list.reduce((sum, o) => sum + o.delCheckBox ? 1 : 0, 0) === 0
-            }
-        },
         methods: {
-            onBatchDel() {
-            },
-            batchDelCheckChange(v) {
-                this.list.forEach(i => i.delCheckBox = v)
-            },
-            delBoxChange(i) {
-                i.delCheckBox = !i.delCheckBox
-            },
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();
@@ -157,23 +137,31 @@
                     noticeError(res.msg)
                 }
             },
-            async onDel(i) {
+            async onBatchDel(ids) {
                 if (confirm("确定删除？")) {
-                    i.delCheckBox = true
-                    let arr = this.list.map(i => i.delCheckBox = true)
-                    console.log(arr)
-                    // let res = await $.delete(`${this.pageConf.urlPrefix}` + id);
-                    // if (res.code === 0) {
-                    //     await this.getList(this.search.page)
-                    //     noticeOk('Success')
-                    //     this.detailsVisible = false
-                    // } else {
-                    //     noticeError(res.msg)
-                    // }
+                    let res = await $.delete(`${this.pageConf.urlPrefix}/batch?ids[]=` + ids.join('&ids[]='));
+                    if (res.code === 0) {
+                        await this.getList(this.search.page)
+                        noticeOk('Success')
+                        this.detailsVisible = false
+                        this.list.forEach(i => i.delCheckBox = false)
+                    } else {
+                        noticeError(res.msg)
+                    }
                 }
             },
+            batchDelCheckChange(v) {
+                this.list.forEach(i => i.delCheckBox = v)
+            },
+            delBoxChange(i) {
+                i.delCheckBox = !i.delCheckBox
+            },
         },
-
+        computed: {
+            batchDelDisabled() {
+                return this.list.filter(i => i.delCheckBox === true).length === 0
+            }
+        },
     })
     app.config.warnHandler = () => null
     app.use(ElementPlus)

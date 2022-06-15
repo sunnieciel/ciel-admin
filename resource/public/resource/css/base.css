@@ -519,9 +519,9 @@ a:hover {
     margin: 0;
     padding: 1px 9px;
     height: 34px;
-    overflow: hidden;
+    overflow: hidden!important;
     white-space: nowrap;
-    max-width: 366px;
+    max-width: 182px;
 }
 
 .table-1 td span {

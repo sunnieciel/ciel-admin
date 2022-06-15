@@ -111,7 +111,8 @@ func (c *cMenu) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *cMenu) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -148,6 +149,7 @@ func (c *api) List(r *ghttp.Request) {
 }
 func (c *api) Post(r *ghttp.Request) {
 	d := entity.Api{}
+	d.Status = 1
 	if d.Status == 0 {
 		res.Err(errors.New("状态不能为空"), r)
 	}
@@ -169,7 +171,8 @@ func (c *api) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *api) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -227,7 +230,8 @@ func (c *role) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *role) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -298,7 +302,8 @@ func (c *cRoleApi) Path(r *ghttp.Request) {
 	res.Page(r, "/sys/s_role_api.html", g.Map{"icon": icon})
 }
 func (c *cRoleApi) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -363,7 +368,8 @@ func (c *cRoleMenu) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *cRoleMenu) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -446,7 +452,8 @@ func (c *cAdmin) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *cAdmin) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -568,7 +575,8 @@ func (c *cDict) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *cDict) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -718,7 +726,8 @@ func (c *cOperationLog) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *cOperationLog) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	array := r.Get("ids").Array()
+	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)

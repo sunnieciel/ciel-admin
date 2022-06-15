@@ -70,7 +70,7 @@ func AdminAction(r *ghttp.Request) {
 	content := ""
 	method := r.Method
 	ctx := r.Context()
-	uri := r.RequestURI
+	uri := r.Router.Uri
 	ip := r.GetClientIp()
 	begin := time.Now().UnixMilli()
 

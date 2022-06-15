@@ -14,8 +14,9 @@
                     {{include "/app/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
                     <div class="cell">
-                        <el-button class="mr-12" type="info" plain size="small" onclick="location.href='/role/path'">返回</el-button>
+                        <el-button :disabled="batchDelDisabled" type="danger" @click="onBatchDel(list.filter(i => i.delCheckBox === true).map(i => i.id))" size="small" plain>批量删除</el-button>
                         <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
+                        <el-button class="mr-12" type="info" plain size="small" onclick="location.href='/role/path'">返回</el-button>
                         {{include "/app/5.search.html" .}}
                     </div>
                 </div>
@@ -26,7 +27,8 @@
                         <!--表头-->
                         <tr>
                             <th v-for="i in pageConf.fields">
-                                <span v-if="!i.notShow" v-text="i.label"></span>
+                                <span v-if="i.type=='delCheckBox'"><el-checkbox @change="batchDelCheckChange" label="" size="large"/></span>
+                                <span v-else v-text="i.label"></span>
                             </th>
                         </tr>
                         <!--数据-->
@@ -36,13 +38,15 @@
                                 <!--filter not show field-->
                                 <div v-if="!j.notShow">
                                     <div v-if="j.type==='img'"><a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" target="_blank"> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a> <span v-else class="tag-normal">暂无图片</span></div>
+                                    <div v-else-if="j.type=='delCheckBox'" style="text-align: center">
+                                        <el-checkbox @change="delBoxChange" v-model="i.delCheckBox" label="" size="large"/>
+                                    </div>
                                     <div v-else-if="j.type=='select'">
                                         <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
                                     </div>
                                     <div v-else-if="j.type=='operate'">
                                         <el-button-group>
-                                            <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                            <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
+                                            <el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>
                                         </el-button-group>
                                     </div>
                                     <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
@@ -85,6 +89,7 @@
                     urlPrefix: "/roleMenu/",
                     icon: "{{.data.icon}}",
                     fields: [
+                        {type: 'delCheckBox', editHide: 1},
                         {field: "id", label: "ID"},
                         {field: "role_name", label: "角色名"},
                         {field: "menu_name", label: "菜单/分组"},
@@ -144,19 +149,31 @@
                     noticeError(res.msg)
                 }
             },
-            async onDel(id) {
+            async onBatchDel(ids) {
                 if (confirm("确定删除？")) {
-                    let res = await $.delete(`${this.pageConf.urlPrefix}` + id);
+                    let res = await $.delete(`${this.pageConf.urlPrefix}/batch?ids[]=` + ids.join('&ids[]='));
                     if (res.code === 0) {
                         await this.getList(this.search.page)
                         noticeOk('Success')
                         this.detailsVisible = false
+                        this.list.forEach(i => i.delCheckBox = false)
                     } else {
                         noticeError(res.msg)
                     }
                 }
             },
-        }
+            batchDelCheckChange(v) {
+                this.list.forEach(i => i.delCheckBox = v)
+            },
+            delBoxChange(i) {
+                i.delCheckBox = !i.delCheckBox
+            },
+        },
+        computed: {
+            batchDelDisabled() {
+                return this.list.filter(i => i.delCheckBox === true).length === 0
+            }
+        },
     })
     app.config.warnHandler = () => null
     app.use(ElementPlus)

@@ -298,7 +298,7 @@ func genHtml(ctx context.Context, c *bo.GenConf) error {
 	}
 	// replace edit
 	if c.DelBtn == 0 {
-		temp = gstr.Replace(temp, "[del]", `<el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>`)
+		temp = gstr.Replace(temp, "[del]", `<el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>`)
 	} else {
 		temp = gstr.Replace(temp, "[del]", "")
 	}

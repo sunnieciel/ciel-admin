@@ -68,7 +68,7 @@ func (c *cMenu) Put(r *ghttp.Request) {
 	res.Ok(r)
 }
 func (c *cMenu) Del(r *ghttp.Request) {
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	if err := sys.DelBatch(r.Context(), c.T1, r.Get("ids").Array()); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)

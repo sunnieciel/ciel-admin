@@ -4,7 +4,7 @@
 		g.GET("/", controller.Menu.List)
 		g.GET("/:id", controller.Menu.GetById)
 		g.Middleware(sys.LockAction)
-		g.DELETE("/:id", controller.Menu.Del)
+		g.DELETE("/batch", controller.Menu.Del)
 		g.POST("/", controller.Menu.Post)
 		g.PUT("/", controller.Menu.Put)
 	})

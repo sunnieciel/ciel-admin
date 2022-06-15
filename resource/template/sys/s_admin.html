@@ -16,6 +16,7 @@
                     {{include "/app/4.basePageInfo.html" .}}
                     <!-- 搜索栏-->
                     <div class="cell">
+                        <el-button :disabled="batchDelDisabled" type="danger" @click="onBatchDel(list.filter(i => i.delCheckBox === true).map(i => i.id))" size="small" plain>批量删除</el-button>
                         <el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>
                         {{include "/app/5.search.html" .}}
                     </div>
@@ -27,7 +28,8 @@
                         <!--表头-->
                         <tr>
                             <th v-for="i in pageConf.fields">
-                                <span v-if="!i.notShow" v-text="i.label"></span>
+                                <span v-if="i.type=='delCheckBox'"><el-checkbox @change="batchDelCheckChange" label="" size="large"/></span>
+                                <span v-else v-text="i.label"></span>
                             </th>
                         </tr>
                         <!--数据-->
@@ -37,6 +39,9 @@
                                 <!--filter not show field-->
                                 <div v-if="!j.notShow">
                                     <div v-if="j.type==='img'"><a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" target="_blank"> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a> <span v-else class="tag-normal">暂无图片</span></div>
+                                    <div v-else-if="j.type=='delCheckBox'" style="text-align: center">
+                                        <el-checkbox @change="delBoxChange" v-model="i.delCheckBox" label="" size="large"/>
+                                    </div>
                                     <div v-else-if="j.type=='select'">
                                         <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
                                     </div>
@@ -68,12 +73,15 @@
     const app = Vue.createApp({
         data() {
             return {
+
                 pageConf: {
+
                     name: "admin",
                     desc: "这里是admin页面可以对数据进行相应的操作。",
                     urlPrefix: "/admin/",
                     icon: "{{.data.icon}}",
                     fields: [
+                        {type: 'delCheckBox', editHide: 1},
                         {field: "id", label: "ID"},
                         {field: "uname", label: "用户名", search: 1},
                         {
@@ -91,7 +99,7 @@
                 },
                 search: {page: 1, size: 15, status: '', rid: ''}, // config & search
                 list: [], loading: false, total: 0, totalPage: 0, // data
-                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0, // 1 add 2 update, // details
+                details: {status: '', rid: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0, // 1 add 2 update, // details
                 roles: [],
             }
         },
@@ -131,7 +139,7 @@
             async showDetails(type, id) {
                 this.detailsVisible = true
                 this.showType = type
-                this.details = {status: 1, type: 1}
+                this.details = {status: 1, type: 1, rid: ''}
                 if (type === 2) {
                     this.detailsTitle = '修改操作'
                     let res = await $.get(`${this.pageConf.urlPrefix}` + id)
@@ -139,6 +147,10 @@
                 }
             },
             async onSubmit() {
+                if (this.details.rid === '') {
+                    noticeWarning('请选择角色')
+                    return
+                }
                 let res = {}
                 if (this.showType === 1) {
                     res = await $.post(`${this.pageConf.urlPrefix}`, this.details)
@@ -153,19 +165,6 @@
                     noticeError(res.msg)
                 }
             },
-            async onDel(id) {
-                if (confirm("确定删除？")) {
-                    let res = await $.delete(`${this.pageConf.urlPrefix}` + id);
-                    if (res.code === 0) {
-                        await this.getList(this.search.page)
-                        noticeOk('Success')
-                        this.detailsVisible = false
-                    } else {
-                        noticeError(res.msg)
-                    }
-                }
-            },
-
             async onUpdatePwd(id) {
                 let pwd = prompt('请输入新的密码',)
                 if (pwd) {
@@ -178,17 +177,41 @@
                     }
                 }
             },
-        },
-        async onUpdateUname(id) {
-            let uname = prompt('请输入新的用户名',)
-            if (uname) {
-                let res = await $.put(`${this.pageConf.urlPrefix}/updateUname`, {id, uname})
-                if (res.code === 0) {
-                    noticeOk('Success')
-                    await this.getList(this.search.page)
-                } else {
-                    noticeError(res.msg)
+            async onUpdateUname(id) {
+                let uname = prompt('请输入新的用户名',)
+                if (uname) {
+                    let res = await $.put(`${this.pageConf.urlPrefix}/updateUname`, {id, uname})
+                    if (res.code === 0) {
+                        noticeOk('Success')
+                        await this.getList(this.search.page)
+                    } else {
+                        noticeError(res.msg)
+                    }
                 }
+            },
+            async onBatchDel(ids) {
+                if (confirm("确定删除？")) {
+                    let res = await $.delete(`${this.pageConf.urlPrefix}/batch?ids[]=` + ids.join('&ids[]='));
+                    if (res.code === 0) {
+                        await this.getList(this.search.page)
+                        noticeOk('Success')
+                        this.detailsVisible = false
+                        this.list.forEach(i => i.delCheckBox = false)
+                    } else {
+                        noticeError(res.msg)
+                    }
+                }
+            },
+            batchDelCheckChange(v) {
+                this.list.forEach(i => i.delCheckBox = v)
+            },
+            delBoxChange(i) {
+                i.delCheckBox = !i.delCheckBox
+            }
+        },
+        computed: {
+            batchDelDisabled() {
+                return this.list.filter(i => i.delCheckBox === true).length === 0
             }
         },
     })
