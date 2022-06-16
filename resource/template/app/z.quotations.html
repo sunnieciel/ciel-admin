@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>语录</title>
+    <style>
+        /*ul {*/
+        /*    column-count: 3;*/
+        /*}*/
+        .wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            margin: 12px;
+        }
+
+        .video_wrapper {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            height: auto;
+            z-index: -100;
+            background: #000;
+            background-size: cover;
+        }
+
+
+        .inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 16%;
+        }
+
+        body, a {
+            color: #fff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<h1>语录</h1>
+<div class="video_wrapper">
+    <video muted="" playsinline="" loop autoplay>
+        <source src="/resource/video/shiro_long.mp4" type="video/mp4">
+    </video>
+
+</div>
+<div class="wrapper">
+    <div class="box">
+        <h2>唯物辩证</h2>
+        <dl>
+            <dt>质量互变规律</dt>
+            <dd>事物发展总是首先从微小的不显著的变化开始，经过逐步的积累，达到显著的根本性质的变化。</dd>
+            <dd>量变是质变的前提，没有量变就不会有质变的发生。</dd>
+            <dd>质变是量变的必然结果。</dd>
+        </dl>
+    </div>
+</div>
+
+</body>
+</html>

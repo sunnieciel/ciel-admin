@@ -22,7 +22,14 @@
             background-size: cover;
         }
 
-        .box {
+        .inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 16%;
+        }
+
+        .mid {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,10 +37,14 @@
             height: 100%
         }
 
-        .inner {
+
+        .wrapper {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            margin: 12px;
         }
     </style>
 </header>
@@ -43,7 +54,8 @@
             <source src="/resource/video/shiro_long.mp4" type="video/mp4">
         </video>
     </div>
-    <div class="box">
+
+    <div class="mid">
         <div class="inner">
             <b>Login</b>
             <br>

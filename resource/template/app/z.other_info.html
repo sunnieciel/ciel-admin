@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Other Info</title>
+    <title>导航</title>
     <style>
         /*ul {*/
         /*    column-count: 3;*/
@@ -15,29 +15,99 @@
         .box {
             margin: 12px;
         }
+
+        .video_wrapper {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            height: auto;
+            z-index: -100;
+            background: #000;
+            background-size: cover;
+        }
+
+
+        .inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 16%;
+        }
+
+        body, a {
+            color: #fff;
+            font-size: 14px;
+        }
     </style>
+
 </head>
 <body>
 <h1>Other Info</h1>
+<div class="video_wrapper">
+    <video muted="" playsinline="" loop autoplay>
+        <source src="/resource/video/shiro_long.mp4" type="video/mp4">
+    </video>
+</div>
 <div class="wrapper">
     <div class="box">
-        <b>program</b>
-        <ul>
-            <li><a href="https://v2ex.com/" target="_blank">v2ex</a></li>
-            <li><a href="https://news.ycombinator.com/news" target="_blank">ycombinators</a></li>
-            <li><a href="https://goframe.org/pages/viewpage.action?pageId=1114409" target="_blank">gf</a></li>
-            <li><a href="https://github.com/1211ciel">github</a></li>
-            <li><a href="https://www.google.com/" target="_blank">google</a></li>
-            <li><a href="https://www.runoob.com/" target="_blank">菜鸟教程</a></li>
-            <li><a href="https://staging-cn.vuejs.org/" target="_blank">vue</a></li>
-            <li><a href="https://github.com/senghoo/golang-design-pattern" target="_blank">设计模式</a></li>
-        </ul>
+        <h2>program</h2>
+        <dl>
+            <dt>Backend</dt>
+            <dd><a href="https://goframe.org/pages/viewpage.action?pageId=1114409" target="_blank">gf</a></dd>
+            <dd><a href="https://goframe.org/pages/viewpage.action?pageId=1114409" target="_blank">gf核心重点</a></dd>
+            <dd><a href="https://www.liwenzhou.com/posts/Go/golang-menu/" target="_blank">李文周的博客</a></dd>
+            <dd><a href="https://github.com/gorilla/websocket" target="_blank">websocket</a></dd>
+            <dd><a href="https://github.com/jobbole/awesome-go-cn" target="_blank">awesome-go-cn</a></dd>
+            <dt>Frontend</dt>
+            <dd><a href="https://staging-cn.vuejs.org/" target="_blank">vue</a></dd>
+            <dt>Utils</dt>
+            <dd><a href="https://www.google.com/" target="_blank">google</a></dd>
+            <dd><a href="https://github.com/1211ciel">github</a></dd>
+            <dd><a href="https://stackoverflow.com/" target="_blank">stackoverflow</a></dd>
+            <dd><a href="https://wakatime.com/dashboard" target="_blank">wakatime</a></dd>
+            <dd><a href="https://leetcode.cn/" target="_blank">leetcode</a></dd>
+            <dt>Tutorial</dt>
+            <dd><a href="https://roadmap.sh/" target="_blank">roadmap</a></dd>
+            <dd><a href="https://www.runoob.com/" target="_blank">菜鸟教程</a></dd>
+            <dd><a href="https://github.com/senghoo/golang-design-pattern" target="_blank">设计模式</a></dd>
+        </dl>
     </div>
     <div class="box">
-        <b>阅读</b>
-        <ul>
-            <li><a href="https://www.kanunu8.com/" target="_blank">怒努书坊</a></li>
-        </ul>
+        <h2>Reading</h2>
+        <dl>
+            <dt>社区</dt>
+            <dd><a href="https://v2ex.com/" target="_blank">v2ex</a></dd>
+            <dd><a href="https://news.ycombinator.com/news" target="_blank">ycombinators</a></dd>
+            <dt>News</dt>
+            <dd><a class="mr-12" href="https://cn.wsj.com/" target="_blank">华尔街日报</a></dd>
+            <dt>Books</dt>
+            <dd><a href="https://www.kanunu8.com/" target="_blank">怒努书坊</a></dd>
+        </dl>
+    </div>
+    <div class="box">
+        <h2>Study</h2>
+        <dl>
+            <dt>English</dt>
+            <dd><a href="https://www.duolingo.com/learn" target="_blank">多邻国</a></dd>
+            <dt>逻辑</dt>
+            <dd><a href="https://mubu.com/explore/4AJDy5fqhNf" target="_blank">逻辑·语法·修辞</a></dd>
+        </dl>
+    </div>
+    <div class="box">
+        <h2>Life</h2>
+        <dl>
+            <dt>Music</dt>
+            <dd><a href="https://music.163.com/#/playlist?app_version=8.7.46&id=2899267233&creatorId=311464467" target="_blank">黎明</a></dd>
+        </dl>
+    </div>
+    <div class="box">
+        <h2>v2ex</h2>
+        <dl>
+            <dt>随想</dt>
+            <dd><a href="https://v2ex.com/t/451790#reply190" target="_blank">人的本质是什么?最近迷茫人活着的意义到底是什么 </a></dd>
+        </dl>
     </div>
 </div>
 </body>
