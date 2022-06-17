@@ -2,49 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>导航</title>
-    <style>
-        /*ul {*/
-        /*    column-count: 3;*/
-        /*}*/
-        .wrapper {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .box {
-            margin: 12px;
-        }
-
-        .video_wrapper {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            height: auto;
-            z-index: -100;
-            background: #000;
-            background-size: cover;
-        }
-
-
-        .inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 16%;
-        }
-
-        body, a {
-            color: #fff;
-            font-size: 14px;
-        }
-    </style>
-
+    <title>Other Info</title>
+    {{template "quotations_css"}}
 </head>
 <body>
-<h1>Other Info</h1>
+<b>Other Info</b>
 <div class="video_wrapper">
     <video muted="" playsinline="" loop autoplay>
         <source src="/resource/video/shiro_long.mp4" type="video/mp4">
@@ -52,7 +14,7 @@
 </div>
 <div class="wrapper">
     <div class="box">
-        <h2>program</h2>
+        <h2>Program</h2>
         <dl>
             <dt>Backend</dt>
             <dd><a href="https://goframe.org/pages/viewpage.action?pageId=1114409" target="_blank">gf</a></dd>
@@ -90,20 +52,28 @@
         <h2>Study</h2>
         <dl>
             <dt>English</dt>
+            <dd><a href="https://dictionary.cambridge.org/dictionary/english-chinese-simplified/" target="_blank">英语词典</a></dd>
             <dd><a href="https://www.duolingo.com/learn" target="_blank">多邻国</a></dd>
             <dt>逻辑</dt>
             <dd><a href="https://mubu.com/explore/4AJDy5fqhNf" target="_blank">逻辑·语法·修辞</a></dd>
+            <dt>语文</dt>
+            <dd><a href="http://www.hydcd.com/cy/" target="_blank">成语词典</a></dd>
+            <dt>地理</dt>
+            <dd><a href="http://map.ps123.net/world/List_1.html" target="_blank">世界地图</a></dd>
         </dl>
     </div>
     <div class="box">
-        <h2>Life</h2>
+        <h2>Music</h2>
         <dl>
-            <dt>Music</dt>
-            <dd><a href="https://music.163.com/#/playlist?app_version=8.7.46&id=2899267233&creatorId=311464467" target="_blank">黎明</a></dd>
+            <dt>Youtube</dt>
+            <dd><a href="https://www.youtube.com/channel/UCc9EzBNAtdnNiDrMw5CAxUw" target="_blank">relaxdaily</a></dd>
+            <dd><a href="https://www.twitch.tv/miametzmusic" target="_blank">miametzmusic</a></dd>
+            <dt>Piano</dt>
+            <dd><a href="https://www.youtube.com/watch?v=3JIVt09EHyg&list=PLXgwzCnUOKzpu8VPKZm_HSjNJqyLhVTf3&index=14" target="_blank">Forrest Gump with Relaxing Forest Sound</a></dd>
         </dl>
     </div>
     <div class="box">
-        <h2>v2ex</h2>
+        <h2>V2EX</h2>
         <dl>
             <dt>随想</dt>
             <dd><a href="https://v2ex.com/t/451790#reply190" target="_blank">人的本质是什么?最近迷茫人活着的意义到底是什么 </a></dd>

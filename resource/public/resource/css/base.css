@@ -446,12 +446,22 @@ a:hover {
     font-size: 13px;
 }
 
+li .input {
+    display: flex !important;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
 .input input, .input textarea, .input select {
     width: 99px;
     margin-left: 2px;
     padding: 3px 9px;
     border-radius: 15px;
     outline: none;
+}
+
+.input textarea {
+    width: auto;
 }
 
 .input input:focus, input:focus-visible {
@@ -519,7 +529,7 @@ a:hover {
     margin: 0;
     padding: 1px 9px;
     height: 34px;
-    overflow: hidden!important;
+    overflow: hidden !important;
     white-space: nowrap;
     max-width: 182px;
 }

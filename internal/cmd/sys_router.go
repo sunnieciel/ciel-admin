@@ -37,16 +37,6 @@ func registerGenFileRouter(s *ghttp.Server) {
 		g.POST("/", controller.User.Post)
 		g.PUT("/", controller.User.Put)
 	})
-	s.Group("/user", func(g *ghttp.RouterGroup) {
-		g.Middleware(sys.AuthAdmin)
-		g.GET("/path", controller.User.Path)
-		g.GET("/", controller.User.List)
-		g.GET("/:id", controller.User.GetById)
-		g.Middleware(sys.LockAction)
-		g.DELETE("/batch", controller.User.Del)
-		g.POST("/", controller.User.Post)
-		g.PUT("/", controller.User.Put)
-	})
 	s.Group("/loginLog", func(g *ghttp.RouterGroup) {
 		g.Middleware(sys.AuthAdmin)
 		g.GET("/path", controller.LoginLog.Path)
@@ -56,5 +46,15 @@ func registerGenFileRouter(s *ghttp.Server) {
 		g.DELETE("/batch", controller.LoginLog.Del)
 		g.POST("/", controller.LoginLog.Post)
 		g.PUT("/", controller.LoginLog.Put)
+	})
+	s.Group("/node", func(g *ghttp.RouterGroup) {
+		g.Middleware(sys.AuthAdmin)
+		g.GET("/path", controller.Node.Path)
+		g.GET("/", controller.Node.List)
+		g.GET("/:id", controller.Node.GetById)
+		g.Middleware(sys.LockAction)
+		g.DELETE("/batch", controller.Node.Del)
+		g.POST("/", controller.Node.Post)
+		g.PUT("/", controller.Node.Put)
 	})
 }

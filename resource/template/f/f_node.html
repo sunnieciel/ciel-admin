@@ -2,6 +2,12 @@
 <html lang="zh">
 <head>
     {{include "/app/1.meta.html" .}}
+    <style>
+        textarea {
+            width: 497px !important;
+            height: 208px;
+        }
+    </style>
 </head>
 <body>
 <div id="app" v-cloak>
@@ -39,17 +45,16 @@
                                 <!--filter not show field-->
                                 <div v-if="!j.notShow">
                                     <div v-if="j.type==='img'"><a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" target="_blank"> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a> <span v-else class="tag-normal">暂无图片</span></div>
+                                    <div v-else-if="j.type=='select'">
+                                        <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
+                                    </div>
                                     <div v-else-if="j.type=='delCheckBox'" style="text-align: center">
                                         <el-checkbox @change="delBoxChange" v-model="i.delCheckBox" label="" size="large"/>
                                     </div>
-                                    <div v-else-if="j.type=='select'" @click="showDetails(2,i.id)">
-                                        <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
-                                    </div>
-
                                     <div v-else-if="j.type=='operate'">
                                         <el-button-group>
                                             <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                            <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
+                                            <el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>
                                         </el-button-group>
                                     </div>
                                     <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
@@ -64,43 +69,81 @@
         </div>
     </div>
     <!--弹框-->
-    {{include "/app/7.footer.html" .}}
+    {{include "/app/8.footer_no_dialog.html" .}}
+    <el-dialog v-model="detailsVisible" :title="detailsTitle" width="36%">
+        <div class="details">
+            <ul>
+                <li v-for="i in pageConf.fields">
+                    <label v-if="i.type!='select'
+                    && i.field!='id'
+                    && i.field!='created_at'
+                    && i.field!='updated_at'
+                    && i.type!='operate'
+                    && !i.editHide==1" class="input">
+                        <span v-text="i.label"></span>
+                        <textarea rows="6" v-if="i.type!='select' && i.type==='textarea'" v-model="details[i.field]"> </textarea>
+                        <input :disabled="i.editDisabled?true:false" v-else-if="i.type!='select'" v-model="details[i.field]" autocomplete="off" @keyup.enter="onSubmit()">
+                    </label>
+                </li>
+            </ul>
+            <ul>
+                <li v-for="i in pageConf.fields">
+                    <label v-if="i.type=='select' && !i.editHide==1" class="input">
+                        <span v-text="i.label"></span>
+                        <select v-model="details[i.field]" @change="getList()" :disabled="i.editDisabled?true:false">
+                            <option v-for="j in i.options" :value="j.value" v-text="j.label"></option>
+                        </select>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="detailsVisible = false" size="small" plain>取消</el-button>
+                <el-button type="primary" @click="onSubmit()" size="small" plain>提交</el-button>
+            </div>
+        </template>
+    </el-dialog>
 </div>
 </body>
 {{include "/app/z.footerJs.html" .}}
 <script>
-
-    //other
     const app = Vue.createApp({
         data() {
             return {
                 pageConf: {
-                    name: "API",
-                    desc: "这里是API管理页面,可以对菜单进行添加,修改,删除等操作。",
-                    urlPrefix: "/api/",
+                    name: "node",
+                    desc: "这里是node页面可以对数据进行相应的操作。",
+                    urlPrefix: "/node/",
                     icon: "{{.data.icon}}",
                     fields: [
                         {type: 'delCheckBox', editHide: 1},
                         {field: "id", label: "ID"},
-                        {field: "group", label: "分组", search: 1, type: 'select'},
-                        {field: "desc", label: "说明"},
-                        {field: "method", label: "方法", search: 1, type: 'select', options: [{value: '', label: '请选择'}, {value: 'GET', label: 'GET', type: 'success'}, {value: 'POST', label: 'POST', type: 'primary'}, {value: 'PUT', label: 'PUT', type: 'warning'}, {value: 'DELETE', label: 'DELETE', type: 'danger'}]},
-                        {field: "url", label: "URL"},
-                        // {field: "status", label: "状态", search: 1, type: 'select', options: [{value: "", label: "请选择", type: "info"}, {value: "1", label: "正常", type: "primary"}, {value: "2", label: "禁用", type: "danger"},]},
-                        {field: "created_at", label: "创建时间"},
-                        {field: "updated_at", label: "更新时间"},
+                        {field: "uname", label: "用户名", editHide: 1,},
+                        {field: "happen_date", label: "日期", search: 1},
+                        {
+                            field: "level",
+                            label: "等级",
+                            search: 1,
+                            type: 'select',
+                            options: [{value: "", label: "请选择"}, {value: "1", label: "普通", type: "info"}, {value: "2", label: "稀有", type: "success"}, {value: "3", label: "传承", type: "primary"}, {value: "4", label: "唯一", type: "warning"}, {value: "5", label: "史诗", type: "danger"},]
+                        },
+                        {field: "main_things", label: "主要事件", search: 1, type: 'textarea'},
+                        {field: "other_info", label: "其他信息", search: 1, type: 'textarea'},
+                        {field: "created_at", label: "创建日期", notShow: 1},
+                        {field: "tag", label: "标记", search: 1},
+                        // {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}
                     ]
                 },
-                search: {page: 1, size: 15, status: '', method: '', group: ''}, // config & search
+                search: {page: 1, size: 15, status: '', level: ''}, // config & search
                 list: [], loading: false, total: 0, totalPage: 0, // data
-                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0, // 1 add 2 update, // details
+                details: {status: ''}, detailsVisible: false, detailsTitle: '添加操作', showType: 0 // 1 add 2 update, // details
             }
         },
         async created() {
             document.title = this.pageConf.name
             this.getList()
-            await this.getGroup()
         },
         methods: {
             sizeChange(size) {
@@ -128,6 +171,9 @@
                     this.detailsTitle = '修改操作'
                     let res = await $.get(`${this.pageConf.urlPrefix}` + id)
                     this.details = res.data
+                    this.details.created_at = new Date(res.data.created_at).toISOString().split('T')[0]
+                } else {
+                    this.details.level = '1'
                 }
             },
             async onSubmit() {
@@ -164,17 +210,6 @@
             delBoxChange(i) {
                 i.delCheckBox = !i.delCheckBox
             },
-            async getGroup() {
-                let res = await $.get(`/v1/dict/key/api_group`)
-                let group = [{value: '', label: '请选择'}]
-                res.data.split(',').forEach((i, index) => group.push({value: i, label: i, type: selectType(index)}))
-                for (let i = this.pageConf.fields.length - 1; i >= 0; i--) {
-                    if (this.pageConf.fields[i].field === 'group') {
-                        this.pageConf.fields[i].options = group
-                        return
-                    }
-                }
-            },
         },
         computed: {
             batchDelDisabled() {
@@ -185,6 +220,5 @@
     app.config.warnHandler = () => null
     app.use(ElementPlus)
     app.mount('#app')
-
 </script>
 </html>

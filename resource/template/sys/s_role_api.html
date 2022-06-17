@@ -29,7 +29,7 @@
                         <tr>
                             <th v-for="i in pageConf.fields">
                                 <span v-if="i.type=='delCheckBox'"><el-checkbox @change="batchDelCheckChange" label="" size="large"/></span>
-                                <span v-else v-text="i.label"></span>
+                                <span v-else-if="!i.notShow" v-text="i.label"></span>
                             </th>
                         </tr>
                         <!--数据-->
