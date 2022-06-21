@@ -3,6 +3,7 @@
         {{if .Session.adminInfo}}
         <a class="link-1 " href="#">{{.Session.adminInfo.Admin.uname}}</a>
         <a class="link-1" href="#" onclick="updatePwd()">修改密码</a>
+        <a class="link-1" href="/menu/path/easy">简介版</a>
         <a class="link-1" href="#" onclick="logout()">登出</a>
         {{else}}
         <a href="/login" class="login link-1">登录</a>

@@ -73,6 +73,9 @@ func (c *cMenu) Path(r *ghttp.Request) {
 	}
 	res.Page(r, "/sys/s_menu.html", g.Map{"icon": icon})
 }
+func (c *cMenu) PathEasy(r *ghttp.Request) {
+	res.Page(r, "/sys/s_menu_easy.html")
+}
 func (c *cMenu) List(r *ghttp.Request) {
 	page, size := res.GetPage(r)
 	c.Page = page
@@ -799,6 +802,7 @@ func (c gen) GenFile(r *ghttp.Request) {
 	if len(d.Fields) == 0 {
 		res.Err(errors.New("字段不能为空"), r)
 	}
+	g.Dump(d)
 	if err := sys.GenFile(r.Context(), &d); err != nil {
 		res.Err(err, r)
 	}

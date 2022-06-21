@@ -72,14 +72,25 @@
         data() {
             return {
                 pageConf: {
-                    name: "login_log",
-                    desc: "这里是login_log页面可以对数据进行相应的操作。",
-                    urlPrefix: "/loginLog/",
+                    name: "thing",
+                    desc: "这里是thing页面可以对数据进行相应的操作。",
+                    urlPrefix: "/thing/",
                     icon: "{{.data.icon}}",
                     fields: [
                         {type: 'delCheckBox', editHide: 1},
                         {field: "id", label: "ID"},
-                        {field: "uid", label: "uid"}, {field: "ip", label: "ip"},
+                        {field: "name", label: "名称", search: 1},
+                        {
+                            field: "type", label: "类型", search: 1, type: 'select',
+                            options: [
+                                {value: 1, label: '天数记录', type: 'primary'},
+                                {value: 2, label: '分数记录', type: "warning"},
+                                {value: 3, label: '自增记录', type: "success"},
+                                {value: 4, label: '间隙自增', type: "danger"},
+                            ]
+                        },
+                        {field: "begin_time", label: "开始日期"},
+                        {field: 'status', label: '状态', search: 1, type: 'select', options: [{value: 1, label: '进行中', type: 'warning'}, {value: 2, label: '已完成', type: 'info'}, {value: 3, label: '暂停', type: 'success'}]},
                         {field: "created_at", label: "创建时间"},
                         {field: "updated_at", label: "更新时间"},
                         {label: "操作", type: "operate"}

@@ -7,6 +7,14 @@
             width: 497px !important;
             height: 208px;
         }
+
+        .year, .month, .week, .checkbox {
+            width: 10px;
+        }
+
+        .date, .level {
+            width: 60px;
+        }
     </style>
 </head>
 <body>
@@ -28,37 +36,68 @@
                     </div>
                 </div>
                 <!--数据模块-->
-                <div class="box no-bottom-border">
+                <div class="box no-bottom-border data">
                     <table class="table-1" v-loading="loading" :element-loading-spinner="svg" element-loading-text="Loading..." element-loading-background="rgba(0, 0, 0, 0.3)" style="width: 100%">
                         <tbody>
                         <!--表头-->
                         <tr>
-                            <th v-for="i in pageConf.fields">
-                                <span v-if="i.type=='delCheckBox'"><el-checkbox @change="batchDelCheckChange" label="" size="large"/></span>
-                                <span v-else-if="!i.notShow" v-text="i.label"></span>
+                            <th class="checkbox">
+                                <el-checkbox @change="batchDelCheckChange" label="" size="large"/>
                             </th>
+                            <th class="year">年</th>
+                            <th class="month">月</th>
+                            <th class="week">星期</th>
+                            <th class="date">日期</th>
+                            <th class="level">等级</th>
+                            <th>主要事件</th>
+                            <th>标记</th>
+                            <th class="operation">操作</th>
                         </tr>
                         <!--数据-->
                         <tr v-for="i in list">
-                            <td v-for="j in pageConf.fields">
-                                <!--根据不同的字段类型展示不同的结果-->
-                                <!--filter not show field-->
-                                <div v-if="!j.notShow">
-                                    <div v-if="j.type==='img'"><a v-if="i[j.field]!=''" :href="'{{$.Config.server.imgPrefix}}'+i[j.field]" target="_blank"> <img class="s-icon" :src="'{{$.Config.server.imgPrefix}}'+i[j.field]" alt="not fond"> </a> <span v-else class="tag-normal">暂无图片</span></div>
-                                    <div v-else-if="j.type=='select'">
-                                        <el-tag size="small" :type="k.type" v-for="k in j.options" v-show="i[j.field]==k.value" v-text="k.label"></el-tag>
-                                    </div>
-                                    <div v-else-if="j.type=='delCheckBox'" style="text-align: center">
-                                        <el-checkbox @change="delBoxChange" v-model="i.delCheckBox" label="" size="large"/>
-                                    </div>
-                                    <div v-else-if="j.type=='operate'">
-                                        <el-button-group>
-                                            <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                            <el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>
-                                        </el-button-group>
-                                    </div>
-                                    <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>
-                                </div>
+                            <td>
+                                <el-checkbox @change="delBoxChange" v-model="i.delCheckBox" label="" size="large"/>
+                            </td>
+                            <!--year-->
+                            <td>
+                                <el-tag size="small" type="info" plain v-if="year(i.happen_date)%5===0" v-text="year(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="success" plain v-if="year(i.happen_date)%5===1" v-text="year(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="primary" plain v-if="year(i.happen_date)%5===2" v-text="year(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="warning" plain v-if="year(i.happen_date)%5===3" v-text="year(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="danger" plain v-if="year(i.happen_date)%5===4" v-text="year(i.happen_date)"></el-tag>
+                            </td>
+
+                            <!--money-->
+                            <td>
+                                <el-tag size="small" type="info" plain v-if="month(i.happen_date)%5===1" v-text="month(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="success" plain v-if="month(i.happen_date)%5===2" v-text="month(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="primary" plain v-if="month(i.happen_date)%5===3" v-text="month(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="warning" plain v-if="month(i.happen_date)%5===4" v-text="month(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="danger" plain v-if="month(i.happen_date)%5===0" v-text="month(i.happen_date)"></el-tag>
+                            </td>
+                            <!--money-->
+                            <td>
+                                <el-tag size="small" type="info" plain v-if="week(i.happen_date)%5===1" v-text="week(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="success" plain v-if="week(i.happen_date)%5===2" v-text="week(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="primary" plain v-if="week(i.happen_date)%5===3" v-text="week(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="warning" plain v-if="week(i.happen_date)%5===4" v-text="week(i.happen_date)"></el-tag>
+                                <el-tag size="small" type="danger" plain v-if="week(i.happen_date)%5===0" v-text="week(i.happen_date)"></el-tag>
+                            </td>
+                            <td v-text="i.happen_date" @click="showDetails(2,i.id)"></td>
+                            <td>
+                                <el-tag size="small" plain v-if="i.level==1" type="info">普通</el-tag>
+                                <el-tag size="small" plain v-else-if="i.level==2" type="success">稀有</el-tag>
+                                <el-tag size="small" plain v-else-if="i.level==3" type="primary">传承</el-tag>
+                                <el-tag size="small" plain v-else-if="i.level==4" type="warning">唯一</el-tag>
+                                <el-tag size="small" plain v-else-if="i.level==5" type="danger">史诗</el-tag>
+                            </td>
+                            <td v-text="i.main_things" @click="showDetails(2,i.id)"></td>
+                            <td v-text="i.tag" @click="showDetails(2,i.id)"></td>
+                            <td>
+                                <el-button-group>
+                                    <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
+                                    <el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>
+                                </el-button-group>
                             </td>
                         </tr>
                         </tbody>
@@ -108,6 +147,21 @@
 </body>
 {{include "/app/z.footerJs.html" .}}
 <script>
+    function retnWF3(date) {//JS判断的switch方法
+        var wstr = "";
+        var day = date.getDay();
+        switch (day) {
+            case 0: wstr = "7"; break;
+            case 1: wstr = "1"; break;
+            case 2: wstr = "2"; break;
+            case 3: wstr = "3"; break;
+            case 4: wstr = "4"; break;
+            case 5: wstr = "5"; break;
+            case 6: wstr = "6"; break;
+        }
+        return wstr;
+    }
+
     const app = Vue.createApp({
         data() {
             return {
@@ -118,8 +172,8 @@
                     icon: "{{.data.icon}}",
                     fields: [
                         {type: 'delCheckBox', editHide: 1},
-                        {field: "id", label: "ID"},
-                        {field: "uname", label: "用户名", editHide: 1,},
+                        // {field: "id", label: "ID"},
+                        // {field: "uname", label: "用户名", editHide: 1,},
                         {field: "happen_date", label: "日期", search: 1},
                         {
                             field: "level",
@@ -129,7 +183,7 @@
                             options: [{value: "", label: "请选择"}, {value: "1", label: "普通", type: "info"}, {value: "2", label: "稀有", type: "success"}, {value: "3", label: "传承", type: "primary"}, {value: "4", label: "唯一", type: "warning"}, {value: "5", label: "史诗", type: "danger"},]
                         },
                         {field: "main_things", label: "主要事件", search: 1, type: 'textarea'},
-                        {field: "other_info", label: "其他信息", search: 1, type: 'textarea'},
+                        // {field: "other_info", label: "其他信息", search: 1, type: 'textarea'},
                         {field: "created_at", label: "创建日期", notShow: 1},
                         {field: "tag", label: "标记", search: 1},
                         // {field: "updated_at", label: "更新时间"},
@@ -149,6 +203,15 @@
             sizeChange(size) {
                 this.search.size = size;
                 this.getList();
+            },
+            year(i) {
+                return new Date(i).getFullYear()
+            },
+            month(i) {
+                return new Date(i).getMonth() + 1
+            },
+            week(i) {
+                return retnWF3(new Date(i));
             },
             async getList(page) {
                 this.loading = true;

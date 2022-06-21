@@ -534,6 +534,10 @@ li .input {
     max-width: 182px;
 }
 
+.table-1 td:hover {
+    overflow: auto !important;
+}
+
 .table-1 td span {
     cursor: pointer;
 }

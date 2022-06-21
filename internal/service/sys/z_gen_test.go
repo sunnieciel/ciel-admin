@@ -2,11 +2,16 @@ package sys
 
 import (
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/internal/dao"
 	"ciel-admin/utility/utils/xpwd"
 	"fmt"
+	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/glog"
 	"github.com/olekukonko/tablewriter"
+	"github.com/xuri/excelize/v2"
 	"math"
 	"strings"
 	"testing"
@@ -71,4 +76,40 @@ func TestNum(t *testing.T) {
 
 func TestPwd(t *testing.T) {
 	fmt.Println(xpwd.GenPwd("1"))
+}
+func TestExcelNew(t *testing.T) {
+	file := excelize.NewFile()
+	file.SetCellValue("Sheet1", "A1", "Date")
+
+	file.SaveAs("/home/holw/test.xlsx")
+}
+func TestOpen(t *testing.T) {
+	f, err := excelize.OpenFile("/home/holw/test.xlsx")
+	if err != nil {
+		t.Fatal(err)
+	}
+	f.InsertRow("Sheet1", 1)
+	f.Save()
+}
+func TestDel(t *testing.T) {
+	gfile.Remove("/home/holw/test.xlsx")
+}
+func TestJson(t *testing.T) {
+	d := entity.Node{}
+	d.Uid = 1
+	s, err := gjson.New(`{'name':`).ToJsonString()
+	if err != nil {
+		panic(err)
+	}
+	d.Record = s
+	dao.Node.Ctx(nil).Save(d)
+}
+
+func TestThings(t *testing.T) {
+	options, err := ThingOptions(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g.Dump(options)
+
 }

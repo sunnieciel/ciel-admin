@@ -33,6 +33,7 @@ var (
 			s.Group("/menu", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Menu.Path)
+				g.GET("/path/easy", controller.Menu.PathEasy)
 				g.GET("/", controller.Menu.List)
 				g.GET("/:id", controller.Menu.GetById)
 				g.GET("/level1", controller.Menu.ListLevel1) // 获取一级菜单
@@ -135,7 +136,7 @@ var (
 				g.GET("/path", controller.Gen.Path)
 				g.GET("/tables", controller.Gen.Tables)
 				g.GET("/fields", controller.Gen.Fields)
-				g.Middleware(sys.LockAction, sys.AdminAction)
+				g.Middleware(sys.LockAction)
 				g.POST("/", controller.Gen.GenFile)
 			})
 

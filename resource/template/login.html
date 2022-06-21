@@ -37,7 +37,6 @@
             height: 100%
         }
 
-
         .wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -46,6 +45,23 @@
         .box {
             margin: 12px;
         }
+
+        .music-list {
+            position: fixed;
+            top: 99px;
+            left: 131px;
+        }
+
+        .music-list ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        .music-list video {
+            margin-left: 10px;
+            width: 330px;
+            height: 22px;
+        }
     </style>
 </header>
 <main>
@@ -53,6 +69,12 @@
         <video muted="" playsinline="" loop autoplay>
             <source src="/resource/video/shiro_long.mp4" type="video/mp4">
         </video>
+        <video autoplay="autoplay" src="/resource/video/bg1.mp3" controls="controls" preload id="p-music" loop="loop"></video>
+    </div>
+    <div class="music-list">
+        <iframe id="music" style="opacity: 0.5;border-radius: 15px" width="360" height="215" title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
     </div>
     <div class="mid">
         <div class="inner">
@@ -74,12 +96,23 @@
 <script src="/resource/js/jquery-3.6.0.min.js"></script>
 <script src="/resource/js/toastr.min.js"></script>
 <script>
-    $(function () {
+    let url = "https://www.youtube.com/embed/videoseries?list=PLrzviuM_VBi2P4RQyQWGC5zZPvnEz4R62"
+    document.getElementById('music').src = url
+    $(async function () {
+        // set music url
+        let res = await $.get('/v1/dict/key/music-url')
+        if (res.code === 0) {
+            if (res.data !== '') {
+                url = res.data
+            }
+            document.getElementById('music').src = url
+        }
+
         $("#login-btn").click(function () {
             $.post("/admin/login", $("#login-form").serialize(), async function (data) {
                 if (data.code === 0) {
                     alert('Success')
-                    window.location.href = "{{.Config.home}}";
+                    window.open("{{.Config.home}}", "_blank");
                 } else {
                     alert(data.msg)
                 }
