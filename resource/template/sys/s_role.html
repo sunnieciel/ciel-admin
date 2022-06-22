@@ -50,7 +50,7 @@
                                             <el-button type="danger" plain size="small" @click="goto('/roleMenu/path?rid='+i.id)">Menu</el-button>
                                             <el-button type="warning" plain size="small" @click="goto('/roleApi/path?rid='+i.id)">API</el-button>
                                             <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                            <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
+                                            <el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>
                                         </el-button-group>
                                     </div>
                                     <span v-else v-text="i[j.field]" @click="showDetails(2,i.id)"></span>

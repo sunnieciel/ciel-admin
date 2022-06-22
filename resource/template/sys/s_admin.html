@@ -48,7 +48,7 @@
                                     <div v-else-if="j.type=='operate'">
                                         <el-button-group>
                                             <el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>
-                                            <el-button type="success" plain size="small" @click="onDel(i.id)">删除</el-button>
+                                            <el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>
                                             <el-button type="warning" plain size="small" @click="onUpdatePwd(i.id)">密码</el-button>
                                             <el-button type="danger" plain size="small" @click="onUpdateUname(i.id)">用户名</el-button>
                                         </el-button-group>
