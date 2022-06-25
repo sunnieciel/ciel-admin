@@ -2,7 +2,8 @@ package sys
 
 import (
 	"ciel-admin/internal/consts"
-	"ciel-admin/internal/service/internal/dao"
+	"ciel-admin/internal/dao"
+	"ciel-admin/internal/model/entity"
 	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/xstr"
 	"ciel-admin/utility/utils/xtime"
@@ -10,7 +11,6 @@ import (
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/util/gconv"
 	"strings"
 )
@@ -95,30 +95,30 @@ func List(ctx context.Context, c *config.Search) (count int, data gdb.List, err 
 }
 func Add(ctx context.Context, table, data interface{}) error {
 	if _, err := g.DB().Ctx(ctx).Model(table).Insert(data); err != nil {
-		glog.Error(ctx, err)
+		g.Log().Error(ctx, err)
 		return err
 	}
 	return nil
 }
 func Del(ctx context.Context, table, id interface{}) (err error) {
 	if _, err = g.DB().Ctx(ctx).Model(table).Delete("id", id); err != nil {
-		glog.Error(ctx, err)
+		g.Log().Error(ctx, err)
 		return
 	}
 	return
 }
 func DelBatch(ctx context.Context, table string, ids []interface{}) error {
 	if _, err := g.DB().Ctx(ctx).Model(table).WhereIn("id", ids).Delete(); err != nil {
-		glog.Error(ctx, err)
+		g.Log().Error(ctx, err)
 		return err
 	}
 	return nil
 }
 func Update(ctx context.Context, table string, id, data interface{}) error {
 	// 空值过滤
-	_, err := g.DB().Model(table).Where("id", id).Data(data).Update()
+	_, err := g.DB().Model(table).Where("id", id).Save(data)
 	if err != nil {
-		glog.Error(ctx, err)
+		g.Log().Error(ctx, err)
 		return err
 	}
 	return nil
@@ -126,10 +126,26 @@ func Update(ctx context.Context, table string, id, data interface{}) error {
 func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
 	one, err := g.DB().Ctx(ctx).Model(table).One("id", id)
 	if err != nil {
-		glog.Error(ctx, err)
+		g.Log().Error(ctx, err)
 		return nil, err
 	}
 	return one, nil
+}
+
+func NodeInfo(ctx context.Context, path string) (*entity.Menu, error) {
+	m, err := dao.Menu.GetByPath(ctx, path)
+	if err != nil {
+		return nil, err
+	}
+	if m.Icon == "" {
+		m.Icon = consts.ImgPrefix + "/resource/image/golang.png"
+	} else {
+		m.Icon = consts.ImgPrefix + m.Icon
+	}
+	if m.Desc == "" {
+		m.Desc = "暂无相关说明"
+	}
+	return m, nil
 }
 func Icon(ctx context.Context, path string) (string, error) {
 	menu, err := dao.Menu.GetByPath(ctx, path)

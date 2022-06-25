@@ -42,7 +42,6 @@ h2 {
 /*box*/
 .box {
     background-color: var(--box-dark-bg);
-    border-bottom: none;
 }
 
 /* cell*/
@@ -71,6 +70,7 @@ h2 {
 
 .cell-tools {
     background: var(--cell-tools-dark-bg);
+    color: var(--cell-flag-dark);
 }
 
 /*link*/
@@ -273,6 +273,36 @@ h2 {
     color: #fbe9e7 !important;
 }
 
+.tag-info {
+    background-color: rgba(144, 147, 153, 0.1);
+    color: #909399;
+    border: 1px solid rgba(144, 147, 153, 0.2);
+}
+
+.tag-primary {
+    background-color: rgba(0, 173, 255, 0.1);
+    color: #00adff;
+    border: 1px solid rgba(0, 173, 255, 0.2);
+}
+
+.tag-warning {
+    background-color: rgba(230, 162, 60, 0.1);
+    color: #e6a23c;
+    border: 1px solid rgba(230, 162, 60, 0.2);
+}
+
+.tag-success {
+    background-color: rgba(103, 194, 58, 0.1);
+    color: #67c23a;
+    border: 1px solid rgba(103, 194, 58, 0.2);
+}
+
+.tag-danger {
+    background-color: #373039;
+    color: #f56c6c;
+    border: 1px solid #76444a;
+}
+
 /*desc*/
 .desc-1 {
     color: var(--desc-1-dark) !important;
@@ -301,6 +331,18 @@ h2 {
     border-top: 1px solid #393f4e;
 }
 
+/*table add*/
+.table-add td input, textarea, select {
+    color: #d1d5d9;
+    border: 1px solid #393f4e;
+    background-color: #18222d;
+}
+
+.table-add td input:focus, textarea:focus, select:focus {
+    border: 1px solid #3e5874 !important;
+    background-color: #001d25;
+}
+
 /*msg*/
 .msg-primary, .msg-warning {
     border-left: 5px solid #d5a320db;
@@ -309,10 +351,21 @@ h2 {
 }
 
 /*btn*/
-.btn {
-    background: linear-gradient(to bottom, var(--link-1-dark) 0, var(--btn-1-dark-bg) 100%);
-    color: var(--btn-1-dark) !important;
-    border-top: 1px solid #b2c3d4;
+.btn-info {
+    background: linear-gradient(to bottom, #99abc5 0, #697585 100%);
+    border: 1px solid #697585;
+}
+.btn-info:hover {
+    background-image: linear-gradient(#99abc5 0, #697585 60%);
+}
+
+.btn-warning {
+    background-color: #fc0;
+    color: #532b17;
+    text-shadow: 0 1px 1px rgb(255 255 255 / 60%);
+    /*box-shadow: 0 1px 2px rgb(233 175 0 / 60%);*/
+    border: 1px solid rgba(200, 150, 0, .8);
+    border-bottom-color: rgba(80, 80, 90, .35);
 }
 
 /* input*/

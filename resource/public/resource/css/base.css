@@ -206,7 +206,6 @@ a:visited,
 .link-7, .link-7:hover,
 .tag:hover,
 .tag-3:hover,
-.btn,
 .logo:hover,
 .tag-2:hover,
 .active:hover, .money:hover {
@@ -295,10 +294,14 @@ a:hover {
 
 .cell-tools {
     padding: 5px;
-    font-size: 14px;
     border-radius: 0 0 3px 3px;
     line-height: 120%;
     min-height: 16px;
+    font-size: 12px;
+}
+
+.cell-tools span {
+    margin-right: 3px;
 }
 
 /*link*/
@@ -378,6 +381,19 @@ a:hover {
     word-break: keep-all;
 }
 
+.tag-info, .tag-primary, .tag-warning, .tag-success, .tag-danger {
+    display: inline-flex;
+    white-space: break-spaces !important;
+    max-width: 156px;
+    height: auto !important;
+    padding: 3px 9px !important;
+    line-height: 1.1 !important;
+    text-align: left;
+    font-size: 12px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 .tag-normal, .tag-rare, .tag-inherited, .tag-only, .tag-epic, .tag-legend, .tag-myth {
     font-size: 10px;
     line-height: 1;
@@ -414,17 +430,29 @@ a:hover {
     height: 76px;
 }
 
-/*btn*/
-.btn {
-    font-weight: 700;
-    box-shadow: 0 1px 0 rgba(66, 66, 77, .1);
+
+.btn-warning, .btn-info {
     background-image: url(/resource/image/bg_blended_light.png);
     padding: 4px 15px 3px;
     border-radius: 3px;
     font-size: 14px;
-    font-family: arial, sans-serif;
-    display: inline-block !important;
+    font-family: Arial, sans-serif;
+    display: inline-block;
+    line-height: 1.4;
+    outline: 0;
+    text-decoration: none;
+}
+
+
+
+.btn-warning:hover {
+    background-color: #ffdf00;
+    color: #402112;
+    text-shadow: 0 1px 1px rgb(255 255 255 / 70%);
+    text-decoration: none;
     cursor: pointer;
+    box-shadow: 0 1px 2px rgb(233 175 0 / 50%);
+    border: 1px solid #c89600;
 }
 
 /*msg*/
@@ -437,6 +465,10 @@ a:hover {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     cursor: pointer;
+}
+
+.fa {
+    margin: 0 12px;
 }
 
 /* input*/
@@ -475,9 +507,9 @@ li .input {
 
 .sub-nav {
     display: flex;
-    /*justify-content: space-between;*/
     padding: 10px 10px 10px 20px;
     font-size: 14px;
+    min-height: 22px;
 }
 
 /*desc*/
@@ -546,6 +578,26 @@ li .input {
     overflow: auto;
 }
 
+/*table add*/
+.table-add td input, textarea, select {
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 14px;
+    width: 320px;
+    font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+.table-add td textarea {
+    height: 120px;
+}
+
+.table-add td input:focus, textarea:focus, select:focus {
+    outline: none;
+}
+
 /* --------------------part -------------------*/
 .menu-btn {
     width: 32px;
@@ -579,6 +631,10 @@ li .input {
 
 .ml-3 {
     margin-left: 3px;
+}
+
+.ml-12 {
+    margin-left: 12px;
 }
 
 .mr-3 {
@@ -733,7 +789,7 @@ li .input {
 }
 
 .text-center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .text-nowrap {

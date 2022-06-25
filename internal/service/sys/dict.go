@@ -1,7 +1,7 @@
 package sys
 
 import (
-	"ciel-admin/internal/service/internal/dao"
+	"ciel-admin/internal/dao"
 	"context"
 )
 

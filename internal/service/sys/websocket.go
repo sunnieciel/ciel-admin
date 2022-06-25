@@ -6,9 +6,9 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/glog"
 )
 
 var (
@@ -31,7 +31,7 @@ func GetUserWs(r *ghttp.Request) {
 			printUserWs()
 			return
 		}
-		glog.Info(gctx.New(), "ws:user msg ", messageType, msg)
+		g.Log().Info(gctx.New(), "ws:user msg ", messageType, msg)
 	}
 }
 func GetAdminWs(r *ghttp.Request) {
@@ -49,14 +49,14 @@ func GetAdminWs(r *ghttp.Request) {
 			printAdminWs()
 			return
 		}
-		glog.Info(gctx.New(), "ws:admin msg ", messageType, msg)
+		g.Log().Info(gctx.New(), "ws:admin msg ", messageType, msg)
 	}
 }
 func printUserWs() {
-	glog.Infof(gctx.New(), "user连接个数%v %v", len(users.Map()), users.Keys())
+	g.Log().Infof(gctx.New(), "user连接个数%v %v", len(users.Map()), users.Keys())
 }
 func printAdminWs() {
-	glog.Infof(gctx.New(), "admin连接个数%v %v", len(admins.Map()), admins.Keys())
+	g.Log().Infof(gctx.New(), "admin连接个数%v %v", len(admins.Map()), admins.Keys())
 }
 func NoticeAllUser(ctx context.Context, msg interface{}) error {
 	if users.Size() == 0 {
@@ -65,7 +65,7 @@ func NoticeAllUser(ctx context.Context, msg interface{}) error {
 	marshal, _ := json.Marshal(msg)
 	for _, item := range users.Values() {
 		if err := item.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
-			glog.Error(ctx, err)
+			g.Log().Error(ctx, err)
 			return err
 		}
 	}
@@ -75,7 +75,7 @@ func NoticeAllAdmin(ctx context.Context, msg interface{}) error {
 	marshal, _ := json.Marshal(msg)
 	for _, item := range admins.Values() {
 		if err := item.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
-			glog.Error(ctx, err)
+			g.Log().Error(ctx, err)
 			return err
 		}
 	}
@@ -86,7 +86,7 @@ func NoticeUser(ctx context.Context, uid int, msg interface{}) error {
 	item := users.Get(uid)
 	if item != nil {
 		if err := item.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
-			glog.Error(ctx, err)
+			g.Log().Error(ctx, err)
 			return err
 		}
 	}

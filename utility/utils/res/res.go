@@ -1,9 +1,10 @@
 package res
 
 import (
+	"ciel-admin/internal/consts"
+	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/glog"
 	"math"
 )
 
@@ -26,7 +27,7 @@ func PageList(r *ghttp.Request, page string, total int, list interface{}, info i
 		"page":  content,
 		"c":     info,
 	}); err != nil {
-		glog.Error(r.Context(), err)
+		g.Log().Error(r.Context(), err)
 	}
 	r.Exit()
 }
@@ -36,7 +37,7 @@ func Page(r *ghttp.Request, page string, data ...interface{}) {
 		d["data"] = data[0]
 	}
 	if err := r.Response.WriteTpl(page, d); err != nil {
-		glog.Error(r.Context(), err)
+		g.Log().Error(r.Context(), err)
 	}
 	r.Exit()
 }
@@ -49,8 +50,7 @@ func GetPage(r *ghttp.Request) (page, size int) {
 	if size <= 0 {
 		size = 10
 	}
-	r.SetQuery("page", page)
-	r.SetQuery("size", size)
+	r.Session.SetMap(r.GetQueryMap())
 	return
 }
 func Err(err error, r *ghttp.Request) {
@@ -59,7 +59,7 @@ func Err(err error, r *ghttp.Request) {
 		"msg":  err.Error(),
 	})
 	if err != nil {
-		glog.Error(r.Context(), err)
+		g.Log().Error(r.Context(), err)
 	}
 }
 func Ok(r *ghttp.Request) {
@@ -68,7 +68,7 @@ func Ok(r *ghttp.Request) {
 		"msg":  "ok",
 	})
 	if err != nil {
-		glog.Error(r.Context(), err)
+		g.Log().Error(r.Context(), err)
 		return
 	}
 }
@@ -79,7 +79,6 @@ func OkData(data interface{}, r *ghttp.Request) {
 		"data": data,
 	})
 }
-
 func OkPage(page, size, total int, data interface{}, r *ghttp.Request) {
 	if size == 0 {
 		size = 10
@@ -92,4 +91,13 @@ func OkPage(page, size, total int, data interface{}, r *ghttp.Request) {
 		data = make([]interface{}, 0)
 	}
 	OkData(PageRes{TotalCount: int64(total), PageSize: int64(size), CurrPage: int64(page), List: data, TotalPage: int64(totalPage)}, r)
+}
+
+func MsgWarning(r *ghttp.Request, page, msg string) {
+	r.Response.WriteTpl(page, g.Map{"msg": fmt.Sprintf(consts.MsgWarning, msg)})
+	r.Exit()
+}
+func MsgPrimary(r *ghttp.Request, page, msg string) {
+	r.Response.WriteTpl(page, g.Map{"msg": fmt.Sprintf(consts.MsgPrimary, msg)})
+	r.Exit()
 }

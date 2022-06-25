@@ -7,7 +7,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/glog"
 	"time"
 )
 
@@ -26,31 +25,9 @@ var (
 			registerInterface(s)     // 注册对外提供功能的接口
 			registerGenFileRouter(s) // 注册生成的代码路由
 
-			s.Group("/", func(g *ghttp.RouterGroup) {
-				g.GET("/", controller.Home.IndexPage)
-				g.GET("/login", controller.Admin.LoginPage)
-			})
-			s.Group("/menu", func(g *ghttp.RouterGroup) {
-				g.Middleware(sys.AuthAdmin)
-				g.GET("/path", controller.Menu.Path)
-				g.GET("/path/easy", controller.Menu.PathEasy)
-				g.GET("/", controller.Menu.List)
-				g.GET("/:id", controller.Menu.GetById)
-				g.GET("/level1", controller.Menu.ListLevel1) // 获取一级菜单
-				g.Middleware(sys.LockAction, sys.AdminAction)
-				g.DELETE("/batch", controller.Menu.Del)
-				g.POST("/", controller.Menu.Post)
-				g.PUT("/", controller.Menu.Put)
-			})
-			s.Group("/api", func(g *ghttp.RouterGroup) {
-				g.Middleware(sys.AuthAdmin)
-				g.GET("/path", controller.Api.Path)
-				g.GET("/", controller.Api.List)
-				g.GET("/:id", controller.Api.GetById)
-				g.Middleware(sys.LockAction, sys.AdminAction)
-				g.DELETE("/batch", controller.Api.Del)
-				g.POST("/", controller.Api.Post)
-				g.PUT("/", controller.Api.Put)
+			s.Group("/", func(group *ghttp.RouterGroup) {
+				group.GET("/", controller.Home.IndexPage)
+				group.GET("/login", controller.Admin.LoginPage)
 			})
 			s.Group("/role", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
@@ -139,17 +116,6 @@ var (
 				g.Middleware(sys.LockAction)
 				g.POST("/", controller.Gen.GenFile)
 			})
-
-			s.Group("/loginLog", func(g *ghttp.RouterGroup) {
-				g.Middleware(sys.AuthAdmin)
-				g.GET("/path", controller.LoginLog.Path)
-				g.GET("/", controller.LoginLog.List)
-				g.GET("/:id", controller.LoginLog.GetById)
-				g.Middleware(sys.LockAction)
-				g.DELETE("/batch", controller.LoginLog.Del)
-				g.POST("/", controller.LoginLog.Post)
-				g.PUT("/", controller.LoginLog.Put)
-			})
 			s.Group("/sys", func(g *ghttp.RouterGroup) {
 				g.GET("/ws", controller.Ws.GetAdminWs)
 				g.GET("/noticeAdmin", controller.Ws.NoticeAdmin)
@@ -164,7 +130,7 @@ var (
 					panic(err)
 				}
 				rootIp, err := g.Cfg().Get(ctx, "server.rootIp")
-				glog.Infof(nil, "Server start at :http://%s%s/login", rootIp, port)
+				g.Log().Infof(nil, "Server start at :http://%s%s/login", rootIp, port)
 			}()
 			s.Run()
 			return nil

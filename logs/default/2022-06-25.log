@@ -1,0 +1,171 @@
+2022-06-25 14:48:57.913 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 14:49:52.407 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 14:50:48.162 [INFO] {68ac11d46acafb166286b57604220c29} 123 
+2022-06-25 14:50:48.622 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 14:50:48.739 [INFO] {290b83f66acafb166386b576db97ec66} 123 
+2022-06-25 14:50:49.261 [INFO] {c4339c156bcafb166486b576938ecf70} 123 
+2022-06-25 14:50:49.630 [INFO] {6eb7932b6bcafb166586b5766f2921ae} 123 
+2022-06-25 14:50:49.812 [INFO] {5a456b366bcafb166686b57652fd9d6d} 123 
+2022-06-25 14:50:49.969 [INFO] {a3b8d33f6bcafb166786b5767e555cd9} 123 
+2022-06-25 14:50:50.094 [INFO] {090544476bcafb166886b5762f4d2530} 123 
+2022-06-25 14:51:05.931 [INFO] {71ff30f76ecafb166986b576c7b39743} 123 
+2022-06-25 14:51:06.482 [INFO] {e90c09186fcafb166a86b57659680fa0} 123 
+2022-06-25 14:51:06.906 [DEBU] {eee752316fcafb16fd3cd6770b2ab291} 123 
+2022-06-25 14:51:07.320 [DEBU] {b07b054a6fcafb16fe3cd677bbeb28e6} 123 
+2022-06-25 14:51:07.476 [DEBU] {802647536fcafb16ff3cd677ce2a9848} 123 
+2022-06-25 14:51:07.644 [DEBU] {b176565d6fcafb16003dd677d7d38fff} 123 
+2022-06-25 14:51:07.687 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 14:51:07.776 [DEBU] {3bbf26656fcafb16013dd6772d6e9117} 123 
+2022-06-25 14:51:07.904 [DEBU] {75f8cf6c6fcafb16023dd6778b0a8c78} 123 
+2022-06-25 14:51:09.373 [DEBU] {584861c46fcafb16033dd67799dc81b5} 123 
+2022-06-25 14:51:09.547 [DEBU] {b4e6bdce6fcafb16043dd6778a97e941} 123 
+2022-06-25 14:51:09.698 [DEBU] {1eb6c3d76fcafb16053dd677aea60190} 123 
+2022-06-25 14:51:09.879 [DEBU] {730e84e26fcafb16063dd6773b2ec7ea} 123 
+2022-06-25 14:51:09.997 [DEBU] {e2a78ce96fcafb16073dd67768d5d038} 123 
+2022-06-25 14:51:21.787 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 14:51:38.248 [DEBU] {6573797d76cafb16c9970438f8a2b2e2} 123 
+2022-06-25 14:51:38.403 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 14:51:38.598 [DEBU] {c38c539276cafb16ca97043825010604} 123 
+2022-06-25 14:51:38.756 [DEBU] {25a6b39b76cafb16cb970438290fe906} 123 
+2022-06-25 14:51:38.892 [DEBU] {1898daa376cafb16cc970438b8f6358b} 123 
+2022-06-25 14:51:39.047 [DEBU] {9fd117ad76cafb16cd9704389f69a2c4} 123 
+2022-06-25 14:51:39.196 [DEBU] {99d6f0b576cafb16ce97043868ab2df3} 123 
+2022-06-25 14:51:39.332 [DEBU] {9adf15be76cafb16cf9704383f166e03} 123 
+2022-06-25 14:51:39.464 [DEBU] {642ff3c576cafb16d0970438ffa85d80} 123 
+2022-06-25 14:51:39.904 [DEBU] {7dfe24e076cafb16d1970438ea107591} 123 
+2022-06-25 14:51:40.046 [DEBU] {d3ada2e876cafb16d297043895f39956} 123 
+2022-06-25 14:51:40.212 [DEBU] {4aac7ff276cafb16d39704382cfe8fed} 123 
+2022-06-25 14:51:40.340 [DEBU] {fad420fa76cafb16d4970438f93d4d81} 123 
+2022-06-25 14:51:40.448 [DEBU] {a6ae940077cafb16d59704384c134a71} 123 
+2022-06-25 14:51:55.111 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 14:58:53.877 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:00:47.716 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:01:51.230 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:12:52.567 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:13:20.945 [INFO] {40cc2bcca5cbfb16920d976e2dafce35} {"id":"28","menu_name":"","menu_path":"","menu_pid":"1","page":"1","size":"10"} 
+2022-06-25 15:15:28.428 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:15:31.657 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:16:41.349 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:18:02.542 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:19:48.855 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:20:45.974 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:21:52.170 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:21:57.914 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:22:03.999 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:22:37.081 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:23:33.666 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:24:34.382 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:25:10.920 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:25:42.941 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:26:56.778 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:27:48.804 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:28:24.932 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:32:21.251 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:48:25.935 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:48:32.102 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:48:36.223 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:48:58.428 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:49:03.034 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:49:55.556 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:52:26.662 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:52:41.668 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 15:57:43.282 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:03:33.534 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:05:08.368 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:08:09.261 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:10:21.321 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:10:57.859 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:11:41.544 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:11:49.246 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:12:58.671 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:13:32.866 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:13:59.029 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:14:15.111 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:14:53.238 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:16:51.925 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:20:15.114 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:20:16.949 [INFO] <div class="msg-primary" onclick="$(this).hide(200)"> <li class="fa fa-exclamation-triangle"></li>成功</div>  
+2022-06-25 16:21:09.759 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:21:14.317 [INFO] <div class="msg-primary" onclick="$(this).hide(200)"> <li class="fa fa-exclamation-triangle"></li>成功</div>  
+2022-06-25 16:21:29.024 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:21:33.280 [INFO] <div class="msg-primary" onclick="$(this).hide(200)"> <li class="fa fa-exclamation-triangle"></li>添加成功</div>  
+2022-06-25 16:22:16.545 [INFO] 
+2022-06-25 16:22:56.250 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:23:11.208 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:23:15.486 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:24:25.914 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:24:59.325 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:25:14.124 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:25:54.327 [INFO] 
+2022-06-25 16:25:56.583 [INFO] <div class="msg-primary" onclick="$(this).hide(200)"> <li class="fa fa-exclamation-triangle"></li>添加成功</div>  
+2022-06-25 16:27:33.693 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:28:13.430 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:28:50.546 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:28:53.642 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:32:49.531 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:34:10.413 [INFO] 
+2022-06-25 16:34:12.671 [INFO] <div class="msg-primary" onclick="$(this).hide(200)"> <li class="fa fa-exclamation-triangle"></li>添加成功</div>  
+2022-06-25 16:41:44.687 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:44:56.786 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:48:56.539 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:57:38.868 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:57:46.237 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:58:57.302 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 16:59:54.843 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:00:37.371 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:02:31.665 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:02:40.173 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:02:48.734 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:03:31.518 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:04:10.171 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:04:38.098 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:07:12.637 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:07:41.373 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:08:38.965 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:08:41.822 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:08:57.512 [DEBU] {3d667cd7f4d1fb168e5f7962229c5283} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 17:08:57.512 [DEBU] {3d667cd7f4d1fb168e5f7962229c5283} 检查二级菜单是否存在 
+2022-06-25 17:08:57.512 [WARN] {3d667cd7f4d1fb168e5f7962229c5283} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 17:09:00.296 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:09:20.103 [DEBU] {a7d9141afad1fb16bdda5d209e7783b0} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 17:09:20.103 [DEBU] {a7d9141afad1fb16bdda5d209e7783b0} 检查二级菜单是否存在 
+2022-06-25 17:09:20.103 [WARN] {a7d9141afad1fb16bdda5d209e7783b0} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 17:09:22.883 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:09:58.887 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:10:02.007 [DEBU] {7d5da6db03d2fb1644c5ae52bfdbd7e9} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 17:10:02.007 [DEBU] {7d5da6db03d2fb1644c5ae52bfdbd7e9} 检查二级菜单是否存在 
+2022-06-25 17:10:02.007 [WARN] {7d5da6db03d2fb1644c5ae52bfdbd7e9} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 17:10:04.802 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:13:47.148 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:34:31.122 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:34:35.629 [DEBU] {a7f94cf65ad3fb1645a7da195d18e76e} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 17:34:35.629 [DEBU] {a7f94cf65ad3fb1645a7da195d18e76e} 检查二级菜单是否存在 
+2022-06-25 17:34:35.629 [WARN] {a7f94cf65ad3fb1645a7da195d18e76e} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 17:34:38.381 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:34:49.943 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 17:34:50.507 [DEBU] {73fb2b6d5ed3fb1651827a5f4a45ef2a} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 17:34:50.507 [DEBU] {73fb2b6d5ed3fb1651827a5f4a45ef2a} 检查二级菜单是否存在 
+2022-06-25 17:34:50.507 [WARN] {73fb2b6d5ed3fb1651827a5f4a45ef2a} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 17:34:53.277 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 18:20:52.901 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 18:21:08.361 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 18:22:11.007 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 18:22:12.250 [DEBU] {49433f12f4d5fb16ac2e1d6afb0c2c46} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 18:22:12.250 [DEBU] {49433f12f4d5fb16ac2e1d6afb0c2c46} 检查二级菜单是否存在 
+2022-06-25 18:22:12.250 [WARN] {49433f12f4d5fb16ac2e1d6afb0c2c46} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 18:22:15.004 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 18:22:49.326 [DEBU] {f77f50b4fcd5fb16e8871e2a71f085a2} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 18:22:49.326 [DEBU] {f77f50b4fcd5fb16e8871e2a71f085a2} 检查二级菜单是否存在 
+2022-06-25 18:22:49.326 [WARN] {f77f50b4fcd5fb16e8871e2a71f085a2} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 18:22:52.095 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 18:26:25.925 [DEBU] {e3d4a2222fd6fb16d66b626f1e8f8568} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 18:26:25.926 [DEBU] {e3d4a2222fd6fb16d66b626f1e8f8568} 检查二级菜单是否存在 
+2022-06-25 18:26:25.926 [WARN] {e3d4a2222fd6fb16d66b626f1e8f8568} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 18:26:29.280 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 18:30:47.714 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 19:05:12.079 [DEBU] {80104bbc4cd8fb16b7bb20408a4d264c} 查询一级菜单，子菜单最大排序为1 
+2022-06-25 19:05:12.080 [DEBU] {80104bbc4cd8fb16b7bb20408a4d264c} 检查二级菜单是否存在 
+2022-06-25 19:05:12.080 [WARN] {80104bbc4cd8fb16b7bb20408a4d264c} 菜单路径已存在,未执行插入菜单操作 
+2022-06-25 19:05:15.508 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 19:53:57.017 [INFO] Server start at :http://localhost:1211/login 
+2022-06-25 19:54:12.942 [INFO] Server start at :http://localhost:1211/login 

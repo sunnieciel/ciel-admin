@@ -1,10 +1,21 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
+    {{include "/app/1.meta.html" .}}
     <!-- 必须的 meta 标签 -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
+{{include "/app/2.top.html" .}}
+<div id="wrapper">
+    <div class="w">
+        <div class="wrapper-left">
+            {{include "/app/3.nav.html" .}}
+        </div>
+    </div>
+</div>
+{{include "/app/8.footer_no_dialog.html" .}}
+{{include "/app/z.footerJs.html" .}}
 </body>
 </html>

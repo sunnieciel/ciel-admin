@@ -15,8 +15,9 @@ type Menu struct {
 	Icon      string      `json:"icon"      description:""`
 	Name      string      `json:"name"      description:""`
 	Path      string      `json:"path"      description:""`
-	Type      int         `json:"type"      description:"1normal 2group"`
 	Sort      float64     `json:"sort"      description:""`
+	Type      int         `json:"type"      description:"1normal 2group"`
+	Desc      string      `json:"desc"      description:""`
 	Status    int         `json:"status"    description:""`
 	CreatedAt *gtime.Time `json:"createdAt" description:""`
 	UpdatedAt *gtime.Time `json:"updatedAt" description:""`

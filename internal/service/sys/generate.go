@@ -2,9 +2,9 @@ package sys
 
 import (
 	"ciel-admin/internal/consts"
+	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
-	"ciel-admin/internal/service/internal/dao"
 	"ciel-admin/utility/utils/xfile"
 	"ciel-admin/utility/utils/xicon"
 	"context"
@@ -13,7 +13,6 @@ import (
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/text/gstr"
 	"math"
@@ -38,7 +37,7 @@ func Tables(ctx context.Context) ([]string, error) {
 	return g.DB().Tables(ctx)
 }
 func GenFile(ctx context.Context, d *bo.GenConf) (err error) {
-	// gen menu
+	//// gen menu
 	if err = genMenu(ctx, d); err != nil {
 		return err
 	}
@@ -54,13 +53,12 @@ func GenFile(ctx context.Context, d *bo.GenConf) (err error) {
 	if err = genHtml(ctx, d); err != nil {
 		return err
 	}
-	// gen api
-	if err = genApi(ctx, d.HtmlGroup, d.StructName, d.PageName); err != nil {
-		return err
-	}
+	//// gen api
+	//if err = genApi(ctx, d.HtmlGroup, d.StructName, d.PageName); err != nil {
+	//	return err
+	//}
 	return
 }
-
 func genMenu(ctx context.Context, d *bo.GenConf) error {
 	menuLevel1 := d.MenuLevel1
 	menuLeve2 := d.MenuLevel2
@@ -74,7 +72,7 @@ func genMenu(ctx context.Context, d *bo.GenConf) error {
 	m1Sort, m2Sort := 0.0, 0.0
 	if err != nil {
 		if err == consts.ErrDataNotFound {
-			glog.Debug(ctx, "一级菜单不存在")
+			g.Log().Debug(ctx, "一级菜单不存在")
 			// 新增一级菜单
 			maxSort, err := dao.Menu.Ctx(ctx).Max("sort")
 			if err != nil {
@@ -92,7 +90,7 @@ func genMenu(ctx context.Context, d *bo.GenConf) error {
 			if err != nil {
 				return err
 			}
-			glog.Debugf(ctx, "新增一级菜单,排序为%v", m1Sort)
+			g.Log().Debugf(ctx, "新增一级菜单,排序为%v", m1Sort)
 			menu1 = &entity.Menu{Id: int(id)}
 			goto here
 		}
@@ -108,7 +106,7 @@ func genMenu(ctx context.Context, d *bo.GenConf) error {
 		} else {
 			m2Sort += childrenMaxSort + 0.1
 		}
-		glog.Debugf(ctx, "查询一级菜单，子菜单最大排序为%v", menu1.Sort)
+		g.Log().Debugf(ctx, "查询一级菜单，子菜单最大排序为%v", menu1.Sort)
 	}
 	if menu1.Type != 2 {
 		return errors.New("一级菜单必须为分组菜单")
@@ -121,13 +119,13 @@ here:
 	}
 	menuPath := fmt.Sprintf("/%s/path", gstr.CaseCamelLower(d.StructName))
 	// count path
-	glog.Debug(ctx, "检查二级菜单是否存在")
+	g.Log().Debug(ctx, "检查二级菜单是否存在")
 	pathCount, err := dao.Menu.Ctx(ctx).Where("path=?", menuPath).Count()
 	if err != nil {
 		return err
 	}
 	if pathCount > 0 {
-		glog.Warning(ctx, "菜单路径已存在,未执行插入菜单操作")
+		g.Log().Warning(ctx, "菜单路径已存在,未执行插入菜单操作")
 		return nil
 	}
 	if _, err = dao.Menu.Ctx(ctx).Insert(&entity.Menu{
@@ -141,7 +139,7 @@ here:
 	}); err != nil {
 		return err
 	}
-	glog.Debugf(ctx, "新增二级菜单,排序为%v", m2Sort)
+	g.Log().Debugf(ctx, "新增二级菜单,排序为%v", m2Sort)
 	return nil
 }
 func genController(ctx context.Context, d *bo.GenConf) error {
@@ -158,6 +156,7 @@ func genController(ctx context.Context, d *bo.GenConf) error {
 	// Menu
 	caseCamel := gstr.CaseCamel(d.StructName)
 	temp = gstr.Replace(temp, "Menu", caseCamel)
+	temp = gstr.Replace(temp, "menu", gstr.CaseCamelLower(d.StructName))
 
 	// tables
 	tables := fmt.Sprintf(`T1:"%s"`, d.T1)
@@ -211,7 +210,7 @@ func genController(ctx context.Context, d *bo.GenConf) error {
 				t += fmt.Sprintf(", SearchType: %d", searchType)
 			}
 			if queryName != "" {
-				t += fmt.Sprintf(`, QueryName: "%s"`, queryName)
+				t += fmt.Sprintf(`, QueryName: "%s_%s"`, gstr.CaseCamelLower(d.StructName), queryName)
 			}
 			t += "}, "
 			fields += t
@@ -235,7 +234,6 @@ func genController(ctx context.Context, d *bo.GenConf) error {
 	}
 	return nil
 }
-
 func genRouter(ctx context.Context, d *bo.GenConf) error {
 	temp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/router.temp"))
 	structName := gstr.CaseCamelLower(d.StructName)
@@ -262,106 +260,58 @@ func genRouter(ctx context.Context, d *bo.GenConf) error {
 	return nil
 }
 func genHtml(ctx context.Context, c *bo.GenConf) error {
-	htmlGroup := c.HtmlGroup
-	if htmlGroup == "" {
-		return errors.New("html group can't be empty")
+	if err := genIndex(ctx, c); err != nil {
+		return err
 	}
-	table := c.T1
-	if table == "" {
-		return errors.New("table can't ben empty")
+	if err := genAdd(ctx, c); err != nil {
+		return err
 	}
-	filePath := fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", htmlGroup, "/", table, ".html")
-	temp := gfile.GetContents(fmt.Sprintf("%s/resource/gen/temp.html", gfile.MainPkgPath()))
-	// replace name and desc
-	if c.PageName == "" {
-		return errors.New("name can't be empty")
+	if err := genEdit(ctx, c); err != nil {
+		return err
 	}
-	if c.PageDesc != "" {
-		temp = gstr.Replace(temp, "这里是[name]管理页面,可以对菜单进行添加,修改,删除等操作。", c.PageDesc)
+	return nil
+}
+func genEdit(ctx context.Context, c *bo.GenConf) error {
+	editTemp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.edit.html"))
+	pageName := c.PageName
+	editTemp = gstr.Replace(editTemp, "[pageName]", pageName)
+	// menu
+	editTemp = gstr.Replace(editTemp, "menu", gstr.CaseCamelLower(c.StructName))
+	tr := ""
+	for _, i := range c.Fields {
+		switch i.Name {
+		case "id", "status", "created_at", "updated_at":
+			continue
+		}
+		label := i.Label
+		if label == "" {
+			label = i.Name
+		}
+		switch i.FieldType {
+		case "select":
+			tr += "                            <td align='right'>状态</td>\n                            <td>"
+			temp := fmt.Sprintf("                                <select name='%s'>\n", i.Name)
+			for _, j := range i.Options {
+				temp += fmt.Sprintf("                                    <option value='%s' {{if eq .Session.%s_edit.%s \"%s\"}} selected {{end}}>%v</option>\n", j.Value, gstr.CaseCamelLower(c.StructName), i.Name, j.Value, j.Label)
+			}
+			temp += "                                </select>\n"
+			tr += temp
+			tr += "                            </td>\n"
+		default:
+			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><input name='%s' value='{{.Session.%s_edit.%s}}'></td>\n                        </tr>",
+				label, i.Name, gstr.CaseCamelLower(c.StructName), i.Name,
+			)
+		}
 	}
-	temp = gstr.Replace(temp, "[name]", c.PageName)
-	// replace url
-	if c.UrlPrefix == "" {
-		return errors.New("urlPrefix can't be empty")
-	}
-	temp = gstr.Replace(temp, "[urlPrefix]", c.UrlPrefix)
-	f, err := gfile.Create(filePath)
+	editTemp = gstr.Replace(editTemp, "[tr]", tr)
+
+	date := gtime.Now()
+	editTemp = gstr.Replace(editTemp, "[date]", date.String())
+	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), "/edit.html"))
 	if err != nil {
 		return err
 	}
-
-	// replace add
-	if c.AddBtn == 0 {
-		temp = gstr.Replace(temp, "[add]", `<el-button class="mr-12" type="primary" plain size="small" @click="showDetails(1)">添加</el-button>`)
-	} else {
-		temp = gstr.Replace(temp, "[add]", "")
-	}
-	// replace edit
-	if c.DelBtn == 0 {
-		temp = gstr.Replace(temp, "[del]", `<el-button type="success" plain size="small" @click="onBatchDel([i.id])">删除</el-button>`)
-	} else {
-		temp = gstr.Replace(temp, "[del]", "")
-	}
-	// replace edit
-	if c.UpdateBtn == 0 {
-		temp = gstr.Replace(temp, "[edit]", `<el-button type="primary" plain size="small" @click="showDetails(2,i.id)">编辑</el-button>`)
-	} else {
-		temp = gstr.Replace(temp, "[edit]", "")
-	}
-
-	// replace fields
-	if len(c.Fields) == 0 {
-		return errors.New("fields can't be empty")
-	}
-	fields := ""
-	for index, i := range c.Fields {
-		field := "{"
-		switch i.Name {
-		case "id", "created_at", "updated_at":
-			continue
-		}
-		if i.Label == "" {
-			i.Label = i.Name
-		}
-		// base
-		f := i.QueryName
-		if f == "" {
-			f = i.Name
-		}
-		field += fmt.Sprintf(`field: "%s", label: "%s"`, f, i.Label)
-
-		// editHide
-		if i.EditHide == 1 {
-			field += `, editHide: 1`
-		}
-		if i.EditDisabled == 1 {
-			field += `, editDisabled: 1`
-		}
-
-		// append search
-		if i.SearchType != 0 {
-			field += fmt.Sprintf(",search:1")
-		}
-		// append select options
-		if i.FieldType == "select" {
-			field += `,type:'select',options:[{value:"", label:"请选择"},`
-			if len(i.Options) == 0 {
-				i.Options = make([]*bo.FieldOption, 0)
-				i.Options = append(i.Options, &bo.FieldOption{Value: 1, Label: "正常", Type: "primary"}, &bo.FieldOption{Value: 2, Label: "禁用", Type: "danger"})
-			}
-			for _, j := range i.Options {
-				field += fmt.Sprintf(`{value: "%v", label: "%v", type: "%v"},`, j.Value, j.Label, j.Type)
-			}
-			field += "]"
-		}
-		field += "}"
-		if index != len(fields) {
-			field += ","
-		}
-		fields += field
-	}
-	temp = gstr.Replace(temp, "[fields],", fields)
-	if _, err = f.WriteString(temp); err != nil {
+	if _, err = f.WriteString(editTemp); err != nil {
 		return err
 	}
 	if err = f.Close(); err != nil {
@@ -369,7 +319,152 @@ func genHtml(ctx context.Context, c *bo.GenConf) error {
 	}
 	return nil
 }
+func genAdd(ctx context.Context, c *bo.GenConf) error {
+	addTemp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.add.html"))
+	pageName := c.PageName
+	addTemp = gstr.Replace(addTemp, "[pageName]", pageName)
+	// menu
+	addTemp = gstr.Replace(addTemp, "menu", gstr.CaseCamelLower(c.StructName))
+	tr := ""
+	for _, i := range c.Fields {
+		switch i.Name {
+		case "id", "status", "created_at", "updated_at":
+			continue
+		}
+		label := i.Label
+		if label == "" {
+			label = i.Name
+		}
+		switch i.FieldType {
+		case "select":
+			tr += "                            <td align='right'>状态</td>\n                            <td>"
+			temp := fmt.Sprintf("                                <select name='%s'>\n", i.Name)
+			for index, j := range i.Options {
+				if index == 0 {
+					temp += fmt.Sprintf("                                    <option value='%v' selected>%v</option>\n", j.Value, j.Label)
+				} else {
+					temp += fmt.Sprintf("                                    <option value='%v' >%v</option>\n", j.Value, j.Label)
+				}
+			}
+			temp += "                                </select>\n"
+			tr += temp
+			tr += "                            </td>\n"
+		default:
+			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><input name='%s' ></td>\n                        </tr>",
+				label, i.Name,
+			)
+		}
+	}
+	addTemp = gstr.Replace(addTemp, "[tr]", tr)
 
+	date := gtime.Now()
+	addTemp = gstr.Replace(addTemp, "[date]", date.String())
+	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), "/add.html"))
+	if err != nil {
+		return err
+	}
+	if _, err = f.WriteString(addTemp); err != nil {
+		return err
+	}
+	if err = f.Close(); err != nil {
+		return err
+	}
+	return nil
+}
+func genIndex(ctx context.Context, c *bo.GenConf) error {
+	indexTemp := gfile.GetContents(fmt.Sprintf("%s/resource/gen/temp.index.html", gfile.MainPkgPath()))
+	group := c.HtmlGroup
+	structNameLower := gstr.CaseCamelLower(c.StructName)
+	if c.AddBtn == 1 {
+		indexTemp = gstr.Replace(indexTemp, "[add]", ``)
+	} else {
+		indexTemp = gstr.Replace(indexTemp, "[add]", `<a class="mt-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus-square" aria-hidden="true"></i></a> `)
+	}
+	if c.DelBtn == 1 {
+		indexTemp = gstr.Replace(indexTemp, "[del]", "")
+	} else {
+		indexTemp = gstr.Replace(indexTemp, "[del]", `<a href="#" method="delete" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
+`)
+	}
+	if c.UpdateBtn == 1 {
+		indexTemp = gstr.Replace(indexTemp, "[edit]", "")
+	} else {
+		indexTemp = gstr.Replace(indexTemp, "[edit]", `<a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>`)
+	}
+	// search
+	search := ``
+	for _, i := range c.Fields {
+		if i.SearchType == 0 {
+			continue
+		}
+		label := i.Label
+		name := i.Name
+		if label == "" {
+			label = i.Name
+		}
+		switch i.FieldType {
+		case "select":
+			search += fmt.Sprintf("<label class='input'>%s <select type='text' name='api_method' value='{{.Session.api_method}}' onchange='this.form.submit()'>\n", label)
+			search += "                        <option value=''>请选择</option>\n"
+			for _, j := range i.Options {
+				search += fmt.Sprintf("                        <option value='%s' {{if eq .Query.%s_%s %s}} selected {{end}}>%s</option>\n", j.Value, gstr.CaseCamelLower(c.StructName), name, j.Value, j.Label)
+			}
+			search += "                    </select></label>\n"
+		default:
+			search += fmt.Sprintf(`<label class="input">%s <input type="text" name="%s_%s" value="{{.Session.%s_%s}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    `,
+				label, structNameLower, name, structNameLower, name,
+			)
+		}
+	}
+	indexTemp = gstr.Replace(indexTemp, "[search]", search)
+	// table td
+	th := ""
+	td := ""
+	for _, i := range c.Fields {
+		name := i.Name
+		label := i.Label
+		if label == "" {
+			label = i.Name
+		}
+		switch name {
+		case "id", "created_at", "updated_at", "status":
+			continue
+		}
+		th += fmt.Sprintf("<th>%s</th>\n                        ", label)
+		switch i.FieldType {
+		case "select":
+			temp := "<td>"
+			for index, j := range i.Options {
+				if index == 0 {
+					temp += fmt.Sprintf(`{{if eq .%s "%s"}}<span class="%s">%s</span>`, i.Name, j.Value, j.Type, j.Label)
+				} else {
+					temp += fmt.Sprintf(`{{else if eq .%s "%s"}}<span class="%s">%s</span>`, i.Name, j.Value, j.Type, j.Label)
+				}
+			}
+			temp += "{{end}}</td>\n                        "
+			td += temp
+		default:
+			td += fmt.Sprintf("<td>{{.%s}}</td>\n                        ", name)
+		}
+	}
+	indexTemp = gstr.Replace(indexTemp, "[th]", th)
+	indexTemp = gstr.Replace(indexTemp, "[td]", td)
+
+	date := gtime.Now()
+	indexTemp = gstr.Replace(indexTemp, "[date]", date.String())
+	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", group, "/", structNameLower, "/index.html"))
+	if err != nil {
+		return err
+	}
+	if _, err = f.WriteString(indexTemp); err != nil {
+		return err
+	}
+	if err = f.Close(); err != nil {
+		return err
+	}
+	return nil
+}
 func genApi(ctx context.Context, category string, name, pageName string) error {
 	if pageName == "" {
 		pageName = name

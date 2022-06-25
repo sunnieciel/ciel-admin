@@ -1,4 +1,5 @@
 server:
+  name: "FREE KEY"
   address: ":1211"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
@@ -8,10 +9,8 @@ server:
   jwtExpireDuration: "7D" # 7 days
   imgPrefix: "http://localhost:1211/upload/" # 图片前缀
   rootFilePath: "/resource/public/upload/"  # 文件上传路径
-  modName: "ciel-admin"  # 生成文件时使用
   rootIp: "localhost"
   rootPath: "/home/holw/learn/ciel-admin/"
-
 
 logger:
   path: "logs/default"
@@ -30,7 +29,7 @@ database:
     stdout: true
   default:
     link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
-    debug: true
+    debug: false
 
 redis:
   default:
@@ -43,11 +42,8 @@ gfcli:
   gen:
     dao:
       - link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
-        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_file,
-        u_user,u_login_log,s_operation_log,
-        f_node,f_thing,f_thing_record
-        "
-        removePrefix: "s_,u_,f_"
+        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file,s_operation_log, "
+        removePrefix: "s_"
         descriptionTag: true
         noModelComment: true
 

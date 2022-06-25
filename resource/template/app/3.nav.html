@@ -1,14 +1,14 @@
 <div class="box no-bottom-border">
-  <div class="nav ml-3">
-    {{range .Session.adminInfo.Menus}}
-    <a class="link-2 mr-3" data="{{.name}}">{{.name}}</a>
-    {{end}}
-  </div>
-  <div class="sub-nav">
-    {{range $p:=.Session.adminInfo.Menus}}
-    {{range $child:=$p.Children}}
-    <a class="link-3 mr-12" href="{{$child.path}}" data="{{$p.name}}" style="display: none">{{$child.name}}</a>
-    {{end}}
-    {{end}}
-  </div>
+    <div class="nav ml-3">
+        {{range .Session.adminInfo.Menus}}
+        <a class="link-2 mr-3" data="{{.name}}">{{.name}}</a>
+        {{end}}
+    </div>
+    <div class="sub-nav">
+        {{range $p:=.Session.adminInfo.Menus}}
+        {{range $child:=$p.Children}}
+        <a class="link-3 mr-12" href="{{$child.path}}" data="{{$p.name}}" style="display: none">{{$child.name}}</a>
+        {{end}}
+        {{end}}
+    </div>
 </div>

@@ -23,14 +23,12 @@ type (
 	home          struct{}
 	cSys          struct{}
 	gen           struct{}
-	api           struct{ *config.Search }
 	role          struct{ *config.Search }
 	cRoleApi      struct{ *config.Search }
 	cRoleMenu     struct{ *config.Search }
 	cDict         struct{ *config.Search }
 	cFile         struct{ *config.Search }
 	cAdmin        struct{ *config.Search }
-	cMenu         struct{ *config.Search }
 	cOperationLog struct{ *config.Search }
 	ws            struct{}
 )
@@ -55,144 +53,12 @@ func (s cSys) Path(r *ghttp.Request) {
 	res.Page(r, path.String())
 }
 
-// ---Menu-----------------------------------------------------------------
-
-var Menu = &cMenu{Search: &config.Search{
-	T1: "s_menu", OrderBy: "t1.sort desc,t1.id desc",
-	Fields: []*config.Field{
-		{Name: "pid", SearchType: 1},
-		{Name: "name", SearchType: 2},
-		{Name: "path", SearchType: 2},
-	},
-}}
-
-func (c *cMenu) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_menu.html", g.Map{"icon": icon})
-}
-func (c *cMenu) PathEasy(r *ghttp.Request) {
-	res.Page(r, "/sys/s_menu_easy.html")
-}
-func (c *cMenu) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *cMenu) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *cMenu) Post(r *ghttp.Request) {
-	d := entity.Menu{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cMenu) Put(r *ghttp.Request) {
-	d := entity.Menu{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cMenu) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-
-func (c *cMenu) ListLevel1(r *ghttp.Request) {
+func (s cSys) Level1(r *ghttp.Request) {
 	level1, err := sys.MenusLevel1(r.Context())
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.OkData(level1, r)
-}
-
-// ---api-------------------------------------------------------------------
-
-var Api = &api{Search: &config.Search{
-	T1: "s_api", Fields: []*config.Field{
-		{Name: "method", SearchType: 1},
-		{Name: "group", SearchType: 1},
-		{Name: "desc", SearchType: 2},
-		{Name: "status", SearchType: 1},
-	},
-}}
-
-func (c *api) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *api) Post(r *ghttp.Request) {
-	d := entity.Api{}
-	d.Status = 1
-	if d.Status == 0 {
-		res.Err(errors.New("状态不能为空"), r)
-	}
-	_ = r.Parse(&d)
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *api) Put(r *ghttp.Request) {
-	d := entity.Api{}
-	_ = r.Parse(&d)
-	if d.Status == 0 {
-		res.Err(errors.New("状态不能为空"), r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *api) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *api) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *api) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_api.html", g.Map{"icon": icon})
 }
 
 // ---role-------------------------------------------------------------------

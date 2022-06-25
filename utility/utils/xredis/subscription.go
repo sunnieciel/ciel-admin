@@ -3,7 +3,6 @@ package xredis
 import (
 	"encoding/json"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/glog"
 )
 
 type (
@@ -29,7 +28,7 @@ func (s *Subscription) Listener(f func(msg NoticeMsgBo)) {
 	for {
 		replay, err := conn.Receive(nil)
 		if err != nil {
-			glog.Error(nil, err.Error())
+			g.Log().Error(nil, err.Error())
 		}
 		bo := NoticeMsgBo{}
 		json.Unmarshal([]byte(replay.Strings()[2]), &bo)

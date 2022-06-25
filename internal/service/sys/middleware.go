@@ -2,14 +2,13 @@ package sys
 
 import (
 	"ciel-admin/internal/consts"
-	"ciel-admin/internal/service/internal/dao"
+	"ciel-admin/internal/dao"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xjwt"
 	"ciel-admin/utility/utils/xredis"
 	"errors"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/glog"
 	"net/http"
 	"time"
 )
@@ -49,7 +48,7 @@ func LockAction(r *ghttp.Request) {
 		uid = uint64(getAdmin.Admin.Id)
 		if uid == 0 {
 			err := errors.New("uid is empty")
-			glog.Error(nil, err)
+			g.Log().Error(nil, err)
 			res.Err(err, r)
 		}
 	}
@@ -100,6 +99,6 @@ func AdminAction(r *ghttp.Request) {
 	}
 	_, err = dao.OperationLog.Ctx(ctx).Insert(data)
 	if err != nil {
-		glog.Error(ctx, err)
+		g.Log().Error(ctx, err)
 	}
 }

@@ -2,87 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {{include "/app/1.meta.html" .}}
+    <meta charset="UTF-8">
+    <meta name="Content-Type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="/resource/css/element-plus.css"/>
+    <link href="/resource/css/base.css" rel="stylesheet">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .details li .input {
+            display: flex !important;
+            align-items: flex-start;
+            justify-content: flex-end;
+        }
+
+        /* element ui */
+        .el-dialog {
+            border-radius: 12px !important;
+            box-shadow: 0 6px 6px rgba(0, 0, 0, .1) inset !important;
+            opacity: .96 !important;
+            min-width: 300px;
+        }
+
+        .details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .details ul {
+            margin-top: 12px;
+            border-collapse: collapse;
+        }
+
+        .details ul li {
+            margin: 6px 0;
+            padding-left: 6px;
+            text-align: right;
+        }
+
+        .details ul li label {
+            min-width: 224px;
+            display: flex;
+        }
+
+        .details ul li label span {
+            min-width: 54px;
+            display: inline-block;
+        }
+
+        .details ul li input {
+            margin-left: 3px;
+            width: 136px;
+        }
+
+        .details ul li select {
+            margin-left: 3px;
+            width: 156px;
+            border: 1px solid rgba(204, 204, 204, 0);
+        }
+
+        .table-item {
+            display: block;
+            cursor: pointer;
+            border-radius: 12px;
+            padding: 3px 12px;
+            transition: all 0.5s ease;
+        }
+
+        .table-item:hover {
+            text-decoration: none !important;
+        }
+
+        .table-list {
+            position: absolute;
+            top: 108px;
+            left: -11%;
+            max-height: 666px;
+            overflow-y: hidden;
+        }
+
+        .table-list:hover {
+            overflow-y: auto;
+        }
+    </style>
+    {{if eq .Cookie.dark 1}}
+    <link href="/resource/css/dark.css" rel="stylesheet">
+    <style>
+        .table-item:hover, .table-item-active {
+            background-color: #253761;
+            color: #00a0e9;
+        }
+    </style>
+    {{else}}
+    <link href="/resource/css/white.css" rel="stylesheet">
+    <style>
+        .table-item:hover, .table-item-active {
+            background-color: #f2f2f4;
+            color: #00a0e9;
+            font-weight: 500;
+        }
+    </style>
+    {{end}}
     <title>代码生成</title>
+    <link rel="stylesheet" href="/resource/css/font-awesome.min.css">
 </head>
-<style>
-    .table-item {
-        display: block;
-        cursor: pointer;
-        border-radius: 12px;
-        padding: 3px 12px;
-        transition: all 0.5s ease;
-    }
-
-    .table-item:hover {
-        text-decoration: none !important;
-    }
-
-    .table-list {
-        position: absolute;
-        top: 108px;
-        left: -11%;
-        max-height: 666px;
-        overflow-y: hidden;
-    }
-
-    .table-list:hover {
-        overflow-y: auto;
-    }
-</style>
-{{if eq .Cookie.dark 1}}
-<style>
-    .table-item:hover, .table-item-active {
-        background-color: #253761;
-        color: #00a0e9;
-    }
-</style>
-{{else}}
-<style>
-    .table-item:hover, .table-item-active {
-        background-color: #f2f2f4;
-        color: #00a0e9;
-        font-weight: 500;
-    }
-</style>
-{{end}}
 <body>
 <div id="app" v-cloak>
-    {{include "/app/2.top.html" .}}
+    {{include "/part/top.html" .}}
     <div id="wrapper">
         <div class="w">
             <div class="wrapper-left" style="position: relative">
                 <!--选择数据表-->
                 <div class="box table-list">
                     <label class="input">
-                        <el-tag type="info" size="small">请选择数据表</el-tag>
+                        <span class="tag-info">请选择数据表</span>
                         <div v-model="genConf.T1">
                             <a class="mt-5 table-item " v-for="i,index in tables" :value="i" v-text="i" @click="getFields(i,index)" :class="[index==assistant.tableItemActive?'table-item-active':'']"></a>
                         </div>
                     </label>
                 </div>
-                {{include "/app/3.nav.html" .}}
+                {{include "/part/nav.html" .}}
                 <div class="box no-bottom-border">
-                    {{include "/app/4.basePageInfo.html" .}}
+                    <div class="cell flex bg-color-dark color-box-color-bg">
+                        <img class="s-icon s-icon-large" :src="pageConf.icon?pageConf.icon:'/resource/image/golang.png'" alt="Financial">
+                        <div class="flex-1">
+                            <div class="flex-between">
+                                <div><a class="color-blue" href="{{.Config.home}}">FREE KEY</a> &nbsp;›&nbsp; 代码生成</div>
+                            </div>
+                            <div class="fs-13 mt-5">这里是代码生成页面</div>
+                        </div>
+                    </div>
                     <!--基本配置-->
                     <div class="cell">
                         <div class="mt-10">
                             <div class="flex-baseline">
-                                <el-tag type="info" size="small">菜单信息</el-tag>
+                                <span class="tag-info">菜单信息</span>
                                 <div style="flex: 1">
                                     <label class="input">一级菜单
                                         <input v-model="genConf.MenuLevel1" list="menus">
                                         <datalist id="menus">
                                             <option v-for="i in menus" :value="i" v-text="i"></option>
                                         </datalist>
-
                                     </label>
                                     <label class="input">页面菜单 <input v-model="genConf.MenuLevel2"></label>
                                     <label class="input">页面Logo <input v-model="genConf.MenuLogo"></label>
                                 </div>
                             </div>
                             <div class="flex-baseline">
-                                <el-tag type="primary" size="small">基本信息</el-tag>
+                                <span class="tag-primary">基本信息</span>
                                 <div style="flex: 1">
                                     <label class="input">页面分组 <input v-model="genConf.HtmlGroup"></label>
                                     <label class="input">结构体 <input v-model="genConf.StructName"></label>
@@ -93,7 +162,7 @@
                                 </div>
                             </div>
                             <div class="flex-center">
-                                <el-tag type="warning" size="small">关联查询</el-tag>
+                                <span class="tag-warning">关联查询</span>
                                 <div style="flex: 1">
                                     <label class="input">T1 <input v-model="genConf.T1"></label>
                                     <label class="input">T2 <input v-model="genConf.T2"></label>
@@ -105,7 +174,7 @@
                                 </div>
                             </div>
                             <div class="flex-center">
-                                <el-tag type="success" size="small">操作按钮</el-tag>
+                                <span class="tag-success">操作按钮</span>
                                 <div>
                                     <label class="input">添加按钮 <select v-model="genConf.AddBtn">
                                         <option value="0">是</option>
@@ -121,8 +190,8 @@
                                     </select></label>
                                 </div>
                             </div>
-                            <el-button class="mt-10" type="primary" plain size="small" @click="addRow()">添加一行</el-button>
-                            <el-button class="mt-10" type="danger" plain size="small" @click="submitGenCode()">生成代码</el-button>
+                            <input class="btn-info mr-12" @click="addRow()" type="button" value="添加一行">
+                            <input class="btn-warning" type="button" @click="submitGenCode()" value="生成代码">
                         </div>
                     </div>
                 </div>
@@ -140,7 +209,7 @@
                             <th>编辑时禁用</th>
                             <th>编辑时展示</th>
                             <th>查询类型</th>
-                            <th>操作</th>
+                            <th class="text-center">操作</th>
                         </tr>
                         <tr v-for="i in fields">
                             <td v-text="i.Name"></td>
@@ -149,34 +218,32 @@
                             <td v-text="i.Comment"></td>
                             <td v-text="i.FieldType"></td>
                             <td>
-                                <el-tag v-if="i.NotShow==0" size="small" type="info">是</el-tag>
-                                <el-tag v-else size="small" type="warning">否</el-tag>
+                                <span v-if="i.NotShow==0" class="tag-info">是</span>
+                                <span v-else class="tag-warning">否</span>
                             </td>
                             <td>
-                                <el-tag v-if="i.EditDisabled==0" size="small" type="info">否</el-tag>
-                                <el-tag v-else size="small" type="warning">是</el-tag>
+                                <span v-if="i.EditDisabled==0" class="tag-info">否</span>
+                                <span v-else class="tag-warning">是</span>
                             </td>
                             <td>
-                                <el-tag v-if="i.EditHide==0" size="small" type="info">是</el-tag>
-                                <el-tag v-else size="small" type="warning">否</el-tag>
+                                <span v-if="i.EditHide==0" class="tag-info">是</span>
+                                <span v-else class="tag-warning">否</span>
                             </td>
                             <td>
-                                <el-tag v-if="i.SearchType==0" size="small" type="info">不查询</el-tag>
-                                <el-tag v-else-if="i.SearchType==1" size="small" type="primary">=</el-tag>
-                                <el-tag v-else-if="i.SearchType==2" size="small" type="primary">like</el-tag>
-                                <el-tag v-else-if="i.SearchType==3" size="small" type="primary">></el-tag>
-                                <el-tag v-else-if="i.SearchType==4" size="small" type="primary"><</el-tag>
-                                <el-tag v-else-if="i.SearchType==5" size="small" type="primary">>=</el-tag>
-                                <el-tag v-else-if="i.SearchType==6" size="small" type="primary"><=</el-tag>
-                                <el-tag v-else-if="i.SearchType==7" size="small" type="primary">!=</el-tag>
-                                <el-tag v-else-if="i.SearchType==8" size="small" type="primary">日期</el-tag>
-                                <el-tag v-else-if="i.SearchType==9" size="small" type="primary">日期(一天开始到结束)=</el-tag>
+                                <span v-if="i.SearchType==0" class="tag-info">不查询</span>
+                                <span v-else-if="i.SearchType==1" class="tag-primary">=</span>
+                                <span v-else-if="i.SearchType==2" class="tag-primary">like</span>
+                                <span v-else-if="i.SearchType==3" class="tag-primary">></span>
+                                <span v-else-if="i.SearchType==4" class="tag-primary"><</span>
+                                <span v-else-if="i.SearchType==5" class="tag-primary">>=</span>
+                                <span v-else-if="i.SearchType==6" class="tag-primary"><=</span>
+                                <span v-else-if="i.SearchType==7" class="tag-primary">!=</span>
+                                <span v-else-if="i.SearchType==8" class="tag-primary">日期</span>
+                                <span v-else-if="i.SearchType==9" class="tag-primary">日期(一天开始到结束)=</span>
                             </td>
-                            <td class="table-action">
-                                <el-button-group>
-                                    <el-button type="primary" plain size="small" @click="showFieldDetails(i)">编辑</el-button>
-                                    <el-button type="success" plain size="small" @click="removeRow(i)">删除</el-button>
-                                </el-button-group>
+                            <td class="text-center">
+                                <a href="#" @click="showFieldDetails(i)"><i class="fa fa-wrench" aria-hidden="true"></i></a>
+                                <a href="#" @click="removeRow(i)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -192,12 +259,13 @@
                             <li><label class="input">排序<input type="number" v-model="fieldDetail.Index" @keyup.enter="dialogVisible=false"></label></li>
                             <li><label class="input">查询字段<input v-model="fieldDetail.QueryName" @keyup.enter="dialogVisible=false"> </label>
                                 <br>
-                                <el-tag type="info" size="small">多表查询时，入参时的字段。eg: select t1.*, t2.ip
+                                <span class="tag-info">
+                                    多表查询时，入参时的字段。eg: select t1.*, t2.ip
                                     from u_user t1
                                     left join u_login_log t2 on t1.id = t2.uid
                                     where t2.ip = 333
                                     这种情况下，查询字段为ip,字段名称为 t2.ip
-                                </el-tag>
+                                </span>
                             </li>
                         </ul>
                         <ul>
@@ -254,8 +322,8 @@
                     </div>
                     <template #footer>
                         <div class="dialog-footer">
-                            <el-button @click="dialogVisible = false" size="small" plain>取消</el-button>
-                            <el-button type="primary" @click="this.dialogVisible = false" size="small" plain>确定</el-button>
+                            <input class="btn-info mr-12" @click="dialogVisible = false" type="button" value="取消">
+                            <input class="btn-warning" @click="this.dialogVisible = false" type="button" value="确定">
                         </div>
                     </template>
                 </el-dialog>
@@ -264,8 +332,92 @@
     </div>
 </div>
 </body>
-{{include "/app/8.footer_no_dialog.html" .}}
-{{include "/app/z.footerJs.html" .}}
+<script src="/resource/js/jquery-3.6.0.min.js"></script>
+<script src="/resource/js/vue.js"></script>
+<script src="/resource/js/element-plus.js"></script>
+<script src="/resource/js/js.cookie.min.js"></script>
+<script>
+    jQuery.each(["put", "delete"], function (i, method) {
+        jQuery[method] = function (url, data, callback, type) {
+            if (jQuery.isFunction(data)) {
+                type = type || callback;
+                callback = data;
+                data = undefined;
+            }
+            return jQuery.ajax({
+                url: url, type: method, dataType: 'json', data: data, success: callback
+            });
+        };
+    });
+
+    function logout() {
+        $.ajax({
+            url: '/admin/logout', type: 'get', dataType: 'json', success: function (data) {
+                console.log(data)
+                if (data.code === 0) {
+                    window.location.href = '/login';
+                }
+            }
+        });
+    }
+
+    function updatePwd() {
+        let old = prompt('Input your old pwd');
+        if (!old) {
+            return
+        }
+        let newPwd = prompt('Input your new pwd');
+        if (!newPwd) {
+            return
+        }
+        $.put("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
+            if (res.code === 0) {
+                alert('success')
+                location.href = '/login'
+            } else {
+                alert(res.msg)
+            }
+        });
+    }
+
+    // 添加默认选中
+    $(".sub-nav a").hide()
+    let current = $(".sub-nav a[href='" + location.pathname + "']"); // 找到张.sub-nav 下面地址为当前路径的url
+    $(".sub-nav a[data='" + current.attr("data") + "']").show()     // 将当前的url显示出来
+    $(".nav a[data='" + current.attr("data") + "']").addClass("link-2-active") // 将 .nav 中具有相同data属性的a标签添加active类
+
+    // 监听tab 切换
+    $(function () {
+        $(".nav a").hover(function () {
+            $(".nav a").removeClass("link-2-active")
+            $(this).addClass("link-2-active")
+            $(".sub-nav a").hide()
+            $(".sub-nav a[data='" + $(this).attr("data") + "']").show()
+        })
+    })
+
+    function setDark(value) {
+        Cookies.set('dark', value)
+        location.reload()
+    }
+
+    function selectType(num) {
+        switch (num % 4) {
+            case 0:
+                return 'tag-primary'
+            case 1:
+                return 'tag-success'
+            case 2:
+                return 'tag-info'
+            case 3:
+                return 'tag-warning'
+            case 4:
+                return 'tag-danger'
+            default:
+                return 'tag-primary'
+        }
+    }
+</script>
 <script>
     const app = Vue.createApp({
         data() {
@@ -350,7 +502,7 @@
                 this.genConf.T1 = table
                 let res = await $.get('/gen/fields', {table: table})
                 if (res.code !== 0) {
-                    noticeError(res.msg)
+                    alert(res.msg)
                     return
                 }
                 this.fields = []
@@ -395,9 +547,9 @@
                 let data = {'genConf': this.genConf, 'fields': this.fields}
                 let res = await $.post("/gen", data)
                 if (res.code !== 0) {
-                    noticeError(res.msg)
+                    alert(res.msg)
                 } else {
-                    noticeOk('代码生成成功')
+                    alert('代码生成成功')
                 }
             },
             showFieldDetails(i) {
@@ -443,7 +595,7 @@
             },
             removeFieldOption(i) {
                 if (this.fieldDetail.Options.length === 1) {
-                    noticeWarning('至少要有一个选项')
+                    alert('至少要有一个选项')
                     return
                 }
                 this.fieldDetail.Options.map((item, index) => {

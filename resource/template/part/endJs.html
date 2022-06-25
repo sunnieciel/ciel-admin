@@ -1,0 +1,54 @@
+<script src="/resource/js/js.cookie.min.js"></script>
+<script src="/resource/js/jquery-3.6.0.min.js"></script>
+<script>
+    // 添加默认选中
+    $(".sub-nav a").hide()
+    let current = $(".sub-nav a[href='" + location.pathname + "']"); // 找到张.sub-nav 下面地址为当前路径的url
+    $(".sub-nav a[data='" + current.attr("data") + "']").show()     // 将当前的url显示出来
+    $(".nav a[data='" + current.attr("data") + "']").addClass("link-2-active") // 将 .nav 中具有相同data属性的a标签添加active类
+    // 监听tab 切换
+    $(function () {
+        $(".nav a").hover(function () {
+            $(".nav a").removeClass("link-2-active")
+            $(this).addClass("link-2-active")
+            $(".sub-nav a").hide()
+            $(".sub-nav a[data='" + $(this).attr("data") + "']").show()
+        })
+    })
+
+    function setDark(value) {
+        Cookies.set('dark', value)
+        location.reload()
+    }
+
+    function logout() {
+        $.ajax({
+            url: '/admin/logout', type: 'get', dataType: 'json', success: function (data) {
+                console.log(data)
+                if (data.code === 0) {
+                    window.location.href = '/login';
+                }
+            }
+        });
+    }
+
+    function updatePwd() {
+        let old = prompt('Input your old pwd');
+        if (!old) {
+            return
+        }
+        let newPwd = prompt('Input your new pwd');
+        if (!newPwd) {
+            return
+        }
+        $.put("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
+            if (res.code === 0) {
+                noticeOk('Success')
+                location.href = '/login'
+            } else {
+                noticeError(res.msg)
+            }
+        });
+    }
+
+</script>

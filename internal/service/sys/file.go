@@ -1,8 +1,8 @@
 package sys
 
 import (
+	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/entity"
-	"ciel-admin/internal/service/internal/dao"
 	"ciel-admin/utility/utils/res"
 	"context"
 	"errors"

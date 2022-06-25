@@ -5,7 +5,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/glog"
 	"net/http"
 	"time"
 )
@@ -65,13 +64,13 @@ func parseToken(tokenString string) (*MyClaims, error) {
 		return MySecret, nil
 	})
 	if err != nil {
-		//glog.Error(err.Error())
+		//g.Log().Error(err.Error())
 		return nil, consts.ErrAuth
 	}
 	if claims, ok := token.Claims.(*MyClaims); ok && token.Valid { // 校验token
 		return claims, nil
 	}
-	glog.Error(nil, err.Error())
+	g.Log().Error(nil, err.Error())
 	return nil, consts.ErrAuth
 }
 
