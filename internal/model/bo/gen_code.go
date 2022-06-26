@@ -42,6 +42,7 @@ type GenFiled struct {
 	EditHide     int    // 1 true
 	NotShow      int    // 1 true  not show in table
 	EditDisabled int
+	Required     int    //  1 true
 	Comment      string // is comment is not empty ,add el-tag comment
 	Options      []*FieldOption
 

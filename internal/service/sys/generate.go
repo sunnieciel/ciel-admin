@@ -53,10 +53,10 @@ func GenFile(ctx context.Context, d *bo.GenConf) (err error) {
 	if err = genHtml(ctx, d); err != nil {
 		return err
 	}
-	//// gen api
-	//if err = genApi(ctx, d.HtmlGroup, d.StructName, d.PageName); err != nil {
-	//	return err
-	//}
+	// gen api
+	if err = genApi(ctx, d.HtmlGroup, d.StructName, d.PageName); err != nil {
+		return err
+	}
 	return
 }
 func genMenu(ctx context.Context, d *bo.GenConf) error {
@@ -289,18 +289,34 @@ func genEdit(ctx context.Context, c *bo.GenConf) error {
 		}
 		switch i.FieldType {
 		case "select":
-			tr += "                            <td align='right'>状态</td>\n                            <td>"
-			temp := fmt.Sprintf("                                <select name='%s'>\n", i.Name)
+			tr += fmt.Sprintf("<tr><td align='right'>%s</td><td>", label)
+			temp := fmt.Sprintf("<select name='%s'>", i.Name)
 			for _, j := range i.Options {
-				temp += fmt.Sprintf("                                    <option value='%s' {{if eq .Session.%s_edit.%s \"%s\"}} selected {{end}}>%v</option>\n", j.Value, gstr.CaseCamelLower(c.StructName), i.Name, j.Value, j.Label)
+				temp += fmt.Sprintf("<option value='%s' {{if eq .Session.%s_edit.%s %s}} selected {{end}} class='%s'>%v</option>", j.Value, gstr.CaseCamelLower(c.StructName), i.Name, j.Value, j.Type, j.Label)
 			}
-			temp += "                                </select>\n"
+			temp += "</select>"
 			tr += temp
-			tr += "                            </td>\n"
-		default:
-			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><input name='%s' value='{{.Session.%s_edit.%s}}'></td>\n                        </tr>",
+			tr += "</td>"
+			if i.Comment != "" {
+				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
+			}
+			tr += "</tr>"
+		case "textarea":
+			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><textarea name='%s'>{{.Session.%s_edit.%s}}</textarea></td>",
 				label, i.Name, gstr.CaseCamelLower(c.StructName), i.Name,
 			)
+			if i.Comment != "" {
+				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
+			}
+			tr += "</tr>"
+		default:
+			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><input name='%s' value='{{.Session.%s_edit.%s}}'></td>",
+				label, i.Name, gstr.CaseCamelLower(c.StructName), i.Name,
+			)
+			if i.Comment != "" {
+				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
+			}
+			tr += "</tr>"
 		}
 	}
 	editTemp = gstr.Replace(editTemp, "[tr]", tr)
@@ -335,24 +351,43 @@ func genAdd(ctx context.Context, c *bo.GenConf) error {
 		if label == "" {
 			label = i.Name
 		}
+		required := ""
+		if i.Required == 1 {
+			required = "required"
+		}
 		switch i.FieldType {
 		case "select":
-			tr += "                            <td align='right'>状态</td>\n                            <td>"
-			temp := fmt.Sprintf("                                <select name='%s'>\n", i.Name)
+			tr += fmt.Sprintf("                          <tr>  <td align='right'>%s</td>\n                            <td>", label)
+			temp := fmt.Sprintf("                                <select name='%s' %s>\n", i.Name, required)
 			for index, j := range i.Options {
 				if index == 0 {
-					temp += fmt.Sprintf("                                    <option value='%v' selected>%v</option>\n", j.Value, j.Label)
+					temp += fmt.Sprintf("                                    <option value='%v' selected class='%s'>%v</option>\n", j.Value, j.Type, j.Label)
 				} else {
-					temp += fmt.Sprintf("                                    <option value='%v' >%v</option>\n", j.Value, j.Label)
+					temp += fmt.Sprintf("                                    <option value='%v'  class='%s'>%v</option>\n", j.Value, j.Type, j.Label)
 				}
 			}
 			temp += "                                </select>\n"
-			tr += temp
-			tr += "                            </td>\n"
-		default:
-			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><input name='%s' ></td>\n                        </tr>",
-				label, i.Name,
+			tr += temp + "</td>"
+			if i.Comment != "" {
+				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
+			}
+			tr += "\n </tr>"
+		case "textarea":
+			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><textarea name='%s' %s></textarea></td>",
+				label, i.Name, required,
 			)
+			if i.Comment != "" {
+				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
+			}
+			tr += "\n                        </tr>"
+		default:
+			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><input name='%s'  %s></td>",
+				label, i.Name, required,
+			)
+			if i.Comment != "" {
+				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
+			}
+			tr += "\n                        </tr>"
 		}
 	}
 	addTemp = gstr.Replace(addTemp, "[tr]", tr)
@@ -405,9 +440,9 @@ func genIndex(ctx context.Context, c *bo.GenConf) error {
 		switch i.FieldType {
 		case "select":
 			search += fmt.Sprintf("<label class='input'>%s <select type='text' name='api_method' value='{{.Session.api_method}}' onchange='this.form.submit()'>\n", label)
-			search += "                        <option value=''>请选择</option>\n"
+			search += "                        <option value='' class='tag-info'>请选择</option>\n"
 			for _, j := range i.Options {
-				search += fmt.Sprintf("                        <option value='%s' {{if eq .Query.%s_%s %s}} selected {{end}}>%s</option>\n", j.Value, gstr.CaseCamelLower(c.StructName), name, j.Value, j.Label)
+				search += fmt.Sprintf("                        <option value='%s' {{if eq .Query.%s_%s %s}} selected {{end}} class='%s'>%s</option>\n", j.Value, gstr.CaseCamelLower(c.StructName), name, j.Value, j.Type, j.Label)
 			}
 			search += "                    </select></label>\n"
 		default:
@@ -442,8 +477,12 @@ func genIndex(ctx context.Context, c *bo.GenConf) error {
 					temp += fmt.Sprintf(`{{else if eq .%s "%s"}}<span class="%s">%s</span>`, i.Name, j.Value, j.Type, j.Label)
 				}
 			}
-			temp += "{{end}}</td>\n                        "
+			temp += "{{end}}</td>"
 			td += temp
+		case "img":
+			td += fmt.Sprintf(`<td>{{if hasPrefix .%s "http"}} <a href='{{.%s}}' target='_blank'> <img class='s-icon' src='{{.%s}}' alt='not fond'> </a> {{else if ne .%s ""}} <a href='{{$.Config.server.imgPrefix}}{{.%s}}' target='_blank'> <img class='s-icon' src='{{$.Config.server.imgPrefix}}{{.%s}}' alt='not fond'> </a> {{else}} <span v-else class='tag-normal'>暂无图片</span>{{end}}</td>`,
+				name, name, name, name, name, name,
+			)
 		default:
 			td += fmt.Sprintf("<td>{{.%s}}</td>\n                        ", name)
 		}
@@ -471,12 +510,12 @@ func genApi(ctx context.Context, category string, name, pageName string) error {
 	}
 	name = gstr.CaseCamelLower(name)
 	array := []*entity.Api{
-		{Url: fmt.Sprintf("/%s/path", name), Method: "GET", Group: category, Desc: fmt.Sprintf("%s页面", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s", name), Method: "GET", Group: category, Desc: fmt.Sprintf("查询%s集合", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/:id", name), Method: "GET", Group: category, Desc: fmt.Sprintf("查询%s详情", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/:id", name), Method: "DELETE", Group: category, Desc: fmt.Sprintf("删除%s", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s", name), Method: "POST", Group: category, Desc: fmt.Sprintf("添加%s", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s", name), Method: "PUT", Group: category, Desc: fmt.Sprintf("修改%s", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path", name), Method: "1", Group: category, Desc: fmt.Sprintf("%s页面", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path/add", name), Method: "1", Group: category, Desc: fmt.Sprintf("%s添加页面", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path/edit/:id", name), Method: "1", Group: category, Desc: fmt.Sprintf("%s修改页面", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path/del/:id", name), Method: "4", Group: category, Desc: fmt.Sprintf("%s删除操作", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: category, Desc: fmt.Sprintf("添加%s", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s", name), Method: "3", Group: category, Desc: fmt.Sprintf("修改%s", pageName), Status: 1},
 	}
 	for _, i := range array {
 		count, err := dao.Api.Ctx(ctx).Count("url = ? and method = ?", i.Url, i.Method)

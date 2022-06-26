@@ -4,7 +4,7 @@
 =================================================================================
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     {{include "/part/meta.html" .}}
     <title>修改[pageName] - {{.Config.server.name}}</title>
@@ -34,15 +34,15 @@
                             <td align="right">状态</td>
                             <td>
                                 <select name="status">
-                                    <option value="1" {{if eq .Session.menu_edit.status 1}} selected {{end}}>开启</option>
-                                    <option value="2" {{if eq .Session.menu_edit.status 2}} selected {{end}}>关闭</option>
+                                    <option class="tag-info" value="1" {{if eq .Session.menu_edit.status 1}} selected {{end}}>开启</option>
+                                    <option class="tag-danger" value="2" {{if eq .Session.menu_edit.status 2}} selected {{end}}>关闭</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
-                                <button class="btn" type="submit">提交</button>
+                                <button class="btn-info" type="submit">提交</button>
                             </td>
                         </tr>
                     </table>

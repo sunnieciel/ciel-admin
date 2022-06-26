@@ -28,4 +28,14 @@ func registerGenFileRouter(s *ghttp.Server) {
 		g.POST("/post", controller.Api.Post)
 		g.POST("/put", controller.Api.Put)
 	})
+	s.Group("/dict", func(g *ghttp.RouterGroup) {
+		g.Middleware(sys.AuthAdmin)
+		g.GET("/path", controller.Dict.Path)
+		g.GET("/path/add", controller.Dict.PathAdd)
+		g.GET("/path/edit/:id", controller.Dict.PathEdit)
+		g.Middleware(sys.LockAction)
+		g.GET("/path/del/:id", controller.Dict.Del)
+		g.POST("/post", controller.Dict.Post)
+		g.POST("/put", controller.Dict.Put)
+	})
 }

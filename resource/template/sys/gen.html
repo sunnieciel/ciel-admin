@@ -208,6 +208,7 @@
                             <th>展示</th>
                             <th>编辑时禁用</th>
                             <th>编辑时展示</th>
+                            <th>是否必须</th>
                             <th>查询类型</th>
                             <th class="text-center">操作</th>
                         </tr>
@@ -228,6 +229,10 @@
                             <td>
                                 <span v-if="i.EditHide==0" class="tag-info">是</span>
                                 <span v-else class="tag-warning">否</span>
+                            </td>
+                            <td>
+                                <span v-if="i.Required==0" class="tag-info">否</span>
+                                <span v-else class="tag-warning">是</span>
                             </td>
                             <td>
                                 <span v-if="i.SearchType==0" class="tag-info">不查询</span>
@@ -270,9 +275,11 @@
                         </ul>
                         <ul>
                             <li><label class="input">字段类型 <select v-model="fieldDetail.FieldType">
-                                <option :value="'text'">text</option>
-                                <option :value="'select'">select</option>
-                                <option :value="'number'">number</option>
+                                <option :value="'text'">文本</option>
+                                <option :value="'textarea'">文本域</option>
+                                <option :value="'select'">选项</option>
+                                <option :value="'number'">数字</option>
+                                <option :value="'img'">图片</option>
                             </select></label></li>
                             <li v-show="this.fieldDetail.FieldType==='select'">
                                 <div class="input" style="display: flex;">
@@ -282,11 +289,11 @@
                                             <input style="width: 52px" title="Name" placeholder="Name" v-model="fieldDetail.Options[index].Name">
                                             <input style="width: 52px" title="Value" placeholder="Value" v-model="fieldDetail.Options[index].Value">
                                             <select class="mr-3 mt-3" title="el-tag's type" style="width: 90px" placeholder="Type" v-model="fieldDetail.Options[index].Type">
-                                                <option :value="'primary'">primary</option>
-                                                <option :value="'success'">success</option>
-                                                <option :value="'info'">info</option>
-                                                <option :value="'warning'">warning</option>
-                                                <option :value="'danger'">danger</option>
+                                                <option :value="'tag-primary'">tag-primary</option>
+                                                <option :value="'tag-success'">tag-success</option>
+                                                <option :value="'tag-info'">tag-info</option>
+                                                <option :value="'tag-warning'">tag-warning</option>
+                                                <option :value="'tag-danger'">tag-danger</option>
                                             </select>
                                             <a href="#" class=" tag-inherited" @click="addFieldOption(index)">+</a>
                                             <a href="#" class="tag-rare" @click="removeFieldOption(index)">-</a>
@@ -317,6 +324,10 @@
                             <li><label class="input">展示 <select v-model="fieldDetail.NotShow">
                                 <option :value="0">是</option>
                                 <option :value="1">否</option>
+                            </select></label></li>
+                            <li><label class="input">是否必须 <select v-model="fieldDetail.Required">
+                                <option :value="1">是</option>
+                                <option :value="0">否</option>
                             </select></label></li>
                         </ul>
                     </div>
@@ -445,11 +456,12 @@
                         EditDisabled: 0,
                         NotShow: 0,
                         SelectType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=,8 date,9 date(start to end)
+                        Required: 0,
                         Options: [
                             {
                                 Name: '',
                                 Value: '',
-                                Type: '', // primary info success warning danger
+                                Type: 'tag-info', // primary info success warning danger
                             }
                         ]
                     }
@@ -495,6 +507,7 @@
                 this.tables = res.data
             },
             async getFields(table, index) {
+                this.genConf = {}
                 this.assistant.tableItemActive = index
                 if (table === '') {
                     return
@@ -515,7 +528,8 @@
                     d.NotShow = 0
                     d.EditDisabled = 0
                     d.SearchType = 0
-                    d.Options = [{Name: '正常', Value: '1', Type: 'success'}, {Name: '禁用', Value: '2', Type: 'danger'},]
+                    d.Required = 0
+                    d.Options = [{Name: '正常', Value: '1', Type: 'tag-info'}, {Name: '禁用', Value: '2', Type: 'tag-danger'},]
                     switch (d.Name) {
                         case "created_at":
                         case "updated_at":
@@ -573,7 +587,7 @@
                             {
                                 Name: '',
                                 Value: '',
-                                Type: 'primary', // primary info success warning danger
+                                Type: 'tag-info', // primary info success warning danger
                             }
                         ]
                     }
@@ -590,7 +604,7 @@
                 this.fieldDetail.Options.splice(index + 1, 0, {
                     Name: '',
                     Value: '',
-                    Type: 'primary', // primary info success warning danger
+                    Type: 'tag-info', // primary info success warning danger
                 })
             },
             removeFieldOption(i) {

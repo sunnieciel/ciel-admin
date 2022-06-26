@@ -76,16 +76,6 @@ var (
 				g.PUT("/updatePwdWithoutOldPwd", controller.Admin.UpdatePwdWithoutOldPwd)
 				g.PUT("/updateUname", controller.Admin.UpdateUname)
 			})
-			s.Group("/dict", func(g *ghttp.RouterGroup) {
-				g.Middleware(sys.AuthAdmin)
-				g.GET("/path", controller.Dict.Path)
-				g.GET("/", controller.Dict.List)
-				g.GET("/:id", controller.Dict.GetById)
-				g.Middleware(sys.LockAction, sys.AdminAction)
-				g.DELETE("/batch", controller.Dict.Del)
-				g.POST("/", controller.Dict.Post)
-				g.PUT("/", controller.Dict.Put)
-			})
 			s.Group("/file", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.File.Path)

@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"ciel-admin/internal/consts"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/sys"
@@ -26,7 +25,6 @@ type (
 	role          struct{ *config.Search }
 	cRoleApi      struct{ *config.Search }
 	cRoleMenu     struct{ *config.Search }
-	cDict         struct{ *config.Search }
 	cFile         struct{ *config.Search }
 	cAdmin        struct{ *config.Search }
 	cOperationLog struct{ *config.Search }
@@ -59,6 +57,14 @@ func (s cSys) Level1(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.OkData(level1, r)
+}
+
+func (s cSys) GetDictByKey(r *ghttp.Request) {
+	data, err := sys.DictGetByKey(r.Context(), r.Get("key").String())
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(data, r)
 }
 
 // ---role-------------------------------------------------------------------
@@ -388,79 +394,6 @@ func (c *cAdmin) UpdatePwdWithoutOldPwd(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.Ok(r)
-}
-
-// --- Dict ------------------------------------------------------------------
-
-var Dict = &cDict{Search: &config.Search{
-	T1: "s_dict", OrderBy: "t1.id desc", SearchFields: "t1.*",
-	Fields: []*config.Field{
-		{Name: "k", SearchType: 2, QueryName: "k"}, {Name: "group", SearchType: 1, QueryName: "group"}, {Name: "type", SearchType: 1, QueryName: "type"}, {Name: "status", SearchType: 1, QueryName: "status"},
-	},
-}}
-
-func (c *cDict) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_dict.html", g.Map{"icon": icon})
-}
-func (c *cDict) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *cDict) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *cDict) Post(r *ghttp.Request) {
-	d := entity.Dict{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cDict) Put(r *ghttp.Request) {
-	d := entity.Dict{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cDict) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-
-func (c *cDict) GetByKey(r *ghttp.Request) {
-	s := r.Get("key").String()
-	if s == "" {
-		res.Err(consts.ErrParamEmpty, r)
-	}
-	v, err := sys.DictGetByKey(r.Context(), s)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(v, r)
 }
 
 // --- File -------------------------------------------------------------------
