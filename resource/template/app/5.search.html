@@ -1,9 +1,0 @@
-<label v-for="i in pageConf.fields" class="input">
-    <div v-if="i.search" style="display: inline">
-        <span v-text="i.label"></span>
-        <select v-if="i.type=='select'" v-model="search[i.field]" @change="getList()">
-            <option v-for="j in i.options" :value="j.value" v-text="j.label"></option>
-        </select>
-        <input v-else v-model="search[i.field]" autocomplete="off" @keyup.enter="getList()">
-    </div>
-</label>
