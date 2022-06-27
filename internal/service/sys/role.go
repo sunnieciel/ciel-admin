@@ -9,6 +9,14 @@ import (
 	"strings"
 )
 
+func ClearRoleApi(ctx context.Context, rid interface{}) error {
+	_, err := dao.Role.GetById(ctx, rid)
+	if err != nil {
+		return err
+	}
+	_, err = dao.RoleApi.Ctx(ctx).Delete("rid", rid)
+	return err
+}
 func RoleNoMenu(ctx context.Context, rid interface{}) (interface{}, error) {
 	return dao.RoleMenu.RoleNoMenu(ctx, rid)
 }
@@ -47,10 +55,10 @@ func Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
 	d = append(d, menus...)
 	return d, err
 }
-func Roles(ctx context.Context) (gdb.Result, error) {
+func Roles(ctx context.Context) (gdb.List, error) {
 	all, err := dao.Role.Ctx(ctx).All()
 	if err != nil {
 		return nil, err
 	}
-	return all, nil
+	return all.List(), nil
 }

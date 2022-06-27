@@ -15,6 +15,7 @@ type GenConf struct {
 	AddBtn     int
 	UpdateBtn  int
 	DelBtn     int
+	ShowStatus int // 展示状态  0是 1否
 	UrlPrefix  string
 
 	T1, T2, T3, T4, T5, T6 string

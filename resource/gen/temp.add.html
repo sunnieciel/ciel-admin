@@ -26,15 +26,7 @@
                 <form class="cell" method="post" action="/menu/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
                         [tr]
-                        <tr>
-                            <td align='right'>状态</td>
-                            <td>
-                                <select name='status'>
-                                    <option value='1' selected class="tag-info">开启</option>
-                                    <option value='2' class="tag-danger">关闭</option>
-                                </select>
-                            </td>
-                        </tr>
+                        [status]
                         <tr>
                             <td></td>
                             <td>

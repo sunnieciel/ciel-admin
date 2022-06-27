@@ -264,33 +264,33 @@ h2 {
 }
 
 .tag-info {
-    background-color: #f4f4f5;
-    color: #909399;
-    border: 1px solid #e9e9eb;
+    background-color: #f4f4f5 !important;
+    color: #909399 !important;
+    border: 1px solid #e9e9eb !important;
 }
 
 .tag-primary {
-    background-color: #ecf5ff;
-    color: #409eff;
-    border: 1px solid #d9ecff;
+    background-color: #ecf5ff !important;
+    color: #409eff !important;
+    border: 1px solid #d9ecff !important;
 }
 
 .tag-warning {
-    background-color: #fdf6ec;
-    color: #e6a23c;
-    border: 1px solid #faecd8;
+    background-color: #fdf6ec !important;
+    color: #e6a23c !important;
+    border: 1px solid #faecd8 !important;
 }
 
 .tag-success {
-    background-color: #f0f9eb;
-    color: #67c23a;
-    border: 1px solid #e1f3d8;
+    background-color: #f0f9eb !important;
+    color: #67c23a !important;
+    border: 1px solid #e1f3d8 !important;
 }
 
 .tag-danger {
-    background-color: #fef0f0;
-    color: #f56c6c;
-    border: 1px solid #fab6b6;
+    background-color: #fef0f0 !important;
+    color: #f56c6c !important;
+    border: 1px solid #fab6b6 !important;
 }
 
 .btn-info {

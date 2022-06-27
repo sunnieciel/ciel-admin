@@ -380,3 +380,73 @@ Stack:
 2022-06-26 16:47:04.312 [WARN] {c9d0baa7571ffc16ff62c428a81fbf32} 菜单路径已存在,未执行插入菜单操作 
 2022-06-26 16:47:07.282 [INFO] Server start at :http://localhost:1211/login 
 2022-06-26 19:23:25.853 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:25:25.927 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:30:22.518 [DEBU] {d3c1342b872bfc162423c6104858bf1c} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:30:22.518 [DEBU] {d3c1342b872bfc162423c6104858bf1c} 检查二级菜单是否存在 
+2022-06-26 20:30:22.518 [WARN] {d3c1342b872bfc162423c6104858bf1c} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:31:36.747 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:33:07.831 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:33:32.966 [DEBU] {8859d182b32bfc1615658707ee0b6fef} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:33:32.966 [DEBU] {8859d182b32bfc1615658707ee0b6fef} 检查二级菜单是否存在 
+2022-06-26 20:33:32.966 [WARN] {8859d182b32bfc1615658707ee0b6fef} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:33:36.855 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:33:48.520 [DEBU] {728ebf21b72bfc16bb1ea876886a220c} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:33:48.520 [DEBU] {728ebf21b72bfc16bb1ea876886a220c} 检查二级菜单是否存在 
+2022-06-26 20:33:48.521 [WARN] {728ebf21b72bfc16bb1ea876886a220c} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:33:51.478 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:34:21.502 [DEBU] {0fe5d7cfbe2bfc166c5fb2382c533892} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:34:21.503 [DEBU] {0fe5d7cfbe2bfc166c5fb2382c533892} 检查二级菜单是否存在 
+2022-06-26 20:34:21.503 [WARN] {0fe5d7cfbe2bfc166c5fb2382c533892} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:34:24.418 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:35:24.483 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:35:32.145 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:36:03.452 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:36:06.491 [DEBU] {06786f41d72bfc16ae205232e6bd45eb} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:36:06.491 [DEBU] {06786f41d72bfc16ae205232e6bd45eb} 检查二级菜单是否存在 
+2022-06-26 20:36:06.492 [WARN] {06786f41d72bfc16ae205232e6bd45eb} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:36:09.401 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:37:13.885 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:37:19.538 [DEBU] {c57a6443e82bfc161d0a2914e460199a} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:37:19.538 [DEBU] {c57a6443e82bfc161d0a2914e460199a} 检查二级菜单是否存在 
+2022-06-26 20:37:19.538 [WARN] {c57a6443e82bfc161d0a2914e460199a} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:37:22.501 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:46:22.707 [DEBU] {09c3e9ba662cfc16421316323dad63aa} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:46:22.707 [DEBU] {09c3e9ba662cfc16421316323dad63aa} 检查二级菜单是否存在 
+2022-06-26 20:46:22.708 [WARN] {09c3e9ba662cfc16421316323dad63aa} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:46:25.658 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:49:48.265 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:52:05.222 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:52:37.510 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:54:26.647 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:54:39.202 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:55:08.781 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:56:29.792 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:56:34.069 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:58:03.786 [DEBU] {38588cf6092dfc1681ac435fb43ab729} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:58:03.786 [DEBU] {38588cf6092dfc1681ac435fb43ab729} 检查二级菜单是否存在 
+2022-06-26 20:58:03.786 [WARN] {38588cf6092dfc1681ac435fb43ab729} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:58:07.683 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 20:59:46.692 [DEBU] {910b03ec212dfc164b4f1b65cd661e46} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 20:59:46.692 [DEBU] {910b03ec212dfc164b4f1b65cd661e46} 检查二级菜单是否存在 
+2022-06-26 20:59:46.693 [WARN] {910b03ec212dfc164b4f1b65cd661e46} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 20:59:50.513 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 21:00:12.417 [DEBU] {b4b592e9272dfc16b4d5905117d90cdb} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 21:00:12.417 [DEBU] {b4b592e9272dfc16b4d5905117d90cdb} 检查二级菜单是否存在 
+2022-06-26 21:00:12.417 [WARN] {b4b592e9272dfc16b4d5905117d90cdb} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 21:00:15.336 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 21:00:30.479 [DEBU] {36ed181e2c2dfc16f4870400b4f70c01} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 21:00:30.479 [DEBU] {36ed181e2c2dfc16f4870400b4f70c01} 检查二级菜单是否存在 
+2022-06-26 21:00:30.480 [WARN] {36ed181e2c2dfc16f4870400b4f70c01} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 21:00:33.453 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 21:01:07.340 [DEBU] {562439b3342dfc16173ec63655b3f3a6} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 21:01:07.340 [DEBU] {562439b3342dfc16173ec63655b3f3a6} 检查二级菜单是否存在 
+2022-06-26 21:01:07.340 [WARN] {562439b3342dfc16173ec63655b3f3a6} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 21:01:11.269 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 21:02:22.668 [DEBU] {a5f71c3d462dfc163526076f0b38936b} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 21:02:22.668 [DEBU] {a5f71c3d462dfc163526076f0b38936b} 检查二级菜单是否存在 
+2022-06-26 21:02:22.669 [WARN] {a5f71c3d462dfc163526076f0b38936b} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 21:02:26.638 [INFO] Server start at :http://localhost:1211/login 
+2022-06-26 21:02:41.350 [DEBU] {ccc5a5964a2dfc16f225c8508bf02d40} 查询一级菜单，子菜单最大排序为1 
+2022-06-26 21:02:41.350 [DEBU] {ccc5a5964a2dfc16f225c8508bf02d40} 检查二级菜单是否存在 
+2022-06-26 21:02:41.351 [WARN] {ccc5a5964a2dfc16f225c8508bf02d40} 菜单路径已存在,未执行插入菜单操作 
+2022-06-26 21:02:45.278 [INFO] Server start at :http://localhost:1211/login 

@@ -1,34 +1,26 @@
 package controller
 
 import (
+	"ciel-admin/internal/consts"
 	"ciel-admin/internal/model/bo"
-	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/sys"
-	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/res"
-	"ciel-admin/utility/utils/xparam"
+	"ciel-admin/utility/utils/xurl"
 	"errors"
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 	"sort"
 )
 
 type (
-	home          struct{}
-	cSys          struct{}
-	gen           struct{}
-	role          struct{ *config.Search }
-	cRoleApi      struct{ *config.Search }
-	cRoleMenu     struct{ *config.Search }
-	cFile         struct{ *config.Search }
-	cAdmin        struct{ *config.Search }
-	cOperationLog struct{ *config.Search }
-	ws            struct{}
+	home struct{}
+	cSys struct{}
+	gen  struct{}
+	ws   struct{}
 )
 
 var (
@@ -67,188 +59,8 @@ func (s cSys) GetDictByKey(r *ghttp.Request) {
 	res.OkData(data, r)
 }
 
-// ---role-------------------------------------------------------------------
-
-var Role = &role{Search: &config.Search{
-	T1: "s_role", Fields: []*config.Field{
-		{Name: "id"},
-		{Name: "name"},
-		{Name: "created_at"},
-		{Name: "updated_at"},
-	},
-}}
-
-func (c *role) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *role) Post(r *ghttp.Request) {
-	d := entity.Role{}
-	_ = r.Parse(&d)
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *role) Put(r *ghttp.Request) {
-	d := entity.Role{}
-	_ = r.Parse(&d)
-	if err := sys.Update(r.Context(), c.T1, d.Id, g.Map{"name": d.Name}); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *role) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *role) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-
-func (c *role) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_role.html", g.Map{"icon": icon})
-}
-
-func (c *role) Roles(r *ghttp.Request) {
-	data, err := sys.Roles(r.Context())
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-
-// ---roleApi-------------------------------------------------------------------
-
-var RoleApi = &cRoleApi{Search: &config.Search{
-	T1: "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
-	SearchFields: "t1.*,t2.name r_name,t3.url url ,t3.group,t3.method,t3.desc ", Fields: []*config.Field{
-		{Name: "id"},
-		{Name: "rid"},
-		{Name: "aid"},
-		{Name: "t2.name", QueryName: "r_name"},
-		{Name: "t3.url"},
-	},
-}}
-
-func (c *cRoleApi) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *cRoleApi) Post(r *ghttp.Request) {
-	var d struct {
-		Rid int
-		Aid []int
-	}
-	_ = r.Parse(&d)
-	if err := sys.AddRoleApi(r.Context(), d.Rid, d.Aid); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cRoleApi) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_role_api.html", g.Map{"icon": icon})
-}
-func (c *cRoleApi) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-
 // ---roleMenu-------------------------------------------------------------------
 
-var RoleMenu = &cRoleMenu{Search: &config.Search{
-	T1:           "s_role_menu",
-	T2:           "s_role  t2 on t1.rid = t2.id",
-	T3:           "s_menu t3 on t1.mid = t3.id",
-	OrderBy:      "t1.id desc",
-	SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
-	Fields: []*config.Field{
-		{Name: "rid", SearchType: 1},
-	},
-}}
-
-func (c *cRoleMenu) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_role_menu.html", g.Map{"icon": icon})
-}
-func (c *cRoleMenu) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *cRoleMenu) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *cRoleMenu) Post(r *ghttp.Request) {
-	var d struct {
-		Rid int
-		Mid []int
-	}
-	_ = r.ParseForm(&d)
-	if err := sys.AddRoleMenu(r.Context(), d.Rid, d.Mid); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cRoleMenu) Put(r *ghttp.Request) {
-	d := entity.RoleMenu{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cRoleMenu) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
 func (c *cRoleMenu) RoleNoMenus(r *ghttp.Request) {
 	rid := r.GetQuery("rid")
 	data, err := sys.RoleNoMenu(r.Context(), rid)
@@ -265,74 +77,9 @@ func (c *cRoleMenu) RoleNoApis(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
-func (c *cRoleMenu) CurrentMenus(r *ghttp.Request) {
-	getAdmin, err := sys.GetAdmin(r)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(getAdmin.Menus, r)
-}
 
 //  ---admin-------------------------------------------------------------------
 
-var Admin = &cAdmin{Search: &config.Search{
-	T1: "s_admin", T2: "s_role t2 on t1.rid = t2.id", OrderBy: "t1.id desc", SearchFields: "t1.id,t1.uname,t1.rid,t1.status,t1.created_at,t1.updated_at,t2.name role_name",
-	Fields: []*config.Field{
-		{Name: "uname", SearchType: 2, QueryName: "uname"}, {Name: "t2.id", SearchType: 1, QueryName: "rid"}, {Name: "status", SearchType: 1, QueryName: "status"},
-	},
-}}
-
-func (c *cAdmin) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_admin.html", g.Map{"icon": icon})
-}
-func (c *cAdmin) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *cAdmin) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *cAdmin) Post(r *ghttp.Request) {
-	d := entity.Admin{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cAdmin) Put(r *ghttp.Request) {
-	d := entity.Admin{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cAdmin) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
 func (c *cAdmin) LoginPage(r *ghttp.Request) {
 	res.Page(r, "login.html")
 }
@@ -391,145 +138,6 @@ func (c *cAdmin) UpdatePwdWithoutOldPwd(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	if err := sys.UpdateAdminPwdWithoutOldPwd(r.Context(), d.Id, d.Pwd); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-
-// --- File -------------------------------------------------------------------
-
-var File = &cFile{Search: &config.Search{
-	T1: "s_file", OrderBy: "t1.id desc", SearchFields: "t1.*",
-	Fields: []*config.Field{
-		{Name: "url", SearchType: 2, QueryName: "url"}, {Name: "group", SearchType: 1, QueryName: "group"}, {Name: "status", SearchType: 1, QueryName: "status"},
-	},
-}}
-
-func (c *cFile) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_file.html", g.Map{"icon": icon})
-}
-func (c *cFile) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *cFile) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *cFile) Post(r *ghttp.Request) {
-	d := entity.File{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cFile) Put(r *ghttp.Request) {
-	d := entity.File{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cFile) Del(r *ghttp.Request) {
-	f, err := sys.GetFileById(r.Context(), xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	path, err := g.Cfg().Get(r.Context(), "server.rootFilePath")
-	if err != nil {
-		res.Err(err, r)
-	}
-	p := gfile.Pwd() + path.String() + "/" + f.Url
-	if gfile.Exists(p) && gfile.IsFile(p) {
-		_ = gfile.Remove(p)
-	}
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cFile) Upload(r *ghttp.Request) {
-	if err := sys.UploadFile(r.Context(), r); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-
-// --- OperationLog ------------------------------------------------------------------------
-
-var OperationLog = &cOperationLog{Search: &config.Search{
-	T1: "s_operation_log", T2: "s_admin t2 on t1.uid = t2.id", OrderBy: "t1.id desc", SearchFields: "t1.*,t2.uname",
-	Fields: []*config.Field{
-		{Name: "t2.uname", SearchType: 2, QueryName: "uname"}, {Name: "content", SearchType: 2, QueryName: "content"}, {Name: "method", SearchType: 1, QueryName: "method"}, {Name: "uri", SearchType: 2, QueryName: "uri"}, {Name: "ip", SearchType: 2, QueryName: "ip"},
-	},
-}}
-
-func (c *cOperationLog) Path(r *ghttp.Request) {
-	icon, err := sys.Icon(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.Page(r, "/sys/s_operation_log.html", g.Map{"icon": icon})
-}
-func (c *cOperationLog) List(r *ghttp.Request) {
-	page, size := res.GetPage(r)
-	c.Page = page
-	c.Size = size
-	total, data, err := sys.List(r.Context(), c.Search)
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkPage(page, size, total, data, r)
-}
-func (c *cOperationLog) GetById(r *ghttp.Request) {
-	data, err := sys.GetById(r.Context(), c.T1, xparam.ID(r))
-	if err != nil {
-		res.Err(err, r)
-	}
-	res.OkData(data, r)
-}
-func (c *cOperationLog) Post(r *ghttp.Request) {
-	d := entity.OperationLog{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Add(r.Context(), c.T1, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cOperationLog) Put(r *ghttp.Request) {
-	d := entity.OperationLog{}
-	if err := r.Parse(&d); err != nil {
-		res.Err(err, r)
-	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
-	res.Ok(r)
-}
-func (c *cOperationLog) Del(r *ghttp.Request) {
-	array := r.Get("ids").Array()
-	if err := sys.DelBatch(r.Context(), c.T1, array); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -644,4 +252,13 @@ func (w ws) NoticeAdmin(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.Ok(r)
+}
+
+func (c *cFile) Upload(r *ghttp.Request) {
+	msg := fmt.Sprintf(consts.MsgPrimary, "上传成功")
+	if err := sys.UploadFile(r.Context(), r); err != nil {
+		msg = fmt.Sprintf(consts.MsgPrimary, err.Error())
+	}
+	r.Session.Set("msg", msg)
+	r.Response.RedirectTo("/file/path/add?" + xurl.ToUrlParams(r.GetQueryMap()))
 }

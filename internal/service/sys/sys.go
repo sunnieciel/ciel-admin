@@ -11,6 +11,7 @@ import (
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 	"strings"
 )
@@ -135,12 +136,15 @@ func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
 func NodeInfo(ctx context.Context, path string) (*entity.Menu, error) {
 	m, err := dao.Menu.GetByPath(ctx, path)
 	if err != nil {
-		return nil, err
+		m = &entity.Menu{}
+		//return nil, err
 	}
 	if m.Icon == "" {
-		m.Icon = consts.ImgPrefix + "/resource/image/golang.png"
+		m.Icon = gstr.Replace(consts.ImgPrefix, "/upload", "") + "resource/image/golang.png"
 	} else {
-		m.Icon = consts.ImgPrefix + m.Icon
+		if !strings.HasPrefix(m.Icon, "http") {
+			m.Icon = consts.ImgPrefix + m.Icon
+		}
 	}
 	if m.Desc == "" {
 		m.Desc = "暂无相关说明"

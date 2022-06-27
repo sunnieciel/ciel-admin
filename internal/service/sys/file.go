@@ -3,7 +3,6 @@ package sys
 import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/entity"
-	"ciel-admin/utility/utils/res"
 	"context"
 	"errors"
 	"fmt"
@@ -19,7 +18,7 @@ import (
 func UploadFile(ctx context.Context, r *ghttp.Request) error {
 	files := r.GetUploadFiles("file")
 	if len(files) == 0 {
-		res.Err(errors.New("file can't be empty"), r)
+		return errors.New("file can't be empty")
 	}
 	for _, file := range files {
 		fileName := fmt.Sprint(grand.S(6), path.Ext(file.Filename))

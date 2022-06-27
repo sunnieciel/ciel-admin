@@ -274,33 +274,33 @@ h2 {
 }
 
 .tag-info {
-    background-color: rgba(144, 147, 153, 0.1);
-    color: #909399;
-    border: 1px solid rgba(144, 147, 153, 0.2);
+    background-color: rgba(144, 147, 153, 0.1) !important;
+    color: #909399 !important;
+    border: 1px solid rgba(144, 147, 153, 0.2) !important;
 }
 
 .tag-primary {
-    background-color: rgba(0, 173, 255, 0.1);
-    color: #00adff;
-    border: 1px solid rgba(0, 173, 255, 0.2);
+    background-color: rgba(0, 173, 255, 0.1) !important;
+    color: #00adff !important;
+    border: 1px solid rgba(0, 173, 255, 0.2) !important;
 }
 
 .tag-warning {
-    background-color: rgba(230, 162, 60, 0.1);
-    color: #e6a23c;
-    border: 1px solid rgba(230, 162, 60, 0.2);
+    background-color: rgba(230, 162, 60, 0.1) !important;
+    color: #e6a23c !important;
+    border: 1px solid rgba(230, 162, 60, 0.2) !important;
 }
 
 .tag-success {
-    background-color: rgba(103, 194, 58, 0.1);
-    color: #67c23a;
-    border: 1px solid rgba(103, 194, 58, 0.2);
+    background-color: rgba(103, 194, 58, 0.1) !important;
+    color: #67c23a !important;
+    border: 1px solid rgba(103, 194, 58, 0.2) !important;
 }
 
 .tag-danger {
-    background-color: #373039;
-    color: #f56c6c;
-    border: 1px solid #76444a;
+    background-color: #373039 !important;
+    color: #f56c6c !important;
+    border: 1px solid #76444a !important;
 }
 
 /*desc*/
@@ -355,6 +355,7 @@ h2 {
     background: linear-gradient(to bottom, #99abc5 0, #697585 100%);
     border: 1px solid #697585;
 }
+
 .btn-info:hover {
     background-image: linear-gradient(#99abc5 0, #697585 60%);
 }

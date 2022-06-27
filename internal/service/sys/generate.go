@@ -272,13 +272,16 @@ func genHtml(ctx context.Context, c *bo.GenConf) error {
 	return nil
 }
 func genEdit(ctx context.Context, c *bo.GenConf) error {
+	structNameLower := gstr.CaseCamelLower(c.StructName)
 	editTemp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.edit.html"))
 	pageName := c.PageName
 	editTemp = gstr.Replace(editTemp, "[pageName]", pageName)
-	// menu
-	editTemp = gstr.Replace(editTemp, "menu", gstr.CaseCamelLower(c.StructName))
+	editTemp = gstr.Replace(editTemp, "menu", structNameLower)
 	tr := ""
 	for _, i := range c.Fields {
+		if i.EditHide == 1 {
+			continue
+		}
 		switch i.Name {
 		case "id", "status", "created_at", "updated_at":
 			continue
@@ -287,12 +290,17 @@ func genEdit(ctx context.Context, c *bo.GenConf) error {
 		if label == "" {
 			label = i.Name
 		}
+		readonly := ""
+		if i.EditDisabled == 1 {
+			readonly = "readonly"
+		}
 		switch i.FieldType {
 		case "select":
 			tr += fmt.Sprintf("<tr><td align='right'>%s</td><td>", label)
-			temp := fmt.Sprintf("<select name='%s'>", i.Name)
+			temp := fmt.Sprintf("<select name='%s' %s>", i.Name, readonly)
 			for _, j := range i.Options {
-				temp += fmt.Sprintf("<option value='%s' {{if eq .Session.%s_edit.%s %s}} selected {{end}} class='%s'>%v</option>", j.Value, gstr.CaseCamelLower(c.StructName), i.Name, j.Value, j.Type, j.Label)
+				temp += fmt.Sprintf("<option value='%s' {{if eq .Session.%s_edit.%s %s}} selected {{end}} class='%s'>%v</option>",
+					j.Value, structNameLower, i.Name, j.Value, j.Type, j.Label)
 			}
 			temp += "</select>"
 			tr += temp
@@ -302,17 +310,16 @@ func genEdit(ctx context.Context, c *bo.GenConf) error {
 			}
 			tr += "</tr>"
 		case "textarea":
-			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><textarea name='%s'>{{.Session.%s_edit.%s}}</textarea></td>",
-				label, i.Name, gstr.CaseCamelLower(c.StructName), i.Name,
+			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><textarea name='%s' %s>{{.Session.%s_edit.%s}}</textarea></td>",
+				label, i.Name, structNameLower, readonly, i.Name,
 			)
 			if i.Comment != "" {
 				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
 			}
 			tr += "</tr>"
 		default:
-			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><input name='%s' value='{{.Session.%s_edit.%s}}'></td>",
-				label, i.Name, gstr.CaseCamelLower(c.StructName), i.Name,
-			)
+			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><input name='%s' value='{{.Session.%s_edit.%s}}' %s></td>",
+				label, i.Name, structNameLower, i.Name, readonly)
 			if i.Comment != "" {
 				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
 			}
@@ -323,7 +330,22 @@ func genEdit(ctx context.Context, c *bo.GenConf) error {
 
 	date := gtime.Now()
 	editTemp = gstr.Replace(editTemp, "[date]", date.String())
-	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), "/edit.html"))
+	// status
+	if c.ShowStatus == 0 {
+		editTemp = gstr.Replace(editTemp, "[status]", fmt.Sprintf(`<tr> 
+<td align='right'>状态</td>
+<td>
+<select name='status'> 
+<option value='1' {{if eq .Session.%s_edit.status 1}} selected {{end}}  class="tag-info">开启</option> 
+<option value='2' {{if eq .Session.%s_edit.status 2}} selected {{end}} class="tag-danger">关闭</option> 
+</select>
+</td>
+</tr>`, structNameLower, structNameLower))
+	} else {
+		editTemp = gstr.Replace(editTemp, "[status]", ``)
+	}
+
+	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", c.HtmlGroup, "/", structNameLower, "/edit.html"))
 	if err != nil {
 		return err
 	}
@@ -394,6 +416,13 @@ func genAdd(ctx context.Context, c *bo.GenConf) error {
 
 	date := gtime.Now()
 	addTemp = gstr.Replace(addTemp, "[date]", date.String())
+
+	// status
+	if c.ShowStatus == 0 {
+		addTemp = gstr.Replace(addTemp, "[status]", `<tr> <td align='right'>状态</td><td><select name='status'> <option value='1' selected class="tag-info">开启</option> <option value='2' class="tag-danger">关闭</option> </select></td> </tr>`)
+	} else {
+		addTemp = gstr.Replace(addTemp, "[status]", "")
+	}
 	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), "/add.html"))
 	if err != nil {
 		return err
@@ -413,18 +442,18 @@ func genIndex(ctx context.Context, c *bo.GenConf) error {
 	if c.AddBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[add]", ``)
 	} else {
-		indexTemp = gstr.Replace(indexTemp, "[add]", `<a class="mt-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus-square" aria-hidden="true"></i></a> `)
+		indexTemp = gstr.Replace(indexTemp, "[add]", `<a class="tag-info" href="{{.node.Path}}/add?{{toUrlParams .Query}}" > <i class="fa fa-plus" aria-hidden="true"></i></a> `)
 	}
 	if c.DelBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[del]", "")
 	} else {
-		indexTemp = gstr.Replace(indexTemp, "[del]", `<a href="#" method="delete" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
+		indexTemp = gstr.Replace(indexTemp, "[del]", `<a href="#"  onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
 `)
 	}
 	if c.UpdateBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[edit]", "")
 	} else {
-		indexTemp = gstr.Replace(indexTemp, "[edit]", `<a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>`)
+		indexTemp = gstr.Replace(indexTemp, "[edit]", `<a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>`)
 	}
 	// search
 	search := ``
@@ -433,22 +462,25 @@ func genIndex(ctx context.Context, c *bo.GenConf) error {
 			continue
 		}
 		label := i.Label
-		name := i.Name
 		if label == "" {
 			label = i.Name
 		}
+
+		queryName := i.QueryName
+		if queryName == "" {
+			queryName = i.Name
+		}
 		switch i.FieldType {
 		case "select":
-			search += fmt.Sprintf("<label class='input'>%s <select type='text' name='api_method' value='{{.Session.api_method}}' onchange='this.form.submit()'>\n", label)
-			search += "                        <option value='' class='tag-info'>请选择</option>\n"
+			search += fmt.Sprintf("<label class='input'>%s <select type='text' name='%s_%s' value='{{.Session.%s_%s}}' onchange='this.form.submit()'>", label, structNameLower, queryName, structNameLower, queryName)
+			search += "<option value='' class='tag-info'>请选择</option>"
 			for _, j := range i.Options {
-				search += fmt.Sprintf("                        <option value='%s' {{if eq .Query.%s_%s %s}} selected {{end}} class='%s'>%s</option>\n", j.Value, gstr.CaseCamelLower(c.StructName), name, j.Value, j.Type, j.Label)
+				search += fmt.Sprintf("<option value='%s' {{if eq .Query.%s_%s %s}} selected {{end}} class='%s'>%s</option>", j.Value, structNameLower, queryName, j.Value, j.Type, j.Label)
 			}
-			search += "                    </select></label>\n"
+			search += "</select></label>"
 		default:
-			search += fmt.Sprintf(`<label class="input">%s <input type="text" name="%s_%s" value="{{.Session.%s_%s}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    `,
-				label, structNameLower, name, structNameLower, name,
+			search += fmt.Sprintf(`<label class="input">%s <input type="text" name="%s_%s" value="{{.Session.%s_%s}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>`,
+				label, structNameLower, queryName, structNameLower, queryName,
 			)
 		}
 	}
@@ -457,7 +489,13 @@ func genIndex(ctx context.Context, c *bo.GenConf) error {
 	th := ""
 	td := ""
 	for _, i := range c.Fields {
-		name := i.Name
+		if i.NotShow == 1 {
+			continue
+		}
+		name := i.QueryName
+		if name == "" {
+			name = i.Name
+		}
 		label := i.Label
 		if label == "" {
 			label = i.Name
@@ -492,6 +530,15 @@ func genIndex(ctx context.Context, c *bo.GenConf) error {
 
 	date := gtime.Now()
 	indexTemp = gstr.Replace(indexTemp, "[date]", date.String())
+
+	// status
+	if c.ShowStatus == 0 {
+		indexTemp = gstr.Replace(indexTemp, "[status_label]", "<th>状态</th>")
+		indexTemp = gstr.Replace(indexTemp, "[status]", "<td>{{if eq .status 1}}<span class=\"tag-info\">正常</span>{{else}}<span class=\"tag-danger\">关闭</span>{{end}}</td>")
+	} else {
+		indexTemp = gstr.Replace(indexTemp, "[status_label]", "")
+		indexTemp = gstr.Replace(indexTemp, "[status]", "")
+	}
 	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", group, "/", structNameLower, "/index.html"))
 	if err != nil {
 		return err

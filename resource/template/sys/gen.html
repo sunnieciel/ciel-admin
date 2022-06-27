@@ -190,6 +190,16 @@
                                     </select></label>
                                 </div>
                             </div>
+                            <div class="flex-center">
+                                <span class="tag-danger">其他配置</span>
+                                <div>
+                                    <label class="input">展示状态 <select v-model="genConf.ShowStatus">
+                                        <option value="0">是</option>
+                                        <option value="1">否</option>
+                                    </select></label>
+                                </div>
+                            </div>
+
                             <input class="btn-info mr-12" @click="addRow()" type="button" value="添加一行">
                             <input class="btn-warning" type="button" @click="submitGenCode()" value="生成代码">
                         </div>
@@ -247,8 +257,8 @@
                                 <span v-else-if="i.SearchType==9" class="tag-primary">日期(一天开始到结束)=</span>
                             </td>
                             <td class="text-center">
-                                <a href="#" @click="showFieldDetails(i)"><i class="fa fa-wrench" aria-hidden="true"></i></a>
-                                <a href="#" @click="removeRow(i)"><i class="fa fa-trash"></i></a>
+                                <a class="tag-info mr-3" href="#" @click="showFieldDetails(i)"><i class="fa fa-wrench" aria-hidden="true"></i></a>
+                                <a class="tag-danger" href="#" @click="removeRow(i)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -478,6 +488,7 @@
                     AddBtn: 0,
                     UpdateBtn: 0,
                     DelBtn: 0,
+                    ShowStatus: 0,
                     OrderBy: '',
                     QueryField: '',
                 },
@@ -507,7 +518,21 @@
                 this.tables = res.data
             },
             async getFields(table, index) {
-                this.genConf = {}
+                this.genConf = {
+                    T1: '', T2: '', T3: '', T4: '', T5: '', T6: '',
+                    Icon: '',
+                    StructName: '',
+                    HtmlGroup: '',
+                    PageName: '',
+                    PageDesc: '',
+                    UrlPrefix: '',
+                    AddBtn: 0,
+                    UpdateBtn: 0,
+                    DelBtn: 0,
+                    ShowStatus: 0,
+                    OrderBy: '',
+                    QueryField: '',
+                }
                 this.assistant.tableItemActive = index
                 if (table === '') {
                     return

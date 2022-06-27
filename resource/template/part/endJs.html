@@ -1,6 +1,23 @@
 <script src="/resource/js/js.cookie.min.js"></script>
 <script src="/resource/js/jquery-3.6.0.min.js"></script>
 <script>
+    jQuery.each(["put", "delete"], function (i, method) {
+        jQuery[method] = function (url, data, callback, type) {
+            if (jQuery.isFunction(data)) {
+                type = type || callback;
+                callback = data;
+                data = undefined;
+            }
+            return jQuery.ajax({
+                url: url,
+                type: method,
+                dataType: 'json',
+                data: data,
+                success: callback
+            });
+        };
+    });
+
     // 添加默认选中
     $(".sub-nav a").hide()
     let current = $(".sub-nav a[href='" + location.pathname + "']"); // 找到张.sub-nav 下面地址为当前路径的url
@@ -50,5 +67,4 @@
             }
         });
     }
-
 </script>
