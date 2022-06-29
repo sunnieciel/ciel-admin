@@ -1,13 +1,43 @@
 # free key admin 自由钥匙 - 个人的后台管理系统
 
-## 说明
+## 框架追求
+
+用越少的技术、越简单的方式来实现自己的个人后台管理系统。另外不妨将此作为自己的秘密基地，记录自己的事情，写下自己喜欢的格言等等)。
+
+## v.1.1.0 更新计划(进行中)
+
+目前一直在修改、更新、整理，相关改变会比较大。
+
+**前端**
+
+- 将vue去掉，采用全服务端渲染方式。（做自己小项目使用的技术或框架,自然是越简单,越少越好。）
+- css整理为3个文件
+    - base.css 对结构进行描述
+    - white.css white模式色彩描述
+    - dark.css dark模式色彩描述
+
+**后端**
+
+- 随着goframe更新到v2.0.6 框架同时进行了更新。
+- `service`层使用包方式进行划分。 说明如下
+
+> `service` 层使用包方式进行划分。这样划分的话，就需要定义好各个模块的依赖关系。每个模块做自己的逻辑事情，不可循环依赖。
+> 查询事务都交给`dao`层处理。`service`层只做自己分内的逻辑业务。
+
+## 框架说明
 
 free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后台管理系统，提供了权限管理,CURD文件生成,本地文件上传等基本功能。
 
 使用到的技术:
 
-- 后端:goframe v2
-- 前端:vue3,element-plus,jquery-3.6.0
+- 后端
+    - goframe v2.0.6
+- 前端
+    - jquery-3.6.0
+    - html
+    - css3
+    - javascript
+    - vue3,element-plus(这两个框架只在生成文件页面`gen.html`有使用。)
 
 ## 想要实现的基本功能有这些
 
@@ -35,6 +65,7 @@ Dialog 修改或添加数据 ![](./documents/home3.png) ![](./documents/home4.pn
     - 通过官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选择版本 v2.0.0
 
 ## 项目结构
+
 - internal
     - cmd
     - consts
