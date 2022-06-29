@@ -36,10 +36,10 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
     - mysql
     - redis
 - 前端
-    - jquery-3.6.0
     - html
     - css3
     - javascript
+    - jquery-3.6.0
     - vue3,element-plus(这两个框架只在生成文件页面`gen.html`有使用。)
 
 ## 想要实现的基本功能有这些
