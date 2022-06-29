@@ -64,8 +64,7 @@ Dialog 修改或添加数据 ![](./documents/home3.png) ![](./documents/home4.pn
 
 1. golang环境 安装
 2. mysql 安装
-3. gf 安装
-    - 通过官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选择版本 v2.0.0
+3. gf 安装  `https://goframe.org/pages/viewpage.action?pageId=1115782` 建议选择版本 v2.0.6
 
 ## 项目结构
 
