@@ -406,6 +406,22 @@ a:hover {
     text-decoration: none !important;
 }
 
+.tag-blue {
+    font-weight: 500;
+    display: inline-flex;
+    cursor: pointer;
+    border-radius: 9px;
+    padding: 3px 12px;
+    transition: all 0.5s ease;
+    text-align: center;
+    word-break: keep-all;
+    line-height: 1;
+}
+
+.tag-blue:hover {
+    text-decoration: underline !important;
+}
+
 /*s-icon*/
 .s-icon {
     width: 48px;

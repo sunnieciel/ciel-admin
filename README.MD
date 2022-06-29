@@ -9,14 +9,11 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 - 后端:goframe v2
 - 前端:vue3,element-plus,jquery-3.6.0
 
-数据获取方式是服务端渲染页面，前端 ajax 请求数据。（没有使用 vue 单独创建一个项目，整个项目一键启动。）
-
 ## 想要实现的基本功能有这些
 
 - 角色管理 ok
 - 字典管理 ok
 - 本地文件上传 ok
-- 夜间模式 ok
 - CURD文件生成 ok
 - WebSocket后台聊天功能 todo
 - 记事本功能 todo
@@ -38,7 +35,6 @@ Dialog 修改或添加数据 ![](./documents/home3.png) ![](./documents/home4.pn
     - 通过官网下载安装 https://goframe.org/pages/viewpage.action?pageId=1115782 建议选择版本 v2.0.0
 
 ## 项目结构
-
 - internal
     - cmd
     - consts
@@ -59,12 +55,13 @@ Dialog 修改或添加数据 ![](./documents/home3.png) ![](./documents/home4.pn
 
 ## 快速开始
 
-1. 创建数据库并导入项目根目录下的`ciel.sql`
+1. 创建数据库并导入项目`resource`目录下的`ciel.sql`
 2. 修改`config.yaml`文件配置
-    - 数据库配置 将数据库信息替换成您自己的
+    - mysql 数据库配置 将数据库信息替换成您自己的
+    - redis
 
 3. 启动项目：到项目根目录下执行 `gf run main.go`
-4. 浏览器打开 http://localhost:1211/login  默认用户名 `admin` 密码 `1`
+4. 浏览器打开 http://localhost:1211/login  默认用户名 `ciel` 密码 `1`
 
 ## 使用的框架
 

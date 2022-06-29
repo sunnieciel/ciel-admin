@@ -7,9 +7,9 @@ package controller
 import (
 
 	"[mod]/internal/consts"
+	"[mod]/internal/model/bo"
 	"[mod]/internal/model/entity"
 	"[mod]/internal/service/sys"
-	"[mod]/manifest/config"
 	"[mod]/utility/utils/res"
 	"[mod]/utility/utils/xparam"
 	"[mod]/utility/utils/xurl"
@@ -18,11 +18,11 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-type cMenu struct{ *config.Search }
+type cMenu struct{ *bo.Search }
 
 var Menu = &cMenu{Search: &config.Search{
 	[tables], OrderBy: "[orderBy]", SearchFields: "[searchFields]",
-	Fields: []*config.Field{
+	Fields: []*bo.Field{
 		[fields]
 	},
 }}

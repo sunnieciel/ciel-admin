@@ -303,6 +303,11 @@ h2 {
     border: 1px solid #76444a !important;
 }
 
+.tag-blue {
+    background-color: #253761 !important;
+    color: #00a0e9 !important;
+}
+
 /*desc*/
 .desc-1 {
     color: var(--desc-1-dark) !important;

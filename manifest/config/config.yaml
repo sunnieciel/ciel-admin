@@ -12,6 +12,8 @@ server:
   rootIp: "localhost"
   rootPath: "/home/holw/learn/ciel-admin/"
 
+home: "/menu/path"
+
 logger:
   path: "logs/default"
   level: "all"
@@ -46,5 +48,3 @@ gfcli:
         removePrefix: "s_"
         descriptionTag: true
         noModelComment: true
-
-home: "/menu/path"

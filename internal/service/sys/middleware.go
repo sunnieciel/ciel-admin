@@ -7,6 +7,7 @@ import (
 	"ciel-admin/utility/utils/xjwt"
 	"ciel-admin/utility/utils/xredis"
 	"errors"
+	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"net/http"
@@ -72,12 +73,15 @@ func AdminAction(r *ghttp.Request) {
 	uri := r.Router.Uri
 	ip := r.GetClientIp()
 	begin := time.Now().UnixMilli()
+	response := ""
 
 	switch method {
-	case "GET", "DELETE":
+	case "GET":
 		content = r.GetUrl()
+	case "DELETE":
+		content = fmt.Sprintf("删除记录ID %s", r.Get("id").String())
 	case "POST", "PUT":
-		content = r.GetBodyString()
+		content = fmt.Sprint(r.GetFormMap())
 		if content == "" {
 			content = r.Request.PostForm.Encode()
 		}
@@ -86,7 +90,6 @@ func AdminAction(r *ghttp.Request) {
 		}
 	}
 	r.Middleware.Next()
-	response := r.Response.BufferString()
 	useTime := time.Now().UnixMilli() - begin
 	data := g.Map{
 		"uid":      uid,

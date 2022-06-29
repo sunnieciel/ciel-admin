@@ -9,5 +9,4 @@ var (
 	ErrDataNotFound  = errors.New("数据不存在")
 	ErrNotAuth       = errors.New("未登录")
 	ErrUnameExist    = errors.New("用户名已存在")
-	ErrParamEmpty    = errors.New("参数不能为空")
 )

@@ -19,7 +19,6 @@ func HasPrefix(str interface{}, suffix string) bool {
 	s := gconv.String(str)
 	return strings.HasPrefix(s, suffix)
 }
-
 func BindFuncMap() gview.FuncMap {
 	return gview.FuncMap{
 		"hasPrefix":   HasPrefix,

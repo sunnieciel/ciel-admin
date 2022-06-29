@@ -41,7 +41,7 @@ func UploadFile(ctx context.Context, r *ghttp.Request) error {
 	}
 	for _, file := range files {
 		dbName := fmt.Sprintf("%s/%s/%s", group, datePre, file.Filename)
-		_, err := dao.File.Ctx(ctx).Insert(entity.File{
+		_, err = dao.File.Ctx(ctx).Insert(entity.File{
 			Url:    dbName,
 			Group:  gconv.Int(group),
 			Status: 1,

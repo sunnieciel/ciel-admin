@@ -3,8 +3,8 @@ package sys
 import (
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao"
+	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
-	"ciel-admin/manifest/config"
 	"ciel-admin/utility/utils/xstr"
 	"ciel-admin/utility/utils/xtime"
 	"context"
@@ -16,7 +16,14 @@ import (
 	"strings"
 )
 
-func List(ctx context.Context, c *config.Search) (count int, data gdb.List, err error) {
+func Init() {
+	get, err := g.Cfg().Get(gctx.New(), "server.imgPrefix")
+	if err != nil {
+		panic(err)
+	}
+	consts.ImgPrefix = get.String()
+}
+func List(ctx context.Context, c *bo.Search) (count int, data gdb.List, err error) {
 	db := g.DB().Ctx(ctx).Model(c.T1 + " t1")
 	if c.T2 != "" {
 		db = db.LeftJoin(c.T2)
@@ -133,6 +140,7 @@ func GetById(ctx context.Context, table, id interface{}) (gdb.Record, error) {
 	return one, nil
 }
 
+// NodeInfo 菜单信息
 func NodeInfo(ctx context.Context, path string) (*entity.Menu, error) {
 	m, err := dao.Menu.GetByPath(ctx, path)
 	if err != nil {
@@ -168,14 +176,16 @@ func Icon(ctx context.Context, path string) (string, error) {
 	}
 	return consts.ImgPrefix + icon, err
 }
-func Init() {
-	get, err := g.Cfg().Get(gctx.New(), "server.imgPrefix")
-	if err != nil {
-		panic(err)
-	}
-	consts.ImgPrefix = get.String()
-}
 
 func MenusLevel1(ctx context.Context) ([]gdb.Value, error) {
 	return dao.Menu.Ctx(ctx).Array("name", "pid=-1")
+}
+
+// operationLog
+
+func OperationLogClear(ctx context.Context) error {
+	if _, err := dao.OperationLog.Ctx(ctx).Delete("id is not null"); err != nil {
+		return err
+	}
+	return nil
 }
