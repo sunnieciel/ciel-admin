@@ -8794,7 +8794,7 @@
         slateblue: "#6a5acd",
         slategray: "#708090",
         slategrey: "#708090",
-        snow: "#fffafa",
+        white: "#fffafa",
         springgreen: "#00ff7f",
         steelblue: "#4682b4",
         tan: "#d2b48c",
