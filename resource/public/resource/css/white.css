@@ -3,7 +3,7 @@ html {
 }
 
 a {
-    background-color: rgba(255, 0, 0, 0);
+    background-color: transparent;
 }
 
 a:active, a:link, a:visited {
@@ -11,12 +11,12 @@ a:active, a:link, a:visited {
 }
 
 h2 {
-    border-bottom: 1px solid var(--white-04);
+    border-bottom: 1px solid var(--white-05);
 }
 
 hr {
-    color: var(--white-04);
-    background-color: var(--white-04);
+    color: var(--white-05);
+    background-color: var(--white-05);
 }
 
 /*------set ---------------------*/
@@ -25,41 +25,39 @@ hr {
 }
 
 .bg-2 {
-    background-color: var(--white-02);
-}
-
-.bg-3 {
     background-color: var(--white-04);
 }
 
-
-/*form*/
-.form, .form-group input {
-    color: var(--black-01);
-}
-
-
-.form-group input {
-    border: 1px solid var(--white-04);
-    background-color: var(--white-01);
+.bg-3 {
+    background-color: var(--white-05);
 }
 
 /*box*/
 .box {
     color: var(--steelblue-03);
     background-color: var(--white-01);
-    border-bottom: 1px solid var(--white-04);
+    border-bottom: 1px solid var(--white-05);
+}
+
+.page-info-01 {
+    color: var(--white-01) !important;
+    background-color: var(--steelblue-07);
+}
+
+.page-info-01 img {
+    width: 64px;
+    height: 64px;
 }
 
 /*cell*/
 .cell {
-    border-bottom: 1px solid var(--white-04);
-    color: var(--steelblue-03);
+    border-bottom: 1px solid var(--white-05);
+    color: var(--white-01);
 }
 
 
 .cell-hover:hover {
-    background-color: var(--white-03);
+    background-color: var(--white-02);
     box-shadow: var(--cell-hover-shadow);
 }
 
@@ -72,8 +70,8 @@ hr {
 }
 
 .cell-flag {
-    color: var(--silver-03);
-    border-right: 1px solid var(--white-04);
+    color: var(--gray-02);
+    border-right: 1px solid var(--white-05);
 }
 
 .cell-tools {
@@ -82,11 +80,11 @@ hr {
 
 /*link*/
 .link-1 {
-    color: var(--gray-02) !important;
+    color: var(--dusk-01) !important;
 }
 
 .link-1:hover {
-    color: var(--silver-03) !important;
+    color: var(--silver-05) !important;
 }
 
 .link-2 {
@@ -95,7 +93,7 @@ hr {
 
 .link-2:hover {
     color: var(--steelblue-03) !important;
-    background-color: var(--white-02) !important;
+    background-color: var(--white-04) !important;
 }
 
 .link-2-active {
@@ -109,15 +107,15 @@ hr {
 }
 
 .link-3 {
-    color: var(--gray-02);
+    color: var(--gray-02) !important;
 }
 
 .link-3:hover {
-    color: var(--steelblue-05);
+    color: var(--dusk-02) !important;
 }
 
 .link-4:hover {
-    color: var(--steelblue-02);
+    color: var(--steelblue-02) !important;
 }
 
 .link-5 {
@@ -127,7 +125,7 @@ hr {
 
 .link-5:hover {
     color: var(--black-01) !important;
-    background-color: var(--link-5-hover-bg);
+    background-color: var(--white-01-3);
 }
 
 .link-6 {
@@ -136,200 +134,200 @@ hr {
 
 .link-7:hover {
     color: var(--steelblue-05) !important;
-    border-bottom: 3px solid var(--white-03);
+    border-bottom: 3px solid var(--white-02);
 }
 
 /*tag*/
 .tag-2 {
     color: var(--white-01) !important;
-    background-color: var(--gray-04);
+    background-color: var(--silver-04);
 }
 
 .tag-2:hover {
-    background-color: var(--gray-03);
+    background-color: var(--silver-03);
 }
 
 .tag, .tag-3 {
-    color: var(--silver-03) !important;
-    background-color: var(--white-02) !important;
+    color: var(--gray-02) !important;
+    background-color: var(--white-04) !important;
 }
 
 .tag:hover, .tag-3:hover, .tag-normal {
     color: var(--gray-01) !important;
-    background-color: var(--white-04) !important;
+    background-color: var(--white-05) !important;
 }
 
 .tag-normal {
-    color: var(--silver-03) !important;
-    background-image: linear-gradient(var(--white-03), var(--white-01)) !important;
+    color: var(--gray-02) !important;
+    background-image: linear-gradient(var(--white-02), var(--white-01)) !important;
 }
 
 .tag-rare {
     color: var(--white-01) !important;
-    background-image: linear-gradient(var(--green-01), var(--green-06));
+    background-image: linear-gradient(var(--green-03), var(--green-04));
 }
 
 .tag-rare .tag-3 {
     color: var(--white-01) !important;
-    background-color: var(--green-06) !important;
+    background-color: var(--green-04) !important;
 }
 
 .tag-rare .tag-3:hover {
     transition: background-color 0.3s ease-in-out;
     color: var(--white-01) !important;
-    background-color: var(--green-06) !important;
+    background-color: var(--green-04) !important;
 }
 
 .tag-inherited {
     color: var(--white-01) !important;
-    background-image: linear-gradient(var(--blue-04), var(--blue-04));
+    background-image: linear-gradient(var(--blue-03), var(--blue-03));
 }
 
 .tag-inherited .tag-3 {
-    color: var(--blue-03) !important;
-    background-color: var(--blue-01) !important;
+    color: var(--blue-02) !important;
+    background-color: var(--blue-03) !important;
 }
 
 .tag-inherited .desc-1 {
-    color: var(--blue-02) !important;
+    color: var(--blue-01) !important;
 }
 
 .tag-inherited .tag-3:hover {
     transition: all 0.3s ease;
-    color: var(--blue-02) !important;
-    background-color: var(--blue-01) !important;
+    color: var(--blue-01) !important;
+    background-color: var(--blue-03) !important;
 }
 
 .tag-only {
-    color: var(--yellow-02) !important;
-    background-color: var(--yellow-01);
+    color: var(--yellow-01) !important;
+    background-color: var(--yellow-06);
 }
 
 .tag-only .tag-3 {
-    color: var(--yellow-02) !important;
-    background: var(--yellow-01) !important;
+    color: var(--yellow-01) !important;
+    background: var(--yellow-06) !important;
 }
 
 .tag-only .tag-3:hover {
     transition: background-color 0.3s ease-in-out;
-    color: var(--yellow-02) !important;
-    background: var(--yellow-01) !important;
+    color: var(--yellow-01) !important;
+    background: var(--yellow-06) !important;
 }
 
 .tag-only .desc-1 {
-    color: var(--yellow-02) !important;
+    color: var(--yellow-01) !important;
 }
 
 .tag-epic {
-    color: var(--brown-03) !important;
-    background-image: linear-gradient(var(--brown-01), var(--brown-02));
+    color: var(--brown-01) !important;
+    background-image: linear-gradient(var(--brown-02), var(--brown-04));
 }
 
 .tag-epic .tag-3 {
-    color: var(--brown-03) !important;
-    background: var(--brown-02) !important;
+    color: var(--brown-01) !important;
+    background: var(--brown-04) !important;
 }
 
 .tag-epic .tag-3:hover {
     transition: background-color 0.3s ease-in-out;
-    color: var(--brown-03) !important;
-    background: var(--brown-04) !important;
+    color: var(--brown-01) !important;
+    background: var(--brown-06) !important;
 }
 
 .tag-legend {
     color: #fff8e1 !important;
-    background-image: linear-gradient(var(--purple-01), var(--purple-02));
+    background-image: linear-gradient(var(--purple-03), var(--purple-04));
 }
 
 .tag-legend .tag-3 {
-    color: var(--purple-03) !important;
-    background: var(--purple-02) !important;
+    color: var(--purple-01) !important;
+    background: var(--purple-04) !important;
 }
 
 .tag-legend .tag-3:hover {
     transition: background-color 0.3s ease-in-out;
-    color: var(--purple-04) !important;
-    background-color: var(--purple-02) !important;
+    color: var(--purple-02) !important;
+    background-color: var(--purple-04) !important;
 }
 
 .tag-myth {
-    color: #fff8e1 !important;
-    background-image: linear-gradient(#f44336, #d50000);
+    color: var(--brown-01) !important;
+    background-image: linear-gradient(var(--brown-03), var(--brown-05));
 }
 
 .tag-myth .tag-3 {
-    color: #fbe9e7 !important;
-    background: #b71c1c !important;
+    color: var(--brown-01) !important;
+    background: var(--brown-05) !important;
 }
 
 .tag-myth .tag-3:hover {
-    color: #fff8e1 !important;
-    background: #f44336 !important;
+    color: var(--brown-01) !important;
+    background: var(--brown-03) !important;
 }
 
 .tag-info {
-    background-color: #f4f4f5 !important;
-    color: #909399 !important;
-    border: 1px solid #e9e9eb !important;
+    background-color: var(--white-04) !important;
+    color: var(--gray-01) !important;
+    border: 1px solid var(--white-03) !important;
 }
 
 .tag-primary {
-    background-color: var(--blue-02) !important;
-    color: var(--blue-01) !important;
-    border: 1px solid var(--blue-03) !important;
+    background-color: var(--blue-01) !important;
+    color: var(--blue-03) !important;
+    border: 1px solid var(--blue-02) !important;
 }
 
 .tag-warning {
-    background-color: var(--yellow-02) !important;
-    color: var(--yellow-01) !important;
-    border: 1px solid var(--yellow-03) !important;
+    background-color: var(--yellow-01) !important;
+    color: var(--yellow-06) !important;
+    border: 1px solid var(--yellow-02) !important;
 }
 
 .tag-success {
-    background-color: var(--green-02) !important;
-    color: var(--green-01) !important;
-    border: 1px solid var(--green-03) !important;
+    background-color: var(--green-01) !important;
+    color: var(--green-03) !important;
+    border: 1px solid var(--green-02) !important;
 }
 
 .tag-danger {
-    background-color: var(--red-02) !important;
-    color: var(--red-01) !important;
-    border: 1px solid var(--red-03) !important;
+    background-color: var(--red-01) !important;
+    color: var(--red-03) !important;
+    border: 1px solid var(--red-02) !important;
 }
 
 .tag-blue {
-    background-color: var(--blue-02) !important;
-    color: var(--blue-01) !important;
+    background-color: var(--blue-01) !important;
+    color: var(--blue-03) !important;
 }
 
 .btn-info {
     color: var(--steelblue-03) !important;
     background-color: var(--white-01);
     text-shadow: 0 1px 0 var(--white-01);
-    box-shadow: 0 1px 0 rgba(66, 66, 77, .1);
-    border: 1px solid rgba(80, 80, 90, .2);
-    border-bottom-color: rgba(80, 80, 90, .35);
+    box-shadow: 0 1px 0 var(--dusk-05);
+    border: 1px solid var(--dusk-07);
+    border-bottom-color: var(--dusk-04);
 }
 
 .btn-info:hover {
-    background-image: linear-gradient(#fff, #e2e2e2);
+    background-image: linear-gradient(var(--white-01), var(--white-05));
 }
 
 .btn-warning {
-    background-color: #fc0;
-    color: #532b17;
-    text-shadow: 0 1px 1px rgb(255 255 255 / 60%);
-    box-shadow: 0 1px 2px rgb(233 175 0 / 60%);
-    border: 1px solid rgba(200, 150, 0, .8);
-    border-bottom-color: rgba(80, 80, 90, .35);
+    background-color: var(--yellow-05);
+    color: var(--brown-08);
+    text-shadow: 0 1px 1px var(--silver-02);
+    box-shadow: 0 1px 2px var(--yellow-08);
+    border: 1px solid var(--yellow-09);
+    border-bottom-color: var(--dusk-04);
 }
 
 .btn-warning:hover {
-    background-color: #ffdf00;
-    color: #402112;
-    text-shadow: 0 1px 1px rgb(255 255 255 / 70%);
-    box-shadow: 0 1px 2px rgb(233 175 0 / 50%);
-    border: 1px solid #c89600;
+    background-color: var(--yellow-04);
+    color: var(--brown-07);
+    text-shadow: 0 1px 1px var(--silver-02);
+    box-shadow: 0 1px 2px var(--yellow-10);
+    border: 1px solid var(--yellow-07);
 }
 
 /*desc*/
@@ -338,64 +336,66 @@ hr {
 }
 
 .desc-2 {
-    color: var(--silver-03);
+    color: var(--gray-02);
     text-shadow: 0 1px 0 var(--white-01);
 }
 
 /*table*/
 .table-1 tr:nth-child(2n) {
-    background-color: #f8f8f8;
+    background-color: var(--white-04);
 }
 
 .table-1 tr:hover {
-    background-color: #eeeeee;
-    box-shadow: 6px 6px 6px rgba(224, 224, 224, 0.9) inset
+    background-color: var(--white-02);
+    box-shadow: 6px 6px 6px var(--white-07-9) inset
 }
 
 .table-1 td {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--white-05);
 }
 
+.table-add{
+
+    color: var(--dusk-06) !important;
+}
 /*table add*/
 .table-add td input, textarea, select {
-    border: 1px solid #ccc;
+    border: 1px solid var(--white-05);
 }
 
 .table-add td input:focus, textarea:focus, select:focus {
-    border: 1px solid #a6a6b0 !important;
+    border: 1px solid var(--gray-01) !important;
 }
 
 .msg-primary, .msg-warning {
-    color: #333;
+    color: var(--dusk-06);
 }
 
 .msg-primary {
-    background-color: #f3faff;
-    border-left: 5px solid #c7e8ff;
-    border-bottom: 1px solid var(--white-04);
+    background-color: var(--blue-01);
+    border-left: 5px solid var(--blue-02);
+    border-bottom: 1px solid var(--white-05);
 }
 
 .msg-warning {
-    background-color: #ffffc0;
-    border-left: 5px solid #fff000;
-    border-bottom: 1px solid var(--white-04);
+    background-color: var(--yellow-03);
+    border-left: 5px solid var(--yellow-04);
+    border-bottom: 1px solid var(--white-05);
+}
+
+.input {
+    color: var(--dusk-06);
 }
 
 /* input*/
 .input input, .input textarea, .input select {
-    color: var(--silver-02);
-    background-color: var(--white-02);
+    color: var(--silver-05);
+    background-color: var(--white-04);
     border: 1px solid var(--white-01);
 }
 
 .input input:focus, input:focus-visible {
-    border: 1px solid var(--silver-02);
-}
-
-/*nav*/
-.sub-nav {
-    background-color: var(--white-02);
-    border-bottom: 1px solid var(--white-04);
+    border: 1px solid var(--silver-05);
 }
 
 
@@ -403,31 +403,31 @@ hr {
 
 .top-right-mobile-menu {
     background-color: var(--white-01);
-    box-shadow: 0 2px 25px rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 25px var(--black-01-2);
 }
 
 /*color*/
 .color-gray {
-    color: var(--silver-03) !important;
+    color: var(--gray-02) !important;
 }
 
 .color-blue {
-    color: var(--blue-01) !important;
+    color: var(--blue-03) !important;
 }
 
 .color-green {
-    color: var(--green-06) !important;
+    color: var(--green-04) !important;
 }
 
 .color-red {
-    color: var(--red-01) !important;
+    color: var(--red-03) !important;
 }
 
 .color-white-1 {
     color: var(--white-01) !important;
 }
 
-.bg-color-dark {
+.bg-dark {
     background-color: var(--steelblue-07);
 }
 
@@ -438,15 +438,15 @@ hr {
 
 /*table*/
 .th-1, .td-1, .td-1-desc {
-    border-right: 1px solid var(--white-04);
-    border-bottom: 1px solid var(--white-04);
-    text-shadow: 0 1px 0 #fff;
-    background: linear-gradient(top, #f5f5f5 0, #e2e2e2 100%);
+    border-right: 1px solid var(--white-05);
+    border-bottom: 1px solid var(--white-05);
+    text-shadow: 0 1px 0 var(--white-01);
+    background: linear-gradient(top, var(--white-04) 0, var(--white-05) 100%);
 }
 
 .th-1 {
-    text-shadow: 0 1px 0 #fff;
-    background: linear-gradient(top, #f5f5f5 0, #e2e2e2 100%);
+    text-shadow: 0 1px 0 var(--white-01);
+    background: linear-gradient(top, var(--white-04) 0, var(--white-05) 100%);
 }
 
 .td-1 {
@@ -454,74 +454,52 @@ hr {
 }
 
 .td-1-desc {
-    color: var(--silver-03);
+    color: var(--gray-02);
 }
 
 
 .content-1 {
     color: var(--black-01);
-    border-bottom: 1px solid var(--white-04);
-}
-
-
-.active:hover {
-    background-color: #445;
-    color: #fff !important;
+    border-bottom: 1px solid var(--white-05);
 }
 
 .logo {
     color: var(--black-01) !important;
 }
 
-/*---------------------other-------------------*/
-.money {
-    background: #f5f5f5;
-    color: #666;
-    text-shadow: 0 1px 0 #fff;
-}
-
-.money:hover {
-    color: var(--silver-03);
-    background: var(--white-02);
-}
-
-::placeholder {
-    color: var(--silver-01);
-}
-
-/*正文背景选择*/
-.cell .desc div > label {
-    color: var(--silver-03);
-}
-
 /*---------------------layout------------------------------*/
 .page span:nth-last-child(1), .page span:nth-last-child(2) {
-    color: var(--silver-03);
+    color: var(--gray-02);
 }
 
 .GPageLink {
     background-color: var(--white-01);
-    border: 1px solid var(--white-04);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--white-05);
+    box-shadow: 0 1px 1px transparent;
 }
 
 .GPageLink:hover {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: var(--white-03);
+    border: 1px solid var(--white-02);
 }
 
 .GPageSpan, .current {
-    background-color: #f0f0f0;
-    border: 1px solid #bbb;
+    background-color: var(--white-04);
+    border: 1px solid var(--silver-05);
 }
 
-/* wrapper*/
-#wrapper {
+/*layout*/
+
+#sub-nav {
     background-color: var(--white-04);
 }
 
+#wrapper {
+    background-color: var(--white-05);
+}
+
 #footer {
-    border-top: 1px solid rgba(0, 0, 0, .22);
+    border-top: 1px solid var(--black-01-2);
     background-color: var(--white-01);
     color: var(--silver-01);
 }

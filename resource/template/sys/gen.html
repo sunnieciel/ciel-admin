@@ -105,7 +105,7 @@
         }
 
         .el-scrollbar {
-            background-color: #001d25;
+            background-color: var(--steelblue-08);
             box-shadow: none;
         }
 
@@ -120,7 +120,7 @@
         }
 
         .el-select-dropdown__item:hover {
-            background-color: #18222d;
+            background-color: var(--steelblue-06);
         }
 
         .el-select-dropdown__item.selected {
@@ -128,11 +128,11 @@
         }
 
         .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
-            background-color: #18222d;
+            background-color: var(--steelblue-06);
         }
 
         .el-input__inner {
-            background-color: #001d25;
+            background-color: var(--steelblue-08);
             outline: none;
             box-shadow: none;
             border-radius: 15px;
@@ -180,7 +180,7 @@
     {{include "/part/top.html" .}}
     <div id="wrapper">
         <div class="w">
-            <div class="wrapper-left" style="position: relative">
+            <div id="wrapper-left" style="position: relative">
                 <!--选择数据表-->
                 <div class="box table-list">
                     <label class="input">
@@ -192,7 +192,7 @@
                 </div>
                 {{include "/part/nav.html" .}}
                 <div class="box no-bottom-border">
-                    <div class="cell flex bg-color-dark color-box-color-bg">
+                    <div class="cell flex bg-dark color-box-color-bg">
                         <img class="s-icon s-icon-large" :src="pageConf.icon?pageConf.icon:'/resource/image/golang.png'" alt="Financial">
                         <div class="flex-1">
                             <div class="flex-between">

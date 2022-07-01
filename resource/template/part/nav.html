@@ -1,13 +1,13 @@
 <div class="box">
-    <div class="nav ml-3">
+    <div id="nav">
         {{range .Session.adminInfo.Menus}}
-        <a class="link-2 mr-3" data="{{.name}}">{{.name}}</a>
+        <a class="link-2" data="{{.name}}">{{.name}}</a>
         {{end}}
     </div>
-    <div class="sub-nav no-bottom-border flex-baseline">
+    <div id="sub-nav">
         {{range $p:=.Session.adminInfo.Menus}}
         {{range $child:=$p.Children}}
-        <a class="link-3 mr-12" href="{{$child.path}}" data="{{$p.name}}" style="display: none">{{$child.name}}</a>
+        <a class="link-3" href="{{$child.path}}" data="{{$p.name}}" style="display: none">{{$child.name}}</a>
         {{end}}
         {{end}}
     </div>

@@ -3,11 +3,11 @@ html {
 }
 
 a {
-    background-color: rgba(255, 0, 0, 0);
+    background-color: transparent;
 }
 
 a:active, a:link, a:visited {
-    color: var(--gray-06);
+    color: var(--silver-03);
 }
 
 h2 {
@@ -15,8 +15,8 @@ h2 {
 }
 
 hr {
-    color: var(--white-04);
-    background-color: var(--white-04);
+    color: var(--white-05);
+    background-color: var(--white-05);
 }
 
 /*------set ---------------------*/
@@ -34,13 +34,13 @@ hr {
 
 /*form*/
 .form {
-    color: var(--white-04);
+    color: var(--white-05);
 }
 
 .form-group input {
     border: 1px solid var(--steelblue-05);
     background-color: var(--steelblue-06);
-    color: var(--white-04);
+    color: var(--white-05);
 }
 
 /*box*/
@@ -51,11 +51,11 @@ hr {
 /* cell*/
 .cell {
     border-bottom: 1px solid var(--steelblue-05);
-    color: var(--white-04);
+    color: var(--white-05);
 }
 
 .cell h1 {
-    color: var(--white-04);
+    color: var(--white-05);
 }
 
 .cell-hover:hover {
@@ -64,48 +64,48 @@ hr {
 }
 
 .cell-hover:hover .desc-1 {
-    color: var(--gray-05) !important;
+    color: var(--silver-04) !important;
 }
 
 .cell-flag {
-    color: var(--white-05);
+    color: var(--white-06);
     border-right: 1px solid var(--steelblue-05);
 }
 
 .cell-tools {
     background: var(--cell-tools-dark-bg);
-    color: var(--white-05);
+    color: var(--white-06);
 }
 
 /*link*/
 .link-1 {
-    color: var(--gray-06) !important;
+    color: var(--silver-03) !important;
 }
 
 .link-1:hover {
-    color: var(--gray-05) !important;
+    color: var(--silver-04) !important;
 }
 
 .link-2 {
-    color: var(--gray-06) !important;
+    color: var(--silver-03) !important;
 }
 
 .link-2:hover {
-    color: var(--gray-05) !important;
+    color: var(--silver-04) !important;
     background-color: var(--steelblue-04);
 }
 
 .link-2-active {
-    color: var(--gray-05) !important;
+    color: var(--silver-04) !important;
     background-color: var(--steelblue-04);
 }
 
 .link-3 {
-    color: var(--gray-06);
+    color: var(--silver-03);
 }
 
 .link-3:hover {
-    color: var(--gray-05);
+    color: var(--silver-04);
 }
 
 .link-4:hover {
@@ -113,26 +113,26 @@ hr {
 }
 
 .link-5 {
-    color: var(--gray-06);
+    color: var(--silver-03);
 }
 
 .link-5:hover {
-    color: var(--gray-05);
+    color: var(--silver-04);
     background-color: var(--steelblue-03);
 }
 
 .link-6 {
-    border-bottom: 3px solid var(--gray-06) !important;
+    border-bottom: 3px solid var(--silver-03) !important;
 }
 
 .link-7:hover {
-    color: var(--gray-05) !important;
+    color: var(--silver-04) !important;
     border-bottom: 3px solid var(--steelblue-05)
 }
 
 /*tag*/
 .tag, .tag-3 {
-    color: var(--gray-06) !important;
+    color: var(--silver-03) !important;
     background-color: #273749 !important;
 }
 
@@ -143,7 +143,7 @@ hr {
 }
 
 .tag-2 {
-    color: var(--white-06) !important;
+    color: var(--white-07) !important;
     background-color: var(--steelblue-03);
 }
 
@@ -156,7 +156,7 @@ hr {
 }
 
 .tag-normal {
-    color: var(--gray-06) !important;
+    color: var(--silver-03) !important;
     background-color: var(--steelblue-05) !important;
 }
 
@@ -198,7 +198,7 @@ hr {
 
 .tag-inherited {
     color: var(--white-01) !important;
-    background-image: linear-gradient(var(--blue-04), var(--blue-04));
+    background-image: linear-gradient(var(--blue-03), var(--blue-03));
 }
 
 .tag-inherited .tag-3 {
@@ -258,17 +258,17 @@ hr {
 
 .tag-myth {
     color: #fff8e1 !important;
-    background-image: linear-gradient(#f44336, #d50000);
+    background-image: linear-gradient(var(--brown-03), var(--brown-05));
 }
 
 .tag-myth .tag-3 {
     color: #fbe9e7 !important;
-    background: #b71c1c !important;
+    background: var(--brown-05) !important;
 }
 
 .tag-myth .tag-3:hover {
     color: #fff8e1 !important;
-    background: #f44336 !important;
+    background: var(--brown-03) !important;
 }
 
 .tag-myth .desc-1 {
@@ -283,31 +283,31 @@ hr {
 
 .tag-primary {
     background-color: var(--blue-05) !important;
-    color: var(--blue-04) !important;
-    border: 1px solid var(--blue-06) !important;
+    color: var(--blue-03) !important;
+    border: 1px solid var(--blue-04) !important;
 }
 
 .tag-warning {
-    background-color: var(--yellow-04) !important;
-    color: var(--yellow-01) !important;
-    border: 1px solid var(--yellow-05) !important;
+    background-color: var(--yellow-11) !important;
+    color: var(--yellow-06) !important;
+    border: 1px solid var(--yellow-12) !important;
 }
 
 .tag-success {
-    background-color: var(--green-04) !important;
-    color: var(--green-01) !important;
+    background-color: var(--green-06) !important;
+    color: var(--green-03) !important;
     border: 1px solid var(--green-05) !important;
 }
 
 .tag-danger {
-    background-color: var(--red-04) !important;
-    color: var(--red-01) !important;
-    border: 1px solid var(--red-05) !important;
+    background-color: var(--red-05) !important;
+    color: var(--red-03) !important;
+    border: 1px solid var(--red-04) !important;
 }
 
 .tag-blue {
-    background-color: #253761 !important;
-    color: #00a0e9 !important;
+    background-color: var(--blue-04) !important;
+    color: var(--blue-03) !important;
 }
 
 /*desc*/
@@ -316,71 +316,72 @@ hr {
 }
 
 .desc-2 {
-    color: var(--gray-05);
+    color: var(--silver-04);
 }
 
 .table-1 {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px var(--black-01-2);
     border-color: gray;
     color: #fff
 }
 
 .table-1 tr:nth-child(2n) {
-    background-color: #001d25;
+    background-color: var(--steelblue-08);
 }
 
 .table-1 tr:hover {
-    background-color: #001d25;
-    box-shadow: 6px 6px 6px rgba(158, 144, 158, .3) inset;
+    background-color: var(--steelblue-08);
+    box-shadow: 6px 6px 6px var(--dusk-03) inset;
 }
 
 .table-1 td {
-    border-top: 1px solid #393f4e;
+    border-top: 1px solid var(--steelblue-04);
 }
 
 /*table add*/
 .table-add td input, textarea, select {
-    color: #d1d5d9;
-    border: 1px solid #393f4e;
-    background-color: #18222d;
+    color: var(--white-07);
+    border: 1px solid var(--steelblue-04);
+    background-color: var(--steelblue-06);
 }
 
 .table-add td input:focus, textarea:focus, select:focus {
-    border: 1px solid #3e5874 !important;
-    background-color: #001d25;
+    border: 1px solid var(--steelblue-03) !important;
+    background-color: var(--steelblue-08);
 }
 
 /*msg*/
 .msg-primary, .msg-warning {
-    border-left: 5px solid #d5a320db;
+    border-left: 5px solid var(--yellow-08);
     border-bottom: 1px solid var(--steelblue-05);
-    color: var(--yellow-01);
+    color: var(--yellow-06);
 }
 
 /*btn*/
 .btn-info {
-    background: linear-gradient(to bottom, #99abc5 0, #697585 100%);
+    background: linear-gradient(to bottom, var(--silver-03) 0, var(--gray-02) 100%);
     border: 1px solid #697585;
 }
 
 .btn-info:hover {
-    background-image: linear-gradient(#99abc5 0, #697585 60%);
+    background-image: linear-gradient(var(--silver-03) 0, var(--gray-02) 60%);
 }
 
 .btn-warning {
-    background-color: #fc0;
-    color: #532b17;
-    text-shadow: 0 1px 1px rgb(255 255 255 / 60%);
-    border: 1px solid rgba(200, 150, 0, .8);
-    border-bottom-color: rgba(80, 80, 90, .35);
+    background-color: var(--yellow-05);
+    color: var(--brown-08);
+    text-shadow: 0 1px 1px var(--silver-02);
+    box-shadow: 0 1px 2px var(--yellow-08);
+    border: 1px solid var(--yellow-09);
+    border-bottom-color: var(--dusk-04);
 }
 
 .btn-warning:hover {
-    background-color: #ffdf00;
-    color: #402112;
-    text-shadow: 0 1px 1px rgb(255 255 255 / 70%);
-    box-shadow: 0 1px 2px rgb(233 175 0 / 50%);
-    border: 1px solid #c89600;
+    background-color: var(--yellow-04);
+    color: var(--brown-07);
+    text-shadow: 0 1px 1px var(--silver-02);
+    box-shadow: 0 1px 2px var(--yellow-10);
+    border: 1px solid var(--yellow-07);
 }
 
 /* input*/
@@ -389,29 +390,20 @@ hr {
 }
 
 .input input, .input select, .input textarea {
-    color: #ABAAB0;
-    background-color: #001d25;
-    border: 1px solid #001d25;
-}
-
-.input input:focus, .input select:focus, .input textarea:focus {
-    border: 1px #3e5874 solid;
+    color: var(--silver-05);
+    background-color: var(--steelblue-08);
+    border: 1px solid var(--steelblue-08);
 }
 
 .input input:focus, input:focus-visible {
     border: 1px solid var(--steelblue-02);
 }
 
-/*nav*/
-.sub-nav {
-    background-color: var(--steelblue-07);
-    border-bottom: 1px solid var(--steelblue-05);
-}
 
 /* --------------------part -------------------*/
 .top-right-mobile-menu {
     background-color: var(--steelblue-06);
-    box-shadow: 0 2px 25px rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 25px var(--black-01-2);
 }
 
 /*color*/
@@ -420,22 +412,22 @@ hr {
 }
 
 .color-blue {
-    color: var(--blue-01) !important;
+    color: var(--blue-03) !important;
 }
 
 .color-green {
-    color: var(--green-06) !important;
+    color: var(--green-04) !important;
 }
 
 .color-red {
-    color: var(--red-01) !important;
+    color: var(--red-03) !important;
 }
 
 .color-white-4 {
-    color: var(--white-06) !important;
+    color: var(--white-07) !important;
 }
 
-.bg-color-dark {
+.bg-dark {
     background-color: var(--steelblue-07);
 }
 
@@ -449,11 +441,11 @@ hr {
 }
 
 .th-1 {
-    color: var(--white-06)
+    color: var(--white-07)
 }
 
 .td-1 {
-    color: var(--white-04);
+    color: var(--white-05);
 }
 
 .td-1-desc {
@@ -462,19 +454,8 @@ hr {
 
 /*text*/
 .content-1 {
-    color: var(--white-04);
+    color: var(--white-05);
     border-bottom: 1px solid var(--steelblue-05);
-}
-
-/*---------------------other-------------------*/
-.money {
-    background: linear-gradient(to bottom, #606c88 0, #3f4c6b 100%);
-    color: var(--white-04);
-}
-
-.money:hover {
-    color: #f6f6f6;
-    background: linear-gradient(to bottom, #4d5466 0, #22303f 100%);
 }
 
 ::placeholder {
@@ -513,24 +494,28 @@ hr {
 }
 
 .GPageLink:hover {
-    color: #d1d5d9;
+    color: var(--white-07);
     background-color: var(--steelblue-03);
-    border: 1px solid #393f4e;
+    border: 1px solid var(--steelblue-04);
 }
 
 .GPageSpan, .current {
-    color: #d1d5d9;
+    color: var(--white-07);
     background-color: var(--steelblue-03);
-    border: 1px solid #393f4e;
+    border: 1px solid var(--steelblue-04);
 }
 
-/* wrapper*/
+/*layout*/
+#sub-nav {
+    background-color: var(--steelblue-07);
+}
+
 #wrapper {
     background-color: var(--steelblue-05);
 }
 
 #footer {
-    border-top: 1px solid rgba(0, 0, 0, .22);
+    border-top: 1px solid var(--black-01-2);
     background-color: var(--steelblue-06);
     color: var(--steelblue-03);
 }
