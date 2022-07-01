@@ -1,9 +1,9 @@
 :root {
     --white-01: #fff;
     --white-01-3: rgba(255, 255, 255, .3);
-    --white-02: #eee;
-    --white-03: #e9e9eb;
-    --white-04: #f5f5f5;
+    --white-02: #f5f5f5;
+    --white-03: #eee;
+    --white-04: #e9e9eb;
     --white-05: #e2e2e2;
     --white-06: #c9d2db;
     --white-07: #d1d5d9;
@@ -84,10 +84,9 @@
     --purple-03: #ab47bc;
     --purple-04: #8e24aa;
 
-    /*box*/
+    --transition-time: 1.2s;
     --box-spacing: 20px;
     --box-border-radius: 3px;
-    /*cell-hover*/
     --cell-hover-shadow: 6px 12px 37px rgb(224 224 224 / 90%) inset;
     --cell-hover-dark-shadow: 6px 12px 37px rgb(64 79 94) inset;
     --cell-tools-bg: linear-gradient(to bottom, #eee 0, #ccc 100%);
@@ -207,7 +206,7 @@ a:hover {
 }
 
 .cell-hover:hover {
-    transition: all .6s ease;
+    transition: all var(--transition-time) ease-in-out;
     border-radius: 3px;
 }
 
@@ -424,19 +423,15 @@ li .input {
 }
 
 .input input, .input textarea, .input select {
+    transition: border var(--transition-time) ease-in-out;
     width: 99px;
-    margin-left: 2px;
+    margin-left: 6px;
     padding: 3px 9px;
     border-radius: 15px;
+    font-size: 10px;
+    font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     outline: none;
-}
-
-.input textarea {
-    width: auto;
-}
-
-.input input:focus, input:focus-visible {
-    transition: all 0.6s ease;
+    height: 13px;
 }
 
 
@@ -463,6 +458,10 @@ li .input {
     border-collapse: collapse;
 }
 
+.table-1 tr {
+    transition: all var(--transition-time) ease;
+}
+
 .table-1 tr th {
     font-weight: 700;
     font-size: 12px;
@@ -481,7 +480,7 @@ li .input {
 }
 
 .table-1 tr:hover {
-    transition: all 0.3s ease;
+    transition: all var(--transition-time) ease;
 }
 
 .table-1 td {
@@ -508,10 +507,11 @@ li .input {
 
 /*table add*/
 .table-add td input, textarea, select {
-    border-radius: 3px;
-    padding: 5px;
-    font-size: 14px;
+    transition: all var(--transition-time) ease-in-out;
     width: 320px;
+    padding: 3px 9px;
+    border-radius: 15px;
+    font-size: 14px;
     font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     box-sizing: border-box;
     outline: none;

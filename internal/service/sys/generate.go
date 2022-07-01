@@ -442,7 +442,7 @@ func genIndex(ctx context.Context, c *bo.GenConf) error {
 	if c.AddBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[add]", ``)
 	} else {
-		indexTemp = gstr.Replace(indexTemp, "[add]", `<a class="tag-info" href="{{.node.Path}}/add?{{toUrlParams .Query}}" > <i class="fa fa-plus" aria-hidden="true"></i></a> `)
+		indexTemp = gstr.Replace(indexTemp, "[add]", `<a class="tag-info mr-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}" > <i class="fa fa-plus" aria-hidden="true"></i></a> `)
 	}
 	if c.DelBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[del]", "")

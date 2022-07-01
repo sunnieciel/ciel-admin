@@ -25,7 +25,7 @@ hr {
 }
 
 .bg-2 {
-    background-color: var(--white-04);
+    background-color: var(--white-02);
 }
 
 .bg-3 {
@@ -57,7 +57,7 @@ hr {
 
 
 .cell-hover:hover {
-    background-color: var(--white-02);
+    background-color: var(--white-03);
     box-shadow: var(--cell-hover-shadow);
 }
 
@@ -93,7 +93,7 @@ hr {
 
 .link-2:hover {
     color: var(--steelblue-03) !important;
-    background-color: var(--white-04) !important;
+    background-color: var(--white-02) !important;
 }
 
 .link-2-active {
@@ -134,7 +134,7 @@ hr {
 
 .link-7:hover {
     color: var(--steelblue-05) !important;
-    border-bottom: 3px solid var(--white-02);
+    border-bottom: 3px solid var(--white-03);
 }
 
 /*tag*/
@@ -149,7 +149,7 @@ hr {
 
 .tag, .tag-3 {
     color: var(--gray-02) !important;
-    background-color: var(--white-04) !important;
+    background-color: var(--white-02) !important;
 }
 
 .tag:hover, .tag-3:hover, .tag-normal {
@@ -159,7 +159,7 @@ hr {
 
 .tag-normal {
     color: var(--gray-02) !important;
-    background-image: linear-gradient(var(--white-02), var(--white-01)) !important;
+    background-image: linear-gradient(var(--white-03), var(--white-01)) !important;
 }
 
 .tag-rare {
@@ -266,9 +266,9 @@ hr {
 }
 
 .tag-info {
-    background-color: var(--white-04) !important;
+    background-color: var(--white-02) !important;
     color: var(--gray-01) !important;
-    border: 1px solid var(--white-03) !important;
+    border: 1px solid var(--white-04) !important;
 }
 
 .tag-primary {
@@ -342,11 +342,11 @@ hr {
 
 /*table*/
 .table-1 tr:nth-child(2n) {
-    background-color: var(--white-04);
+    background-color: var(--white-02);
 }
 
 .table-1 tr:hover {
-    background-color: var(--white-02);
+    background-color: var(--white-03);
     box-shadow: 6px 6px 6px var(--white-07-9) inset
 }
 
@@ -354,17 +354,20 @@ hr {
     border-top: 1px solid var(--white-05);
 }
 
-.table-add{
+.table-add {
 
     color: var(--dusk-06) !important;
 }
+
 /*table add*/
 .table-add td input, textarea, select {
     border: 1px solid var(--white-05);
+    color: var(--dusk-06);
 }
 
 .table-add td input:focus, textarea:focus, select:focus {
-    border: 1px solid var(--gray-01) !important;
+    border: 1px solid var(--silver-05) !important;
+    background-color: var(--white-03);
 }
 
 .msg-primary, .msg-warning {
@@ -390,7 +393,7 @@ hr {
 /* input*/
 .input input, .input textarea, .input select {
     color: var(--silver-05);
-    background-color: var(--white-04);
+    background-color: var(--white-02);
     border: 1px solid var(--white-01);
 }
 
@@ -441,12 +444,12 @@ hr {
     border-right: 1px solid var(--white-05);
     border-bottom: 1px solid var(--white-05);
     text-shadow: 0 1px 0 var(--white-01);
-    background: linear-gradient(top, var(--white-04) 0, var(--white-05) 100%);
+    background: linear-gradient(top, var(--white-02) 0, var(--white-05) 100%);
 }
 
 .th-1 {
     text-shadow: 0 1px 0 var(--white-01);
-    background: linear-gradient(top, var(--white-04) 0, var(--white-05) 100%);
+    background: linear-gradient(top, var(--white-02) 0, var(--white-05) 100%);
 }
 
 .td-1 {
@@ -479,19 +482,19 @@ hr {
 }
 
 .GPageLink:hover {
-    background-color: var(--white-03);
-    border: 1px solid var(--white-02);
+    background-color: var(--white-04);
+    border: 1px solid var(--white-03);
 }
 
 .GPageSpan, .current {
-    background-color: var(--white-04);
+    background-color: var(--white-02);
     border: 1px solid var(--silver-05);
 }
 
 /*layout*/
 
 #sub-nav {
-    background-color: var(--white-04);
+    background-color: var(--white-02);
 }
 
 #wrapper {

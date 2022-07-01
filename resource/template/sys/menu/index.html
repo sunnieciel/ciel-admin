@@ -12,9 +12,9 @@
             <div class="box no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a class="mt-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                    <a class="tag-info mr-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus-square" aria-hidden="true"></i></a>
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
-                    <label class="input">pid <input type="text" name="menu_pid" value="{{.Session.menu_pid}}" onkeydown="if(event.keyCode===13)this.form.submit()"> </label>
+                    <label class="input">pid<input type="text" name="menu_pid" value="{{.Session.menu_pid}}" onkeydown="if(event.keyCode===13)this.form.submit()"> </label>
                     <label class="input">名称<input type="text" name="menu_name" value="{{.Session.menu_name}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                     <label class="input">路径<input type="text" name="menu_path" value="{{.Session.menu_path}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                 </form>
