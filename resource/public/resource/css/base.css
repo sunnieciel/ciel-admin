@@ -326,8 +326,9 @@ a:visited,
     line-height: 1.0 !important;
     text-align: left;
     font-size: 12px;
-    border-radius: 12px;
+    border-radius: 15px;
     box-sizing: border-box;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 .tag-normal, .tag-rare, .tag-inherited, .tag-only, .tag-epic, .tag-legend, .tag-myth {
