@@ -287,7 +287,7 @@
                             <th>编辑时展示</th>
                             <th>是否必须</th>
                             <th>查询类型</th>
-                            <th class="text-center">操作</th>
+                            <th>操作</th>
                         </tr>
                         <tr v-for="i in fields">
                             <td v-text="i.Name"></td>
@@ -323,7 +323,7 @@
                                 <span v-else-if="i.SearchType==8" class="tag-primary">日期</span>
                                 <span v-else-if="i.SearchType==9" class="tag-primary">日期(一天开始到结束)=</span>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <a class="tag-info mr-3" href="#" @click="showFieldDetails(i)"><i class="fa fa-wrench" aria-hidden="true"></i></a>
                                 <a class="tag-danger" href="#" @click="removeRow(i)"><i class="fa fa-trash"></i></a>
                             </td>
@@ -468,20 +468,20 @@
         });
     }
 
-    // 添加默认选中
-    $(".sub-nav a").hide()
-    let current = $(".sub-nav a[href='" + location.pathname + "']"); // 找到张.sub-nav 下面地址为当前路径的url
-    current.addClass('tag-blue')
-    $(".sub-nav a[data='" + current.attr("data") + "']").show()     // 将当前的url显示出来
-    $(".nav a[data='" + current.attr("data") + "']").addClass("link-2-active") // 将 .nav 中具有相同data属性的a标签添加active类
 
+    // 添加默认选中
+    $("#sub-nav a").hide()
+    let current = $("#sub-nav a[href='" + location.pathname + "']");
+    current.addClass('tag-blue')
+    $("#sub-nav a[data='" + current.attr("data") + "']").show()
+    $("#nav a[data='" + current.attr("data") + "']").addClass("link-2-active")
     // 监听tab 切换
     $(function () {
-        $(".nav a").hover(function () {
-            $(".nav a").removeClass("link-2-active")
+        $("#nav a").click(function () {
+            $("#nav a").removeClass("link-2-active")
             $(this).addClass("link-2-active")
-            $(".sub-nav a").hide()
-            $(".sub-nav a[data='" + $(this).attr("data") + "']").show()
+            $("#sub-nav a").hide()
+            $("#sub-nav a[data='" + $(this).attr("data") + "']").show()
         })
     })
 

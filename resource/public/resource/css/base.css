@@ -8,6 +8,8 @@
     --white-06: #c9d2db;
     --white-07: #d1d5d9;
     --white-07-9: rgb(224 224 224 / .9);
+    --white-08: #ccc;
+    --white-09: #bbb;
 
     --silver-01: silver;
     --silver-02: rgb(255 255 255 / .6);
@@ -84,12 +86,11 @@
     --purple-03: #ab47bc;
     --purple-04: #8e24aa;
 
-    --transition-time: 1.2s;
+    --transition-time: 0.3s;
     --box-spacing: 20px;
     --box-border-radius: 3px;
     --cell-hover-shadow: 6px 12px 37px rgb(224 224 224 / 90%) inset;
     --cell-hover-dark-shadow: 6px 12px 37px rgb(64 79 94) inset;
-    --cell-tools-bg: linear-gradient(to bottom, #eee 0, #ccc 100%);
     --cell-tools-dark-bg: linear-gradient(to bottom, #253345 0, #1a2430 100%);
 
     --elevation-box-shadow-1: rgba(0, 0, 0, .2) 0 2px 1px -1px, rgba(0, 0, 0, .14) 0px 1px 1px 0px, rgba(0, 0, 0, .12) 0px 1px 3px 0px;
@@ -177,9 +178,10 @@ a:visited,
     text-decoration: none !important;
 }
 
-a:hover {
+.hover-underline a:hover {
     text-decoration: underline !important;
 }
+
 
 /*box*/
 .box {
@@ -227,7 +229,7 @@ a:hover {
 }
 
 .cell-tools {
-    padding: 5px;
+    padding: 0 6px;
     border-radius: 0 0 3px 3px;
     line-height: 120%;
     min-height: 16px;
@@ -431,24 +433,10 @@ li .input {
     font-size: 10px;
     font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     outline: none;
-    height: 13px;
 }
 
-
-/*desc*/
-.desc-1 {
-    padding-top: 3px;
-    font-size: 13px;
-}
-
-.desc-2 {
-    font-size: 11px;
-    line-height: 100%;
-    padding: 3px 5px;
-}
 
 /*table*/
-
 .table-1 {
     display: table;
     box-sizing: border-box;
@@ -470,19 +458,6 @@ li .input {
     white-space: nowrap;
 }
 
-.table-1 tr:first-child {
-    cursor: pointer;
-}
-
-/*让一行居中*/
-.table-1 tr th:first-child {
-    text-align: center;
-}
-
-.table-1 tr:hover {
-    transition: all var(--transition-time) ease;
-}
-
 .table-1 td {
     font-size: 13px;
     margin: 0;
@@ -497,8 +472,10 @@ li .input {
     overflow: auto !important;
 }
 
-.table-1 td span {
-    cursor: pointer;
+.table-1 tr td:first-child,
+.table-1 tr th:first-child,
+.table-1 tr th:last-child {
+    text-align: center;
 }
 
 .table-1 td:hover {
@@ -700,78 +677,6 @@ li .input {
 }
 
 /*base end--------------------------------------------*/
-
-/*table*/
-.th-1, .td-1, .td-1-desc {
-    text-align: left;
-    padding: 3px 5px;
-    font-size: 14px;
-}
-
-.th-1 {
-    font-weight: 700;
-}
-
-.td-1, .td-1-desc {
-    font-weight: 400;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.text-center {
-    text-align: center !important;
-}
-
-.text-nowrap {
-    white-space: nowrap !important;
-}
-
-.text-3 {
-    text-align: left;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 3px 5px;
-}
-
-.content-1 {
-    padding: 10px;
-    font-size: 14px;
-    line-height: 1.6;
-    word-break: break-all;
-}
-
-.content-1 > p {
-    text-indent: 2em;
-}
-
-.content-1 ul,
-.content-1 ol,
-.content-1 dl {
-    margin: 0 12px 10px 26px;
-}
-
-.content-1 li,
-.content-1 dd {
-    list-style: unset;
-    text-indent: 0;
-}
-
-.content-1 > h1 {
-    border-bottom: 20px;
-}
-
-.no-pointer:hover {
-    cursor: default !important;
-    text-underline: none !important;
-}
-
-
-.wait {
-    cursor: not-allowed;
-}
-
 .logo {
     margin-right: 9px;
     font-weight: bolder;
@@ -790,37 +695,25 @@ li .input {
 }
 
 /*---------------------layout------------------------------*/
-.page {
-    padding: 10px;
-    background-image: url(/resource/image/shadow_light.png);
-    background-size: 20px 20px;
-    background-repeat: repeat-x;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.page span:nth-last-child(1), .page span:nth-last-child(2) {
-    font-size: 13px;
-}
 
 .GPageLink {
     display: inline-block;
     font-weight: 400;
-    line-height: 12px;
-    padding: 2px 5px;
-    border-radius: var(--box-border-radius);
-    font-size: 12px;
-    margin: 0 5px;
-}
-
-.GPageSpan, .current {
-    font-weight: 555;
     font-size: 12px;
     line-height: 12px;
     padding: 3px 6px;
     border-radius: var(--box-border-radius);
-    margin: 0 3px;
+    margin: 0 5px;
+    text-decoration: none !important;
+}
+
+.GPageSpan {
+    font-weight: 700;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: var(--box-border-radius);
+    line-height: 12px;
+    text-decoration: none;
 }
 
 .page-mobile {
@@ -828,6 +721,7 @@ li .input {
     padding: 6px;
     justify-content: start;
     align-items: center;
+
 }
 
 .fa {
