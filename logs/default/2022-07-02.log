@@ -106,3 +106,14 @@
 2022-07-02 19:39:33.175 [INFO] Server start at :http://localhost:1211/login 
 2022-07-02 19:44:27.586 [INFO] Server start at :http://localhost:1211/login 
 2022-07-02 19:45:41.067 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:52:05.461 [NOTI] {"id":1,"rid":1,"status":2,"uname":"ciel","updatedAt":null} 
+2022-07-02 19:53:04.901 [NOTI] {"id":1,"rid":1,"status":1,"uname":"ciel","updatedAt":null} 
+2022-07-02 19:54:44.881 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:54:49.343 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:55:18.293 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:55:21.933 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:55:39.077 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:55:43.765 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:56:54.184 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:57:10.695 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 19:57:46.416 [INFO] Server start at :http://localhost:1211/login 

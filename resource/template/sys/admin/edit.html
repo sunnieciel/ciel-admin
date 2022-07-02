@@ -44,10 +44,12 @@
                         </tr>
                         <tr>
                             <td align='right'>状态</td>
-                            <td><select name='status'>
-                                <option value='1' selected class="tag-info">开启</option>
-                                <option value='2' class="tag-danger">关闭</option>
-                            </select></td>
+                            <td>
+                                <select name="status">
+                                    <option class="tag-info" value="1" {{if eq .Session.admin_edit.status 1}} selected {{end}}>开启</option>
+                                    <option class="tag-danger" value="2" {{if eq .Session.admin_edit.status 2}} selected {{end}}>关闭</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td></td>

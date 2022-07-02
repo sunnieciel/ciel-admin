@@ -200,7 +200,6 @@ hr {
     background-color: #1976d2 !important;
 }
 
-
 .tag-inherited .tag-3:hover {
     transition: all 0.3s ease;
     color: #e3f2fd !important;
@@ -258,9 +257,14 @@ hr {
 
 
 .tag-info {
-    background-color: rgba(144, 147, 153, 0.1) !important;
-    color: #909399 !important;
-    border: 1px solid rgba(144, 147, 153, 0.2) !important;
+    color: var(--gray-01) !important;
+    background-color: var(--gray-03) !important;
+    border: 1px solid var(--gray-04) !important;
+}
+
+.tag-info:hover {
+    color: var(--gray-01) !important;
+    background-color: var(--gray-04) !important;
 }
 
 .tag-primary {
@@ -269,10 +273,20 @@ hr {
     border: 1px solid var(--blue-04) !important;
 }
 
+.tag-primary:hover {
+    background-color: var(--blue-04) !important;
+    color: var(--blue-03) !important;
+}
+
 .tag-warning {
     background-color: var(--yellow-11) !important;
     color: var(--yellow-06) !important;
     border: 1px solid var(--yellow-12) !important;
+}
+
+.tag-warning:hover {
+    background-color: var(--yellow-12) !important;
+    color: var(--yellow-06) !important;
 }
 
 .tag-success {
@@ -281,10 +295,20 @@ hr {
     border: 1px solid var(--green-05) !important;
 }
 
+.tag-success:hover {
+    background-color: var(--green-05) !important;
+    color: var(--green-03) !important;
+}
+
 .tag-danger {
     background-color: var(--red-05) !important;
     color: var(--red-03) !important;
     border: 1px solid var(--red-04) !important;
+}
+
+.tag-danger:hover {
+    background-color: var(--red-04) !important;
+    color: var(--red-03) !important;
 }
 
 .tag-blue {

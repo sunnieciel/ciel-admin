@@ -99,8 +99,10 @@ func (c cMenu) Put(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
+	m := gconv.Map(d)
+	delete(m, "createdAt")
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
@@ -174,11 +176,10 @@ func (c cApi) Put(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
+	m := gconv.Map(d)
+	delete(m, "createdAt")
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
@@ -276,11 +277,10 @@ func (c cRole) Put(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
+	m := gconv.Map(d)
+	delete(m, "createdAt")
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
@@ -477,11 +477,10 @@ func (c cDict) Put(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
+	m := gconv.Map(d)
+	delete(m, "createdAt")
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
@@ -564,11 +563,10 @@ func (c cFile) Put(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
+	m := gconv.Map(d)
+	delete(m, "createdAt")
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
@@ -648,11 +646,10 @@ func (c cOperationLog) Put(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
-		res.Err(err, r)
-	}
+	m := gconv.Map(d)
+	delete(m, "createdAt")
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
-	if err := sys.Update(r.Context(), c.T1, d.Id, &d); err != nil {
+	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
