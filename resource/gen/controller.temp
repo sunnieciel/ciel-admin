@@ -18,16 +18,16 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-type cMenu struct{ *bo.Search }
+type cMenu struct{ bo.Search }
 
-var Menu = &cMenu{Search: &bo.Search{
+var Menu = &cMenu{Search: bo.Search{
 	[tables], OrderBy: "[orderBy]", SearchFields: "[searchFields]",
-	Fields: []*bo.Field{
+	Fields: []bo.Field{
 		[fields]
 	},
 }}
 
-func (c *cMenu) Path(r *ghttp.Request) {
+func (c cMenu) Path(r *ghttp.Request) {
 	node, err := sys.NodeInfo(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
@@ -46,10 +46,10 @@ func (c *cMenu) Path(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 }
-func (c *cMenu) PathAdd(r *ghttp.Request) {
+func (c cMenu) PathAdd(r *ghttp.Request) {
 	r.Response.WriteTpl("/sys/menu/add.html", g.Map{"msg": sys.MsgFromSession(r)})
 }
-func (c *cMenu) Post(r *ghttp.Request) {
+func (c cMenu) Post(r *ghttp.Request) {
 	d := entity.Menu{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -61,7 +61,7 @@ func (c *cMenu) Post(r *ghttp.Request) {
 	r.Session.Set("msg", msg)
 	r.Response.RedirectTo(fmt.Sprint("/menu/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
-func (c *cMenu) Del(r *ghttp.Request) {
+func (c cMenu) Del(r *ghttp.Request) {
 	id := r.Get("id")
 	msg := fmt.Sprintf(consts.MsgPrimary, "删除成功")
 	if err := sys.Del(r.Context(), c.T1, id); err != nil {
@@ -70,7 +70,7 @@ func (c *cMenu) Del(r *ghttp.Request) {
 	_ = r.Session.Set("msg", msg)
 	r.Response.RedirectTo(fmt.Sprint("/menu/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
-func (c *cMenu) PathEdit(r *ghttp.Request) {
+func (c cMenu) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
@@ -78,7 +78,7 @@ func (c *cMenu) PathEdit(r *ghttp.Request) {
 	_ = r.Session.Set("menu_edit", data.Map())
 	_ = r.Response.WriteTpl("/[group]/menu/edit.html", g.Map{"msg": sys.MsgFromSession(r)})
 }
-func (c *cMenu) Put(r *ghttp.Request) {
+func (c cMenu) Put(r *ghttp.Request) {
 	d := entity.Menu{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)

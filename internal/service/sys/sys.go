@@ -23,7 +23,7 @@ func Init() {
 	}
 	consts.ImgPrefix = get.String()
 }
-func List(ctx context.Context, c *bo.Search) (count int, data gdb.List, err error) {
+func List(ctx context.Context, c bo.Search) (count int, data gdb.List, err error) {
 	db := g.DB().Ctx(ctx).Model(c.T1 + " t1")
 	if c.T2 != "" {
 		db = db.LeftJoin(c.T2)
@@ -101,6 +101,7 @@ func List(ctx context.Context, c *bo.Search) (count int, data gdb.List, err erro
 	data = all.List()
 	return
 }
+
 func Add(ctx context.Context, table, data interface{}) error {
 	if _, err := g.DB().Ctx(ctx).Model(table).Insert(data); err != nil {
 		g.Log().Error(ctx, err)
@@ -124,7 +125,7 @@ func DelBatch(ctx context.Context, table string, ids []interface{}) error {
 }
 func Update(ctx context.Context, table string, id, data interface{}) error {
 	// 空值过滤
-	_, err := g.DB().Model(table).Where("id", id).Save(data)
+	_, err := g.DB().Model(table).Where("id", id).Update(data)
 	if err != nil {
 		g.Log().Error(ctx, err)
 		return err

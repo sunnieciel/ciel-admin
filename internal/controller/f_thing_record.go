@@ -5,7 +5,6 @@
 package controller
 
 import (
-
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
@@ -18,16 +17,14 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-type cThingRecord struct{ *bo.Search }
+type cThingRecord struct{ bo.Search }
 
-var ThingRecord = &cThingRecord{Search: &bo.Search{
-	T1:"f_thing_record", OrderBy: "t1.id desc", SearchFields: "t1.*",
-	Fields: []*bo.Field{
-		
-	},
+var ThingRecord = &cThingRecord{Search: bo.Search{
+	T1: "f_thing_record", OrderBy: "t1.id desc", SearchFields: "t1.*",
+	Fields: []bo.Field{},
 }}
 
-func (c *cThingRecord) Path(r *ghttp.Request) {
+func (c cThingRecord) Path(r *ghttp.Request) {
 	node, err := sys.NodeInfo(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
@@ -46,10 +43,10 @@ func (c *cThingRecord) Path(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 }
-func (c *cThingRecord) PathAdd(r *ghttp.Request) {
+func (c cThingRecord) PathAdd(r *ghttp.Request) {
 	r.Response.WriteTpl("/sys/thingRecord/add.html", g.Map{"msg": sys.MsgFromSession(r)})
 }
-func (c *cThingRecord) Post(r *ghttp.Request) {
+func (c cThingRecord) Post(r *ghttp.Request) {
 	d := entity.ThingRecord{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
@@ -61,7 +58,7 @@ func (c *cThingRecord) Post(r *ghttp.Request) {
 	r.Session.Set("msg", msg)
 	r.Response.RedirectTo(fmt.Sprint("/thingRecord/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
-func (c *cThingRecord) Del(r *ghttp.Request) {
+func (c cThingRecord) Del(r *ghttp.Request) {
 	id := r.Get("id")
 	msg := fmt.Sprintf(consts.MsgPrimary, "删除成功")
 	if err := sys.Del(r.Context(), c.T1, id); err != nil {
@@ -70,7 +67,7 @@ func (c *cThingRecord) Del(r *ghttp.Request) {
 	_ = r.Session.Set("msg", msg)
 	r.Response.RedirectTo(fmt.Sprint("/thingRecord/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
-func (c *cThingRecord) PathEdit(r *ghttp.Request) {
+func (c cThingRecord) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
 	if err != nil {
 		res.Err(err, r)
@@ -78,7 +75,7 @@ func (c *cThingRecord) PathEdit(r *ghttp.Request) {
 	_ = r.Session.Set("thingRecord_edit", data.Map())
 	_ = r.Response.WriteTpl("/f/thingRecord/edit.html", g.Map{"msg": sys.MsgFromSession(r)})
 }
-func (c *cThingRecord) Put(r *ghttp.Request) {
+func (c cThingRecord) Put(r *ghttp.Request) {
 	d := entity.ThingRecord{}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)

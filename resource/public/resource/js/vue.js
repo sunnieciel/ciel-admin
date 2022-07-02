@@ -42,7 +42,7 @@ var Vue = (function (exports) {
      */
     const slotFlagsText = {
         [1 /* STABLE */]: 'STABLE',
-        [2 /* DYNAMIC */]: 'DYNAMIC',
+        [2 /* DYNAMIc /]: 'DYNAMIC',
         [3 /* FORWARDED */]: 'FORWARDED'
     };
 
@@ -7862,7 +7862,7 @@ var Vue = (function (exports) {
                         children._ = 1 /* STABLE */;
                     }
                     else {
-                        children._ = 2 /* DYNAMIC */;
+                        children._ = 2 /* DYNAMIc /;
                         vnode.patchFlag |= 1024 /* DYNAMIC_SLOTS */;
                     }
                 }
@@ -11385,7 +11385,7 @@ var Vue = (function (exports) {
                 `prefixed with "vue:".`,
             link: `https://v3-migration.vuejs.org/breaking-changes/custom-elements-interop.html`
         },
-        ["COMPILER_V_BIND_SYNC" /* COMPILER_V_BIND_SYNC */]: {
+        ["COMPILER_V_BIND_SYNC" /* COMPILER_V_BIND_SYNc /]: {
             message: key => `.sync modifier for v-bind has been removed. Use v-model with ` +
                 `argument instead. \`v-bind:${key}.sync\` should be changed to ` +
                 `\`v-model:${key}\`.`,
@@ -14028,7 +14028,7 @@ var Vue = (function (exports) {
             }
         }
         const slotFlag = hasDynamicSlots
-            ? 2 /* DYNAMIC */
+            ? 2 /* DYNAMIc /
             : hasForwardedSlots(node.children)
                 ? 3 /* FORWARDED */
                 : 1 /* STABLE */;

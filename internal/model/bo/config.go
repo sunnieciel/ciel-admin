@@ -15,9 +15,9 @@ type Search struct {
 	Page, Size   int
 	OrderBy      string
 	SearchFields string
-	Fields       []*Field // 条件查询的字段
-	Begin        string   // 查询时间的开始
-	End          string   // 查询时间的结束
+	Fields       []Field // 条件查询的字段
+	Begin        string  // 查询时间的开始
+	End          string  // 查询时间的结束
 }
 
 type Field struct {
@@ -28,9 +28,9 @@ type Field struct {
 }
 
 // FilterConditions 过滤需要查询的字段
-func (s *Search) FilterConditions(ctx context.Context) []*Field {
+func (s *Search) FilterConditions(ctx context.Context) []Field {
 	request := g.RequestFromCtx(ctx)
-	data := make([]*Field, 0)
+	data := make([]Field, 0)
 	for _, field := range s.Fields {
 		if field.QueryName == "" {
 			field.QueryName = field.Name
