@@ -49,7 +49,7 @@ hr {
 }
 
 /* cell*/
-.cell {
+.cell, .cell-content {
     border-bottom: 1px solid var(--steelblue-05);
     color: var(--white-05);
 }
@@ -323,11 +323,11 @@ hr {
 }
 
 .table-1 tr:nth-child(2n) {
-    background-color: var(--steelblue-08);
+    background-color: var(--steelblue-07);
 }
 
 .table-1 tr:hover {
-    background-color: var(--steelblue-08);
+    background-color: var(--steelblue-07);
     box-shadow: 6px 6px 20px var(--dusk-03) inset;
 }
 
@@ -393,7 +393,7 @@ hr {
 }
 
 .input input:focus, input:focus-visible {
-    border: 1px solid var(--silver-01);
+    border: 1px solid var(--steelblue-02);
 }
 
 
@@ -424,8 +424,41 @@ hr {
     color: var(--white-07) !important;
 }
 
+.color-desc {
+    color: var(--steelblue-03);
+}
+
 .bg-dark {
-    background-color: var(--steelblue-07);
+    background-color: var(--steelblue-08);
+}
+
+
+/*theme*/
+.theme-gray {
+    color: var(--gray-06) !important;
+    background-color: var(--gray-04) !important;
+}
+
+.theme-warning {
+    background-color: var(--yellow-11) !important;
+    color: var(--yellow-06) !important;
+}
+
+.theme-success {
+    background-color: var(--green-06) !important;
+    color: var(--green-03) !important;
+}
+.theme-primary{
+    background-color: var(--blue-05) !important;
+    color: var(--blue-03) !important;
+}
+.theme-danger{
+    background-color: var(--red-05) !important;
+    color: var(--red-03) !important;
+}
+
+.color-white-1 {
+    color: var(--white-01) !important;
 }
 
 .color-box-color-bg {

@@ -91,6 +91,7 @@ func (c cMenu) PathEdit(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
+	g.Log().Notice(nil, data)
 	_ = r.Session.Set("menu_edit", data.Map())
 	_ = r.Response.WriteTpl("/sys/menu/edit.html", g.Map{"msg": sys.MsgFromSession(r)})
 }
@@ -101,6 +102,7 @@ func (c cMenu) Put(r *ghttp.Request) {
 	}
 	m := gconv.Map(d)
 	delete(m, "createdAt")
+	g.Log().Notice(nil, m)
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
 	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
@@ -685,6 +687,23 @@ func (s cSys) GetDictByKey(r *ghttp.Request) {
 	res.OkData(data, r)
 }
 
+func (s cSys) To(r *ghttp.Request) {
+	name := r.Get("name").String()
+	if name == "" {
+		res.Err(fmt.Errorf("filename prefix cannot be empty"), r)
+	}
+	node, err := sys.NodeInfo(r.Context(), r.URL.Path)
+	if err != nil {
+		res.Err(err, r)
+	}
+	if node.FilePath == "" {
+		res.Err(fmt.Errorf("node file path is empty"), r)
+	}
+	_ = r.Response.WriteTpl(node.FilePath, g.Map{
+		"node": node,
+	})
+}
+
 //  ---admin-------------------------------------------------------------------
 
 type cAdmin struct{ bo.Search }
@@ -880,6 +899,12 @@ func (c gen) GenFile(r *ghttp.Request) {
 	}
 	if err := d.SetUrlPrefix(); err != nil {
 		res.Err(err, r)
+	}
+	if d.GenType == 1 { // 生成静态页面
+		if err := sys.GenStaticHtmlFile(r.Context(), d); err != nil {
+			res.Err(err, r)
+		}
+		res.Ok(r)
 	}
 	// set fields
 	d.Fields = make([]*bo.GenFiled, 0)

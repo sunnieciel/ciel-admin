@@ -15,11 +15,13 @@ type Menu struct {
 	Id        interface{} //
 	Pid       interface{} //
 	Icon      interface{} //
+	BgImg     interface{} //
 	Name      interface{} //
 	Path      interface{} //
 	Sort      interface{} //
 	Type      interface{} // 1normal 2group
 	Desc      interface{} //
+	FilePath  interface{} //
 	Status    interface{} //
 	CreatedAt *gtime.Time //
 	UpdatedAt *gtime.Time //

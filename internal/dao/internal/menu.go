@@ -23,11 +23,13 @@ type MenuColumns struct {
 	Id        string //
 	Pid       string //
 	Icon      string //
+	BgImg     string //
 	Name      string //
 	Path      string //
 	Sort      string //
 	Type      string // 1normal 2group
 	Desc      string //
+	FilePath  string //
 	Status    string //
 	CreatedAt string //
 	UpdatedAt string //
@@ -38,11 +40,13 @@ var menuColumns = MenuColumns{
 	Id:        "id",
 	Pid:       "pid",
 	Icon:      "icon",
+	BgImg:     "bg_img",
 	Name:      "name",
 	Path:      "path",
 	Sort:      "sort",
 	Type:      "type",
 	Desc:      "desc",
+	FilePath:  "file_path",
 	Status:    "status",
 	CreatedAt: "created_at",
 	UpdatedAt: "updated_at",

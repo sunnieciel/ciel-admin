@@ -8,7 +8,8 @@ import (
 )
 
 type GenConf struct {
-	StructName string `v:"required#结构体名称不能为空"`
+	GenType    int // 生成页面类型  0 curd 1静态页面
+	StructName string
 	HtmlGroup  string `v:"required#html分组不能为空"`
 	PageName   string `v:"required#页面名称不能为空"`
 	PageDesc   string `v:"required#页面描述不能为空"`
@@ -29,7 +30,7 @@ type GenConf struct {
 }
 
 func (s *GenConf) SetUrlPrefix() error {
-	if s.T1 == "" {
+	if s.T1 == "" && s.GenType == 0 {
 		return errors.New("表名称不能为空")
 	}
 	s.UrlPrefix = fmt.Sprint("/", gstr.CaseCamelLower(s.StructName), "/")

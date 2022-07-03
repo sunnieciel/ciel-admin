@@ -155,6 +155,11 @@ func NodeInfo(ctx context.Context, path string) (*entity.Menu, error) {
 			m.Icon = consts.ImgPrefix + m.Icon
 		}
 	}
+	if m.BgImg != "" {
+		if !strings.HasPrefix(m.BgImg, "http") {
+			m.BgImg = consts.ImgPrefix + m.BgImg
+		}
+	}
 	if m.Desc == "" {
 		m.Desc = "暂无相关说明"
 	}

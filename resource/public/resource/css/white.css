@@ -40,9 +40,8 @@ hr {
 }
 
 /*cell*/
-.cell {
+.cell, .cell-content {
     border-bottom: 1px solid var(--white-05);
-    color: var(--white-01);
 }
 
 
@@ -434,11 +433,39 @@ hr {
 }
 
 .bg-dark {
-    background-color: var(--steelblue-07);
+    background-color: var(--steelblue-08);
+}
+
+.color-desc {
+    color: var(--white-08);
 }
 
 .color-box-color-bg {
     color: var(--white-01);
+}
+
+/*theme*/
+.theme-gray {
+    color: var(--gray-05) !important;
+    background-color: var(--gray-06) !important;
+}
+
+.theme-warning {
+    background-color: var(--yellow-01) !important;
+    color: var(--yellow-06) !important;
+}
+
+.theme-success {
+    background-color: var(--green-01) !important;
+    color: var(--green-03) !important;
+}
+.theme-primary{
+    background-color: var(--blue-01) !important;
+    color: var(--blue-03) !important;
+}
+.theme-danger{
+    background-color: var(--red-01) !important;
+    color: var(--red-03) !important;
 }
 
 .logo {

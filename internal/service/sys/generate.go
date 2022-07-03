@@ -37,8 +37,13 @@ func Tables(ctx context.Context) ([]string, error) {
 	return g.DB().Tables(ctx)
 }
 func GenFile(ctx context.Context, d bo.GenConf) (err error) {
+	if d.StructName == "" {
+		return fmt.Errorf("结构体名称不能为空")
+	}
 	//// gen menu
-	if err = genMenu(ctx, d); err != nil {
+	if err = genMenu(ctx, d, func(name string) string {
+		return fmt.Sprintf("/%s/path", gstr.CaseCamelLower(name))
+	}, ""); err != nil {
 		return err
 	}
 	//gen controller
@@ -59,7 +64,42 @@ func GenFile(ctx context.Context, d bo.GenConf) (err error) {
 	}
 	return
 }
-func genMenu(ctx context.Context, d bo.GenConf) error {
+func GenStaticHtmlFile(ctx context.Context, c bo.GenConf) error {
+	if c.HtmlGroup == "" {
+		return fmt.Errorf("html分组不能为空")
+	}
+	if c.StructName == "" {
+		return fmt.Errorf("结构体名称不能为空")
+	}
+	htmlFilePath := fmt.Sprint("/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), ".html")
+	// gen menu
+	if err := genMenu(ctx, c, func(name string) string {
+		return fmt.Sprintf("/to/%s", c.StructName)
+	}, htmlFilePath); err != nil {
+		return err
+	}
+	// gen file
+	return genStaticHtmlFile(ctx, c, htmlFilePath)
+}
+
+func genStaticHtmlFile(ctx context.Context, c bo.GenConf, filePath string) error {
+	temp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.static.html"))
+
+	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template", filePath))
+	if err != nil {
+		return err
+	}
+	if _, err = f.WriteString(temp); err != nil {
+		return err
+	}
+	if err = f.Close(); err != nil {
+		return err
+	}
+	return nil
+}
+
+// filePath: Need to use when generating static pages,not when curd.
+func genMenu(ctx context.Context, d bo.GenConf, menuPathFuc func(name string) string, filePath string) error {
 	menuLevel1 := d.MenuLevel1
 	menuLeve2 := d.MenuLevel2
 	if menuLevel1 == "" {
@@ -81,11 +121,12 @@ func genMenu(ctx context.Context, d bo.GenConf) error {
 			m1Sort = math.Ceil(maxSort)
 			m2Sort = m1Sort + 0.1
 			id, err := dao.Menu.Ctx(ctx).InsertAndGetId(&entity.Menu{
-				Pid:    -1,
-				Name:   menuLevel1,
-				Type:   2,
-				Sort:   m1Sort,
-				Status: 1,
+				Pid:      -1,
+				Name:     menuLevel1,
+				Type:     2,
+				Sort:     m1Sort,
+				Status:   1,
+				FilePath: filePath,
 			})
 			if err != nil {
 				return err
@@ -117,7 +158,8 @@ here:
 	if menuLogo == "" {
 		menuLogo = xicon.GenIcon()
 	}
-	menuPath := fmt.Sprintf("/%s/path", gstr.CaseCamelLower(d.StructName))
+
+	menuPath := menuPathFuc(d.StructName)
 	// count path
 	g.Log().Debug(ctx, "检查二级菜单是否存在")
 	pathCount, err := dao.Menu.Ctx(ctx).Where("path=?", menuPath).Count()
@@ -129,13 +171,16 @@ here:
 		return nil
 	}
 	if _, err = dao.Menu.Ctx(ctx).Insert(&entity.Menu{
-		Pid:    menu1.Id,
-		Icon:   menuLogo,
-		Path:   menuPath,
-		Sort:   m2Sort,
-		Name:   menuLeve2,
-		Status: 1,
-		Type:   1,
+		Pid:      menu1.Id,
+		Icon:     menuLogo,
+		BgImg:    menuLogo,
+		Path:     menuPath,
+		Sort:     m2Sort,
+		Name:     menuLeve2,
+		Status:   1,
+		Type:     1,
+		Desc:     d.PageDesc,
+		FilePath: filePath,
 	}); err != nil {
 		return err
 	}

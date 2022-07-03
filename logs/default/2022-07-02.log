@@ -117,3 +117,306 @@
 2022-07-02 19:56:54.184 [INFO] Server start at :http://localhost:1211/login 
 2022-07-02 19:57:10.695 [INFO] Server start at :http://localhost:1211/login 
 2022-07-02 19:57:46.416 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:15:35.521 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:17:51.026 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:19:29.163 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:21:25.695 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:25:39.730 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:25:45.589 [NOTI] {"bgImg":"","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:26:49.799 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:26:50.798 [NOTI] 
+2022-07-02 22:26:50.798 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:25:45"} 
+2022-07-02 22:27:04.754 [NOTI] 
+2022-07-02 22:27:08.242 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:25:45"} 
+2022-07-02 22:27:15.025 [NOTI] 
+2022-07-02 22:27:15.028 [NOTI] {"bgImg":"","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:27:15.040 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:27:15"} 
+2022-07-02 22:27:42.043 [NOTI] 
+2022-07-02 22:27:42.043 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:27:15"} 
+2022-07-02 22:27:47.761 [NOTI] 
+2022-07-02 22:27:47.764 [NOTI] {"bgImg":"","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:27:47.776 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:27:47"} 
+2022-07-02 22:28:33.886 [NOTI] 
+2022-07-02 22:28:33.889 [NOTI] {"bgImg":"","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:28:33.905 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:33"} 
+2022-07-02 22:28:39.560 [NOTI] 
+2022-07-02 22:28:39.561 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:33"} 
+2022-07-02 22:28:41.786 [NOTI] 
+2022-07-02 22:28:41.789 [NOTI] {"bgImg":"1/2022/03/mAMoWX.png","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:28:41.802 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:41"} 
+2022-07-02 22:28:47.531 [NOTI] 
+2022-07-02 22:28:47.531 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:41"} 
+2022-07-02 22:28:48.007 [NOTI] 
+2022-07-02 22:28:48.007 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:41"} 
+2022-07-02 22:28:49.475 [NOTI] 
+2022-07-02 22:28:49.476 [NOTI] {"bgImg":"1/2022/03/mAMoWX.png","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:28:49.488 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:49"} 
+2022-07-02 22:28:52.656 [NOTI] 
+2022-07-02 22:31:27.961 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:31:55.425 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:49"} 
+2022-07-02 22:31:55.485 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:49"} 
+2022-07-02 22:31:57.918 [NOTI] 
+2022-07-02 22:32:39.486 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 22:34:06.547 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:49"} 
+2022-07-02 22:34:06.586 [NOTI] {"bg_img":"1/2022/03/mAMoWX.png","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/mAMoWX.png","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:28:49"} 
+2022-07-02 22:34:12.283 [NOTI] 
+2022-07-02 22:34:12.286 [NOTI] {"bgImg":"1/2022/03/FdI4Yw.gif","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:34:12.298 [NOTI] {"bg_img":"1/2022/03/FdI4Yw.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:34:12"} 
+2022-07-02 22:34:12.334 [NOTI] {"bg_img":"1/2022/03/FdI4Yw.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:34:12"} 
+2022-07-02 22:34:14.635 [NOTI] 
+2022-07-02 22:35:37.023 [NOTI] {"bg_img":null,"created_at":"2022-06-13 19:59:57","desc":"","icon":"https://i.scdn.co/image/ab67706f000000035b2f3fe92b9ba1f4d536e231","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-06-25 19:03:17"} 
+2022-07-02 22:35:37.066 [NOTI] {"bg_img":null,"created_at":"2022-06-13 19:59:57","desc":"","icon":"https://i.scdn.co/image/ab67706f000000035b2f3fe92b9ba1f4d536e231","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-06-25 19:03:17"} 
+2022-07-02 22:35:39.172 [NOTI] 
+2022-07-02 22:35:39.174 [NOTI] {"bgImg":"","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:35:39.226 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:35:39.264 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:35:41.257 [NOTI] 
+2022-07-02 22:37:24.715 [NOTI] {"bg_img":null,"created_at":"2022-04-01 22:41:45","desc":"","icon":"1/2022/03/5Eoxb1.png","id":59,"name":"代码生成","path":"/gen/path","pid":1,"sort":1.7,"status":1,"type":1,"updated_at":"2022-06-24 15:30:07"} 
+2022-07-02 22:37:24.769 [NOTI] {"bg_img":null,"created_at":"2022-04-01 22:41:45","desc":"","icon":"1/2022/03/5Eoxb1.png","id":59,"name":"代码生成","path":"/gen/path","pid":1,"sort":1.7,"status":1,"type":1,"updated_at":"2022-06-24 15:30:07"} 
+2022-07-02 22:37:27.824 [NOTI] 
+2022-07-02 22:37:27.826 [NOTI] {"bgImg":"1/2022/03/5Eoxb1.png","desc":"","icon":"1/2022/03/5Eoxb1.png","id":59,"name":"代码生成","path":"/gen/path","pid":1,"sort":1.7,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:37:27.840 [NOTI] {"bg_img":"1/2022/03/5Eoxb1.png","created_at":"2022-04-01 22:41:45","desc":"","icon":"1/2022/03/5Eoxb1.png","id":59,"name":"代码生成","path":"/gen/path","pid":1,"sort":1.7,"status":1,"type":1,"updated_at":"2022-07-02 22:37:27"} 
+2022-07-02 22:37:27.874 [NOTI] {"bg_img":"1/2022/03/5Eoxb1.png","created_at":"2022-04-01 22:41:45","desc":"","icon":"1/2022/03/5Eoxb1.png","id":59,"name":"代码生成","path":"/gen/path","pid":1,"sort":1.7,"status":1,"type":1,"updated_at":"2022-07-02 22:37:27"} 
+2022-07-02 22:37:29.260 [NOTI] 
+2022-07-02 22:37:44.127 [NOTI] {"bg_img":null,"created_at":"2022-03-08 16:05:30","desc":"","icon":"1/2022/03/2S41in.png","id":30,"name":"文件","path":"/file/path","pid":1,"sort":1.6,"status":1,"type":1,"updated_at":"2022-06-25 16:27:18"} 
+2022-07-02 22:37:44.166 [NOTI] {"bg_img":null,"created_at":"2022-03-08 16:05:30","desc":"","icon":"1/2022/03/2S41in.png","id":30,"name":"文件","path":"/file/path","pid":1,"sort":1.6,"status":1,"type":1,"updated_at":"2022-06-25 16:27:18"} 
+2022-07-02 22:37:46.224 [NOTI] 
+2022-07-02 22:37:46.226 [NOTI] {"bgImg":"1/2022/03/2S41in.png","desc":"","icon":"1/2022/03/2S41in.png","id":30,"name":"文件","path":"/file/path","pid":1,"sort":1.6,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:37:46.235 [NOTI] {"bg_img":"1/2022/03/2S41in.png","created_at":"2022-03-08 16:05:30","desc":"","icon":"1/2022/03/2S41in.png","id":30,"name":"文件","path":"/file/path","pid":1,"sort":1.6,"status":1,"type":1,"updated_at":"2022-07-02 22:37:46"} 
+2022-07-02 22:37:46.268 [NOTI] {"bg_img":"1/2022/03/2S41in.png","created_at":"2022-03-08 16:05:30","desc":"","icon":"1/2022/03/2S41in.png","id":30,"name":"文件","path":"/file/path","pid":1,"sort":1.6,"status":1,"type":1,"updated_at":"2022-07-02 22:37:46"} 
+2022-07-02 22:37:47.246 [NOTI] 
+2022-07-02 22:38:11.455 [NOTI] {"bg_img":null,"created_at":"2022-02-27 13:04:56","desc":null,"icon":"1/2022/03/BYFY4d.gif","id":4,"name":"API","path":"/api/path","pid":1,"sort":1.2,"status":1,"type":1,"updated_at":"2022-03-27 20:19:27"} 
+2022-07-02 22:38:11.499 [NOTI] {"bg_img":null,"created_at":"2022-02-27 13:04:56","desc":null,"icon":"1/2022/03/BYFY4d.gif","id":4,"name":"API","path":"/api/path","pid":1,"sort":1.2,"status":1,"type":1,"updated_at":"2022-03-27 20:19:27"} 
+2022-07-02 22:38:13.807 [NOTI] 
+2022-07-02 22:38:13.810 [NOTI] {"bgImg":"1/2022/03/BYFY4d.gif","desc":"","icon":"1/2022/03/BYFY4d.gif","id":4,"name":"API","path":"/api/path","pid":1,"sort":1.2,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:38:13.860 [NOTI] {"bg_img":"1/2022/03/BYFY4d.gif","created_at":"2022-02-27 13:04:56","desc":"","icon":"1/2022/03/BYFY4d.gif","id":4,"name":"API","path":"/api/path","pid":1,"sort":1.2,"status":1,"type":1,"updated_at":"2022-07-02 22:38:13"} 
+2022-07-02 22:38:13.894 [NOTI] {"bg_img":"1/2022/03/BYFY4d.gif","created_at":"2022-02-27 13:04:56","desc":"","icon":"1/2022/03/BYFY4d.gif","id":4,"name":"API","path":"/api/path","pid":1,"sort":1.2,"status":1,"type":1,"updated_at":"2022-07-02 22:38:13"} 
+2022-07-02 22:38:14.682 [NOTI] 
+2022-07-02 22:38:58.275 [NOTI] {"bg_img":null,"created_at":"2022-03-08 15:45:04","desc":"","icon":"1/2022/03/5Eoxb1.png","id":5,"name":"管理员","path":"/admin/path","pid":1,"sort":1.4,"status":1,"type":1,"updated_at":"2022-06-24 13:41:15"} 
+2022-07-02 22:38:58.320 [NOTI] {"bg_img":null,"created_at":"2022-03-08 15:45:04","desc":"","icon":"1/2022/03/5Eoxb1.png","id":5,"name":"管理员","path":"/admin/path","pid":1,"sort":1.4,"status":1,"type":1,"updated_at":"2022-06-24 13:41:15"} 
+2022-07-02 22:39:05.056 [NOTI] 
+2022-07-02 22:39:05.058 [NOTI] {"bgImg":"1/2022/03/5Eoxb1.png","desc":"","icon":"1/2022/03/5Eoxb1.png","id":5,"name":"管理员","path":"/admin/path","pid":1,"sort":1.4,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:39:05.110 [NOTI] {"bg_img":"1/2022/03/5Eoxb1.png","created_at":"2022-03-08 15:45:04","desc":"","icon":"1/2022/03/5Eoxb1.png","id":5,"name":"管理员","path":"/admin/path","pid":1,"sort":1.4,"status":1,"type":1,"updated_at":"2022-07-02 22:39:05"} 
+2022-07-02 22:39:05.154 [NOTI] {"bg_img":"1/2022/03/5Eoxb1.png","created_at":"2022-03-08 15:45:04","desc":"","icon":"1/2022/03/5Eoxb1.png","id":5,"name":"管理员","path":"/admin/path","pid":1,"sort":1.4,"status":1,"type":1,"updated_at":"2022-07-02 22:39:05"} 
+2022-07-02 22:39:06.255 [NOTI] 
+2022-07-02 22:45:16.527 [NOTI] {"bg_img":"1/2022/03/FdI4Yw.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:34:12"} 
+2022-07-02 22:45:16.563 [NOTI] {"bg_img":"1/2022/03/FdI4Yw.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:34:12"} 
+2022-07-02 22:45:20.509 [NOTI] 
+2022-07-02 22:45:20.512 [NOTI] {"bgImg":"https://i.pinimg.com/564x/1d/d0/44/1dd0445b99c55787c3389261c7324fc3.jpg","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:45:20.514 [ERRO] {475b5309600afe16a0a0c44acd9da223} Error 1406: Data too long for column 'bg_img' at row 1, UPDATE `s_menu` SET `updated_at`='2022-07-02 22:45:20',`sort`=1.1,`status`=1,`pid`=1,`id`=2,`bg_img`='https://i.pinimg.com/564x/1d/d0/44/1dd0445b99c55787c3389261c7324fc3.jpg',`path`='/menu/path',`icon`='1/2022/03/FdI4Yw.gif',`name`='菜单',`type`=1,`desc`='这里是菜单页面' WHERE `id`=2
+Stack:
+1.  ciel-admin/internal/service/sys.Update
+    /home/holw/learn/ciel-admin/internal/service/sys/sys.go:130
+2.  ciel-admin/internal/controller.cMenu.Put
+    /home/holw/learn/ciel-admin/internal/controller/s_system.go:107
+3.  github.com/gogf/gf/v2/net/ghttp.(*middleware).callHandlerFunc.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:130
+4.  github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+5.  github.com/gogf/gf/v2/net/ghttp.(*middleware).callHandlerFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:128
+6.  github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.4
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:89
+7.  github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+8.  github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:88
+9.  github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+10. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+11. ciel-admin/internal/service/sys.AdminAction
+    /home/holw/learn/ciel-admin/internal/service/sys/middleware.go:92
+12. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:54
+13. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+14. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:53
+15. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+16. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+17. ciel-admin/internal/service/sys.LockAction
+    /home/holw/learn/ciel-admin/internal/service/sys/middleware.go:60
+18. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:54
+19. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+20. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:53
+21. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+22. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+23. ciel-admin/internal/service/sys.AuthAdmin
+    /home/holw/learn/ciel-admin/internal/service/sys/middleware.go:31
+24. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:54
+25. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+26. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:53
+27. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+28. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+29. github.com/gogf/gf/v2/net/ghttp.internalMiddlewareServerTracing
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_middleware_tracing.go:78
+30. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.5
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:95
+31. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+32. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:94
+33. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+34. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+35. github.com/gogf/gf/v2/net/ghttp.(*Server).ServeHTTP
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_server_handler.go:121
+ 
+2022-07-02 22:45:20.524 [NOTI] {"bg_img":"1/2022/03/FdI4Yw.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:34:12"} 
+2022-07-02 22:45:20.564 [NOTI] {"bg_img":"1/2022/03/FdI4Yw.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:34:12"} 
+2022-07-02 22:46:05.704 [NOTI] 
+2022-07-02 22:46:05.705 [NOTI] {"bgImg":"https://i.pinimg.com/564x/1d/d0/44/1dd0445b99c55787c3389261c7324fc3.jpg","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:46:05.720 [NOTI] {"bg_img":"https://i.pinimg.com/564x/1d/d0/44/1dd0445b99c55787c3389261c7324fc3.jpg","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:46:05"} 
+2022-07-02 22:46:05.771 [NOTI] {"bg_img":"https://i.pinimg.com/564x/1d/d0/44/1dd0445b99c55787c3389261c7324fc3.jpg","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:46:05"} 
+2022-07-02 22:46:07.409 [NOTI] 
+2022-07-02 22:48:12.315 [NOTI] {"bg_img":"https://i.pinimg.com/564x/1d/d0/44/1dd0445b99c55787c3389261c7324fc3.jpg","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:46:05"} 
+2022-07-02 22:48:12.363 [NOTI] {"bg_img":"https://i.pinimg.com/564x/1d/d0/44/1dd0445b99c55787c3389261c7324fc3.jpg","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:46:05"} 
+2022-07-02 22:48:14.671 [NOTI] 
+2022-07-02 22:48:14.674 [NOTI] {"bgImg":"https://i.pinimg.com/originals/95/9f/b1/959fb1f51bc1026ace27acede55e1bc8.gif","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:48:14.726 [NOTI] {"bg_img":"https://i.pinimg.com/originals/95/9f/b1/959fb1f51bc1026ace27acede55e1bc8.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:48:14"} 
+2022-07-02 22:48:14.761 [NOTI] {"bg_img":"https://i.pinimg.com/originals/95/9f/b1/959fb1f51bc1026ace27acede55e1bc8.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:48:14"} 
+2022-07-02 22:48:16.453 [NOTI] 
+2022-07-02 22:49:25.176 [NOTI] {"bg_img":"https://i.pinimg.com/originals/95/9f/b1/959fb1f51bc1026ace27acede55e1bc8.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:48:14"} 
+2022-07-02 22:49:25.228 [NOTI] {"bg_img":"https://i.pinimg.com/originals/95/9f/b1/959fb1f51bc1026ace27acede55e1bc8.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:48:14"} 
+2022-07-02 22:49:33.090 [NOTI] 
+2022-07-02 22:49:33.092 [NOTI] {"bgImg":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:49:33.106 [NOTI] {"bg_img":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:49:33"} 
+2022-07-02 22:49:33.146 [NOTI] {"bg_img":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:49:33"} 
+2022-07-02 22:49:34.852 [NOTI] 
+2022-07-02 22:50:00.172 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:50:00.217 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:50:04.836 [NOTI] 
+2022-07-02 22:50:04.837 [NOTI] {"bgImg":"","desc":"","icon":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:50:04.839 [ERRO] {27e77f3ca20afe16d2a0c44a7c04e8b3} Error 1406: Data too long for column 'icon' at row 1, UPDATE `s_menu` SET `status`=1,`updated_at`='2022-07-02 22:50:04',`pid`=1,`id`=78,`icon`='https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif',`bg_img`='',`path`='/operationLog/path',`type`=1,`name`='操作日志',`sort`=1.8,`desc`='' WHERE `id`=78
+Stack:
+1.  ciel-admin/internal/service/sys.Update
+    /home/holw/learn/ciel-admin/internal/service/sys/sys.go:130
+2.  ciel-admin/internal/controller.cMenu.Put
+    /home/holw/learn/ciel-admin/internal/controller/s_system.go:107
+3.  github.com/gogf/gf/v2/net/ghttp.(*middleware).callHandlerFunc.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:130
+4.  github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+5.  github.com/gogf/gf/v2/net/ghttp.(*middleware).callHandlerFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:128
+6.  github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.4
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:89
+7.  github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+8.  github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:88
+9.  github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+10. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+11. ciel-admin/internal/service/sys.AdminAction
+    /home/holw/learn/ciel-admin/internal/service/sys/middleware.go:92
+12. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:54
+13. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+14. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:53
+15. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+16. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+17. ciel-admin/internal/service/sys.LockAction
+    /home/holw/learn/ciel-admin/internal/service/sys/middleware.go:60
+18. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:54
+19. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+20. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:53
+21. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+22. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+23. ciel-admin/internal/service/sys.AuthAdmin
+    /home/holw/learn/ciel-admin/internal/service/sys/middleware.go:31
+24. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:54
+25. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+26. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:53
+27. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+28. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+29. github.com/gogf/gf/v2/net/ghttp.internalMiddlewareServerTracing
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_middleware_tracing.go:78
+30. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1.5
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:95
+31. github.com/gogf/gf/v2/net/ghttp.niceCallFunc
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_func.go:56
+32. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next.func1
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:94
+33. github.com/gogf/gf/v2/util/gutil.TryCatch
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/util/gutil/gutil.go:55
+34. github.com/gogf/gf/v2/net/ghttp.(*middleware).Next
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_request_middleware.go:48
+35. github.com/gogf/gf/v2/net/ghttp.(*Server).ServeHTTP
+    /home/holw/go/pkg/mod/github.com/gogf/gf/v2@v2.0.6/net/ghttp/ghttp_server_handler.go:121
+ 
+2022-07-02 22:50:04.888 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:50:04.921 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:50:07.627 [NOTI] 
+2022-07-02 22:50:33.510 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:50:33.563 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:35:39"} 
+2022-07-02 22:50:36.389 [NOTI] 
+2022-07-02 22:50:36.392 [NOTI] {"bgImg":"","desc":"","icon":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:50:36.400 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:50:36"} 
+2022-07-02 22:50:36.435 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:50:36"} 
+2022-07-02 22:50:37.844 [NOTI] 
+2022-07-02 22:57:19.162 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:50:36"} 
+2022-07-02 22:57:19.208 [NOTI] {"bg_img":"","created_at":"2022-06-13 19:59:57","desc":"","icon":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:50:36"} 
+2022-07-02 22:57:25.138 [NOTI] 
+2022-07-02 22:57:25.140 [NOTI] {"bgImg":"3/2022/07/JHKAU4.gif","desc":"","icon":"3/2022/07/JHKAU4.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:57:25.149 [NOTI] {"bg_img":"3/2022/07/JHKAU4.gif","created_at":"2022-06-13 19:59:57","desc":"","icon":"3/2022/07/JHKAU4.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:57:25"} 
+2022-07-02 22:57:25.187 [NOTI] {"bg_img":"3/2022/07/JHKAU4.gif","created_at":"2022-06-13 19:59:57","desc":"","icon":"3/2022/07/JHKAU4.gif","id":78,"name":"操作日志","path":"/operationLog/path","pid":1,"sort":1.8,"status":1,"type":1,"updated_at":"2022-07-02 22:57:25"} 
+2022-07-02 22:57:26.838 [NOTI] 
+2022-07-02 22:57:50.812 [NOTI] {"bg_img":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:49:33"} 
+2022-07-02 22:57:50.849 [NOTI] {"bg_img":"https://i.pinimg.com/originals/2d/97/4d/2d974d71915c2bf72d30ef60f8731267.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:49:33"} 
+2022-07-02 22:57:53.694 [NOTI] 
+2022-07-02 22:57:53.697 [NOTI] {"bgImg":"3/2022/07/JHKAU4.gif","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:57:53.710 [NOTI] {"bg_img":"3/2022/07/JHKAU4.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:57:53"} 
+2022-07-02 22:57:53.744 [NOTI] {"bg_img":"3/2022/07/JHKAU4.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:57:53"} 
+2022-07-02 22:57:55.341 [NOTI] 
+2022-07-02 22:58:02.326 [NOTI] {"bg_img":"3/2022/07/JHKAU4.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:57:53"} 
+2022-07-02 22:58:02.363 [NOTI] {"bg_img":"3/2022/07/JHKAU4.gif","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:57:53"} 
+2022-07-02 22:58:05.918 [NOTI] 
+2022-07-02 22:58:05.919 [NOTI] {"bgImg":"","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 22:58:05.933 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:58:05"} 
+2022-07-02 22:58:05.965 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:58:05"} 
+2022-07-02 22:58:08.611 [NOTI] 
+2022-07-02 23:07:35.832 [INFO] Server start at :http://localhost:1211/login 
+2022-07-02 23:07:59.396 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:58:05"} 
+2022-07-02 23:07:59.460 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 22:58:05"} 
+2022-07-02 23:08:03.668 [NOTI] 
+2022-07-02 23:08:03.670 [NOTI] {"bgImg":"5/2022/07/VB3kUj.mp4","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 23:08:03.680 [NOTI] {"bg_img":"5/2022/07/VB3kUj.mp4","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 23:08:03"} 
+2022-07-02 23:08:03.736 [NOTI] {"bg_img":"5/2022/07/VB3kUj.mp4","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 23:08:03"} 
+2022-07-02 23:08:05.095 [NOTI] 
+2022-07-02 23:10:00.317 [NOTI] {"bg_img":"5/2022/07/VB3kUj.mp4","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 23:08:03"} 
+2022-07-02 23:10:00.385 [NOTI] {"bg_img":"5/2022/07/VB3kUj.mp4","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 23:08:03"} 
+2022-07-02 23:10:02.576 [NOTI] 
+2022-07-02 23:10:02.584 [NOTI] {"bgImg":"","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-02 23:10:02.600 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 23:10:02"} 
+2022-07-02 23:10:02.662 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-02 23:10:02"} 
+2022-07-02 23:10:04.288 [NOTI] 

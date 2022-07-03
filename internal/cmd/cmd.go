@@ -27,6 +27,7 @@ var (
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.GET("/", controller.Home.IndexPage)
 				group.GET("/login", controller.Admin.LoginPage)
+				group.GET("/to/:name", controller.Sys.To)
 			})
 			s.Group("/menu", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
@@ -113,8 +114,6 @@ var (
 				g.POST("/post", controller.File.Post)
 				g.POST("/put", controller.File.Put)
 				g.POST("/upload", controller.File.Upload)
-			})
-			s.Group("/admin", func(g *ghttp.RouterGroup) {
 			})
 			s.Group("/operationLog", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)

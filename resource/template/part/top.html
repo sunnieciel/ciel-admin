@@ -1,16 +1,19 @@
-<div id="top" class="w flex-center"><a href="{{.Config.home}}" class="logo mr-auto">{{.Config.server.name}}</a>
-    <div class="top-pc fs-15 top-right">
-        {{if .Session.adminInfo}}
-        <a class="link-1 ">{{.Session.adminInfo.Admin.uname}}</a>
-        <a class="link-1" onclick="updatePwd()">修改密码</a>
-        <a class="link-1" onclick="logout()">登出</a>
-        {{else}}
-        <a href="/login" class="link-1">登录</a>
-        {{end}}
-        {{if eq .Cookie.dark 1}}
-        <a href="#" onclick="setDark(0)"><img src="/resource/image/toggle-dark.png" height="10" alt="dark"></a>
-        {{else}}
-        <a href="#" onclick="setDark(1)"><img src="/resource/image/toggle-light.png" height="10" alt="light"></a>
-        {{end}}
+<div id="top">
+    <div class="w flex-center">
+        <a href="{{.Config.home}}" class="logo mr-auto ">{{.Config.server.name}}</a>
+        <div class="top-pc fs-15 top-right">
+            {{if .Session.adminInfo}}
+            <a class="link-1 ">{{.Session.adminInfo.Admin.uname}}</a>
+            <a class="link-1" onclick="updatePwd()">修改密码</a>
+            <a class="link-1" onclick="logout()">登出</a>
+            {{else}}
+            <a href="/login" class="link-1">登录</a>
+            {{end}}
+            {{if eq .Cookie.dark 1}}
+            <a href="#" onclick="setDark(0)"><img src="/resource/image/toggle-dark.png" height="10" alt="dark"></a>
+            {{else}}
+            <a href="#" onclick="setDark(1)"><img src="/resource/image/toggle-light.png" height="10" alt="light"></a>
+            {{end}}
+        </div>
     </div>
 </div>

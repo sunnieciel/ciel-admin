@@ -21,6 +21,8 @@
     --gray-02: #778087;
     --gray-03: rgba(144, 147, 153, 0.1);
     --gray-04: rgba(144, 147, 153, 0.2);
+    --gray-05: #858585;
+    --gray-06: #cbcbcb;
 
     --dusk-01: #556;
     --dusk-02: #4d5256;
@@ -190,16 +192,33 @@ a:visited,
     border-radius: var(--box-border-radius);
     margin-top: var(--box-spacing);
     box-shadow: var(--elevation-box-shadow-2);
+    opacity: 0.99;
+}
+
+.box-header {
+    height: 26px;
+    line-height: 26px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: var(--box-border-radius) var(--box-border-radius) 0 0;
+}
+
+.box-header i {
+    font-size: 20px;
 }
 
 /*cell*/
-.cell {
+.cell, .cell-content {
     border-top-left-radius: var(--box-border-radius);
     border-top-right-radius: var(--box-border-radius);
     line-height: 1.5;
     padding: 10px;
     font-size: 14px;
     min-height: 3px;
+
+}
+.cell-content{
+    padding: 5px;
 }
 
 .cell h1 {
@@ -241,6 +260,7 @@ a:visited,
 .cell-tools span {
     margin-right: 3px;
 }
+
 
 /*link*/
 .link-1 {
@@ -324,12 +344,12 @@ a:visited,
     white-space: break-spaces !important;
     max-width: 156px;
     height: auto !important;
-    padding: 3px 9px !important;
-    line-height: 1.0 !important;
+    padding: 4px 10px !important;
     text-align: left;
+    border-radius: 16px;
     font-size: 12px;
-    border-radius: 15px;
-    box-sizing: border-box;
+    line-height: 12px;
+    margin: 3px 0;
     transition: all var(--transition-time) ease-in-out;
 }
 
@@ -532,6 +552,18 @@ li .input {
 }
 
 /*base----------------------------------------------------------*/
+.width-50 {
+    width: 50px;
+}
+
+.width-90 {
+    width: 90px;
+}
+
+.text-align-right {
+    text-align: right !important;
+}
+
 .m-3 {
     margin: 3px;
 }
@@ -689,6 +721,8 @@ li .input {
 }
 
 /*---------------------other-------------------*/
+
+
 .user-info-mobile {
     display: none;
 }
@@ -734,10 +768,10 @@ li .input {
 /*layout*/
 #top {
     height: 44px;
-    align-items: center;
-    font-size: 15px;
+    line-height: 44px;
     font-weight: 500;
     padding: 0 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, .22);
 }
 
 #nav {
