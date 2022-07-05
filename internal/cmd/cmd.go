@@ -22,8 +22,9 @@ var (
 			sys.Init()
 			g.View().BindFuncMap(sys.BindFuncMap())
 			s := g.Server()
-			registerInterface(s)     // 注册对外提供功能的接口
-			registerGenFileRouter(s) // 注册生成的代码路由
+			registerInterface(s)                         // 注册对外提供功能的接口
+			registerGenFileRouter(s)                     // 注册生成的代码路由
+			s.BindMiddlewareDefault(sys.MiddlewareXIcon) // 默认中间件
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.GET("/", controller.Home.IndexPage)
 				group.GET("/login", controller.Admin.LoginPage)

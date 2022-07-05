@@ -105,3 +105,10 @@ func AdminAction(r *ghttp.Request) {
 		g.Log().Error(ctx, err)
 	}
 }
+func MiddlewareXIcon(r *ghttp.Request) {
+	if r.GetHeader("Sec-Fetch-Dest") == "image" {
+		r.Response.Write("ok")
+		r.Exit()
+	}
+	r.Middleware.Next()
+}

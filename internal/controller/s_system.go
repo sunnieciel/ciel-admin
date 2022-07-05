@@ -686,7 +686,6 @@ func (s cSys) GetDictByKey(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
-
 func (s cSys) To(r *ghttp.Request) {
 	name := r.Get("name").String()
 	if name == "" {

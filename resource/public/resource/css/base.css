@@ -217,8 +217,20 @@ a:visited,
     min-height: 3px;
 
 }
-.cell-content{
-    padding: 5px;
+
+.cell-content {
+    padding: 10px;
+}
+
+.cell-content ul {
+    margin: 15px 28px;
+    padding: 0;
+    column-count: 2;
+}
+
+.cell-content li {
+    list-style: circle;
+    margin: 0 3px;
 }
 
 .cell h1 {
@@ -349,7 +361,7 @@ a:visited,
     border-radius: 16px;
     font-size: 12px;
     line-height: 12px;
-    margin: 3px 0;
+    margin: 3px;
     transition: all var(--transition-time) ease-in-out;
 }
 
@@ -612,16 +624,20 @@ li .input {
     padding: 0;
 }
 
+.p-3 {
+    padding: 3px !important;
+}
+
 .p-10 {
-    padding: 10px;
+    padding: 10px !important;
 }
 
 .pl-20 {
-    padding-left: 20px;
+    padding-left: 20px !important;
 }
 
 .pb-0 {
-    padding-bottom: 0;
+    padding-bottom: 0 !important;
 }
 
 /*font-size*/
@@ -652,6 +668,10 @@ li .input {
 .fr {
     float: right;
     text-align: right;
+}
+
+.colum-count-2 {
+    column-count: 2;
 }
 
 /*flex*/
@@ -709,6 +729,11 @@ li .input {
 
 .last-no-bottom-border:last-child {
     border-bottom: none !important;
+}
+
+/*color*/
+.theme-gray, .theme-primary, .theme-success, .theme-warning, .theme-danger {
+    border-radius: 3px;
 }
 
 /*base end--------------------------------------------*/

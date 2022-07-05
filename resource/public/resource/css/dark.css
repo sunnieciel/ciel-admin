@@ -429,7 +429,7 @@ hr {
 }
 
 .bg-dark {
-    background-color: var(--steelblue-08);
+    background-color: var(--steelblue-07);
 }
 
 
@@ -448,11 +448,13 @@ hr {
     background-color: var(--green-06) !important;
     color: var(--green-03) !important;
 }
-.theme-primary{
+
+.theme-primary {
     background-color: var(--blue-05) !important;
     color: var(--blue-03) !important;
 }
-.theme-danger{
+
+.theme-danger {
     background-color: var(--red-05) !important;
     color: var(--red-03) !important;
 }

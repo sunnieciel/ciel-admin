@@ -42,8 +42,8 @@ hr {
 /*cell*/
 .cell, .cell-content {
     border-bottom: 1px solid var(--white-05);
+    color: var(--black-01);
 }
-
 
 .cell-hover:hover {
     background-color: var(--white-03);
@@ -459,11 +459,13 @@ hr {
     background-color: var(--green-01) !important;
     color: var(--green-03) !important;
 }
-.theme-primary{
+
+.theme-primary {
     background-color: var(--blue-01) !important;
     color: var(--blue-03) !important;
 }
-.theme-danger{
+
+.theme-danger {
     background-color: var(--red-01) !important;
     color: var(--red-03) !important;
 }
