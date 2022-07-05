@@ -13,12 +13,14 @@ import (
 type Node struct {
 	g.Meta     `orm:"table:f_node, do:true"`
 	Id         interface{} //
+	Year       interface{} //
+	Month      interface{} //
+	Day        interface{} //
 	Uid        interface{} //
 	Level      interface{} //
 	Tag        interface{} //
 	MainThings interface{} //
 	OtherInfo  interface{} //
-	HappenDate interface{} //
 	CreatedAt  *gtime.Time //
 	UpdatedAt  *gtime.Time //
 }

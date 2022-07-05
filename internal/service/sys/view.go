@@ -1,6 +1,7 @@
 package sys
 
 import (
+	"ciel-admin/internal/service/sys/node"
 	"ciel-admin/utility/utils/xurl"
 	"github.com/gogf/gf/v2/os/gview"
 	"github.com/gogf/gf/v2/util/gconv"
@@ -23,5 +24,6 @@ func BindFuncMap() gview.FuncMap {
 	return gview.FuncMap{
 		"hasPrefix":   HasPrefix,
 		"toUrlParams": xurl.ToUrlParams,
+		"nodeDesc":    node.NodeDesc,
 	}
 }

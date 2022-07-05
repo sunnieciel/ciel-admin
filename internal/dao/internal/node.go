@@ -21,12 +21,14 @@ type NodeDao struct {
 // NodeColumns defines and stores column names for table f_node.
 type NodeColumns struct {
 	Id         string //
+	Year       string //
+	Month      string //
+	Day        string //
 	Uid        string //
 	Level      string //
 	Tag        string //
 	MainThings string //
 	OtherInfo  string //
-	HappenDate string //
 	CreatedAt  string //
 	UpdatedAt  string //
 }
@@ -34,12 +36,14 @@ type NodeColumns struct {
 //  nodeColumns holds the columns for table f_node.
 var nodeColumns = NodeColumns{
 	Id:         "id",
+	Year:       "year",
+	Month:      "month",
+	Day:        "day",
 	Uid:        "uid",
 	Level:      "level",
 	Tag:        "tag",
 	MainThings: "main_things",
 	OtherInfo:  "other_info",
-	HappenDate: "happen_date",
 	CreatedAt:  "created_at",
 	UpdatedAt:  "updated_at",
 }

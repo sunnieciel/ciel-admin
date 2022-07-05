@@ -28,6 +28,7 @@ var (
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.GET("/", controller.Home.IndexPage)
 				group.GET("/login", controller.Admin.LoginPage)
+				group.Middleware(sys.AuthAdmin)
 				group.GET("/to/:name", controller.Sys.To)
 			})
 			s.Group("/menu", func(g *ghttp.RouterGroup) {

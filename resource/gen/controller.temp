@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type cMenu struct{ bo.Search }
@@ -47,7 +48,7 @@ func (c cMenu) Path(r *ghttp.Request) {
 	}
 }
 func (c cMenu) PathAdd(r *ghttp.Request) {
-	r.Response.WriteTpl("/sys/menu/add.html", g.Map{"msg": sys.MsgFromSession(r)})
+	r.Response.WriteTpl("/[group]/menu/add.html", g.Map{"msg": sys.MsgFromSession(r)})
 }
 func (c cMenu) Post(r *ghttp.Request) {
 	d := entity.Menu{}

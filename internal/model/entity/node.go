@@ -11,12 +11,14 @@ import (
 // Node is the golang structure for table node.
 type Node struct {
 	Id         int64       `json:"id"         description:""`
+	Year       string      `json:"year"       description:""`
+	Month      int         `json:"month"      description:""`
+	Day        int         `json:"day"        description:""`
 	Uid        int         `json:"uid"        description:""`
 	Level      int         `json:"level"      description:""`
 	Tag        string      `json:"tag"        description:""`
 	MainThings string      `json:"mainThings" description:""`
 	OtherInfo  string      `json:"otherInfo"  description:""`
-	HappenDate string      `json:"happenDate" description:""`
 	CreatedAt  *gtime.Time `json:"createdAt"  description:""`
 	UpdatedAt  *gtime.Time `json:"updatedAt"  description:""`
 }

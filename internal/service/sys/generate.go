@@ -356,7 +356,7 @@ func genEdit(ctx context.Context, c bo.GenConf) error {
 			tr += "</tr>"
 		case "textarea":
 			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><textarea name='%s' %s>{{.Session.%s_edit.%s}}</textarea></td>",
-				label, i.Name, structNameLower, readonly, i.Name,
+				label, i.Name, readonly, structNameLower, i.Name,
 			)
 			if i.Comment != "" {
 				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
