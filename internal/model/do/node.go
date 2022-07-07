@@ -13,6 +13,7 @@ import (
 type Node struct {
 	g.Meta     `orm:"table:f_node, do:true"`
 	Id         interface{} //
+	Category   interface{} //
 	Year       interface{} //
 	Month      interface{} //
 	Day        interface{} //

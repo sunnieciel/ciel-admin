@@ -11,6 +11,7 @@ import (
 // Node is the golang structure for table node.
 type Node struct {
 	Id         int64       `json:"id"         description:""`
+	Category   uint        `json:"category"   description:""`
 	Year       string      `json:"year"       description:""`
 	Month      int         `json:"month"      description:""`
 	Day        int         `json:"day"        description:""`

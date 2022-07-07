@@ -35,7 +35,13 @@ func (s *Search) FilterConditions(ctx context.Context) []Field {
 		if field.QueryName == "" {
 			field.QueryName = field.Name
 		}
-		field.Value = request.GetQuery(field.QueryName)
+		query := request.GetQuery(field.QueryName)
+		if query.IsEmpty() { // if query is empty get from session
+			get, _ := g.RequestFromCtx(ctx).Session.Get(field.QueryName)
+			field.Value = get.String()
+		} else {
+			field.Value = query
+		}
 		data = append(data, field)
 	}
 	return data

@@ -233,6 +233,10 @@ a:visited,
     margin: 0 3px;
 }
 
+.cell-content p {
+    text-indent: 2em;
+}
+
 .cell h1 {
     font-size: 24px;
     font-weight: 500;
@@ -300,11 +304,16 @@ a:visited,
     text-decoration: underline !important;
 }
 
+.link-4:hover {
+    cursor: pointer !important;
+}
+
 .link-5 {
     font-size: 12px;
     line-height: 12px;
     padding: 3px 10px;
 }
+
 
 .link-5:hover {
     border-radius: 15px;
@@ -736,7 +745,25 @@ li .input {
     border-radius: 3px;
 }
 
+.text-max-width-633 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 633px;
+}
+
+.pointer:hover {
+    cursor: pointer !important;
+    text-decoration: underline;
+}
+
 /*base end--------------------------------------------*/
+
+/*---------------------other-------------------*/
+[v-cloak] {
+    display: none;
+}
+
 .logo {
     margin-right: 9px;
     font-weight: bolder;
@@ -745,9 +772,6 @@ li .input {
     word-break: keep-all !important;
 }
 
-/*---------------------other-------------------*/
-
-
 .user-info-mobile {
     display: none;
 }
@@ -755,8 +779,6 @@ li .input {
 ::placeholder {
     font-size: 14px;
 }
-
-/*---------------------layout------------------------------*/
 
 .GPageLink {
     display: inline-block;
@@ -790,7 +812,7 @@ li .input {
     margin: 0 12px;
 }
 
-/*layout*/
+/*---------------------layout------------------------------*/
 #top {
     height: 44px;
     line-height: 44px;

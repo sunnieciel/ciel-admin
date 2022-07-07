@@ -687,8 +687,8 @@ func (s cSys) GetDictByKey(r *ghttp.Request) {
 	res.OkData(data, r)
 }
 func (s cSys) To(r *ghttp.Request) {
-	name := r.Get("name").String()
-	if name == "" {
+	name := r.Get("name")
+	if name.IsEmpty() || name.String() == "null" {
 		res.Err(fmt.Errorf("filename prefix cannot be empty"), r)
 	}
 	node, err := sys.NodeInfo(r.Context(), r.URL.Path)
@@ -698,9 +698,17 @@ func (s cSys) To(r *ghttp.Request) {
 	if node.FilePath == "" {
 		res.Err(fmt.Errorf("node file path is empty"), r)
 	}
-	_ = r.Response.WriteTpl(node.FilePath, g.Map{
-		"node": node,
-	})
+	_ = r.Response.WriteTpl(node.FilePath, g.Map{"node": node})
+}
+
+func (s cSys) Quotations(r *ghttp.Request) {
+	node, err := sys.NodeInfo(r.Context(), "/to/quotations")
+	if err != nil {
+		res.Err(err, r)
+	}
+	if err = r.Response.WriteTpl("/sys/tool/quotations.html", g.Map{"node": node}); err != nil {
+		res.Err(err, r)
+	}
 }
 
 //  ---admin-------------------------------------------------------------------

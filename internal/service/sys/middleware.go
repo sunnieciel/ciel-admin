@@ -106,9 +106,10 @@ func AdminAction(r *ghttp.Request) {
 	}
 }
 func MiddlewareXIcon(r *ghttp.Request) {
-	if r.GetHeader("Sec-Fetch-Dest") == "image" {
-		r.Response.Write("ok")
-		r.Exit()
+	header := r.GetHeader("Sec-Fetch-Dest")
+	if header == "image" {
+		//r.Response.Write("22222222")
+		//r.Exit()
 	}
 	r.Middleware.Next()
 }

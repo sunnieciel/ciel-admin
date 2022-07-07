@@ -1,27 +1,24 @@
 <meta charset="UTF-8">
 <meta name="Content-Type" content="text/html;charset=utf-8">
 <link href="/resource/css/base.css" rel="stylesheet">
+<link rel="stylesheet" href="/resource/css/font-awesome.min.css">
 {{if eq .Cookie.dark 1}}
 <link href="/resource/css/dark.css" rel="stylesheet">
 {{else}}
 <link href="/resource/css/white.css" rel="stylesheet">
 {{end}}
-<link rel="stylesheet" href="/resource/css/font-awesome.min.css">
-
 <!-- 地址栏显示 -->
-<link rel="Shortcut Icon" href="{{.node.Icon}}" type="image/x-icon"/>
-<!--<link rel="Shortcut Icon" href="/cat.jpg" type="image/x-icon"/>-->
-<!-- 收藏栏也显示 -->
-<link rel="Bookmark" href="{{.node.Icon}}" type="image/x-icon"/>
-<!--<link rel="Bookmark" href="/cat.jpg" type="image/x-icon"/>-->
+{{if .node.Icon}}
+<link rel="Shortcut Icon" href="{{.node.Icon}}" type="image/png"/>
+{{end}}
 
-
+{{if.node.BgImg}}
 <style>
     #wrapper {
         background-image: url({{.node.BgImg}}), url({{.node.BgImg}});
-        /*background-image:  url({{.node.BgImg}});*/
+        background-repeat: repeat-x, repeat;
         /*background-position: center;*/
         /*background-attachment: fixed;*/
-        background-repeat: repeat-x, repeat;
     }
 </style>
+{{end}}

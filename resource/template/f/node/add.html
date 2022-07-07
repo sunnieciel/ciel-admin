@@ -25,35 +25,43 @@
                 </div>
                 <form class="cell" method="post" action="/node/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                                                <tr>
+                        <tr>
                             <td width='160' align='right'>日期</td>
-                            <td width='auto' align='left'><input name='happen_date'  required></td>
-                        </tr>                        <tr>
-                            <td width='160' align='right'>用户名</td>
-                            <td width='auto' align='left'><input name='t2.uname'  ></td>
-                        </tr>                        <tr>
-                            <td width='160' align='right'>用户ID</td>
-                            <td width='auto' align='left'><input name='uid'  required></td>
-                        </tr>                          <tr>  <td align='right'>等级</td>
-                            <td>                                <select name='level' required>
-                                    <option value='1' selected class='tag-info'>普通</option>
-                                    <option value='2'  class='tag-success'>稀有</option>
-                                    <option value='3'  class='tag-primary'>传承</option>
-                                    <option value='4'  class='tag-warning'>唯一</option>
-                                    <option value='5'  class='tag-danger'>史诗</option>
-                                </select>
-</td>
- </tr>                        <tr>
-                            <td width='160' align='right'>标签</td>
-                            <td width='auto' align='left'><input name='tag'  ></td>
-                        </tr>                        <tr>
-                            <td width='160' align='right'>内容</td>
-                            <td width='auto' align='left'><textarea name='main_things' required></textarea></td>
-                        </tr>                        <tr>
-                            <td width='160' align='right'>备注信息</td>
-                            <td width='auto' align='left'><textarea name='other_info' ></textarea></td>
+                            <td width='auto' align='left'><input name='happen_date'></td>
+                            <td width="150" align="left" class="color-desc">eg 2020,12,11 (小写逗号分隔)</td>
                         </tr>
-                        
+                        <tr>
+                            <td align='right'>等级</td>
+                            <td><select name='level' required>
+                                <option value='1' selected class='tag-info'>普通</option>
+                                <option value='2' class='tag-success'>稀有</option>
+                                <option value='3' class='tag-primary'>传承</option>
+                                <option value='4' class='tag-warning'>唯一</option>
+                                <option value='5' class='tag-danger'>史诗</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align='right'>分类</td>
+                            <td><select name='category' required>
+                                {{range .category}}
+                                <option value='{{.value}}' class='tag-info'>{{.label}}</option>
+                                {{end}}
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td width='160' align='right'>标签</td>
+                            <td width='auto' align='left'><input name='tag'></td>
+                        </tr>
+                        <tr>
+                            <td width='160' align='right'>内容</td>
+                            <td width='auto' align='left'><textarea name='main_things' required style="width: 629px; height: 320px;"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td width='160' align='right'>备注信息</td>
+                            <td width='auto' align='left'><textarea name='other_info'></textarea></td>
+                        </tr>
+
                         <tr>
                             <td></td>
                             <td>

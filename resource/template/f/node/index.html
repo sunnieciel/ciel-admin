@@ -4,11 +4,13 @@
 =================================================================================
 -->
 <!DOCTYPE html>
-{{include "/part/meta.html" .}} <title>{{.node.Name}} - {{.Config.server.name}} </title>
+<html lang="zh">
+<head>
+    {{include "/part/meta.html" .}} <title>{{.node.Name}} - {{.Config.server.name}} </title>
 </head>
 <body>
 {{include "/part/top.html" .}}
-<div id="wrapper">
+<div id="wrapper" v-cloak>
     <div class="w">
         <div id="wrapper-left">
             {{include "/part/nav.html" .}}
@@ -17,51 +19,61 @@
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
                     <a class="tag-info mr-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus" aria-hidden="true"></i></a>
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
-                    <label class="input">日期 <input type="text" name="node_happen_date" value="{{.Session.node_happen_date}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">用户名 <input type="text" name="node_uname" value="{{.Session.node_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class='input'>等级 <select type='text' name='node_level' value='{{.Session.node_level}}' onchange='this.form.submit()'>
-                    <option value='' class='tag-info'>请选择</option>
-                    <option value='1' {{if eq .Query.node_level 1}} selected {{end}} class='tag-info'>普通</option>
-                    <option value='2' {{if eq .Query.node_level 2}} selected {{end}} class='tag-success'>稀有</option>
-                    <option value='3' {{if eq .Query.node_level 3}} selected {{end}} class='tag-primary'>传承</option>
-                    <option value='4' {{if eq .Query.node_level 4}} selected {{end}} class='tag-warning'>唯一</option>
-                    <option value='5' {{if eq .Query.node_level 5}} selected {{end}} class='tag-danger'>史诗</option>
-                </select></label><label class="input">标签 <input type="text" name="node_tag" value="{{.Session.node_tag}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">内容 <input type="text" name="node_main_things" value="{{.Session.node_main_things}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    <input id="node_category" name="node_category" value="{{.Session.node_category}}" hidden>
+                    <label class='input'>等级 <select type='text' name='node_level' value='{{.Session.node_level}}' onchange='this.form.submit()'>
+                        <option value='' class='tag-info'>请选择</option>
+                        <option value='1' {{if eq .Query.node_level 1}} selected {{end}} class='tag-info'>普通</option>
+                        <option value='2' {{if eq .Query.node_level 2}} selected {{end}} class='tag-success'>稀有</option>
+                        <option value='3' {{if eq .Query.node_level 3}} selected {{end}} class='tag-primary'>传承</option>
+                        <option value='4' {{if eq .Query.node_level 4}} selected {{end}} class='tag-warning'>唯一</option>
+                        <option value='5' {{if eq .Query.node_level 5}} selected {{end}} class='tag-danger'>史诗</option>
+                    </select>
+                        <label class="input">年
+                            <input list="year" type="text" name="node_year" value="{{.Session.node_year}}" onkeydown="if(event.keyCode===13)this.form.submit()">
+                            <datalist id="year">
+                                <option value="">请选择</option>
+                                <option v-for="i in 2023" :value="i" v-text="i"></option>
+                            </datalist>
+                        </label>
+                        <label class="input">月
+                            <input list="month" type="text" name="node_month" value="{{.Session.node_month}}" onkeydown="if(event.keyCode===13)this.form.submit()">
+                            <datalist id="month">
+                                <option value="">请选择</option>
+                                <option v-for="i in 12" :value="i" v-text="i"></option>
+                            </datalist>
+                        </label>
+                        <label class="input">日
+                            <input list="day" type="text" name="node_day" value="{{.Session.node_day}}" onkeydown="if(event.keyCode===13)this.form.submit()">
+                            <datalist id="day">
+                                <option value="">请选择</option>
+                                <option v-for="i in 30" :value="i" v-text="i"></option>
+                            </datalist>
+                        </label>
+                        <label class="input">用户名 <input type="text" name="node_uname" value="{{.Session.node_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    </label><label class="input">标签 <input type="text" name="node_tag" value="{{.Session.node_tag}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">内容 <input type="text" name="node_main_things" value="{{.Session.node_main_things}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                 </form>
             </div>
             <div class="box no-bottom-border">
                 {{.msg}}
-                <table class="table-1">
-                    <tr>
-                        <th>id</th>
-                        <th>日期</th>
-                        <th>用户名</th>
-                        <th>等级</th>
-                        <th>标签</th>
-                        <th>内容</th>
-                        <th>备注信息</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </tr>
-                    {{range .list}}
-                    <tr>
-                        <td>{{.id}}</td>
-                        <td>{{.happen_date}}</td>
-                        <td>{{.uname}}</td>
-                        <td>{{if eq .level "1"}}<span class="tag-info">普通</span>{{else if eq .level "2"}}<span class="tag-success">稀有</span>{{else if eq .level "3"}}<span class="tag-primary">传承</span>{{else if eq .level "4"}}<span class="tag-warning">唯一</span>{{else if eq .level "5"}}<span class="tag-danger">史诗</span>{{end}}</td>
-                        <td>{{.tag}}</td>
-                        <td>{{.main_things}}</td>
-                        <td>{{.other_info}}</td>
-                        <td>{{.created_at}}</td>
-                        <td align="center">
-                            <a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>
-                            <a href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
+                <div class="cell category">
+                    {{range .category}}
+                    <a href="#" class="tag-info" data="{{.value}}" onclick="$('#node_category').val($(this).attr('data')).parent().submit()">{{.label}}</a>
                     {{end}}
-                </table>
-                <div class="box">
-                    {{range .list}}
-                    <p class="fs-12">{{nodeDesc .}}</p>
-                    {{end}}
+                </div>
+                <div class="cell">
+                    <table>
+                        {{range $index,$i :=.list}}
+                        <tr>
+                            <td v-html="level({{$i.level}})"></td>
+                            <td v-html="tag(0,'{{$i.tag}}')"></td>
+                            <td v-html="time('{{$i.year}}','{{$i.month}}','{{$i.day}}')"></td>
+                            <td v-html="day('{{$i.year}}','{{$i.month}}','{{$i.day}}')"></td>
+                            <td href='{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}'>
+                                <p class="link-4 text-max-width-633" onclick='location.href="{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}"'>{{$i.main_things|html}}</p>
+                            </td>
+                        </tr>
+                        {{end}}
+                    </table>
                 </div>
                 {{include "/part/pagination.html" .}}
             </div>
@@ -70,5 +82,89 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script src="/resource/js/vue.js"></script>
+<script>
+    Vue.createApp({
+        data() {
+            return {}
+        },
+        methods: {
+            day(y, m, d) {
+                if (y && m && d) {
+                    let date = new Date(`${y}-${m}-${d}`)
+                    let n = date.getDay();
+                    let word = ""
+                    switch (n) {
+                        case 0:
+                            word = "日";
+                            break
+                        case 1:
+                            word = "一";
+                            break
+                        case 2:
+                            word = "二";
+                            break
+                        case 3:
+                            word = "三";
+                            break
+                        case 4:
+                            word = "四";
+                            break
+                        case 5:
+                            word = "五";
+                            break
+                        case 6:
+                            word = "六";
+                            break
+
+                    }
+                    return this.tag(n, '星期' + word)
+                }
+                return ""
+            },
+            time(y, m, d) {
+                return this.tag(y, y + "年") + this.tag(m, m + "月") + this.tag(0, d + "日")
+            },
+            level(level) {
+                switch (level) {
+                    case 1:
+                        return `<span class="tag-info">普通</span>`
+                    case 2:
+                        return `<span class="tag-success">稀有</span>`
+                    case 3:
+                        return `<span class="tag-primary">传承</span>`
+                    case 4:
+                        return `<span class="tag-warning">唯一</span>`
+                    case 5:
+                        return `<span class="tag-danger">史诗</span>`
+                }
+            },
+            tag(i, content) {
+                if ((content.length === 2 && content.endsWith("0日")) || content === "" || content === 0) {
+                    return ""
+                }
+                switch (i % 4) {
+                    case 0:
+                        return `<span class="tag-info">` + content + `</span>`
+                    case 1:
+                        return `<span class="tag-success">` + content + `</span>`
+                    case 2:
+                        return `<span class="tag-primary">` + content + `</span>`
+                    case 3:
+                        return `<span class="tag-warning">` + content + `</span>`
+                    case 4:
+                        return `<span class="tag-danger">` + content + `</span>`
+                }
+            },
+        }
+    }).mount("#wrapper")
+
+    function handleSearch(e) {
+        $("#node_category").val(e.getAttribute('data')).parent().submit()
+    }
+
+    // 分类列表 添加默认选中
+    $(".category a[data='{{.Session.node_category}}']").addClass('tag-danger')
+</script>
 </body>
 </html>

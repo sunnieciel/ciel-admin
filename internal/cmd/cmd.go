@@ -25,11 +25,12 @@ var (
 			registerInterface(s)                         // 注册对外提供功能的接口
 			registerGenFileRouter(s)                     // 注册生成的代码路由
 			s.BindMiddlewareDefault(sys.MiddlewareXIcon) // 默认中间件
-			s.Group("/", func(group *ghttp.RouterGroup) {
-				group.GET("/", controller.Home.IndexPage)
-				group.GET("/login", controller.Admin.LoginPage)
-				group.Middleware(sys.AuthAdmin)
-				group.GET("/to/:name", controller.Sys.To)
+			s.Group("/", func(g *ghttp.RouterGroup) {
+				g.GET("/", controller.Home.IndexPage)
+				g.GET("/login", controller.Admin.LoginPage)
+				g.GET("/to/:name", controller.Sys.To)
+				g.GET("/quotations", controller.Sys.Quotations)
+				g.Middleware(sys.AuthAdmin)
 			})
 			s.Group("/menu", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
