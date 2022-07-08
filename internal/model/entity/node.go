@@ -18,6 +18,7 @@ type Node struct {
 	Uid        int         `json:"uid"        description:""`
 	Level      int         `json:"level"      description:""`
 	Tag        string      `json:"tag"        description:""`
+	Summary    string      `json:"summary"    description:""`
 	MainThings string      `json:"mainThings" description:""`
 	OtherInfo  string      `json:"otherInfo"  description:""`
 	CreatedAt  *gtime.Time `json:"createdAt"  description:""`

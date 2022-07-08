@@ -109,6 +109,14 @@ func Add(ctx context.Context, table, data interface{}) error {
 	}
 	return nil
 }
+func AddGetID(ctx context.Context, table, data interface{}) (int64, error) {
+	id, err := g.DB().Ctx(ctx).Model(table).InsertAndGetId(data)
+	if err != nil {
+		g.Log().Error(ctx, err)
+		return 0, err
+	}
+	return id, nil
+}
 func Del(ctx context.Context, table, id interface{}) (err error) {
 	if _, err = g.DB().Ctx(ctx).Model(table).Delete("id", id); err != nil {
 		g.Log().Error(ctx, err)

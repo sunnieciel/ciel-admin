@@ -20,6 +20,7 @@ type Node struct {
 	Uid        interface{} //
 	Level      interface{} //
 	Tag        interface{} //
+	Summary    interface{} //
 	MainThings interface{} //
 	OtherInfo  interface{} //
 	CreatedAt  *gtime.Time //

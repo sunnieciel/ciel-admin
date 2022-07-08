@@ -28,6 +28,7 @@ type NodeColumns struct {
 	Uid        string //
 	Level      string //
 	Tag        string //
+	Summary    string //
 	MainThings string //
 	OtherInfo  string //
 	CreatedAt  string //
@@ -44,6 +45,7 @@ var nodeColumns = NodeColumns{
 	Uid:        "uid",
 	Level:      "level",
 	Tag:        "tag",
+	Summary:    "summary",
 	MainThings: "main_things",
 	OtherInfo:  "other_info",
 	CreatedAt:  "created_at",

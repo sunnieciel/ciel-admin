@@ -1,0 +1,15 @@
+2022-07-08 13:11:21.532 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 13:47:38.173 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 13:48:11.220 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 13:49:04.270 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 14:09:12.383 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 14:14:09.220 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 14:41:19.161 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 19:38:19.514 [NOTI] {"bg_img":"","created_at":"2022-07-05 19:01:03","desc":"这里是node页面可以对数据进行相应的操作。","file_path":"\"\"","icon":"https://www.gravatar.com/avatar/2470424680?d=identicon\u0026f=y","id":138,"name":"记事本","path":"/node/path","pid":132,"sort":2.4,"status":1,"type":1,"updated_at":"2022-07-05 19:19:18"} 
+2022-07-08 19:38:29.515 [NOTI] {"bgImg":"","desc":"这里是node页面可以对数据进行相应的操作。","filePath":"“”","icon":"https://www.gravatar.com/avatar/2470424680?d=identicon\u0026f=y","id":138,"name":"备忘录","path":"/node/path","pid":132,"sort":2.4,"status":1,"type":1,"updatedAt":null} 
+2022-07-08 19:38:29.523 [NOTI] {"bg_img":"","created_at":"2022-07-05 19:01:03","desc":"这里是node页面可以对数据进行相应的操作。","file_path":"“”","icon":"https://www.gravatar.com/avatar/2470424680?d=identicon\u0026f=y","id":138,"name":"备忘录","path":"/node/path","pid":132,"sort":2.4,"status":1,"type":1,"updated_at":"2022-07-08 19:38:29"} 
+2022-07-08 19:55:36.846 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 19:56:16.522 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 19:56:35.079 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 19:56:45.043 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 19:56:48.891 [INFO] Server start at :http://localhost:1211/login 

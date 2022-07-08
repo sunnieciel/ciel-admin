@@ -45,6 +45,10 @@ hr {
     color: var(--black-01);
 }
 
+.cell-content pre {
+    background-color: var(--white-02);
+}
+
 .cell-hover:hover {
     background-color: var(--white-03);
     box-shadow: var(--cell-hover-shadow);
@@ -84,18 +88,18 @@ hr {
 }
 
 .link-2:hover {
-    color: var(--steelblue-03) !important;
+    color: var(--black-01) !important;
     background-color: var(--white-02) !important;
 }
 
 .link-2-active {
     color: var(--white-01) !important;
-    background-color: var(--steelblue-05) !important;
+    background-color: var(--steelblue-09) !important;
 }
 
 .link-2-active:hover {
     color: var(--white-01) !important;
-    background-color: var(--steelblue-05) !important;
+    background-color: var(--steelblue-10) !important;
 }
 
 .link-3 {
@@ -292,6 +296,28 @@ hr {
 .tag-success:hover {
     background-color: var(--green-03) !important;
     color: var(--green-01) !important;
+}
+
+.tag-brown {
+    background-color: var(--brown-01) !important;
+    color: var(--brown-02) !important;
+    border: 1px solid var(--brown-03) !important;
+}
+
+.tag-brown:hover {
+    background-color: var(--brown-02) !important;
+    color: var(--brown-01) !important;
+}
+
+.tag-purple {
+    background-color: var(--purple-01) !important;
+    color: var(--purple-02) !important;
+    border: 1px solid var(--purple-03) !important;
+}
+
+.tag-purple:hover {
+    background-color: var(--purple-02) !important;
+    color: var(--purple-01) !important;
 }
 
 .tag-danger {

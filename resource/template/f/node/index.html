@@ -20,37 +20,40 @@
                     <a class="tag-info mr-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus" aria-hidden="true"></i></a>
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <input id="node_category" name="node_category" value="{{.Session.node_category}}" hidden>
-                    <label class='input'>等级 <select type='text' name='node_level' value='{{.Session.node_level}}' onchange='this.form.submit()'>
-                        <option value='' class='tag-info'>请选择</option>
-                        <option value='1' {{if eq .Query.node_level 1}} selected {{end}} class='tag-info'>普通</option>
-                        <option value='2' {{if eq .Query.node_level 2}} selected {{end}} class='tag-success'>稀有</option>
-                        <option value='3' {{if eq .Query.node_level 3}} selected {{end}} class='tag-primary'>传承</option>
-                        <option value='4' {{if eq .Query.node_level 4}} selected {{end}} class='tag-warning'>唯一</option>
-                        <option value='5' {{if eq .Query.node_level 5}} selected {{end}} class='tag-danger'>史诗</option>
-                    </select>
-                        <label class="input">年
-                            <input list="year" type="text" name="node_year" value="{{.Session.node_year}}" onkeydown="if(event.keyCode===13)this.form.submit()">
-                            <datalist id="year">
-                                <option value="">请选择</option>
-                                <option v-for="i in 2023" :value="i" v-text="i"></option>
-                            </datalist>
-                        </label>
-                        <label class="input">月
-                            <input list="month" type="text" name="node_month" value="{{.Session.node_month}}" onkeydown="if(event.keyCode===13)this.form.submit()">
-                            <datalist id="month">
-                                <option value="">请选择</option>
-                                <option v-for="i in 12" :value="i" v-text="i"></option>
-                            </datalist>
-                        </label>
-                        <label class="input">日
-                            <input list="day" type="text" name="node_day" value="{{.Session.node_day}}" onkeydown="if(event.keyCode===13)this.form.submit()">
-                            <datalist id="day">
-                                <option value="">请选择</option>
-                                <option v-for="i in 30" :value="i" v-text="i"></option>
-                            </datalist>
-                        </label>
-                        <label class="input">用户名 <input type="text" name="node_uname" value="{{.Session.node_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    </label><label class="input">标签 <input type="text" name="node_tag" value="{{.Session.node_tag}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">内容 <input type="text" name="node_main_things" value="{{.Session.node_main_things}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    <input id="node_level" name="node_level" value="{{.Session.node_level}}" hidden>
+                    <!--                    <label class='input'>等级 <select type='text' name='node_level' value='{{.Session.node_level}}' onchange='this.form.submit()'>-->
+                    <!--                        <option value='' class='tag-info'>请选择</option>-->
+                    <!--                        <option value='1' {{if eq .Query.node_level 1}} selected {{end}} class='tag-info'>普通</option>-->
+                    <!--                        <option value='2' {{if eq .Query.node_level 2}} selected {{end}} class='tag-success'>稀有</option>-->
+                    <!--                        <option value='3' {{if eq .Query.node_level 3}} selected {{end}} class='tag-primary'>传承</option>-->
+                    <!--                        <option value='4' {{if eq .Query.node_level 4}} selected {{end}} class='tag-warning'>唯一</option>-->
+                    <!--                        <option value='5' {{if eq .Query.node_level 5}} selected {{end}} class='tag-danger'>史诗</option>-->
+                    <!--                    </select>-->
+                    </label>
+                    <label class="input">年
+                        <input list="year" type="text" name="node_year" value="{{.Session.node_year}}" onkeydown="if(event.keyCode===13)this.form.submit()">
+                        <datalist id="year">
+                            <option value="">请选择</option>
+                            <option v-for="i in 2023" :value="i" v-text="i"></option>
+                        </datalist>
+                    </label>
+                    <label class="input">月
+                        <input list="month" type="text" name="node_month" value="{{.Session.node_month}}" onkeydown="if(event.keyCode===13)this.form.submit()">
+                        <datalist id="month">
+                            <option value="">请选择</option>
+                            <option v-for="i in 12" :value="i" v-text="i"></option>
+                        </datalist>
+                    </label>
+                    <label class="input">日
+                        <input list="day" type="text" name="node_day" value="{{.Session.node_day}}" onkeydown="if(event.keyCode===13)this.form.submit()">
+                        <datalist id="day">
+                            <option value="">请选择</option>
+                            <option v-for="i in 30" :value="i" v-text="i"></option>
+                        </datalist>
+                    </label>
+                    <label class="input">简介 <input type="text" name="node_summary" value="{{.Session.node_summary}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    <label class="input">内容 <input type="text" name="node_main_things" value="{{.Session.node_main_things}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    <label class="input">标签 <input type="text" name="node_tag" value="{{.Session.node_tag}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                 </form>
             </div>
             <div class="box no-bottom-border">
@@ -60,16 +63,26 @@
                     <a href="#" class="tag-info" data="{{.value}}" onclick="$('#node_category').val($(this).attr('data')).parent().submit()">{{.label}}</a>
                     {{end}}
                 </div>
+                <div class="cell level">
+                    <a href="#" class="tag-info" data="" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">全部</a>
+                    <a href="#" class="tag-info" data="1" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">普通</a>
+                    <a href="#" class="tag-success" data="2" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">稀有</a>
+                    <a href="#" class="tag-primary" data="3" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">传承</a>
+                    <a href="#" class="tag-warning" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">唯一</a>
+                    <a href="#" class="tag-brown" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">史诗</a>
+                    <a href="#" class="tag-purple" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">传说</a>
+                    <a href="#" class="tag-danger" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">神话</a>
+                </div>
                 <div class="cell">
                     <table>
                         {{range $index,$i :=.list}}
                         <tr>
                             <td v-html="level({{$i.level}})"></td>
-                            <td v-html="tag(0,'{{$i.tag}}')"></td>
+                            <td v-html="tag(1,'{{$i.tag}}')"></td>
                             <td v-html="time('{{$i.year}}','{{$i.month}}','{{$i.day}}')"></td>
                             <td v-html="day('{{$i.year}}','{{$i.month}}','{{$i.day}}')"></td>
                             <td href='{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}'>
-                                <p class="link-4 text-max-width-633" onclick='location.href="{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}"'>{{$i.main_things|html}}</p>
+                                <p class="link-4 text-max-width-633" onclick='location.href="{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}"'>{{$i.summary|html}}</p>
                             </td>
                         </tr>
                         {{end}}
@@ -123,7 +136,7 @@
                 return ""
             },
             time(y, m, d) {
-                return this.tag(y, y + "年") + this.tag(m, m + "月") + this.tag(0, d + "日")
+                return this.tag(y, y + "年") + this.tag(m, m + "月") + this.tag(1, d + "日")
             },
             level(level) {
                 switch (level) {
@@ -136,24 +149,32 @@
                     case 4:
                         return `<span class="tag-warning">唯一</span>`
                     case 5:
-                        return `<span class="tag-danger">史诗</span>`
+                        return `<span class="tag-brown">史诗</span>`
+                    case 6:
+                        return `<span class="tag-purple">传说</span>`
+                    case 7:
+                        return `<span class="tag-danger">神话</span>`
                 }
             },
             tag(i, content) {
                 if ((content.length === 2 && content.endsWith("0日")) || content === "" || content === 0) {
                     return ""
                 }
-                switch (i % 4) {
+                switch (i % 7) {
                     case 0:
-                        return `<span class="tag-info">` + content + `</span>`
-                    case 1:
-                        return `<span class="tag-success">` + content + `</span>`
-                    case 2:
-                        return `<span class="tag-primary">` + content + `</span>`
-                    case 3:
-                        return `<span class="tag-warning">` + content + `</span>`
-                    case 4:
                         return `<span class="tag-danger">` + content + `</span>`
+                    case 1:
+                        return `<span class="tag-info">` + content + `</span>`
+                    case 2:
+                        return `<span class="tag-success">` + content + `</span>`
+                    case 3:
+                        return `<span class="tag-primary">` + content + `</span>`
+                    case 4:
+                        return `<span class="tag-warning">` + content + `</span>`
+                    case 5:
+                        return `<span class="tag-brown">` + content + `</span>`
+                    case 6:
+                        return `<span class="tag-purple">` + content + `</span>`
                 }
             },
         }

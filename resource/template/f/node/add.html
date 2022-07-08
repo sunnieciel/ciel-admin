@@ -26,9 +26,12 @@
                 <form class="cell" method="post" action="/node/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
                         <tr>
-                            <td width='160' align='right'>日期</td>
-                            <td width='auto' align='left'><input name='happen_date'></td>
-                            <td width="150" align="left" class="color-desc">eg 2020,12,11 (小写逗号分隔)</td>
+                            <td align='right'>分类</td>
+                            <td><select name='category' required>
+                                {{range .category}}
+                                <option value='{{.value}}' class='tag-info'>{{.label}}</option>
+                                {{end}}
+                            </select></td>
                         </tr>
                         <tr>
                             <td align='right'>等级</td>
@@ -42,26 +45,29 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align='right'>分类</td>
-                            <td><select name='category' required>
-                                {{range .category}}
-                                <option value='{{.value}}' class='tag-info'>{{.label}}</option>
-                                {{end}}
-                            </select></td>
+                            <td width='160' align='right'>日期</td>
+                            <td width='auto' align='left'><input name='happen_date'></td>
+                            <td align="left" class="color-desc">eg 2020,12,11 (小写逗号分隔)</td>
                         </tr>
                         <tr>
                             <td width='160' align='right'>标签</td>
                             <td width='auto' align='left'><input name='tag'></td>
                         </tr>
                         <tr>
+                            <td width='160' align='right'>概括</td>
+                            <td width='auto' align='left'><textarea name='summary' required style="width: 548px; height: 103px;"></textarea></td>
+                        </tr>
+                        <tr>
                             <td width='160' align='right'>内容</td>
-                            <td width='auto' align='left'><textarea name='main_things' required style="width: 629px; height: 320px;"></textarea></td>
+                            <td width='auto' align='left'><textarea name='main_things' style="width: 629px; height: 320px;"> &lt;pre&gt;
+
+&lt;/pre&gt;
+                            </textarea></td>
                         </tr>
                         <tr>
                             <td width='160' align='right'>备注信息</td>
-                            <td width='auto' align='left'><textarea name='other_info'></textarea></td>
+                            <td width='auto' align='left'><textarea name='other_info' style="width: 299px; height: 124px;"></textarea></td>
                         </tr>
-
                         <tr>
                             <td></td>
                             <td>

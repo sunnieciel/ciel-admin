@@ -54,6 +54,10 @@ hr {
     color: var(--white-05);
 }
 
+.cell-content pre {
+    background-color: var(--steelblue-07);
+}
+
 .cell h1 {
     color: var(--white-05);
 }
@@ -298,6 +302,28 @@ hr {
 .tag-success:hover {
     background-color: var(--green-05) !important;
     color: var(--green-03) !important;
+}
+
+.tag-brown {
+    background-color: var(--brown-04) !important;
+    color: var(--brown-02) !important;
+    border: 1px solid var(--brown-05) !important;
+}
+
+.tag-brown:hover {
+    background-color: var(--brown-05) !important;
+    color: var(--brown-02) !important;
+}
+
+.tag-purple {
+    background-color: var(--purple-04) !important;
+    color: var(--purple-02) !important;
+    border: 1px solid var(--purple-05) !important;
+}
+
+.tag-purple:hover {
+    background-color: var(--purple-05) !important;
+    color: var(--purple-02) !important;
 }
 
 .tag-danger {

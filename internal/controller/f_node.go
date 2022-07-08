@@ -28,7 +28,8 @@ var Node = &cNode{Search: bo.Search{
 		{Name: "t1.month", SearchType: 1, QueryName: "node_month"},
 		{Name: "t1.day", SearchType: 1, QueryName: "node_day"},
 		{Name: "t1.category", SearchType: 1, QueryName: "node_category"},
-		{Name: "t2.uname", SearchType: 2, QueryName: "node_uname"}, {Name: "level", SearchType: 1, QueryName: "node_level"}, {Name: "tag", SearchType: 2, QueryName: "node_tag"}, {Name: "main_things", SearchType: 2, QueryName: "node_main_things"},
+		{Name: "t1.summary", SearchType: 2, QueryName: "node_summary"},
+		{Name: "level", SearchType: 1, QueryName: "node_level"}, {Name: "tag", SearchType: 2, QueryName: "node_tag"}, {Name: "main_things", SearchType: 2, QueryName: "node_main_things"},
 	},
 }}
 
@@ -88,11 +89,12 @@ func (c cNode) Post(r *ghttp.Request) {
 	admin, _ := sys.GetAdmin(r)
 	data.Uid = admin.Admin.Id
 	msg := fmt.Sprintf(consts.MsgPrimary, "添加成功")
-	if err := sys.Add(r.Context(), c.T1, &data); err != nil {
+	id, err := sys.AddGetID(r.Context(), c.T1, &data)
+	if err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/node/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/node/path/edit/", id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cNode) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -135,11 +137,11 @@ func getCategory(r *ghttp.Request) []g.Map {
 		res.Err(err, r)
 	}
 	category := make([]g.Map, 0)
-	for _, i := range strings.Split(key, ",") {
-		temp := strings.Split(i, "_")
+	for _, i := range strings.Split(key, "\n") {
+		temp := strings.Split(i, ".")
 		category = append(category, map[string]interface{}{
-			"value": temp[0],
-			"label": temp[1],
+			"value": strings.TrimSpace(temp[0]),
+			"label": strings.TrimSpace(temp[1]),
 		})
 	}
 	return category
