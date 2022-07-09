@@ -86,3 +86,4 @@
 2022-07-09 17:43:42.618 [INFO] Server start at :http://localhost:1211/login 
 2022-07-09 17:43:49.095 [INFO] Server start at :http://localhost:1211/login 
 2022-07-09 18:41:50.141 [NOTI] {"bgImg":"","createdAt":null,"desc":"","filePath":"","icon":"1/2022/03/BYFY4d.gif","id":4,"name":"API","path":"/api/path","pid":1,"sort":1.2,"status":1,"type":1,"updatedAt":null} 
+2022-07-09 20:20:51.805 [INFO] Server start at :http://localhost:1211/login 
