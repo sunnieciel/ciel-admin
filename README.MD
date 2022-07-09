@@ -40,13 +40,11 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 
 ## 快速开始
 
-1. 创建数据库并导入项目`resource`目录下的`ciel.sql`
-2. 修改`config.yaml`文件配置
-    - mysql 数据库配置 将数据库信息替换成您自己的
-    - redis
-
-3. 启动项目：到项目根目录下执行 `gf run main.go`
-4. 浏览器打开 http://localhost:1211/login  默认用户名 `ciel` 密码 `1`
+1. 下载项目 https://github.com/1211ciel/ciel-admin/releases/tag/v.1.0.8
+2. 创建数据库并导入项目`resource`目录下的`ciel.sql`
+3. 修改`config.yaml`文件配置:`mysql`,`redis` 将数据库信息替换成您自己的
+4. 启动项目：到项目根目录下执行 `gf run main.go`
+5. 浏览器打开 http://localhost:1211/login  默认用户名 `ciel` 密码 `1`
 
 ## css使用
 
