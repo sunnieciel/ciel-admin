@@ -60,10 +60,10 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 
 `.theme-info` `.theme-success` `.theme-priamry` `.theme-wanrnig` `.theme-brown` `.theme-purple` `.theme-danger`
 
-![](./documents/theme1.png)
-![](./documents/theme2.png)
 ![](./documents/theme3.png)
 ![](./documents/theme4.png)
+![](./documents/theme1.png)
+![](./documents/theme2.png)
 etc
 
 ### `.btn`
