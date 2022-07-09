@@ -23,7 +23,7 @@
                         <option value='' class='tag-info'>请选择</option>
                         <option value='1' {{if eq .Query.file_group 1}} selected {{end}} class='tag-info'>头像</option>
                         <option value='2' {{if eq .Query.file_group 2}} selected {{end}} class='tag-danger'>图片</option>
-                        <option value='3' {{if eq .Query.file_group 3}} selected {{end}} class='tag-danger'>视频</option>
+                        <option value='3' {{if eq .Query.file_group 3}} selected {{end}} class='tag-brown'>动图</option>
                         <option value='4' {{if eq .Query.file_group 4}} selected {{end}} class='tag-warning'>音频</option>
                         <option value='5' {{if eq .Query.file_group 5}} selected {{end}} class='tag-success'>文件</option>
                         <option value='6' {{if eq .Query.file_group 6}} selected {{end}} class='tag-info'>其他</option>
@@ -49,7 +49,7 @@
                         <td>{{if hasPrefix .url "http"}} <a href="{{.url}}" target="_blank"> <img class="s-icon" src="{{.url}}" alt="not fond"> </a> {{else if ne .url ""}} <a href="{{$.Config.server.imgPrefix}}{{.url}}" target="_blank"> <img class="s-icon" src="{{$.Config.server.imgPrefix}}{{.url}}" alt="not fond"> </a> {{else}} <span v-else class="tag-normal">暂无图片</span>{{end}}</td>
                         <td>{{if hasPrefix .url "http"}} {{.url}} {{else if ne .url ""}} {{$.Config.server.imgPrefix}}{{.url}} {{else}} <span v-else class="tag-normal">暂无图片</span>{{end}}</td>
                         <td>{{.url}}</td>
-                        <td>{{if eq .group "1"}}<span class="tag-info">头像</span>{{else if eq .group "2"}}<span class="tag-danger">图片</span>{{else if eq .group "3"}}<span class="tag-danger">视频</span>{{else if eq .group "4"}}<span class="tag-warning">音频</span>{{else if eq .group "5"}}<span class="tag-success">文件</span>{{else if eq .group "6"}}<span class="tag-info">其他</span>{{end}}</td>
+                        <td>{{if eq .group "1"}}<span class="tag-info">头像</span>{{else if eq .group "2"}}<span class="tag-danger">图片</span>{{else if eq .group "3"}}<span class="tag-brown">动图</span>{{else if eq .group "4"}}<span class="tag-warning">音频</span>{{else if eq .group "5"}}<span class="tag-success">文件</span>{{else if eq .group "6"}}<span class="tag-info">其他</span>{{end}}</td>
                         <td>{{if eq .status 1}}<span class="tag-info">正常</span>{{else}}<span class="tag-danger">关闭</span>{{end}}</td>
                         <td>{{.created_at}}</td>
                         <td align="center">

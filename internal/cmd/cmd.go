@@ -7,15 +7,16 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
+	_ "net/http/pprof"
 	"time"
 )
 
 var (
 	Main = gcmd.Command{
-		Name:        "main",
-		Usage:       "main",
+		Name:        "ciel",
+		Usage:       "ciel",
 		Brief:       "start http server",
-		Description: "",
+		Description: "hello im ciel",
 		Arguments:   nil,
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			// 初始化服务
@@ -147,6 +148,7 @@ var (
 				rootIp, err := g.Cfg().Get(ctx, "server.rootIp")
 				g.Log().Infof(nil, "Server start at :http://%s%s/login", rootIp, port)
 			}()
+			s.EnablePProf()
 			s.Run()
 			return nil
 		},

@@ -471,7 +471,7 @@ hr {
 }
 
 /*theme*/
-.theme-gray {
+.theme-info {
     color: var(--gray-05) !important;
     background-color: var(--gray-06) !important;
 }

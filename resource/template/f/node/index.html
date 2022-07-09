@@ -29,7 +29,6 @@
                     <!--                        <option value='4' {{if eq .Query.node_level 4}} selected {{end}} class='tag-warning'>唯一</option>-->
                     <!--                        <option value='5' {{if eq .Query.node_level 5}} selected {{end}} class='tag-danger'>史诗</option>-->
                     <!--                    </select>-->
-                    </label>
                     <label class="input">年
                         <input list="year" type="text" name="node_year" value="{{.Session.node_year}}" onkeydown="if(event.keyCode===13)this.form.submit()">
                         <datalist id="year">
@@ -48,11 +47,10 @@
                         <input list="day" type="text" name="node_day" value="{{.Session.node_day}}" onkeydown="if(event.keyCode===13)this.form.submit()">
                         <datalist id="day">
                             <option value="">请选择</option>
-                            <option v-for="i in 30" :value="i" v-text="i"></option>
+                            <option v-for="i in 31" :value="i" v-text="i"></option>
                         </datalist>
                     </label>
-                    <label class="input">简介 <input type="text" name="node_summary" value="{{.Session.node_summary}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class="input">内容 <input type="text" name="node_main_things" value="{{.Session.node_main_things}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    <label class="input">概括 <input type="text" name="node_summary" value="{{.Session.node_summary}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                     <label class="input">标签 <input type="text" name="node_tag" value="{{.Session.node_tag}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                 </form>
             </div>
@@ -69,9 +67,9 @@
                     <a href="#" class="tag-success" data="2" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">稀有</a>
                     <a href="#" class="tag-primary" data="3" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">传承</a>
                     <a href="#" class="tag-warning" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">唯一</a>
-                    <a href="#" class="tag-brown" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">史诗</a>
-                    <a href="#" class="tag-purple" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">传说</a>
-                    <a href="#" class="tag-danger" data="4" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">神话</a>
+                    <a href="#" class="tag-brown" data="5" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">史诗</a>
+                    <a href="#" class="tag-purple" data="6" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">传说</a>
+                    <a href="#" class="tag-danger" data="7" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">神话</a>
                 </div>
                 <div class="cell">
                     <table>

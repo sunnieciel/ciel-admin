@@ -110,7 +110,7 @@ hr {
 }
 
 .link-4:hover {
-    color: var(--steelblue-02);
+    color: var(--silver-04);
 }
 
 .link-5 {
@@ -460,7 +460,7 @@ hr {
 
 
 /*theme*/
-.theme-gray {
+.theme-info {
     color: var(--gray-06) !important;
     background-color: var(--gray-04) !important;
 }

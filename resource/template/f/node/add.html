@@ -35,12 +35,14 @@
                         </tr>
                         <tr>
                             <td align='right'>等级</td>
-                            <td><select name='level' required>
-                                <option value='1' selected class='tag-info'>普通</option>
-                                <option value='2' class='tag-success'>稀有</option>
-                                <option value='3' class='tag-primary'>传承</option>
-                                <option value='4' class='tag-warning'>唯一</option>
-                                <option value='5' class='tag-danger'>史诗</option>
+                            <td><select name='level' v-model="level" required :class="[cLevel]">
+                                <option :value='1' selected class='tag-info'>普通</option>
+                                <option :value='2' class='tag-success'>稀有</option>
+                                <option :value='3' class='tag-primary'>传承</option>
+                                <option :value='4' class='tag-warning'>唯一</option>
+                                <option :value='5' class='tag-brown'>史诗</option>
+                                <option :value='6' class='tag-purple'>传说</option>
+                                <option :value='7' class='tag-danger'>神话</option>
                             </select>
                             </td>
                         </tr>
@@ -59,10 +61,7 @@
                         </tr>
                         <tr>
                             <td width='160' align='right'>内容</td>
-                            <td width='auto' align='left'><textarea name='main_things' style="width: 629px; height: 320px;"> &lt;pre&gt;
-
-&lt;/pre&gt;
-                            </textarea></td>
+                            <td width='auto' align='left'><textarea name='main_things' style="width: 629px; height: 320px;"></textarea></td>
                         </tr>
                         <tr>
                             <td width='160' align='right'>备注信息</td>
@@ -82,5 +81,35 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script src="/resource/js/vue.js"></script>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                level: 1
+            }
+        },
+        computed: {
+            cLevel: function () {
+                switch (+this.level) {
+                    case 1:
+                        return "tag-info"
+                    case 2:
+                        return "tag-success"
+                    case 3:
+                        return "tag-primary"
+                    case 4:
+                        return "tag-warning"
+                    case 5:
+                        return "tag-brown"
+                    case 6:
+                        return "tag-purple"
+                    case 7:
+                        return "tag-danger"
+                }
+            }
+        }
+    }).mount("#wrapper")
+</script>
 </body>
 </html>

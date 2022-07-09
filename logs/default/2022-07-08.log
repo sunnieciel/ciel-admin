@@ -13,3 +13,7 @@
 2022-07-08 19:56:35.079 [INFO] Server start at :http://localhost:1211/login 
 2022-07-08 19:56:45.043 [INFO] Server start at :http://localhost:1211/login 
 2022-07-08 19:56:48.891 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 23:24:27.724 [INFO] Server start at :http://localhost:1211/login 
+2022-07-08 23:24:45.330 [NOTI] {"bg_img":"2/2022/07/CQVqgn.webp","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","file_path":null,"icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-03 12:45:10"} 
+2022-07-08 23:24:50.968 [NOTI] {"bgImg":"","desc":"这里是菜单页面","filePath":"\"\"","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updatedAt":null} 
+2022-07-08 23:24:50.979 [NOTI] {"bg_img":"","created_at":"2022-02-16 19:14:13","desc":"这里是菜单页面","file_path":"\"\"","icon":"1/2022/03/FdI4Yw.gif","id":2,"name":"菜单","path":"/menu/path","pid":1,"sort":1.1,"status":1,"type":1,"updated_at":"2022-07-08 23:24:50"} 

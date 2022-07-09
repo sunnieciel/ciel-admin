@@ -7,17 +7,6 @@ import (
 )
 
 func registerGenFileRouter(s *ghttp.Server) {
-
-	s.Group("/thingRecord", func(g *ghttp.RouterGroup) {
-		g.Middleware(sys.AuthAdmin)
-		g.GET("/path", controller.ThingRecord.Path)
-		g.GET("/path/add", controller.ThingRecord.PathAdd)
-		g.GET("/path/edit/:id", controller.ThingRecord.PathEdit)
-		g.Middleware(sys.LockAction)
-		g.GET("/path/del/:id", controller.ThingRecord.Del)
-		g.POST("/post", controller.ThingRecord.Post)
-		g.POST("/put", controller.ThingRecord.Put)
-	})
 	s.Group("/node", func(g *ghttp.RouterGroup) {
 		g.Middleware(sys.AuthAdmin)
 		g.GET("/path", controller.Node.Path)

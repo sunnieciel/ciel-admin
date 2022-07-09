@@ -233,7 +233,7 @@ a:visited,
 }
 
 .cell-content li {
-    list-style: inside;
+    list-style: outside;
     margin: 0 3px;
 }
 
@@ -586,15 +586,24 @@ li .input {
 }
 
 /*base----------------------------------------------------------*/
+.width-auto {
+    width: auto !important;
+    max-width: none !important;
+}
+
 .width-50 {
     width: 50px;
 }
 
 .width-90 {
-    width: 90px;
+    width: 90px !important;
 }
 
-.text-align-right {
+.width-80 {
+    width: 80px !important;
+}
+
+.text-right {
     text-align: right !important;
 }
 
@@ -754,7 +763,7 @@ li .input {
 }
 
 /*color*/
-.theme-gray, .theme-primary, .theme-success, .theme-warning, .theme-danger {
+.theme-info, .theme-primary, .theme-success, .theme-warning, .theme-danger {
     border-radius: 3px;
 }
 

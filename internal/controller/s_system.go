@@ -91,7 +91,6 @@ func (c cMenu) PathEdit(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	g.Log().Notice(nil, data)
 	_ = r.Session.Set("menu_edit", data.Map())
 	_ = r.Response.WriteTpl("/sys/menu/edit.html", g.Map{"msg": sys.MsgFromSession(r)})
 }
@@ -101,7 +100,7 @@ func (c cMenu) Put(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	m := gconv.Map(d)
-	delete(m, "createdAt")
+	delete(m, "CreatedAt")
 	g.Log().Notice(nil, m)
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
 	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
