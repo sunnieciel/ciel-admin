@@ -71,15 +71,15 @@
                     <a href="#" class="tag-purple" data="6" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">传说</a>
                     <a href="#" class="tag-danger" data="7" onclick="$('#node_level').val($(this).attr('data')).parent().submit()">神话</a>
                 </div>
-                <div>
+                <div v-cloak>
                     <div class="cell">
-                        <table id="data">
+                        <table>
                             {{range $index,$i :=.list}}
                             <tr>
-                                <td>{{nodeLevel $i.level}}</td>
-                                <td>{{tag 1 $i.tag}}</td>
-                                <td>{{nodeTime $i.year $i.month $i.day}}</td>
-                                <td>{{nodeWeek $i.year $i.month $i.day}}</td>
+                                <td v-html="level({{$i.level}})"></td>
+                                <td v-html="tag(1,'{{$i.tag}}')"></td>
+                                <td v-html="time('{{$i.year}}','{{$i.month}}','{{$i.day}}')"></td>
+                                <td v-html="day('{{$i.year}}','{{$i.month}}','{{$i.day}}')"></td>
                                 <td href='{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}'>
                                     <p class="link-4 text-max-width-633" onclick='location.href="{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}"'>{{$i.summary|html}}</p>
                                 </td>
@@ -95,7 +95,95 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script src="/resource/js/vue.js"></script>
 <script>
+    Vue.createApp({
+        data() {
+            return {}
+        },
+        methods: {
+            day(y, m, d) {
+                if (y && m && d) {
+                    let date = new Date(`${y}-${m}-${d}`)
+                    let n = date.getDay();
+                    let word = ""
+                    switch (n) {
+                        case 0:
+                            word = "日";
+                            break
+                        case 1:
+                            word = "一";
+                            break
+                        case 2:
+                            word = "二";
+                            break
+                        case 3:
+                            word = "三";
+                            break
+                        case 4:
+                            word = "四";
+                            break
+                        case 5:
+                            word = "五";
+                            break
+                        case 6:
+                            word = "六";
+                            break
+
+                    }
+                    return this.tag(n, '星期' + word)
+                }
+                return ""
+            },
+            time(y, m, d) {
+                return this.tag(y, y + "年") + this.tag(m, m + "月") + this.tag(1, d + "日")
+            },
+            level(level) {
+                switch (level) {
+                    case 1:
+                        return `<span class="tag-info">普通</span>`
+                    case 2:
+                        return `<span class="tag-success">稀有</span>`
+                    case 3:
+                        return `<span class="tag-primary">传承</span>`
+                    case 4:
+                        return `<span class="tag-warning">唯一</span>`
+                    case 5:
+                        return `<span class="tag-brown">史诗</span>`
+                    case 6:
+                        return `<span class="tag-purple">传说</span>`
+                    case 7:
+                        return `<span class="tag-danger">神话</span>`
+                }
+            },
+            tag(i, content) {
+                if ((content.length === 2 && content.endsWith("0日")) || content === "" || content === 0) {
+                    return ""
+                }
+                switch (i % 7) {
+                    case 0:
+                        return `<span class="tag-danger">` + content + `</span>`
+                    case 1:
+                        return `<span class="tag-info">` + content + `</span>`
+                    case 2:
+                        return `<span class="tag-success">` + content + `</span>`
+                    case 3:
+                        return `<span class="tag-primary">` + content + `</span>`
+                    case 4:
+                        return `<span class="tag-warning">` + content + `</span>`
+                    case 5:
+                        return `<span class="tag-brown">` + content + `</span>`
+                    case 6:
+                        return `<span class="tag-purple">` + content + `</span>`
+                }
+            },
+        }
+    }).mount("#wrapper")
+
+    // function handleSearch(e) {
+    //     $("#node_category").val(e.getAttribute('data')).parent().submit()
+    // }
+
     // 分类列表 添加默认选中
     $(".category a[data='{{.Session.node_category}}']").addClass('tag-danger')
 </script>

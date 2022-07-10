@@ -17,13 +17,6 @@
             });
         };
     });
-
-    // 添加默认选中
-    $("#sub-nav a").hide()
-    let current = $("#sub-nav a[href='" + location.pathname + "']");
-    current.addClass('tag-blue')
-    $("#sub-nav a[data='" + current.attr("data") + "']").show()
-    $("#nav a[data='" + current.attr("data") + "']").addClass("link-2-active")
     // 监听tab 切换
     $(function () {
         $("#nav a").click(function () {

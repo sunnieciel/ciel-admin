@@ -52,12 +52,12 @@ func (c cMenu) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-
 	if err = r.Response.WriteTpl("/sys/menu/index.html", g.Map{
 		"list": data,
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -115,7 +115,7 @@ func (c cMenu) Put(r *ghttp.Request) {
 type cApi struct{ bo.Search }
 
 var Api = &cApi{Search: bo.Search{
-	T1: "s_api", OrderBy: "t1.id desc", SearchFields: "t1.*",
+	T1: "s_api", OrderBy: "t1.group,t1.id desc", SearchFields: "t1.*",
 	Fields: []bo.Field{
 		{Name: "method", SearchType: 1, QueryName: "api_method"}, {Name: "group", SearchType: 2, QueryName: "api_group"}, {Name: "status", SearchType: 1, QueryName: "api_status"},
 	},
@@ -131,17 +131,30 @@ func (c cApi) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
+	apiGroup, err := sys.DictApiGroup(r.Context())
+	if err != nil {
+		res.Err(err, r)
+	}
 	if err = r.Response.WriteTpl("/sys/api/index.html", g.Map{
-		"list": data,
-		"page": r.GetPage(total, c.Size).GetContent(3),
-		"node": node,
-		"msg":  sys.MsgFromSession(r),
+		"list":      data,
+		"page":      r.GetPage(total, c.Size).GetContent(3),
+		"node":      node,
+		"msg":       sys.MsgFromSession(r),
+		"path":      r.URL.Path,
+		"api_group": apiGroup,
 	}); err != nil {
 		res.Err(err, r)
 	}
 }
 func (c cApi) PathAdd(r *ghttp.Request) {
-	_ = r.Response.WriteTpl("/sys/api/add.html", g.Map{"msg": sys.MsgFromSession(r)})
+	apiGroup, err := sys.DictApiGroup(r.Context())
+	if err != nil {
+		res.Err(err, r)
+	}
+	_ = r.Response.WriteTpl("/sys/api/add.html", g.Map{
+		"msg":       sys.MsgFromSession(r),
+		"api_group": apiGroup,
+	})
 }
 func (c cApi) Post(r *ghttp.Request) {
 	d := entity.Api{}
@@ -169,8 +182,12 @@ func (c cApi) PathEdit(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
+	apiGroup, err := sys.DictApiGroup(r.Context())
+	if err != nil {
+		res.Err(err, r)
+	}
 	_ = r.Session.Set("api_edit", data.Map())
-	_ = r.Response.WriteTpl("/sys/api/edit.html", g.Map{"msg": sys.MsgFromSession(r)})
+	_ = r.Response.WriteTpl("/sys/api/edit.html", g.Map{"msg": sys.MsgFromSession(r), "api_group": apiGroup})
 }
 func (c cApi) Put(r *ghttp.Request) {
 	d := entity.Api{}
@@ -237,6 +254,7 @@ func (c cRole) Path(r *ghttp.Request) {
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -320,6 +338,7 @@ func (c cRoleMenu) Path(r *ghttp.Request) {
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -370,6 +389,7 @@ func (c cRoleApi) Path(r *ghttp.Request) {
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -437,6 +457,7 @@ func (c cDict) Path(r *ghttp.Request) {
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -512,6 +533,7 @@ func (c cFile) Path(r *ghttp.Request) {
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -606,6 +628,7 @@ func (c cOperationLog) Path(r *ghttp.Request) {
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -697,7 +720,10 @@ func (s cSys) To(r *ghttp.Request) {
 	if node.FilePath == "" {
 		res.Err(fmt.Errorf("node file path is empty"), r)
 	}
-	_ = r.Response.WriteTpl(node.FilePath, g.Map{"node": node})
+	_ = r.Response.WriteTpl(node.FilePath, g.Map{
+		"node": node,
+		"path": r.URL.Path,
+	})
 }
 
 func (s cSys) Quotations(r *ghttp.Request) {
@@ -741,6 +767,7 @@ func (c cAdmin) Path(r *ghttp.Request) {
 		"node":  node,
 		"msg":   sys.MsgFromSession(r),
 		"roles": roles,
+		"path":  r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -876,7 +903,10 @@ func (c gen) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/gen.html", g.Map{"icon": icon})
+	res.Page(r, "/sys/gen.html", g.Map{
+		"icon": icon,
+		"path": r.URL.Path,
+	})
 }
 func (c gen) Tables(r *ghttp.Request) {
 	data, err := sys.Tables(r.Context())

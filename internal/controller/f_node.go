@@ -49,6 +49,7 @@ func (c cNode) Path(r *ghttp.Request) {
 		"node":     node,
 		"msg":      sys.MsgFromSession(r),
 		"category": getCategory(r),
+		"path":     r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}

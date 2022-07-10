@@ -25,23 +25,29 @@
                 </div>
                 <form class="cell" method="post" action="/api/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                                                <tr>
+                        <tr>
                             <td width='160' align='right'>地址</td>
-                            <td width='auto' align='left'><input name='url'  required></td>
-                        </tr>                            <td align='right'>状态</td>
-                            <td>                                <select name='method' required>
-                                    <option value='1' selected class='tag-success'>GET</option>
-                                    <option value='2'  class='tag-primary'>POST</option>
-                                    <option value='3'  class='tag-warning'>PUT</option>
-                                    <option value='4'  class='tag-danger'>DELETE</option>
-                                </select>
-                            </td>
+                            <td width='auto' align='left'><input name='url' required></td>
+                        </tr>
+                        <td align='right'>状态</td>
+                        <td><select name='method' required>
+                            <option value='1' selected class='tag-success'>GET</option>
+                            <option value='2' class='tag-primary'>POST</option>
+                            <option value='3' class='tag-warning'>PUT</option>
+                            <option value='4' class='tag-danger'>DELETE</option>
+                        </select>
+                        </td>
                         <tr>
                             <td width='160' align='right'>分组</td>
-                            <td width='auto' align='left'><input name='group'  required></td>
-                        </tr>                        <tr>
+                            <td width='auto' align='left'>
+                                <select name='group' required>
+                                    <option v-for="i in apiGroup" :value="i" v-text="i"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td width='160' align='right'>说明</td>
-                            <td width='auto' align='left'><input name='desc'  ></td>
+                            <td width='auto' align='left'><input name='desc'></td>
                         </tr>
                         <tr>
                             <td align='right'>状态</td>
@@ -66,5 +72,15 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script src="/resource/js/vue.js"></script>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                apiGroup: JSON.parse('{{json .api_group}}')
+            }
+        }
+    }).mount("#wrapper")
+</script>
 </body>
 </html>

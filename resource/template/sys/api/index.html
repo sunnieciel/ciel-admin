@@ -21,18 +21,18 @@
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class='input'>方法 <select type='text' name='api_method' value='{{.Session.api_method}}' onchange='this.form.submit()'>
                         <option value=''>请选择</option>
-                        <option value='1' {{if eq .Query.api_method 1}} selected {{end}}>GET</option>
-                        <option value='2' {{if eq .Query.api_method 2}} selected {{end}}>POST</option>
-                        <option value='3' {{if eq .Query.api_method 3}} selected {{end}}>PUT</option>
-                        <option value='4' {{if eq .Query.api_method 4}} selected {{end}}>DELETE</option>
+                        {{option .Config.html.method .Query.api_method}}
                     </select></label>
-                    <label class="input">分组 <input type="text" name="api_group" value="{{.Session.api_group}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class='input'>状态 <select type='text' name='api_method' value='{{.Session.api_method}}' onchange='this.form.submit()'>
+                    <label class="input">分组
+                        <select name="api_group" onchange="this.form.submit()">
+                            <option value="">请选择</option>
+                            {{option .api_group .Session.api_group}}
+                        </select>
+                    </label>
+                    <label class='input'>状态 <select type='text' name='api_status' onchange='this.form.submit()'>
                         <option value=''>请选择</option>
-                        <option value='1' {{if eq .Query.api_status 1}} selected {{end}}>正常</option>
-                        <option value='2' {{if eq .Query.api_status 2}} selected {{end}}>禁用</option>
+                        {{option .Config.html.status .Query.api_status}}
                     </select></label>
-
                 </form>
             </div>
             <div class="box no-bottom-border">
@@ -41,28 +41,25 @@
                     <tr>
                         <th>id</th>
                         <th>地址</th>
-                        <th>方法</th>
                         <th>分组</th>
+                        <th>方法</th>
                         <th>说明</th>
-
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>操作</th>
                     </tr>
                     {{range .list}}
-                    <tr>
+                    <tr class="data">
                         <td>{{.id}}</td>
                         <td>{{.url}}</td>
-                        <td>{{if eq .method "1"}}<span class="tag-success">GET</span>{{else if eq .method "2"}}<span class="tag-primary">POST</span>{{else if eq .method "3"}}<span class="tag-warning">PUT</span>{{else if eq .method "4"}}<span class="tag-danger">DELETE</span>{{end}}</td>
                         <td>{{.group}}</td>
+                        <td>{{if eq .method "1"}}<span class="tag-success">GET</span>{{else if eq .method "2"}}<span class="tag-primary">POST</span>{{else if eq .method "3"}}<span class="tag-warning">PUT</span>{{else if eq .method "4"}}<span class="tag-danger">DELETE</span>{{end}}</td>
                         <td>{{.desc}}</td>
-
                         <td>{{if eq .status 1}}<span class="tag-info">正常</span>{{else}}<span class="tag-danger">关闭</span>{{end}}</td>
                         <td>{{.created_at}}</td>
                         <td align="center">
                             <a class="tag-info" href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>
                             <a class="tag-danger" href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
-
                         </td>
                     </tr>
                     {{end}}
@@ -74,5 +71,12 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script src="/resource/js/vue.js"></script>
+<script>
+    $(function () {
+        // $(".data").css('display', 'table-row')
+        $(".data").css('opacity', '1')
+    })
+</script>
 </body>
 </html>

@@ -1,14 +1,3 @@
 <div class="box">
-    <div id="nav">
-        {{range .Session.adminInfo.Menus}}
-        <a class="link-2" data="{{.name}}">{{.name}}</a>
-        {{end}}
-    </div>
-    <div id="sub-nav">
-        {{range $p:=.Session.adminInfo.Menus}}
-        {{range $child:=$p.Children}}
-        <a class="link-3" href="{{$child.path}}" data="{{$p.name}}" style="display: none">{{$child.name}}</a>
-        {{end}}
-        {{end}}
-    </div>
+    {{nav .Session.adminInfo.Menus .path }}
 </div>

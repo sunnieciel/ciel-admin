@@ -50,3 +50,25 @@ gfcli:
         removePrefix: "s_,f_"
         descriptionTag: true
         noModelComment: true
+
+html:
+  status:
+    - value: 1
+      label: 正常
+      class: tag-info
+    - value: 2
+      label: 禁用
+      class: tag-danger
+  method:
+    - value: 1
+      label: GET
+      class: tag-success
+    - value: 2
+      label: POST
+      class: tag-primary
+    - value: 3
+      label: PUT
+      class: tag-warning
+    - value: 4
+      label: DELETE
+      class: tag-danger

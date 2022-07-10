@@ -43,6 +43,7 @@ func (c cMenu) Path(r *ghttp.Request) {
 		"page": r.GetPage(total, c.Size).GetContent(3),
 		"node": node,
 		"msg":  sys.MsgFromSession(r),
+		"path": r.URL.Path,
 	}); err != nil {
 		res.Err(err, r)
 	}

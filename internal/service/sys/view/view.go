@@ -1,4 +1,4 @@
-package sys
+package view
 
 import (
 	"ciel-admin/utility/utils/xurl"
@@ -23,5 +23,11 @@ func BindFuncMap() gview.FuncMap {
 	return gview.FuncMap{
 		"hasPrefix":   HasPrefix,
 		"toUrlParams": xurl.ToUrlParams,
+		"tag":         tag,
+		"nodeLevel":   nodeLevel,
+		"nodeTime":    nodeTime,
+		"nodeWeek":    nodeWeek,
+		"nav":         nav,
+		"option":      option,
 	}
 }

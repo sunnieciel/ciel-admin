@@ -2,6 +2,7 @@
     --white-01: #fff;
     --white-01-3: rgba(255, 255, 255, .3);
     --white-02: #f5f5f5;
+    --white-10: #f9f9f9;
     --white-03: #eee;
     --white-04: #e9e9eb;
     --white-05: #e2e2e2;
@@ -112,6 +113,22 @@
 * {
     margin: 0;
     padding: 0;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+    margin: 0;
+}
+
+.data {
+    /*visibility: hidden;*/
+    opacity: 0;
+
+}
+
+html {
+    overflow-y: scroll;
 }
 
 body {
@@ -873,6 +890,7 @@ li .input {
     background-image: url("/resource/image/shadow_light.png");
     background-repeat: repeat-x;
     padding-bottom: var(--box-spacing);
+    min-height: 233px;
 }
 
 #wrapper-left {

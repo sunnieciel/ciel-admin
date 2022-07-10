@@ -11,7 +11,7 @@
 </head>
 <body>
 {{include "/part/top.html" .}}
-<div id="wrapper">
+<div id="wrapper" v-cloak>
     <div class="w">
         <div id="wrapper-left">
             <div class="box no-bottom-border">
@@ -29,21 +29,24 @@
                             <td width="160" align="right">ID</td>
                             <td align="left"><input name="id" readonly value="{{.Session.api_edit.id}}"></td>
                         </tr>
-                                                <tr>
+                        <tr>
                             <td width='160' align='right'>地址</td>
                             <td width='auto' align='left'><input name='url' value='{{.Session.api_edit.url}}'></td>
-                        </tr>                            <td align='right'>状态</td>
-                            <td>                                <select name='method'>
-                                    <option value='1' {{if eq .Session.api_edit.method "1"}} selected {{end}} class='tag-success'>GET</option>
-                                    <option value='2' {{if eq .Session.api_edit.method "2"}} selected {{end}} class='tag-primary'>POST</option>
-                                    <option value='3' {{if eq .Session.api_edit.method "3"}} selected {{end}} class='tag-warning'>PUT</option>
-                                    <option value='4' {{if eq .Session.api_edit.method "4"}} selected {{end}} class='tag-danger'>DELETE</option>
-                                </select>
-                            </td>
+                        </tr>
+                        <td align='right'>状态</td>
+                        <td><select name='method'>
+                            {{option .Config.html.method .Session.api_edit.method}}
+                        </select>
+                        </td>
                         <tr>
                             <td width='160' align='right'>分组</td>
-                            <td width='auto' align='left'><input name='group' value='{{.Session.api_edit.group}}'></td>
-                        </tr>                        <tr>
+                            <td width='auto' align='left'>
+                                <select name="group">
+                                    {{option .api_group .Session.api_edit.group}}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td width='160' align='right'>说明</td>
                             <td width='auto' align='left'><input name='desc' value='{{.Session.api_edit.desc}}'></td>
                         </tr>
@@ -51,8 +54,7 @@
                             <td align="right">状态</td>
                             <td>
                                 <select name="status">
-                                    <option value="1" {{if eq .Session.api_edit.status 1}} selected {{end}}>开启</option>
-                                    <option value="2" {{if eq .Session.api_edit.status 2}} selected {{end}}>关闭</option>
+                                    {{option .Config.html.status .Session.api_edit.status}}
                                 </select>
                             </td>
                         </tr>
@@ -70,5 +72,13 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script src="/resource/js/vue.js"></script>
+<script>
+    Vue.createApp({
+        data() {
+            return {apiGroup: JSON.parse('{{json .api_group}}')}
+        },
+    }).mount("#wrapper")
+</script>
 </body>
 </html>

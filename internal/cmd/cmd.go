@@ -3,6 +3,7 @@ package cmd
 import (
 	"ciel-admin/internal/controller"
 	"ciel-admin/internal/service/sys"
+	"ciel-admin/internal/service/sys/view"
 	"context"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -16,12 +17,12 @@ var (
 		Name:        "ciel",
 		Usage:       "ciel",
 		Brief:       "start http server",
-		Description: "hello im ciel",
+		Description: "hello i'm ciel",
 		Arguments:   nil,
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			// 初始化服务
 			sys.Init()
-			g.View().BindFuncMap(sys.BindFuncMap())
+			g.View().BindFuncMap(view.BindFuncMap())
 			s := g.Server()
 			registerInterface(s)                         // 注册对外提供功能的接口
 			registerGenFileRouter(s)                     // 注册生成的代码路由
