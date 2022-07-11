@@ -28,7 +28,7 @@
                 <div v-for="j in i.parts" class="cell flex-center">
                     <div class="width-90 text-right fs-12 color-desc" v-text="j.name"></div>
                     <div class=" p-3 no-bottom-border flex-1">
-                        <a v-for="k in j.urls" :class="[k.class]" :href="k.url" target="_blank" v-text="k.name" :title="k.desc"></a>
+                        <a v-for="k in j.urls" :class="[k.class]" :href="k.url" v-text="k.name" :title="k.desc"></a>
                     </div>
                 </div>
             </div>

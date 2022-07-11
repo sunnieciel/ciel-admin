@@ -57,16 +57,14 @@
                         <tr>
                             <td align="right">type</td>
                             <td><select name="type">
-                                <option value="2">分组</option>
-                                <option value="1" selected>菜单</option>
+                                {{option .Config.options.menuType ""}}
                             </select></td>
                         </tr>
                         <tr>
                             <td align="right">状态</td>
                             <td>
                                 <select name="status">
-                                    <option value="1" selected>开启</option>
-                                    <option value="2">关闭</option>
+                                    {{option .Config.options.status ""}}
                                 </select>
                             </td>
                         </tr>

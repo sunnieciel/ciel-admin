@@ -21,26 +21,18 @@
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class="input">Key <input type="text" name="dict_k" value="{{.Session.dict_k}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                     <label class="input">Value <input type="text" name="dict_v" value="{{.Session.dict_v}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class="input">说明 <input type="text" name="dict_desc" value="{{.Session.dict_desc}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class='input'>分组 <select type='text' name='dict_group' value='{{.Session.dict_group}}' onchange='this.form.submit()'>
+                    <label class="input">说明<input type="text" name="dict_desc" value="{{.Session.dict_desc}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    <label class='input'>分组<select type='text' name='dict_group' value='{{.Session.dict_group}}' onchange='this.form.submit()'>
                         <option value='' class='tag-info'>请选择</option>
-                        <option value='1' {{if eq .Query.dict_group 1}} selected {{end}} class='tag-info'>系统</option>
-                        <option value='2' {{if eq .Query.dict_group 2}} selected {{end}} class='tag-primary'>网站</option>
-                        <option value='3' {{if eq .Query.dict_group 3}} selected {{end}} class='tag-warning'>备用</option>
-                        <option value='4' {{if eq .Query.dict_group 4}} selected {{end}} class='tag-danger'>其他</option>
+                        {{option .Config.options.dictGroup .Query.dict_group}}
                     </select></label>
                     <label class='input'>状态 <select type='text' name='dict_status' value='{{.Session.dict_status}}' onchange='this.form.submit()'>
                         <option value='' class='tag-info'>请选择</option>
-                        <option value='1' {{if eq .Query.dict_status 1}} selected {{end}} class='tag-info'>正常</option>
-                        <option value='2' {{if eq .Query.dict_status 2}} selected {{end}} class='tag-danger'>禁用</option>
+                        {{option .Config.options.status .Query.dict_status}}
                     </select></label>
                     <label class='input'>类型 <select type='text' name='dict_type' value='{{.Session.dict_type}}' onchange='this.form.submit()'>
                         <option value='' class='tag-info'>请选择</option>
-                        <option value='' {{if eq .Query.dict_type }} selected {{end}} class='tag-success'>其他</option>
-                        <option value='1' {{if eq .Query.dict_type 1}} selected {{end}} class='tag-info'>文本</option>
-                        <option value='2' {{if eq .Query.dict_type 2}} selected {{end}} class='tag-warning'>图片</option>
-                        <option value='3' {{if eq .Query.dict_type 3}} selected {{end}} class='tag-primary'>富文本</option>
-                        <option value='' {{if eq .Query.dict_type }} selected {{end}} class='tag-danger'>文件</option>
+                        {{option .Config.options.dictType .Query.dict_type}}
                     </select></label>
                 </form>
             </div>
@@ -54,7 +46,6 @@
                         <th>说明</th>
                         <th>分组</th>
                         <th>类型</th>
-
                         <th>状态</th>
                         <th>创建时间</th>
                         <th>操作</th>
@@ -65,14 +56,13 @@
                         <td>{{.k}}</td>
                         <td>{{.v}}</td>
                         <td>{{.desc}}</td>
-                        <td>{{if eq .group "1"}}<span class="tag-info">系统</span>{{else if eq .group "2"}}<span class="tag-primary">网站</span>{{else if eq .group "3"}}<span class="tag-warning">备用</span>{{else if eq .group "4"}}<span class="tag-danger">其他</span>{{end}}</td>
-                        <td>{{if eq .type ""}}<span class="tag-success">其他</span>{{else if eq .type "1"}}<span class="tag-info">文本</span>{{else if eq .type "2"}}<span class="tag-warning">图片</span>{{else if eq .type "3"}}<span class="tag-primary">富文本</span>{{else if eq .type ""}}<span class="tag-danger">文件</span>{{end}}</td>
-                        <td>{{if eq .status 1}}<span class="tag-info">正常</span>{{else}}<span class="tag-danger">关闭</span>{{end}}</td>
+                        <td>{{chooseSpan $.Config.options.dictGroup .group}}</td>
+                        <td>{{chooseSpan $.Config.options.dictType .type}}</td>
+                        <td>{{chooseSpan $.Config.options.status .status}}</td>
                         <td>{{.created_at}}</td>
                         <td align="center">
                             <a class="tag-info" href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>
                             <a class="tag-danger" href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
-
                         </td>
                     </tr>
                     {{end}}

@@ -35,7 +35,7 @@
                         </tr>
                         <td align='right'>状态</td>
                         <td><select name='method'>
-                            {{option .Config.html.method .Session.api_edit.method}}
+                            {{option .Config.options.api .Session.api_edit.method}}
                         </select>
                         </td>
                         <tr>
@@ -54,7 +54,7 @@
                             <td align="right">状态</td>
                             <td>
                                 <select name="status">
-                                    {{option .Config.html.status .Session.api_edit.status}}
+                                    {{option .Config.options.status .Session.api_edit.status}}
                                 </select>
                             </td>
                         </tr>

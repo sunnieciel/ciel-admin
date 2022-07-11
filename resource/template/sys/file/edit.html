@@ -36,20 +36,14 @@
                         <tr>
                             <td align='right'>分组</td>
                             <td><select name='group'>
-                                <option value='1' {{if eq .Session.file_edit.group 1}} selected {{end}} class='tag-info'>头像</option>
-                                <option value='2' {{if eq .Session.file_edit.group 2}} selected {{end}} class='tag-danger'>图片</option>
-                                <option value='3' {{if eq .Session.file_edit.group 3}} selected {{end}} class='tag-brown'>动图</option>
-                                <option value='4' {{if eq .Session.file_edit.group 4}} selected {{end}} class='tag-warning'>音频</option>
-                                <option value='5' {{if eq .Session.file_edit.group 5}} selected {{end}} class='tag-success'>文件</option>
-                                <option value='6' {{if eq .Session.file_edit.group 6}} selected {{end}} class='tag-info'>其他</option>
+                                {{option .Config.options.fileGroup .Session.file_edit.group}}
                             </select></td>
                         </tr>
                         <tr>
                             <td align='right'>状态</td>
                             <td>
                                 <select name='status'>
-                                    <option value='1' {{if eq .Session.file_edit.status 1}} selected {{end}} class="tag-info">开启</option>
-                                    <option value='2' {{if eq .Session.file_edit.status 2}} selected {{end}} class="tag-danger">关闭</option>
+                                    {{option .Config.options.status .Session.file_edit.status}}
                                 </select>
                             </td>
                         </tr>

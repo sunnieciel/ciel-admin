@@ -31,17 +31,14 @@
                         </tr>
                         <td align='right'>状态</td>
                         <td><select name='method' required>
-                            <option value='1' selected class='tag-success'>GET</option>
-                            <option value='2' class='tag-primary'>POST</option>
-                            <option value='3' class='tag-warning'>PUT</option>
-                            <option value='4' class='tag-danger'>DELETE</option>
+                            {{option .Config.options.api ""}}
                         </select>
                         </td>
                         <tr>
                             <td width='160' align='right'>分组</td>
                             <td width='auto' align='left'>
                                 <select name='group' required>
-                                    <option v-for="i in apiGroup" :value="i" v-text="i"></option>
+                                    {{option .api_group ""}}
                                 </select>
                             </td>
                         </tr>
@@ -53,8 +50,7 @@
                             <td align='right'>状态</td>
                             <td>
                                 <select name='status'>
-                                    <option value='1' selected>开启</option>
-                                    <option value='2'>关闭</option>
+                                    {{option .Config.options.status ""}}
                                 </select>
                             </td>
                         </tr>
@@ -72,15 +68,5 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
-<script src="/resource/js/vue.js"></script>
-<script>
-    Vue.createApp({
-        data() {
-            return {
-                apiGroup: JSON.parse('{{json .api_group}}')
-            }
-        }
-    }).mount("#wrapper")
-</script>
 </body>
 </html>

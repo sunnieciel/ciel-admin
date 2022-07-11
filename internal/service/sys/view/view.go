@@ -29,5 +29,7 @@ func BindFuncMap() gview.FuncMap {
 		"nodeWeek":    nodeWeek,
 		"nav":         nav,
 		"option":      option,
+		"chooseSpan":  chooseSpan,
+		"img":         img,
 	}
 }

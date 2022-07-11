@@ -29,8 +29,7 @@
                     </label>
                     <label class='input'>状态 <select type='text' name='admin_status' value='{{.Session.admin_status}}' onchange='this.form.submit()'>
                         <option value='' class='tag-info'>请选择</option>
-                        <option value='1' {{if eq .Query.admin_status 1}} selected {{end}} class='tag-info'>正常</option>
-                        <option value='2' {{if eq .Query.admin_status 2}} selected {{end}} class='tag-danger'>禁用</option>
+                        {{option .Config.options.status .Query.admin_status}}
                     </select></label>
                 </form>
             </div>
@@ -50,7 +49,7 @@
                         <td>{{.id}}</td>
                         <td>{{.uname}}</td>
                         <td>{{.role_name}}</td>
-                        <td>{{if eq .status 1}}<span class="tag-info">正常</span>{{else}}<span class="tag-danger">关闭</span>{{end}}</td>
+                        <td>{{chooseSpan $.Config.options.status .status}}</td>
                         <td>{{.created_at}}</td>
                         <td align="center">
                             <a href="#" class="tag-info" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>

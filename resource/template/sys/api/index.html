@@ -21,7 +21,7 @@
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class='input'>方法 <select type='text' name='api_method' value='{{.Session.api_method}}' onchange='this.form.submit()'>
                         <option value=''>请选择</option>
-                        {{option .Config.html.method .Query.api_method}}
+                        {{option .Config.options.api .Query.api_method}}
                     </select></label>
                     <label class="input">分组
                         <select name="api_group" onchange="this.form.submit()">
@@ -31,7 +31,7 @@
                     </label>
                     <label class='input'>状态 <select type='text' name='api_status' onchange='this.form.submit()'>
                         <option value=''>请选择</option>
-                        {{option .Config.html.status .Query.api_status}}
+                        {{option .Config.options.status .Query.api_status}}
                     </select></label>
                 </form>
             </div>
@@ -53,9 +53,9 @@
                         <td>{{.id}}</td>
                         <td>{{.url}}</td>
                         <td>{{.group}}</td>
-                        <td>{{if eq .method "1"}}<span class="tag-success">GET</span>{{else if eq .method "2"}}<span class="tag-primary">POST</span>{{else if eq .method "3"}}<span class="tag-warning">PUT</span>{{else if eq .method "4"}}<span class="tag-danger">DELETE</span>{{end}}</td>
+                        <td>{{chooseSpan $.Config.options.api .method}}</td>
                         <td>{{.desc}}</td>
-                        <td>{{if eq .status 1}}<span class="tag-info">正常</span>{{else}}<span class="tag-danger">关闭</span>{{end}}</td>
+                        <td>{{chooseSpan $.Config.options.status .status}}</td>
                         <td>{{.created_at}}</td>
                         <td align="center">
                             <a class="tag-info" href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>

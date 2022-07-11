@@ -40,12 +40,12 @@
                         <td>{{.id}}</td>
                         <td>{{.pid}}</td>
                         <td>{{.name}}</td>
-                        <td>{{if hasPrefix .icon "http"}} <a href="{{.icon}}" target="_blank"> <img class="s-icon" src="{{.icon}}" alt="not fond"> </a> {{else if ne .icon ""}} <a href="{{$.Config.server.imgPrefix}}{{.icon}}" target="_blank"> <img class="s-icon" src="{{$.Config.server.imgPrefix}}{{.icon}}" alt="not fond"> </a> {{else}} <span v-else class="tag-normal">暂无图片</span>{{end}}</td>
-                        <td>{{if hasPrefix .bg_img "http"}} <a href="{{.bg_img}}" target="_blank"> <img class="s-icon" src="{{.bg_img}}" alt="not fond"> </a> {{else if ne .bg_img ""}} <a href="{{$.Config.server.imgPrefix}}{{.bg_img}}" target="_blank"> <img class="s-icon" src="{{$.Config.server.imgPrefix}}{{.bg_img}}" alt="not fond"> </a> {{else}} <span v-else class="tag-normal">暂无图片</span>{{end}}</td>
+                        <td>{{img .icon}}</td>
+                        <td>{{img .bg_img}}</td>
                         <td>{{.path}}</td>
                         <td>{{.sort}}</td>
-                        <td>{{if eq .type 1}}<span class="tag-info">菜单</span>{{else}} <span class="tag-warning">分组</span>{{end}}</td>
-                        <td>{{if eq .status 1}}<span class="tag-info">正常</span>{{else}}<span class="tag-danger">关闭</span>{{end}}</td>
+                        <td>{{chooseSpan $.Config.options.menuType .type}}</td>
+                        <td>{{chooseSpan $.Config.options.status .status}}</td>
                         <td>{{.created_at}}</td>
                         <td align="center">
                             <a class="tag-info" href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>

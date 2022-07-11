@@ -343,10 +343,7 @@ func genEdit(ctx context.Context, c bo.GenConf) error {
 		case "select":
 			tr += fmt.Sprintf("<tr><td align='right'>%s</td><td>", label)
 			temp := fmt.Sprintf("<select name='%s' %s>", i.Name, readonly)
-			for _, j := range i.Options {
-				temp += fmt.Sprintf("<option value='%s' {{if eq .Session.%s_edit.%s %s}} selected {{end}} class='%s'>%v</option>",
-					j.Value, structNameLower, i.Name, j.Value, j.Type, j.Label)
-			}
+			temp += fmt.Sprintf(`{{option "%s" .Session.%s_edit.%s}}`, i.Options, structNameLower, i.Name)
 			temp += "</select>"
 			tr += temp
 			tr += "</td>"
@@ -375,21 +372,11 @@ func genEdit(ctx context.Context, c bo.GenConf) error {
 
 	date := gtime.Now()
 	editTemp = gstr.Replace(editTemp, "[date]", date.String())
-	// status
 	if c.ShowStatus == 0 {
-		editTemp = gstr.Replace(editTemp, "[status]", fmt.Sprintf(`<tr> 
-<td align='right'>状态</td>
-<td>
-<select name='status'> 
-<option value='1' {{if eq .Session.%s_edit.status 1}} selected {{end}}  class="tag-info">开启</option> 
-<option value='2' {{if eq .Session.%s_edit.status 2}} selected {{end}} class="tag-danger">关闭</option> 
-</select>
-</td>
-</tr>`, structNameLower, structNameLower))
+		editTemp = gstr.Replace(editTemp, "[status]", fmt.Sprintf(`<tr><td align='right'>状态</td> <td> <select name='status'> {{option .Config.options.status .Session.%s_edit.status}}</select></td></tr>`, structNameLower))
 	} else {
 		editTemp = gstr.Replace(editTemp, "[status]", ``)
 	}
-
 	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template/", c.HtmlGroup, "/", structNameLower, "/edit.html"))
 	if err != nil {
 		return err
@@ -424,37 +411,31 @@ func genAdd(ctx context.Context, c bo.GenConf) error {
 		}
 		switch i.FieldType {
 		case "select":
-			tr += fmt.Sprintf("                          <tr>  <td align='right'>%s</td>\n                            <td>", label)
-			temp := fmt.Sprintf("                                <select name='%s' %s>\n", i.Name, required)
-			for index, j := range i.Options {
-				if index == 0 {
-					temp += fmt.Sprintf("                                    <option value='%v' selected class='%s'>%v</option>\n", j.Value, j.Type, j.Label)
-				} else {
-					temp += fmt.Sprintf("                                    <option value='%v'  class='%s'>%v</option>\n", j.Value, j.Type, j.Label)
-				}
-			}
-			temp += "                                </select>\n"
+			tr += fmt.Sprintf("<tr><td align='right'>%s</td><td>", label)
+			temp := fmt.Sprintf("<select name='%s' required><option value='' >请选择</option>", i.Name)
+			temp += fmt.Sprintf(`{{option "%s" ""}}`, i.Options)
+			temp += "</select>"
 			tr += temp + "</td>"
 			if i.Comment != "" {
 				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
 			}
-			tr += "\n </tr>"
+			tr += "</tr>"
 		case "textarea":
-			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><textarea name='%s' %s></textarea></td>",
+			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><textarea name='%s' %s></textarea></td>",
 				label, i.Name, required,
 			)
 			if i.Comment != "" {
 				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
 			}
-			tr += "\n                        </tr>"
+			tr += "</tr>"
 		default:
-			tr += fmt.Sprintf("                        <tr>\n                            <td width='160' align='right'>%s</td>\n                            <td width='auto' align='left'><input name='%s'  %s></td>",
+			tr += fmt.Sprintf("<tr><td width='160' align='right'>%s</td><td width='auto' align='left'><input name='%s'  %s></td>",
 				label, i.Name, required,
 			)
 			if i.Comment != "" {
 				tr += fmt.Sprintf("<td><span class='tag-info'>%s</span></td>", i.Comment)
 			}
-			tr += "\n                        </tr>"
+			tr += "</tr>"
 		}
 	}
 	addTemp = gstr.Replace(addTemp, "[tr]", tr)
@@ -464,7 +445,7 @@ func genAdd(ctx context.Context, c bo.GenConf) error {
 
 	// status
 	if c.ShowStatus == 0 {
-		addTemp = gstr.Replace(addTemp, "[status]", `<tr> <td align='right'>状态</td><td><select name='status'> <option value='1' selected class="tag-info">开启</option> <option value='2' class="tag-danger">关闭</option> </select></td> </tr>`)
+		addTemp = gstr.Replace(addTemp, "[status]", `<tr> <td align='right'>状态</td><td><select name='status'> {{option .Config.options.status ""}} </select></td> </tr>`)
 	} else {
 		addTemp = gstr.Replace(addTemp, "[status]", "")
 	}
@@ -519,9 +500,7 @@ func genIndex(ctx context.Context, c bo.GenConf) error {
 		case "select":
 			search += fmt.Sprintf("<label class='input'>%s <select type='text' name='%s_%s' value='{{.Session.%s_%s}}' onchange='this.form.submit()'>", label, structNameLower, queryName, structNameLower, queryName)
 			search += "<option value='' class='tag-info'>请选择</option>"
-			for _, j := range i.Options {
-				search += fmt.Sprintf("<option value='%s' {{if eq .Query.%s_%s %s}} selected {{end}} class='%s'>%s</option>", j.Value, structNameLower, queryName, j.Value, j.Type, j.Label)
-			}
+			search += fmt.Sprintf(`{{option "%s" .Qeury.%s_%s}}`, i.Options, structNameLower, queryName)
 			search += "</select></label>"
 		default:
 			search += fmt.Sprintf(`<label class="input">%s <input type="text" name="%s_%s" value="{{.Session.%s_%s}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>`,
@@ -549,25 +528,17 @@ func genIndex(ctx context.Context, c bo.GenConf) error {
 		case "id", "created_at", "updated_at", "status":
 			continue
 		}
-		th += fmt.Sprintf("<th>%s</th>\n                        ", label)
+		th += fmt.Sprintf("<th>%s</th>", label)
 		switch i.FieldType {
 		case "select":
 			temp := "<td>"
-			for index, j := range i.Options {
-				if index == 0 {
-					temp += fmt.Sprintf(`{{if eq .%s "%s"}}<span class="%s">%s</span>`, i.Name, j.Value, j.Type, j.Label)
-				} else {
-					temp += fmt.Sprintf(`{{else if eq .%s "%s"}}<span class="%s">%s</span>`, i.Name, j.Value, j.Type, j.Label)
-				}
-			}
-			temp += "{{end}}</td>"
+			temp += fmt.Sprintf(`{{chooseSpan "%s" .%s}}`, i.Options, i.Name)
+			temp += "</td>"
 			td += temp
 		case "img":
-			td += fmt.Sprintf(`<td>{{if hasPrefix .%s "http"}} <a href='{{.%s}}' target='_blank'> <img class='s-icon' src='{{.%s}}' alt='not fond'> </a> {{else if ne .%s ""}} <a href='{{$.Config.server.imgPrefix}}{{.%s}}' target='_blank'> <img class='s-icon' src='{{$.Config.server.imgPrefix}}{{.%s}}' alt='not fond'> </a> {{else}} <span v-else class='tag-normal'>暂无图片</span>{{end}}</td>`,
-				name, name, name, name, name, name,
-			)
+			td += fmt.Sprintf(`<td>{{img .%s}}</td>`, name)
 		default:
-			td += fmt.Sprintf("<td>{{.%s}}</td>\n                        ", name)
+			td += fmt.Sprintf("<td>{{.%s}}</td>", name)
 		}
 	}
 	indexTemp = gstr.Replace(indexTemp, "[th]", th)
@@ -579,7 +550,7 @@ func genIndex(ctx context.Context, c bo.GenConf) error {
 	// status
 	if c.ShowStatus == 0 {
 		indexTemp = gstr.Replace(indexTemp, "[status_label]", "<th>状态</th>")
-		indexTemp = gstr.Replace(indexTemp, "[status]", "<td>{{if eq .status 1}}<span class=\"tag-info\">正常</span>{{else}}<span class=\"tag-danger\">关闭</span>{{end}}</td>")
+		indexTemp = gstr.Replace(indexTemp, "[status]", "<td>{{chooseSpan $.Config.options.status .status}}</td>")
 	} else {
 		indexTemp = gstr.Replace(indexTemp, "[status_label]", "")
 		indexTemp = gstr.Replace(indexTemp, "[status]", "")

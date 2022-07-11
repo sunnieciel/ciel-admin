@@ -78,7 +78,7 @@
         .table-list {
             position: absolute;
             top: 108px;
-            left: -11%;
+            left: -13%;
             max-height: 666px;
             overflow-y: hidden;
         }
@@ -193,7 +193,7 @@
                 {{include "/part/nav.html" .}}
                 <div class="box no-bottom-border">
                     <div class="cell flex bg-dark color-box-color-bg">
-                        <img class="s-icon s-icon-large" :src="pageConf.icon?pageConf.icon:'/resource/image/golang.png'" alt="Financial">
+                        <img class=" s-icon-large" :src="pageConf.icon?pageConf.icon:'/resource/image/golang.png'" alt="Financial">
                         <div class="flex-1">
                             <div class="flex-between">
                                 <div><a class="color-blue" href="{{.Config.home}}">FREE KEY</a> &nbsp;›&nbsp; 代码生成</div>
@@ -204,9 +204,22 @@
                     <!--基本配置-->
                     <div class="cell">
                         <div class="mt-10">
+                            <div class="flex-center">
+                                <span class="tag-danger">基础配置</span>
+                                <div>
+                                    <label class="input">展示状态 <select v-model="genConf.ShowStatus">
+                                        <option value="0">是</option>
+                                        <option value="1">否</option>
+                                    </select></label>
+                                    <label class="input">生成类型<select v-model="genConf.GenType">
+                                        <option value="0">CURD</option>
+                                        <option value="1">静态页面</option>
+                                    </select></label>
+                                </div>
+                            </div>
                             <div class="flex-baseline">
                                 <span class="tag-info">菜单信息</span>
-                                <div style="flex: 1">
+                                <div class="flex-1">
                                     <label class="input">一级菜单
                                         <input v-model="genConf.MenuLevel1" list="menus">
                                         <datalist id="menus">
@@ -219,7 +232,7 @@
                             </div>
                             <div class="flex-baseline">
                                 <span class="tag-primary">基本信息</span>
-                                <div style="flex: 1">
+                                <div class="flex-1">
                                     <label class="input">页面分组 <input v-model="genConf.HtmlGroup"></label>
                                     <label class="input">结构体 <input v-model="genConf.StructName"></label>
                                     <label class="input">页面名称 <input v-model="genConf.PageName"></label>
@@ -230,7 +243,7 @@
                             </div>
                             <div class="flex-center">
                                 <span class="tag-warning">关联查询</span>
-                                <div style="flex: 1">
+                                <div class="flex-1">
                                     <label class="input">T1 <input v-model="genConf.T1"></label>
                                     <label class="input">T2 <input v-model="genConf.T2"></label>
                                     <label class="input">T3 <input v-model="genConf.T3"></label>
@@ -257,20 +270,6 @@
                                     </select></label>
                                 </div>
                             </div>
-                            <div class="flex-center">
-                                <span class="tag-danger">其他配置</span>
-                                <div>
-                                    <label class="input">展示状态 <select v-model="genConf.ShowStatus">
-                                        <option value="0">是</option>
-                                        <option value="1">否</option>
-                                    </select></label>
-                                    <label class="input">生成类型<select v-model="genConf.GenType">
-                                        <option value="0">CURD</option>
-                                        <option value="1">静态页面</option>
-                                    </select></label>
-                                </div>
-                            </div>
-
                             <input class="btn-info mr-12" @click="addRow()" type="button" value="添加一行">
                             <input class="btn-warning" type="button" @click="submitGenCode()" value="生成代码">
                         </div>
@@ -366,14 +365,16 @@
                                 <div class="input" style="display: flex;">
                                     <span>字段选项</span>
                                     <div style="flex:1">
-                                        <div v-for="(i,index) of fieldDetail.Options">
+                                        <div v-for="(i,index) in fieldDetail.Options">
                                             <input style="width: 52px" title="Name" placeholder="Name" v-model="fieldDetail.Options[index].Name">
                                             <input style="width: 52px" title="Value" placeholder="Value" v-model="fieldDetail.Options[index].Value">
                                             <select class="mr-3 mt-3" title="el-tag's type" style="width: 90px" placeholder="Type" v-model="fieldDetail.Options[index].Type">
-                                                <option :value="'tag-primary'">tag-primary</option>
-                                                <option :value="'tag-success'">tag-success</option>
                                                 <option :value="'tag-info'">tag-info</option>
+                                                <option :value="'tag-success'">tag-success</option>
+                                                <option :value="'tag-primary'">tag-primary</option>
                                                 <option :value="'tag-warning'">tag-warning</option>
+                                                <option :value="'tag-brown'">tag-brown</option>
+                                                <option :value="'tag-purple'">tag-warning</option>
                                                 <option :value="'tag-danger'">tag-danger</option>
                                             </select>
                                             <a href="#" class=" tag-inherited" @click="addFieldOption(index)">+</a>
@@ -428,88 +429,7 @@
 <script src="/resource/js/vue.js"></script>
 <script src="/resource/js/element-plus.js"></script>
 <script src="/resource/js/js.cookie.min.js"></script>
-<script>
-    jQuery.each(["put", "delete"], function (i, method) {
-        jQuery[method] = function (url, data, callback, type) {
-            if (jQuery.isFunction(data)) {
-                type = type || callback;
-                callback = data;
-                data = undefined;
-            }
-            return jQuery.ajax({
-                url: url, type: method, dataType: 'json', data: data, success: callback
-            });
-        };
-    });
-
-    function logout() {
-        $.ajax({
-            url: '/admin/logout', type: 'get', dataType: 'json', success: function (data) {
-                console.log(data)
-                if (data.code === 0) {
-                    window.location.href = '/login';
-                }
-            }
-        });
-    }
-
-    function updatePwd() {
-        let old = prompt('Input your old pwd');
-        if (!old) {
-            return
-        }
-        let newPwd = prompt('Input your new pwd');
-        if (!newPwd) {
-            return
-        }
-        $.put("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
-            if (res.code === 0) {
-                alert('success')
-                location.href = '/login'
-            } else {
-                alert(res.msg)
-            }
-        });
-    }
-
-    // 添加默认选中
-    $("#sub-nav a").hide()
-    let current = $("#sub-nav a[href='" + location.pathname + "']");
-    current.addClass('tag-blue')
-    $("#sub-nav a[data='" + current.attr("data") + "']").show()
-    $("#nav a[data='" + current.attr("data") + "']").addClass("link-2-active")
-    // 监听tab 切换
-    $(function () {
-        $("#nav a").click(function () {
-            $("#nav a").removeClass("link-2-active")
-            $(this).addClass("link-2-active")
-            $("#sub-nav a").hide()
-            $("#sub-nav a[data='" + $(this).attr("data") + "']").show()
-        })
-    })
-
-    function setDark(value) {
-        Cookies.set('dark', value)
-        location.reload()
-    }
-
-    function selectType(num) {
-        switch (num % 4) {
-            case 0:
-                return 'tag-primary'
-            case 1:
-                return 'tag-success'
-            case 2:
-                return 'tag-info'
-            case 3:
-                return 'tag-warning'
-            case 4:
-                return 'tag-danger'
-            default:
-                return 'tag-primary'
-        }
-    }
-</script>
+<script src="/resource/js/app.js"></script>
 <script>
     const app = Vue.createApp({
         data() {
@@ -519,7 +439,6 @@
                     desc: '这里是代码生成页面',
                     icon: "{{.data.icon}}",
                 },
-
                 assistant: {
                     tableItemActive: -1,
                 },
@@ -562,6 +481,7 @@
                     ShowStatus: 0,
                     OrderBy: '',
                     QueryField: '',
+                    GenType: 0,
                 },
                 menus: [],
             }
@@ -573,6 +493,11 @@
                 },
                 deep: true
             },
+            fieldDetail: {
+                handler(val) {
+                    console.log(typeof val.Options)
+                }
+            }
         },
         created() {
             this.fields = []
@@ -655,6 +580,13 @@
                 this.genConf.QueryField = "t1.*"
             },
             async submitGenCode() {
+                for (let i = 0; i < this.fields.length; i++) {
+                    let arr = []
+                    if (typeof this.fields[i].Options === "object") {
+                        this.fields[i].Options.forEach(j => arr.push(j.Value + ":" + j.Name + ":" + j.Type))
+                        this.fields[i].Options = arr.join(",")
+                    }
+                }
                 let data = {'genConf': this.genConf, 'fields': this.fields}
                 let res = await $.post("/gen", data)
                 if (res.code !== 0) {
@@ -666,6 +598,12 @@
             showFieldDetails(i) {
                 this.fieldDetail = i
                 this.dialogVisible = true
+                if (typeof this.fieldDetail.Options == "string") {
+                    this.fieldDetail.Options = [
+                        {Name: '正常', Value: "1", Type: "tag-info"},
+                        {Name: '禁用', Value: "2", Type: "tag-danger"},
+                    ]
+                }
             },
             addRow() {
                 this.fields.push(
@@ -698,6 +636,9 @@
                 })
             },
             addFieldOption(index) {
+                if (typeof this.fieldDetail.Options == "string") {
+                    this.fieldDetail.Options = []
+                }
                 this.fieldDetail.Options.splice(index + 1, 0, {
                     Name: '',
                     Value: '',
@@ -705,6 +646,9 @@
                 })
             },
             removeFieldOption(i) {
+                if (typeof this.fieldDetail.Options == "string") {
+                    this.fieldDetail.Options = []
+                }
                 if (this.fieldDetail.Options.length === 1) {
                     alert('至少要有一个选项')
                     return

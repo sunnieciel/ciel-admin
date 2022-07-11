@@ -25,39 +25,37 @@
                 </div>
                 <form class="cell" method="post" action="/dict/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                                                <tr>
+                        <tr>
                             <td width='160' align='right'>Key</td>
-                            <td width='auto' align='left'><input name='k'  required></td>
-                        </tr>                        <tr>
+                            <td width='auto' align='left'><input name='k' required></td>
+                        </tr>
+                        <tr>
                             <td width='160' align='right'>Value</td>
                             <td width='auto' align='left'><textarea name='v' required></textarea></td>
-                        </tr>                        <tr>
+                        </tr>
+                        <tr>
                             <td width='160' align='right'>说明</td>
-                            <td width='auto' align='left'><input name='desc'  required></td>
-                        </tr>                          <tr>  <td align='right'>分组</td>
-                            <td>                                <select name='group' required>
-                                    <option value='1' selected class='tag-info'>系统</option>
-                                    <option value='2'  class='tag-primary'>网站</option>
-                                    <option value='3'  class='tag-warning'>备用</option>
-                                    <option value='4'  class='tag-danger'>其他</option>
-                                </select>
-</td>
- </tr>                          <tr>  <td align='right'>类型</td>
-                            <td>                                <select name='type' required>
-                                    <option value='' selected class='tag-success'>其他</option>
-                                    <option value='1'  class='tag-info'>文本</option>
-                                    <option value='2'  class='tag-warning'>图片</option>
-                                    <option value='3'  class='tag-primary'>富文本</option>
-                                    <option value=''  class='tag-danger'>文件</option>
-                                </select>
-</td>
- </tr>
+                            <td width='auto' align='left'><input name='desc' required></td>
+                        </tr>
+                        <tr>
+                            <td align='right'>分组</td>
+                            <td><select name='group' required>
+                                {{option .Config.options.dictGroup ""}}
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align='right'>类型</td>
+                            <td><select name='type' required>
+                                {{option .Config.options.dictType ""}}
+                            </select>
+                            </td>
+                        </tr>
                         <tr>
                             <td align='right'>状态</td>
                             <td>
                                 <select name='status'>
-                                    <option value='1' selected class="tag-info">开启</option>
-                                    <option value='2' class="tag-danger">关闭</option>
+                                    {{option .Config.options.status ""}}
                                 </select>
                             </td>
                         </tr>

@@ -44,28 +44,20 @@
                         <tr>
                             <td align='right'>分组</td>
                             <td><select name='group'>
-                                <option value='1' {{if eq .Session.dict_edit.group 1}} selected {{end}} class='tag-info'>系统</option>
-                                <option value='2' {{if eq .Session.dict_edit.group 2}} selected {{end}} class='tag-primary'>网站</option>
-                                <option value='3' {{if eq .Session.dict_edit.group 3}} selected {{end}} class='tag-warning'>备用</option>
-                                <option value='4' {{if eq .Session.dict_edit.group 4}} selected {{end}} class='tag-danger'>其他</option>
+                                {{option .Config.options.dictGroup .Session.dict_edit.group}}
                             </select></td>
                         </tr>
                         <tr>
                             <td align='right'>类型</td>
                             <td><select name='type' id="type">
-                                <option value='' {{if eq .Session.dict_edit.type }} selected {{end}} class='tag-success'>其他</option>
-                                <option value='1' {{if eq .Session.dict_edit.type 1}} selected {{end}} class='tag-info'>文本</option>
-                                <option value='2' {{if eq .Session.dict_edit.type 2}} selected {{end}} class='tag-warning'>图片</option>
-                                <option value='3' {{if eq .Session.dict_edit.type 3}} selected {{end}} class='tag-primary'>富文本</option>
-                                <option value='' {{if eq .Session.dict_edit.type }} selected {{end}} class='tag-danger'>文件</option>
+                                {{option .Config.options.dictType .Session.dict_edit.type}}
                             </select></td>
                         </tr>
                         <tr>
                             <td align="right">状态</td>
                             <td>
                                 <select name="status">
-                                    <option class="tag-info" value="1" {{if eq .Session.dict_edit.status 1}} selected {{end}}>开启</option>
-                                    <option class="tag-danger" value="2" {{if eq .Session.dict_edit.status 2}} selected {{end}}>关闭</option>
+                                    {{option .Config.options.status .Session.dict_edit.status}}
                                 </select>
                             </td>
                         </tr>
@@ -83,6 +75,5 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
-
 </body>
 </html>

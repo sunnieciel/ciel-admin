@@ -46,13 +46,8 @@ type GenFiled struct {
 	EditDisabled int
 	Required     int    //  1 true
 	Comment      string // is comment is not empty ,add el-tag comment
-	Options      []*FieldOption
+	Options      string
 
 	SearchType int // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=
 	QueryName  string
-}
-type FieldOption struct {
-	Value interface{}
-	Label string
-	Type  string // primary info success warning danger
 }

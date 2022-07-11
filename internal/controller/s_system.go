@@ -15,7 +15,6 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 	"sort"
 )
@@ -100,7 +99,7 @@ func (c cMenu) Put(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	m := gconv.Map(d)
-	delete(m, "CreatedAt")
+	delete(m, "createdAt")
 	g.Log().Notice(nil, m)
 	msg := fmt.Sprintf(consts.MsgPrimary, "修改成功")
 	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
@@ -903,7 +902,7 @@ func (c gen) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Page(r, "/sys/gen.html", g.Map{
+	r.Response.WriteTpl("/sys/gen.html", g.Map{
 		"icon": icon,
 		"path": r.URL.Path,
 	})
@@ -948,19 +947,6 @@ func (c gen) GenFile(r *ghttp.Request) {
 		f := &bo.GenFiled{}
 		if err := v.Struct(f); err != nil {
 			res.Err(err, r)
-		}
-		if f.FieldType == "select" {
-			f.Options = make([]*bo.FieldOption, 0)
-			for _, v := range v.Map()["Options"].(map[string]interface{}) {
-				f.Options = append(f.Options, &bo.FieldOption{
-					Value: v.(map[string]interface{})["Value"].(string),
-					Type:  v.(map[string]interface{})["Type"].(string),
-					Label: v.(map[string]interface{})["Name"].(string),
-				})
-				if gstr.IsNumeric(fmt.Sprint(v.(map[string]interface{})["Value"])) {
-					sort.Slice(f.Options, func(i, j int) bool { return gconv.Int(f.Options[i].Value) < gconv.Int(f.Options[j].Value) })
-				}
-			}
 		}
 		d.Fields = append(d.Fields, f)
 	}

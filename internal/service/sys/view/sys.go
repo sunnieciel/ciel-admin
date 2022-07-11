@@ -1,9 +1,11 @@
 package view
 
 import (
+	"ciel-admin/internal/consts"
 	"fmt"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/util/gconv"
+	"strings"
 )
 
 func nav(s []interface{}, path interface{}) string {
@@ -48,17 +50,66 @@ func nav(s []interface{}, path interface{}) string {
 	res += ""
 	return res
 }
-func option(arr []interface{}, flag interface{}) string {
+
+var (
+	chooseEmptyErr  = fmt.Errorf("输入的选择类型为空")
+	optionFormatErr = fmt.Errorf("选项类型格式不正确,正确格式为:`value1:label1:class1,value2:label2:class2`,eg: `1:菜单:tag-info,2:分组:tag-warning`")
+)
+
+func option(in string, flag interface{}) string {
+	if in == "" {
+		panic(chooseEmptyErr)
+	}
+	split := strings.Split(in, ",")
+	if len(split) == 0 {
+		panic(chooseEmptyErr)
+	}
 	res := ""
-	for _, i := range arr {
-		value := gconv.String(i.(map[string]interface{})["value"])
-		class := gconv.String(i.(map[string]interface{})["class"])
-		label := gconv.String(i.(map[string]interface{})["label"])
+	for _, i := range split {
+		d := strings.Split(i, ":")
+		if len(d) != 3 {
+			panic(optionFormatErr)
+		}
 		selected := ""
-		if value == gconv.String(flag) {
+		if d[0] == gconv.String(flag) {
 			selected = "selected"
 		}
-		res += fmt.Sprintf("<option value='%v' class='%v'  %v>%v</option>", value, class, selected, label)
+		res += fmt.Sprintf("<option value='%v' class='%v'  %v>%v</option>", d[0], d[2], selected, d[1])
 	}
 	return res
+}
+
+func chooseSpan(in string, flag interface{}) string {
+	if in == "" {
+		panic(chooseEmptyErr)
+	}
+	split := strings.Split(in, ",")
+	if len(split) == 0 {
+		panic(chooseEmptyErr)
+	}
+	res := ""
+	for _, i := range split {
+		d := strings.Split(i, ":")
+		if len(d) != 3 {
+			panic(optionFormatErr)
+		}
+		if d[0] == gconv.String(flag) {
+			res = fmt.Sprintf("<span  class='%v' >%v</option>", d[2], d[1])
+			break
+		}
+	}
+	if res == "" {
+		res = fmt.Sprintf("<span  class='tag-danger' >ERROR</option>")
+	}
+	return res
+}
+func img(in interface{}) string {
+	url := gconv.String(in)
+	if url == "" {
+		return fmt.Sprint("<span class='tag-normal'>暂无图片</span>")
+	}
+	if !strings.HasPrefix(url, "http") {
+		url = consts.ImgPrefix + url
+	}
+	return fmt.Sprintf("<a href='%s' target='_blank'><img class='s-icon' src='%s' alt='not fond'></a>", url, url)
 }

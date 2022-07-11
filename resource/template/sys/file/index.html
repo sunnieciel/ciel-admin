@@ -21,12 +21,7 @@
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class='input'>分组 <select type='text' name='file_group' value='{{.Session.file_group}}' onchange='this.form.submit()'>
                         <option value='' class='tag-info'>请选择</option>
-                        <option value='1' {{if eq .Query.file_group 1}} selected {{end}} class='tag-info'>头像</option>
-                        <option value='2' {{if eq .Query.file_group 2}} selected {{end}} class='tag-danger'>图片</option>
-                        <option value='3' {{if eq .Query.file_group 3}} selected {{end}} class='tag-brown'>动图</option>
-                        <option value='4' {{if eq .Query.file_group 4}} selected {{end}} class='tag-warning'>音频</option>
-                        <option value='5' {{if eq .Query.file_group 5}} selected {{end}} class='tag-success'>文件</option>
-                        <option value='6' {{if eq .Query.file_group 6}} selected {{end}} class='tag-info'>其他</option>
+                        {{option .Config.options.fileGroup .Query.file_group}}
                     </select></label>
                 </form>
             </div>
@@ -35,23 +30,23 @@
                 <table class="table-1">
                     <tr>
                         <th>id</th>
-                        <th>预览</th>
-                        <th>完整路径</th>
+                        <th>图片</th>
                         <th>DBName</th>
                         <th>分组</th>
                         <th>状态</th>
                         <th>创建时间</th>
+                        <th>更新时间</th>
                         <th>操作</th>
                     </tr>
                     {{range .list}}
                     <tr>
                         <td>{{.id}}</td>
-                        <td>{{if hasPrefix .url "http"}} <a href="{{.url}}" target="_blank"> <img class="s-icon" src="{{.url}}" alt="not fond"> </a> {{else if ne .url ""}} <a href="{{$.Config.server.imgPrefix}}{{.url}}" target="_blank"> <img class="s-icon" src="{{$.Config.server.imgPrefix}}{{.url}}" alt="not fond"> </a> {{else}} <span v-else class="tag-normal">暂无图片</span>{{end}}</td>
-                        <td>{{if hasPrefix .url "http"}} {{.url}} {{else if ne .url ""}} {{$.Config.server.imgPrefix}}{{.url}} {{else}} <span v-else class="tag-normal">暂无图片</span>{{end}}</td>
+                        <td>{{img .url}}</td>
                         <td>{{.url}}</td>
-                        <td>{{if eq .group "1"}}<span class="tag-info">头像</span>{{else if eq .group "2"}}<span class="tag-danger">图片</span>{{else if eq .group "3"}}<span class="tag-brown">动图</span>{{else if eq .group "4"}}<span class="tag-warning">音频</span>{{else if eq .group "5"}}<span class="tag-success">文件</span>{{else if eq .group "6"}}<span class="tag-info">其他</span>{{end}}</td>
-                        <td>{{if eq .status 1}}<span class="tag-info">正常</span>{{else}}<span class="tag-danger">关闭</span>{{end}}</td>
+                        <td>{{chooseSpan $.Config.options.fileGroup .group}}</td>
+                        <td>{{chooseSpan $.Config.options.status .status}}</td>
                         <td>{{.created_at}}</td>
+                        <td>{{.updated_at}}</td>
                         <td align="center">
                             <a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>
                             <a href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>

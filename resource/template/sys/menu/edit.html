@@ -59,16 +59,14 @@
                         <tr>
                             <td align="right">type</td>
                             <td><select name="type">
-                                <option value="2" {{if eq .Session.menu_edit.type 2}} selected {{end}}>分组</option>
-                                <option value="1" {{if eq .Session.menu_edit.type 1}} selected {{end}}>菜单</option>
+                                {{option .Config.options.menuType .Session.menu_edit.type}}
                             </select></td>
                         </tr>
                         <tr>
                             <td align="right">状态</td>
                             <td>
                                 <select name="status">
-                                    <option value="1" {{if eq .Session.menu_edit.status 1}} selected {{end}}>开启</option>
-                                    <option value="2" {{if eq .Session.menu_edit.status 2}} selected {{end}}>关闭</option>
+                                    {{option .Config.options.status .Session.menu_edit.status}}
                                 </select>
                             </td>
                         </tr>

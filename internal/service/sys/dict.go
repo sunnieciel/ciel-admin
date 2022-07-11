@@ -2,8 +2,12 @@ package sys
 
 import (
 	"ciel-admin/internal/dao"
+	"ciel-admin/internal/service/sys/view"
 	"context"
+	"fmt"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/text/gstr"
+	"strings"
 )
 
 func DictGetByKey(ctx context.Context, key string) (string, error) {
@@ -13,20 +17,19 @@ func DictGetByKey(ctx context.Context, key string) (string, error) {
 	}
 	return dict.V, nil
 }
-func DictApiGroup(ctx context.Context) ([]interface{}, error) {
+func DictApiGroup(ctx context.Context) (string, error) {
 	d, err := dao.Dict.GetByKey(ctx, "api_group")
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	res := make([]interface{}, 0)
-	for _, i := range gstr.Split(d.V, "\n") {
+	arr := make([]string, 0)
+	for index, i := range gstr.Split(d.V, "\n") {
 		if i != "" {
-			all := gstr.TrimAll(i)
-			res = append(res, map[string]interface{}{
-				"label": all,
-				"value": all,
-			})
+			i = gstr.TrimAll(i)
+			arr = append(arr, fmt.Sprintf("%s:%s:%s", i, i, view.SwitchTagClass(index)))
 		}
 	}
-	return res, nil
+	join := strings.Join(arr, ",")
+	g.Log().Warning(nil, join)
+	return join, nil
 }

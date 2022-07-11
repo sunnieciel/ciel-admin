@@ -5,12 +5,8 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-func tag(i interface{}, content interface{}) string {
-	if content == "" {
-		return ""
-	}
+func SwitchTagClass(num int) string {
 	class := ""
-	num := gconv.Int(i)
 	switch num % 7 {
 	case 0:
 		class = "tag-danger"
@@ -29,6 +25,12 @@ func tag(i interface{}, content interface{}) string {
 	default:
 		class = "tag-info"
 	}
-	sprintf := fmt.Sprintf("<span class='%s'>%v</span>", class, content)
-	return sprintf
+	return class
+}
+
+func tag(i interface{}, content interface{}) string {
+	if content == "" {
+		return ""
+	}
+	return fmt.Sprintf("<span class='%s'>%v</span>", SwitchTagClass(gconv.Int(i)), content)
 }

@@ -562,8 +562,8 @@ li .input {
 }
 
 .table-add td textarea {
-    width: 880px;
-    height: 346px;
+    width: 595px;
+    height: 196px;
 }
 
 .table-add td input:focus, textarea:focus, select:focus {
