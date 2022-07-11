@@ -24,7 +24,6 @@ logger:
 viewer:
   paths:
     - "resource/template"
-
 # Database.
 database:
   logger:
@@ -50,7 +49,6 @@ gfcli:
         removePrefix: "s_,f_"
         descriptionTag: true
         noModelComment: true
-
 html:
   status:
     - value: 1

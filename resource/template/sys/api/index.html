@@ -49,7 +49,7 @@
                         <th>操作</th>
                     </tr>
                     {{range .list}}
-                    <tr class="data">
+                    <tr>
                         <td>{{.id}}</td>
                         <td>{{.url}}</td>
                         <td>{{.group}}</td>
@@ -71,12 +71,5 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
-<script src="/resource/js/vue.js"></script>
-<script>
-    $(function () {
-        // $(".data").css('display', 'table-row')
-        $(".data").css('opacity', '1')
-    })
-</script>
 </body>
 </html>

@@ -22,6 +22,7 @@ func Init() {
 		panic(err)
 	}
 	consts.ImgPrefix = get.String()
+
 }
 func List(ctx context.Context, c bo.Search) (count int, data gdb.List, err error) {
 	db := g.DB().Ctx(ctx).Model(c.T1 + " t1")

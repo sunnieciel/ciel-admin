@@ -121,12 +121,6 @@ body {
     margin: 0;
 }
 
-.data {
-    /*visibility: hidden;*/
-    opacity: 0;
-
-}
-
 html {
     overflow-y: scroll;
 }
@@ -274,13 +268,13 @@ a:visited,
 }
 
 .cell-hover:hover {
-    transition: all var(--transition-time) ease-in-out;
     border-radius: 3px;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
 }
 
 .cell-hover:hover .desc {
-    transition: all 0.6s ease;
     cursor: pointer;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
 }
 
 .cell-flag {
@@ -400,7 +394,7 @@ a:visited,
     font-size: 12px;
     line-height: 12px;
     margin: 3px;
-    transition: all var(--transition-time) ease-in-out;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
 }
 
 .tag-normal, .tag-rare, .tag-inherited, .tag-only, .tag-epic, .tag-legend, .tag-myth {
@@ -421,7 +415,7 @@ a:visited,
     cursor: pointer;
     border-radius: 9px;
     padding: 3px 12px;
-    transition: all 0.5s ease;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
     text-align: center;
     word-break: keep-all;
     line-height: 1;
@@ -498,7 +492,6 @@ li .input {
 }
 
 .input input, .input textarea, .input select {
-    transition: border var(--transition-time) ease-in-out;
     width: 99px;
     margin-left: 6px;
     padding: 3px 9px;
@@ -506,6 +499,7 @@ li .input {
     font-size: 10px;
     font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     outline: none;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
 }
 
 
@@ -520,7 +514,7 @@ li .input {
 }
 
 .table-1 tr {
-    transition: all var(--transition-time) ease;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
 }
 
 .table-1 tr th {
@@ -557,7 +551,6 @@ li .input {
 
 /*table add*/
 .table-add td input, textarea, select {
-    transition: all var(--transition-time) ease-in-out;
     width: 320px;
     padding: 3px 9px;
     border-radius: 15px;
@@ -565,6 +558,7 @@ li .input {
     font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     box-sizing: border-box;
     outline: none;
+    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
 }
 
 .table-add td textarea {
