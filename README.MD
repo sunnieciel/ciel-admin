@@ -54,12 +54,8 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 
 ![](./documents/tag.png) <br> ![](./documents/tag2.png)
 
-### `.btn`
-
-`btn-info`,`btn-warning`
-
-![](./documents/btn1.png) <br>
-![](./documents/btn2.png)
+![](./documents/class1.png) <br>
+![](./documents/class2.png)
 
 
 > 更多css信息 请查看 `/resource/css` 目录下的 `base.css` `white.css` `dark.css`
@@ -94,5 +90,6 @@ https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 > `service` 层之间进行调用或业务增加，请确认好依赖关系，让各模块做好自己分内的事情，防止关系混乱，导致循环依赖。
 
 ## 更多预览
+
 导航页面  ![](./documents/home5.png) ![](./documents/home6.png)
 备忘录工具页面 ![](./documents/home3.png) ![](./documents/home4.png)
