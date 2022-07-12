@@ -24,8 +24,8 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 - 常用工具集合 todo
 
 这是菜单页面 （图标选择的是哆啦A梦 ）![](./documents/home1.png) ![](./documents/home2.png)
-导航页面  ![](./documents/home5.png) ![](./documents/home6.png)
-备忘录工具页面 ![](./documents/home3.png) ![](./documents/home4.png)
+
+> 更多浏览在页末
 
 ## 环境安装
 
@@ -93,3 +93,5 @@ https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 > 查询事务都交给`dao`层处理，`service`层只做自己分内的逻辑业务。
 > `service` 层之间进行调用或业务增加，请确认好依赖关系，让各模块做好自己分内的事情，防止关系混乱，导致循环依赖。
 
+导航页面  ![](./documents/home5.png) ![](./documents/home6.png)
+备忘录工具页面 ![](./documents/home3.png) ![](./documents/home4.png)
