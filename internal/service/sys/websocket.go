@@ -39,13 +39,17 @@ func GetAdminWs(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	aid := r.Get("aid").Int64()
-	admins.Set(aid, ws)
+	admin, err := GetAdmin(r)
+	if err != nil {
+		res.Err(err, r)
+	}
+	id := admin.Admin.Id
+	admins.Set(id, ws)
 	printAdminWs()
 	for {
 		messageType, msg, err := ws.ReadMessage()
 		if err != nil {
-			admins.Remove(aid)
+			admins.Remove(id)
 			printAdminWs()
 			return
 		}

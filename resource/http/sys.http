@@ -1,0 +1,2 @@
+### 通知管理员
+GET {{url}}/sys/noticeAdmin?msg=你有新的信息

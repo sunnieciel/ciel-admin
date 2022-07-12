@@ -13,7 +13,7 @@ var (
 	Uid             = "userInfoKey"
 )
 
-func SetAdmin(ctx context.Context, data *bo.Admin) error {
+func setAdmin(ctx context.Context, data *bo.Admin) error {
 	return g.RequestFromCtx(ctx).Session.Set(AdminSessionKey, data)
 }
 func GetAdmin(r *ghttp.Request) (*bo.Admin, error) {

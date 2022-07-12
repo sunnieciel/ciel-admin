@@ -47,15 +47,15 @@ func GenFile(ctx context.Context, d bo.GenConf) (err error) {
 		return err
 	}
 	//gen controller
-	if err = genController(ctx, d); err != nil {
+	if err = genController(d); err != nil {
 		return err
 	}
 	// gen router
-	if err = genRouter(ctx, d); err != nil {
+	if err = genRouter(d); err != nil {
 		return err
 	}
 	// gen html
-	if err = genHtml(ctx, d); err != nil {
+	if err = genHtml(d); err != nil {
 		return err
 	}
 	// gen api
@@ -79,12 +79,11 @@ func GenStaticHtmlFile(ctx context.Context, c bo.GenConf) error {
 		return err
 	}
 	// gen file
-	return genStaticHtmlFile(ctx, c, htmlFilePath)
+	return genStaticHtmlFile(htmlFilePath)
 }
 
-func genStaticHtmlFile(ctx context.Context, c bo.GenConf, filePath string) error {
+func genStaticHtmlFile(filePath string) error {
 	temp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.static.html"))
-
 	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template", filePath))
 	if err != nil {
 		return err
@@ -187,7 +186,7 @@ here:
 	g.Log().Debugf(ctx, "新增二级菜单,排序为%v", m2Sort)
 	return nil
 }
-func genController(ctx context.Context, d bo.GenConf) error {
+func genController(d bo.GenConf) error {
 	pwd := gfile.MainPkgPath()
 	line, err := xfile.ReadLine(fmt.Sprint(pwd, "/go.mod"), 1)
 	if err != nil {
@@ -279,7 +278,7 @@ func genController(ctx context.Context, d bo.GenConf) error {
 	}
 	return nil
 }
-func genRouter(ctx context.Context, d bo.GenConf) error {
+func genRouter(d bo.GenConf) error {
 	temp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/router.temp"))
 	structName := gstr.CaseCamelLower(d.StructName)
 	caseCamel := gstr.CaseCamel(structName)
@@ -304,19 +303,23 @@ func genRouter(ctx context.Context, d bo.GenConf) error {
 	}
 	return nil
 }
-func genHtml(ctx context.Context, c bo.GenConf) error {
-	if err := genIndex(ctx, c); err != nil {
+func genHtml(c bo.GenConf) error {
+	if err := genIndex(c); err != nil {
 		return err
 	}
-	if err := genAdd(ctx, c); err != nil {
-		return err
+	if c.AddBtn == 0 {
+		if err := genAdd(c); err != nil {
+			return err
+		}
 	}
-	if err := genEdit(ctx, c); err != nil {
-		return err
+	if c.UpdateBtn == 0 {
+		if err := genEdit(c); err != nil {
+			return err
+		}
 	}
 	return nil
 }
-func genEdit(ctx context.Context, c bo.GenConf) error {
+func genEdit(c bo.GenConf) error {
 	structNameLower := gstr.CaseCamelLower(c.StructName)
 	editTemp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.edit.html"))
 	pageName := c.PageName
@@ -389,7 +392,7 @@ func genEdit(ctx context.Context, c bo.GenConf) error {
 	}
 	return nil
 }
-func genAdd(ctx context.Context, c bo.GenConf) error {
+func genAdd(c bo.GenConf) error {
 	addTemp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.add.html"))
 	pageName := c.PageName
 	addTemp = gstr.Replace(addTemp, "[pageName]", pageName)
@@ -461,7 +464,7 @@ func genAdd(ctx context.Context, c bo.GenConf) error {
 	}
 	return nil
 }
-func genIndex(ctx context.Context, c bo.GenConf) error {
+func genIndex(c bo.GenConf) error {
 	indexTemp := gfile.GetContents(fmt.Sprintf("%s/resource/gen/temp.index.html", gfile.MainPkgPath()))
 	group := c.HtmlGroup
 	structNameLower := gstr.CaseCamelLower(c.StructName)

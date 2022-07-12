@@ -14,7 +14,24 @@ func nodeWeek(y, m, d interface{}) string {
 		if week == "0" {
 			week = "天"
 		}
-		return tag(format, t.Weekday().String())
+		switch gconv.Int(t.Format("w")) {
+		case 0:
+			d = "日"
+		case 1:
+			d = "一"
+		case 2:
+			d = "二"
+		case 3:
+			d = "三"
+		case 4:
+			d = "四"
+		case 5:
+			d = "五"
+		case 6:
+			d = "六"
+		default:
+		}
+		return tag(format, fmt.Sprintf("星期%s", d))
 	}
 	return ""
 }

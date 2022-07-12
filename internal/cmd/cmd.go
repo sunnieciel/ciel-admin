@@ -109,17 +109,6 @@ var (
 				g.GET("/clear/:rid", controller.RoleApi.Clear)
 				g.POST("/post", controller.RoleApi.Post)
 			})
-			s.Group("/file", func(g *ghttp.RouterGroup) {
-				g.Middleware(sys.AuthAdmin)
-				g.GET("/path", controller.File.Path)
-				g.GET("/path/add", controller.File.PathAdd)
-				g.GET("/path/edit/:id", controller.File.PathEdit)
-				g.Middleware(sys.LockAction, sys.AdminAction)
-				g.GET("/path/del/:id", controller.File.Del)
-				g.POST("/post", controller.File.Post)
-				g.POST("/put", controller.File.Put)
-				g.POST("/upload", controller.File.Upload)
-			})
 			s.Group("/operationLog", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.OperationLog.Path)
@@ -131,6 +120,23 @@ var (
 				g.POST("/put", controller.OperationLog.Put)
 				g.GET("/clear", controller.OperationLog.Clear)
 			})
+			s.Group("/adminLoginLog", func(g *ghttp.RouterGroup) {
+				g.Middleware(sys.AuthAdmin)
+				g.GET("/path", controller.AdminLoginLog.Path)
+				g.Middleware(sys.LockAction, sys.AdminAction)
+				g.GET("/path/del/:id", controller.AdminLoginLog.Del)
+			})
+			s.Group("/file", func(g *ghttp.RouterGroup) {
+				g.Middleware(sys.AuthAdmin)
+				g.GET("/path", controller.File.Path)
+				g.GET("/path/add", controller.File.PathAdd)
+				g.GET("/path/edit/:id", controller.File.PathEdit)
+				g.Middleware(sys.LockAction, sys.AdminAction)
+				g.GET("/path/del/:id", controller.File.Del)
+				g.POST("/post", controller.File.Post)
+				g.POST("/put", controller.File.Put)
+				g.POST("/upload", controller.File.Upload)
+			})
 			s.Group("/gen", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
 				g.GET("/path", controller.Gen.Path)
@@ -138,6 +144,11 @@ var (
 				g.GET("/fields", controller.Gen.Fields)
 				g.Middleware(sys.LockAction)
 				g.POST("/", controller.Gen.GenFile)
+			})
+			s.Group("/sys", func(g *ghttp.RouterGroup) {
+				g.GET("/noticeAdmin", controller.Ws.NoticeAdmin)
+				g.Middleware(sys.AuthAdmin)
+				g.GET("/ws", controller.Ws.GetAdminWs)
 			})
 			go func() {
 				var ctx = context.Background()

@@ -48,7 +48,7 @@ func GetPage(r *ghttp.Request) (page, size int) {
 		page = 1
 	}
 	if size <= 0 {
-		size = 10
+		size = 15
 	}
 	r.Session.SetMap(r.GetQueryMap())
 	return

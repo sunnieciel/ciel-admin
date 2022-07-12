@@ -4,6 +4,7 @@ import (
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/model/do"
 	"ciel-admin/utility/utils/xpwd"
 	"context"
 	"errors"
@@ -11,7 +12,7 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-func Login(ctx context.Context, uname string, pwd string) error {
+func Login(ctx context.Context, uname string, pwd string, ip string) error {
 	admin, err := dao.Admin.GetByUname(ctx, uname)
 	if err != nil {
 		return err
@@ -27,7 +28,10 @@ func Login(ctx context.Context, uname string, pwd string) error {
 	if err != nil {
 		return err
 	}
-	if err = SetAdmin(ctx, &bo.Admin{Admin: admin, Menus: menus}); err != nil {
+	if err = setAdmin(ctx, &bo.Admin{Admin: admin, Menus: menus}); err != nil {
+		return err
+	}
+	if _, err = dao.AdminLoginLog.Ctx(ctx).Insert(do.AdminLoginLog{Uid: admin.Id, Ip: ip}); err != nil {
 		return err
 	}
 	return nil

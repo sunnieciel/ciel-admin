@@ -228,7 +228,8 @@ var (
 	}}
 	RoleApi = &cRoleApi{Search: bo.Search{
 		T1: "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
-		SearchFields: "t1.*,t2.name r_name,t3.url url ,t3.group,t3.method,t3.desc ", Fields: []bo.Field{
+		OrderBy:      "t3.group",
+		SearchFields: "t1.*,t2.name r_name,t3.url url,t3.group,t3.method,t3.desc ", Fields: []bo.Field{
 			{Name: "id"},
 			{Name: "rid", SearchType: 1},
 			{Name: "aid"},
@@ -349,6 +350,7 @@ func (c cRoleMenu) PathAdd(r *ghttp.Request) {
 	}
 	_ = r.Response.WriteTpl("/sys/roleMenu/add.html", g.Map{"msg": sys.MsgFromSession(r), "menus": menus})
 }
+
 func (c cRoleMenu) Post(r *ghttp.Request) {
 	var d struct {
 		Rid int
@@ -839,7 +841,7 @@ func (c cAdmin) Login(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Login(r.Context(), d.Uname, d.Pwd); err != nil {
+	if err := sys.Login(r.Context(), d.Uname, d.Pwd, r.GetClientIp()); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)

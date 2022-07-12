@@ -71,7 +71,11 @@ etc
 ![](./documents/btn1.png) <br>
 ![](./documents/btn2.png)
 
+
 > 更多css信息 请查看 `/resource/css` 目录下的 `base.css` `white.css` `dark.css`
+
+### 更多class使用
+
 
 ## 反馈
 
