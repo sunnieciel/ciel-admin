@@ -36,6 +36,24 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 
 ## 项目结构
 
+```css
+├── api
+├── hack
+├── internal
+│   ├── cmd
+│   ├── consts
+│   ├── controller
+│   ├── dao
+│   ├── model
+│   |   ├── do
+│   │   └── entity
+│   └── service
+├── manifest
+├── resource
+├── utility
+├── go.mod
+└── main.go 
+```
 详情见：https://goframe.org/pages/viewpage.action?pageId=30740166
 
 ## 快速开始
