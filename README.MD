@@ -76,6 +76,7 @@ etc
 
 ### 更多class使用
 
+https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 
 ## 反馈
 
