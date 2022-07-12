@@ -1,4 +1,40 @@
-## base
+### 常用clas
+
+登陆后台后在 [http://localhost:1211/to/document](http://localhost:1211/to/document) 进行查看
+![](class1.png)
+![](class2.png)
+
+## 结构class
+
+### box
+
+一般要写新的一个模块使用`.box` 进行包装
+
+```css
+.box {
+    border-radius: var(--box-border-radius);
+    margin-top: var(--box-spacing);
+    box-shadow: var(--elevation-box-shadow-2);
+    opacity: 0.99;
+}
+```
+
+### cell
+
+结合`.box`使用，一般包含在`.box`内。
+
+```css
+.cell, .cell-content {
+    border-top-left-radius: var(--box-border-radius);
+    border-top-right-radius: var(--box-border-radius);
+    line-height: 1.5;
+    padding: 10px;
+    font-size: 14px;
+    min-height: 3px;
+}
+```
+
+## 基础class
 
 ```css
 .w-80 {
@@ -147,37 +183,3 @@
 }
 ```
 
-## 重要class
-
-### box
-
-一般要写新的一个模块使用`.box` 进行包装
-
-```css
-.box {
-    border-radius: var(--box-border-radius);
-    margin-top: var(--box-spacing);
-    box-shadow: var(--elevation-box-shadow-2);
-    opacity: 0.99;
-}
-```
-
-### cell
-
-结合`.box`使用，一般包含在`.box`内。
-
-```css
-.cell, .cell-content {
-    border-top-left-radius: var(--box-border-radius);
-    border-top-right-radius: var(--box-border-radius);
-    line-height: 1.5;
-    padding: 10px;
-    font-size: 14px;
-    min-height: 3px;
-}
-```
-
-### 其他
-登陆后台后在 [http://localhost:1211/to/document](http://localhost:1211/to/document) 进行查看
-![](class1.png)
-![](class2.png)
