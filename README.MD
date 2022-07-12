@@ -60,9 +60,6 @@ https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 ![](./documents/class2.png)
 
 
-> 更多css信息 请查看 `/resource/css` 目录下的 `base.css` `white.css` `dark.css`
-
-
 ## 反馈
 
 使用过程中如果遇见什么问题，可以发issue或发邮件1211sciel@gmail.com 我看到后会及时回复的。
