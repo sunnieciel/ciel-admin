@@ -32,7 +32,7 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 1. golang环境 安装
 2. mysql 安装
 3. redis 安装
-4. gf 安装  https://goframe.org/pages/viewpage.action?pageId=1115782  建议选择版本 v2.0.6
+4. gf 安装  https://goframe.org/pages/viewpage.action?pageId=1115782
 
 ## 项目结构
 
@@ -55,10 +55,10 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 ![](./documents/tag.png) <br> ![](./documents/tag2.png)
 
 ### 更多class使用
+
 https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 ![](./documents/class1.png) <br>
 ![](./documents/class2.png)
-
 
 ## 反馈
 
