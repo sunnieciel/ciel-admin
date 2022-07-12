@@ -13,7 +13,7 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 - 后端: goframe v2.0.6
 - 前端: html,css3,javascript, jquery-3.6.0,vue3,element-plus(vue相关的框架只在少量的页面中有使用.)
 
-## 想要实现的基本功能有这些
+## 想要实现的基本功
 
 - 角色管理 ok
 - 字典管理 ok
