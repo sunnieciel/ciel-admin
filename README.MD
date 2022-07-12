@@ -70,7 +70,7 @@ free key admin(自由钥匙) 一个 V2EX(v2ex.com)风格go语言写的个人后�
 
 ![](./documents/tag.png) <br> ![](./documents/tag2.png)
 
-### 更多class使用
+### 更多class
 
 https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 ![](./documents/class1.png) <br>
