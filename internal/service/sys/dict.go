@@ -5,7 +5,6 @@ import (
 	"ciel-admin/internal/service/sys/view"
 	"context"
 	"fmt"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/text/gstr"
 	"strings"
 )
@@ -29,7 +28,5 @@ func DictApiGroup(ctx context.Context) (string, error) {
 			arr = append(arr, fmt.Sprintf("%s:%s:%s", i, i, view.SwitchTagClass(index)))
 		}
 	}
-	join := strings.Join(arr, ",")
-	g.Log().Warning(nil, join)
-	return join, nil
+	return strings.Join(arr, ","), nil
 }

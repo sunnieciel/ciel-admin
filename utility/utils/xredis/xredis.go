@@ -51,7 +51,6 @@ func (l Lock) Unlock() {
 func UserLock(key uint64) (*Lock, error) {
 	lock := New(fmt.Sprint("user_operation_lock_", key))
 	if err := lock.Lock(); err != nil {
-		g.Log().Warningf(nil, err.Error())
 		return nil, err
 	}
 	return lock, nil

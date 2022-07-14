@@ -193,7 +193,7 @@
                 {{include "/part/nav.html" .}}
                 <div class="box no-bottom-border">
                     <div class="cell flex bg-dark color-white-1">
-                        <img class=" s-icon-large" :src="pageConf.icon?pageConf.icon:'/resource/image/golang.png'" alt="Financial">
+                        <img class=" s-icon-large mr-12" :src="pageConf.icon?pageConf.icon:'/resource/image/golang.png'" alt="Financial">
                         <div class="flex-1">
                             <div class="flex-between">
                                 <div><a class="color-blue" href="{{.Config.home}}">FREE KEY</a> &nbsp;›&nbsp; 代码生成</div>
@@ -207,13 +207,13 @@
                             <div class="flex-center">
                                 <span class="tag-danger">基础配置</span>
                                 <div>
-                                    <label class="input">展示状态 <select v-model="genConf.ShowStatus">
-                                        <option value="0">是</option>
-                                        <option value="1">否</option>
-                                    </select></label>
                                     <label class="input">生成类型<select v-model="genConf.GenType">
                                         <option value="0">CURD</option>
                                         <option value="1">静态页面</option>
+                                    </select></label>
+                                    <label class="input" v-show="confShow()">展示状态 <select v-model="genConf.ShowStatus">
+                                        <option value="0">是</option>
+                                        <option value="1">否</option>
                                     </select></label>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                                         </datalist>
                                     </label>
                                     <label class="input">页面菜单 <input v-model="genConf.MenuLevel2"></label>
-                                    <label class="input">页面Logo <input v-model="genConf.MenuLogo"></label>
+                                    <label class="input" v-show="confShow()">页面Logo <input v-model="genConf.MenuLogo"></label>
                                 </div>
                             </div>
                             <div class="flex-baseline">
@@ -235,13 +235,13 @@
                                 <div class="flex-1">
                                     <label class="input">页面分组 <input v-model="genConf.HtmlGroup"></label>
                                     <label class="input">结构体 <input v-model="genConf.StructName"></label>
-                                    <label class="input">页面名称 <input v-model="genConf.PageName"></label>
-                                    <label class="input">说明 <input v-model="genConf.PageDesc"></label>
-                                    <label class="input">页面图标 <input v-model="genConf.icon"></label>
-                                    <label class="input">排序规则 <input v-model="genConf.OrderBy"></label>
+                                    <label class="input" v-show="confShow()">页面名称 <input v-model="genConf.PageName"></label>
+                                    <label class="input" v-show="confShow()">说明 <input v-model="genConf.PageDesc"></label>
+                                    <label class="input" v-show="confShow()">页面图标 <input v-model="genConf.icon"></label>
+                                    <label class="input" v-show="confShow()">排序规则 <input v-model="genConf.OrderBy"></label>
                                 </div>
                             </div>
-                            <div class="flex-center">
+                            <div class="flex-center" v-show="confShow()">
                                 <span class="tag-warning">关联查询</span>
                                 <div class="flex-1">
                                     <label class="input">T1 <input v-model="genConf.T1"></label>
@@ -253,7 +253,7 @@
                                     <label class="input">查询字段 <input v-model="genConf.QueryField"></label>
                                 </div>
                             </div>
-                            <div class="flex-center">
+                            <div class="flex-center" v-show="confShow()">
                                 <span class="tag-success">操作按钮</span>
                                 <div>
                                     <label class="input">添加按钮 <select v-model="genConf.AddBtn">
@@ -270,8 +270,8 @@
                                     </select></label>
                                 </div>
                             </div>
-                            <input class="btn-info mr-12" @click="addRow()" type="button" value="添加一行">
-                            <input class="btn-warning" type="button" @click="submitGenCode()" value="生成代码">
+                            <input class="btn-warning mr-12" type="button" @click="submitGenCode()" value="生成代码">
+                            <input v-show="confShow()" class="btn-info " @click="addRow()" type="button" value="添加一行">
                         </div>
                     </div>
                 </div>
@@ -505,6 +505,9 @@
             this.getMenus()
         },
         methods: {
+            confShow() {
+                return this.genConf.GenType == 0
+            },
             async getMenus() {
                 let res = await $.get("/menu/level1")
                 this.menus = res.data

@@ -17,6 +17,8 @@ import (
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/util/gconv"
 	"sort"
+
+	captcha "github.com/mojocn/base64Captcha"
 )
 
 // ---Home----------------------------------------------------------------------
@@ -350,7 +352,6 @@ func (c cRoleMenu) PathAdd(r *ghttp.Request) {
 	}
 	_ = r.Response.WriteTpl("/sys/roleMenu/add.html", g.Map{"msg": sys.MsgFromSession(r), "menus": menus})
 }
-
 func (c cRoleMenu) Post(r *ghttp.Request) {
 	var d struct {
 		Rid int
@@ -437,7 +438,7 @@ func (c cRoleApi) Clear(r *ghttp.Request) {
 type cDict struct{ bo.Search }
 
 var Dict = &cDict{Search: bo.Search{
-	T1: "s_dict", OrderBy: "t1.id desc", SearchFields: "t1.*",
+	T1: "s_dict", OrderBy: "t1.group,t1.id desc", SearchFields: "t1.*",
 	Fields: []bo.Field{
 		{Name: "k", SearchType: 2, QueryName: "dict_k"}, {Name: "v", SearchType: 2, QueryName: "dict_v"}, {Name: "desc", SearchType: 2, QueryName: "dict_desc"}, {Name: "group", SearchType: 1, QueryName: "dict_group"}, {Name: "status", SearchType: 1, QueryName: "dict_status"}, {Name: "type", SearchType: 1, QueryName: "dict_type"},
 	},
@@ -726,7 +727,15 @@ func (s cSys) To(r *ghttp.Request) {
 		"path": r.URL.Path,
 	})
 }
-
+func (s cSys) GetCaptcha(r *ghttp.Request) {
+	var driver = sys.NewDriver().ConvertFonts()
+	c := captcha.NewCaptcha(driver, sys.Store)
+	_, content, answer := c.Driver.GenerateIdQuestionAnswer()
+	id := r.GetQuery("id").String()
+	item, _ := c.Driver.DrawCaptcha(content)
+	c.Store.Set(id, answer)
+	res.OkData(item.EncodeB64string(), r)
+}
 func (s cSys) Quotations(r *ghttp.Request) {
 	node, err := sys.NodeInfo(r.Context(), "/to/quotations")
 	if err != nil {
@@ -837,11 +846,13 @@ func (c cAdmin) Login(r *ghttp.Request) {
 	var d struct {
 		Uname string `form:"uname"`
 		Pwd   string `form:"pwd"`
+		Id    string `form:"id"`   // 获取二维码时的id
+		Code  string `from:"code"` // 二维码
 	}
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Login(r.Context(), d.Uname, d.Pwd, r.GetClientIp()); err != nil {
+	if err := sys.Login(r.Context(), d.Id, d.Code, d.Uname, d.Pwd, r.GetClientIp()); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -904,10 +915,12 @@ func (c gen) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	r.Response.WriteTpl("/sys/gen.html", g.Map{
+	if err = r.Response.WriteTpl("/sys/gen.html", g.Map{
 		"icon": icon,
 		"path": r.URL.Path,
-	})
+	}); err != nil {
+		res.Err(err, r)
+	}
 }
 func (c gen) Tables(r *ghttp.Request) {
 	data, err := sys.Tables(r.Context())

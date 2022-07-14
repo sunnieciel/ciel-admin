@@ -88,6 +88,8 @@ func genStaticHtmlFile(filePath string) error {
 	if err != nil {
 		return err
 	}
+	date := gtime.Now()
+	temp = gstr.Replace(temp, "[date]", date.String())
 	if _, err = f.WriteString(temp); err != nil {
 		return err
 	}

@@ -19,6 +19,7 @@
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class="input">管理员 <input type="text" name="adminLoginLog_uname" value="{{.Session.adminLoginLog_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">登陆IP <input type="text" name="adminLoginLog_ip" value="{{.Session.adminLoginLog_ip}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                    <a href="#" class="tag-warning" onclick="if(confirm('确认清空?')){location.href='/adminLoginLog/clear'}">清空</a>
                 </form>
             </div>
             <div class="box no-bottom-border">

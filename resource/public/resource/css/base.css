@@ -43,6 +43,7 @@
     --steelblue-08: #001d25;
     --steelblue-09: #334;
     --steelblue-10: #445;
+    --steelblue-11: #001D25;
 
 
     --black-01: #000;
@@ -96,6 +97,7 @@
     --purple-05: rgba(142, 36, 170, 0.2);
 
     --transition-time: 0.3s;
+    --transition: color var(--transition-time) ease, background-color var(--transition-time) ease;
     --box-spacing: 20px;
     --box-border-radius: 3px;
     --cell-hover-shadow: 6px 12px 37px rgb(224 224 224 / 90%) inset;
@@ -106,8 +108,8 @@
     --elevation-box-shadow-2: rgba(0, 0, 0, .2) 0 3px 1px -2px, rgba(0, 0, 0, .14) 0px 2px 2px 0px, rgba(0, 0, 0, .12) 0px 1px 5px 0px;
     --elevation-box-shadow-3: rgba(0, 0, 0, .2) 0 3px 1px -2px, rgba(0, 0, 0, .14) 0px 3px 4px 0px, rgba(0, 0, 0, .12) 0px 1px 8px 0px;
     --elevation-box-shadow-4: rgba(0, 0, 0, .2) 0 2px 4px -1px, rgba(0, 0, 0, .14) 0px 4px 5px 0px, rgba(0, 0, 0, .12) 0px 1px 10px 0px;
-    --elevation-box-shadow-6: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0px 6px 10px 0px, rgba(0, 0, 0, .12) 0px 1px 18px 0px;
-    --elevation-box-shadow-8: rgba(0, 0, 0, .2) 0 5px 5px -3px, rgba(0, 0, 0, .14) 0px 8px 10px 1px, rgba(0, 0, 0, .12) 0px 3px 14px 2px;
+    --elevation-box-shadow-5: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0px 6px 10px 0px, rgba(0, 0, 0, .12) 0px 1px 18px 0px;
+    --elevation-box-shadow-6: rgba(0, 0, 0, .2) 0 5px 5px -3px, rgba(0, 0, 0, .14) 0px 8px 10px 1px, rgba(0, 0, 0, .12) 0px 3px 14px 2px;
 }
 
 /*base*/
@@ -181,8 +183,13 @@ a:visited {
 a:active,
 a:link,
 a:visited {
-    text-decoration: none !important;
+    text-decoration: none;
 }
+
+a:hover {
+    text-decoration: underline;
+}
+
 
 /*base2*/
 
@@ -391,12 +398,12 @@ a:visited {
 
 .cell-hover:hover {
     border-radius: 3px;
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+    transition: all var(--transition-time) ease;
 }
 
 .cell-hover:hover .desc {
     cursor: pointer;
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+    transition: all var(--transition-time) ease;
 }
 
 .cell-tools {
@@ -416,6 +423,11 @@ a:visited {
     padding: 0 6px;
     word-break: break-word;
     cursor: pointer;
+    transition: color var(--transition-time) ease;
+}
+
+.link-1:hover {
+    text-decoration: none;
 }
 
 .link-2, .link-2-active {
@@ -425,20 +437,31 @@ a:visited {
     line-height: 14px;
     border-radius: 3px;
     cursor: pointer;
+    transition: var(--transition)
+}
+
+.link-2:hover, .link-2-active:hover {
+    text-decoration: none;
 }
 
 .link-3 {
     padding: 0;
     line-height: 1.58;
     word-break: keep-all !important;
+    transition: var(--transition);
 }
 
 .link-3:hover {
     text-decoration: underline !important;
 }
 
+.link-4 {
+    transition: var(--transition)
+}
+
 .link-4:hover {
     cursor: pointer !important;
+    text-decoration: none;
 }
 
 .link-5 {
@@ -457,10 +480,19 @@ a:visited {
     display: inline-block;
 }
 
+.link-6:hover {
+    text-decoration: none
+}
+
 .link-7 {
     padding: 8px;
     font-size: 14px;
     display: inline-block;
+    transition: var(--transition);
+}
+
+.link-7:hover {
+    text-decoration: none;
 }
 
 /*tag*/
@@ -470,6 +502,11 @@ a:visited {
     border-radius: 3px;
     word-break: keep-all;
     line-height: 12px;
+    transition: color var(--transition-time) ease, background-color var(--transition-time) ease;
+}
+
+.tag:hover {
+    text-decoration: none;
 }
 
 .tag-2 {
@@ -481,6 +518,11 @@ a:visited {
     font-size: 12px;
     line-height: 12px;
     white-space: nowrap;
+    transition: var(--transition);
+}
+
+.tag-2:hover {
+    text-decoration: none !important;
 }
 
 .tag-3 {
@@ -490,6 +532,11 @@ a:visited {
     padding: 3px 8px;
     border-radius: 10px;
     word-break: keep-all;
+    transition: var(--transition);
+}
+
+.tag-3:hover {
+    text-decoration: none;
 }
 
 .tag-info, .tag-primary, .tag-warning, .tag-success, .tag-brown, .tag-purple, .tag-danger {
@@ -503,7 +550,7 @@ a:visited {
     font-size: 12px;
     line-height: 12px;
     margin: 3px;
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+    transition: var(--transition)
 }
 
 .tag-blue {
@@ -512,11 +559,16 @@ a:visited {
     cursor: pointer;
     border-radius: 9px;
     padding: 3px 12px;
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+    transition: all var(--transition-time) ease;
     text-align: center;
     word-break: keep-all;
     line-height: 1;
 }
+
+.tag-info:hover, .tag-success:hover, .tag-primary:hover, .tag-warning:hover, .tag-brown:hover, .tag-purple:hover, .tag-danger:hover {
+    text-decoration: none !important;
+}
+
 
 .tag-blue:hover {
     text-decoration: underline !important;
@@ -539,6 +591,7 @@ a:visited {
     cursor: pointer;
 }
 
+
 .btn-warning, .btn-info {
     background-image: url(/resource/image/bg_blended_light.png);
     padding: 4px 15px 3px;
@@ -549,12 +602,14 @@ a:visited {
     line-height: 1.4;
     outline: 0;
     text-decoration: none;
+    transition: var(--transition);
 }
 
-.btn-warning:hover {
+.btn-info:hover, .btn-warning:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
 
 /*table*/
 .table-1 {
@@ -567,7 +622,7 @@ a:visited {
 }
 
 .table-1 tr {
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+    transition: all var(--transition-time) ease;
 }
 
 .table-1 tr th {
@@ -603,15 +658,16 @@ a:visited {
 }
 
 /*table add*/
+
 .table-add td input, textarea, select {
     width: 320px;
-    padding: 3px 9px;
-    border-radius: 15px;
-    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 3px;
+    /*font-size: 14px !important;*/
     font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     box-sizing: border-box;
     outline: none;
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+    transition: all var(--transition-time) ease;
 }
 
 .table-add td textarea {
@@ -631,7 +687,7 @@ a:visited {
 }
 
 .input input, .input textarea, .input select {
-    width: 99px;
+    width: 69px;
     margin-left: 6px;
     padding: 3px 9px;
     border-radius: 15px;
@@ -639,6 +695,14 @@ a:visited {
     font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     outline: none;
     transition: all var(--transition-time) ease;
+}
+
+.input select {
+    width: auto;
+}
+
+.input input:focus {
+    width: 133px;
 }
 
 li .input {
@@ -649,6 +713,10 @@ li .input {
 
 
 /*other*/
+.hover-underline:hover {
+    text-decoration: underline !important;
+}
+
 .text-max-width-633 {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -662,12 +730,12 @@ li .input {
     height: 48px;
     vertical-align: bottom;
     border-radius: 5px;
-    margin: 0 10px 0 0;
     box-shadow: var(--elevation-box-shadow-2);
+    transition: all var(--transition-time);
 }
 
 .s-icon:hover, .s-icon-large, .s-icon-76 {
-    box-shadow: var(--elevation-box-shadow-6);
+    box-shadow: var(--elevation-box-shadow-4);
 }
 
 .s-icon-large {
@@ -702,6 +770,10 @@ li .input {
     font-size: 32px;
     white-space: nowrap;
     word-break: keep-all !important;
+}
+
+.logo:hover {
+    text-decoration: none;
 }
 
 .user-info-mobile {
@@ -785,6 +857,10 @@ li .input {
     width: 100%;
 }
 
+#wrapper-right {
+    margin-left: var(--box-spacing);
+}
+
 #footer {
     padding: 10px;
     min-height: 122px;
@@ -799,6 +875,13 @@ li .input {
     margin: 0 auto;
     padding: 0 var(--box-spacing);
     max-width: 1211px;
+    display: flex;
+}
+
+.w-999 {
+    margin: 0 auto;
+    padding: 0 var(--box-spacing);
+    max-width: 999px;
     display: flex;
 }
 

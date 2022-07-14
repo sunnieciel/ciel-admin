@@ -12,7 +12,10 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-func Login(ctx context.Context, uname string, pwd string, ip string) error {
+func Login(ctx context.Context, id, code, uname string, pwd string, ip string) error {
+	if !Store.Verify(id, code, true) {
+		return errors.New("验证码错误")
+	}
 	admin, err := dao.Admin.GetByUname(ctx, uname)
 	if err != nil {
 		return err
@@ -76,5 +79,12 @@ func UpdateAdminPwdWithoutOldPwd(ctx context.Context, id, pwd interface{}) error
 	if err != nil {
 		return err
 	}
+	return nil
+}
+func ClearAdminLog(ctx context.Context) error {
+	if _, err := dao.AdminLoginLog.Ctx(ctx).Delete("id is not null"); err != nil {
+		return err
+	}
+
 	return nil
 }

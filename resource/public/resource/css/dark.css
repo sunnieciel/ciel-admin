@@ -374,7 +374,7 @@ hr {
 
 /*other*/
 .bg-dark {
-    background-color: var(--steelblue-07);
+    background-color: var(--steelblue-11);
 }
 
 ::placeholder {
@@ -399,7 +399,7 @@ hr {
 
 /*layout*/
 #sub-nav {
-    background-color: var(--steelblue-07);
+    background-color: var(--steelblue-11);
 }
 
 #wrapper {

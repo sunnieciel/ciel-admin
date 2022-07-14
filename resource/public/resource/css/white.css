@@ -117,7 +117,7 @@ hr {
 
 .link-7:hover {
     color: var(--steelblue-05) !important;
-    border-bottom: 3px solid var(--white-03);
+    border-bottom: 3px solid var(--white-03) !important;
 }
 
 /*tag*/

@@ -66,6 +66,7 @@ var (
 				g.POST("/put", controller.Dict.Put)
 			})
 			s.Group("/admin", func(g *ghttp.RouterGroup) {
+				g.GET("/getCaptcha", controller.Sys.GetCaptcha) // 获取验证码
 				g.POST("/login", controller.Admin.Login)
 				g.Middleware(sys.AuthAdmin)
 				g.GET("/logout", controller.Admin.Logout)
@@ -125,6 +126,7 @@ var (
 				g.GET("/path", controller.AdminLoginLog.Path)
 				g.Middleware(sys.LockAction, sys.AdminAction)
 				g.GET("/path/del/:id", controller.AdminLoginLog.Del)
+				g.GET("/clear", controller.AdminLoginLog.Clear)
 			})
 			s.Group("/file", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)

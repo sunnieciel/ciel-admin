@@ -32,7 +32,6 @@ database:
   default:
     link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
     debug: true
-
 redis:
   default:
     address: "127.0.0.1:6379"

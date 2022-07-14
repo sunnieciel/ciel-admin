@@ -54,3 +54,13 @@ func (c cAdminLoginLog) Del(r *ghttp.Request) {
 	_ = r.Session.Set("msg", msg)
 	r.Response.RedirectTo(fmt.Sprint("/adminLoginLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
+
+func (c cAdminLoginLog) Clear(r *ghttp.Request) {
+
+	msg := fmt.Sprintf(consts.MsgPrimary, "清理完成")
+	if err := sys.ClearAdminLog(r.Context()); err != nil {
+		msg = err.Error()
+	}
+	_ = r.Session.Set("msg", msg)
+	r.Response.RedirectTo(fmt.Sprint("/adminLoginLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
+}

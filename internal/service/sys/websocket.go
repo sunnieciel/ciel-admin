@@ -60,7 +60,7 @@ func printUserWs() {
 	g.Log().Infof(gctx.New(), "user连接个数%v %v", len(users.Map()), users.Keys())
 }
 func printAdminWs() {
-	g.Log().Infof(gctx.New(), "admin连接个数%v %v", len(admins.Map()), admins.Keys())
+	//g.Log().Infof(gctx.New(), "admin连接个数%v %v", len(admins.Map()), admins.Keys())
 }
 func NoticeAllUser(ctx context.Context, msg interface{}) error {
 	if users.Size() == 0 {
