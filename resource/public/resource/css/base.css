@@ -667,7 +667,7 @@ a:hover {
     font-family: helvetica neue, luxi sans, Tahoma, hiragino sans gb, microsoft yahei, sans-serif, apple logo;;
     box-sizing: border-box;
     outline: none;
-    transition: all var(--transition-time) ease;
+    transition: var(--transition)
 }
 
 .table-add td textarea {
