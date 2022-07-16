@@ -16,6 +16,7 @@ jQuery.each(["put", "delete"], function (i, method) {
 });
 // 监听tab 切换
 $(function () {
+    $("body").show(33)
     $("#nav a").click(function () {
         $("#nav a").removeClass("link-2-active")
         $(this).addClass("link-2-active")
@@ -24,8 +25,8 @@ $(function () {
     })
 })
 
-function setDark(value) {
-    Cookies.set('dark', value)
+const setDark = (v) => {
+    Cookies.set('dark', v)
     location.reload()
 }
 

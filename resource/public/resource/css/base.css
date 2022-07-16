@@ -1,16 +1,16 @@
 :root {
-    --white-01: #fff;
-    --white-01-3: rgba(255, 255, 255, .3);
-    --white-02: #f5f5f5;
-    --white-10: #f9f9f9;
-    --white-03: #eee;
-    --white-04: #e9e9eb;
-    --white-05: #e2e2e2;
-    --white-06: #c9d2db;
-    --white-07: #d1d5d9;
-    --white-07-9: rgb(224 224 224 / .9);
-    --white-08: #ccc;
-    --white-09: #bbb;
+    --white-001: #fff;
+    --white-002: #f5f5f5;
+    --white-003: #f9f9f9;
+    --white-004: #eee;
+    --white-005: #e9e9eb;
+    --white-006: #e2e2e2;
+    --white-007: #c9d2db;
+    --white-008: #d1d5d9;
+    --white-009: rgb(224 224 224 / .9);
+    --white-010: #ccc;
+    --white-011: #bbb;
+    --white-012: #cbcbcb;
 
     --silver-01: silver;
     --silver-02: rgb(255 255 255 / .6);
@@ -18,20 +18,20 @@
     --silver-04: #a9bcd6;
     --silver-05: #99a;
 
-    --gray-01: #909399;
-    --gray-02: #778087;
-    --gray-03: rgba(144, 147, 153, 0.1);
-    --gray-04: rgba(144, 147, 153, 0.2);
-    --gray-05: #858585;
-    --gray-06: #cbcbcb;
+    --gray-001: #858585;
+    --gray-002: #909399;
+    --gray-003: #778087;
+    --gray-004: rgba(255, 255, 255, .3);
 
-    --dusk-01: #556;
-    --dusk-02: #4d5256;
-    --dusk-03: rgba(158, 144, 158, .3);
-    --dusk-04: rgba(80, 80, 90, .35);
-    --dusk-05: rgba(66, 66, 77, .1);
-    --dusk-06: #333;
-    --dusk-07: rgba(80, 80, 90, .2);
+    --dusk-001: #556;
+    --dusk-002: #4d5256;
+    --dusk-003: rgba(158, 144, 158, .3);
+    --dusk-004: rgba(144, 147, 153, 0.2);
+    --dusk-005: rgba(80, 80, 90, .35);
+    --gray-006: rgba(144, 147, 153, 0.1);
+    --dusk-007: rgba(66, 66, 77, .1);
+    --dusk-008: #333;
+    --dusk-009: rgba(80, 80, 90, .2);
 
     --steelblue-01: steelblue;
     --steelblue-02: #385f8a;
@@ -47,7 +47,7 @@
 
 
     --black-01: #000;
-    --black-01-2: rgba(0, 0, 0, .2);
+    --black-02: rgba(0, 0, 0, .2);
 
     --yellow-01: #fdf6ec;
     --yellow-02: #faecd8;
@@ -118,15 +118,21 @@
     padding: 0;
 }
 
-body {
-    height: 100%;
-    overflow: auto;
-    margin: 0;
+html {
+    overflow: hidden;
 }
 
-html {
-    overflow-y: scroll;
+body {
+    overflow: auto;
+    margin: 0;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
+
 
 body {
     font-family: "Segoe UI", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", "Apple Logo", sans-serif;
@@ -206,8 +212,16 @@ a:hover {
     text-align: right !important;
 }
 
+.text-left {
+    text-align: left !important;
+}
+
 .m-3 {
     margin: 3px !important;
+}
+
+.m-10 {
+    margin: 10px !important;
 }
 
 .ml-3 {
@@ -271,6 +285,10 @@ a:hover {
 }
 
 /*font-size*/
+.fs-10 {
+    font-size: 10px !important;
+}
+
 .fs-12 {
     font-size: 12px !important;
 }
@@ -622,7 +640,7 @@ a:hover {
 }
 
 .table-1 tr {
-    transition: all var(--transition-time) ease;
+    transition: var(--transition);
 }
 
 .table-1 tr th {
@@ -872,16 +890,9 @@ li .input {
 }
 
 .w {
-    margin: 0 auto;
-    padding: 0 var(--box-spacing);
     max-width: 1211px;
-    display: flex;
-}
-
-.w-999 {
     margin: 0 auto;
     padding: 0 var(--box-spacing);
-    max-width: 999px;
     display: flex;
 }
 

@@ -19,6 +19,9 @@ let program = {
                 {class: "tag-info", name: "模板引擎", url: "https://goframe.org/pages/viewpage.action?pageId=1114680"},
                 {class: "tag-info", name: "基础函数", url: "https://goframe.org/pages/viewpage.action?pageId=1114147"},
                 {class: "tag-info", name: "内置函数", url: "https://goframe.org/pages/viewpage.action?pageId=1114270"},
+                {class: 'tag-info', name: "学习教程1", url: "https://wangdoc.com/javascript/basic/index.html"},
+                {class: 'tag-info', name: "学习教程2", url: "https://zh.javascript.info/"},
+                {class: 'tag-info', name: "学习教程3", url: "https://es6.ruanyifeng.com/"}
             ]
         },
         {
