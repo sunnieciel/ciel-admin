@@ -117,7 +117,7 @@ create table u_user_login_log
 
 ### step2 config 添加配置
 
-在 `manifest/config/config.yaml` 文件中添加 `u_user` 和`u_`
+在 `manifest/config/config.yaml` 文件中添加 `u_user`,`u_user_login_log`和`u_`
 
 ```text
 gfcli:
