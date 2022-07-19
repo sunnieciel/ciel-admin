@@ -13,9 +13,10 @@ import (
 type AdminLoginLog struct {
 	g.Meta    `orm:"table:s_admin_login_log, do:true"`
 	Id        interface{} //
-	Uid       interface{} //
-	Ip        interface{} //
-	Area      interface{} //
+	Uid       interface{} // {"label":"用户id","searchType":1,"hide":1,"disabled":1,"required":1}
+	Ip        interface{} // {"label":"登录IP","notShow":0,"fieldType":"text","editHide":0,"editDisabled":0,"required":1}
+	Area      interface{} // {"searchType":2,"hide":1}
+	Status    interface{} //
 	CreatedAt *gtime.Time //
 	UpdatedAt *gtime.Time //
 }

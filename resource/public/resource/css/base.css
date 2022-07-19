@@ -118,19 +118,8 @@
     padding: 0;
 }
 
-html {
-    overflow: hidden;
-}
-
 body {
-    overflow: auto;
-    margin: 0;
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 
@@ -198,6 +187,9 @@ a:hover {
 
 
 /*base2*/
+.block {
+    display: block !important;
+}
 
 .w-80 {
     width: 80px !important;
@@ -645,10 +637,11 @@ a:hover {
 
 .table-1 tr th {
     font-weight: 700;
-    font-size: 12px;
     padding: 1px 9px;
     text-align: left;
     white-space: nowrap;
+    height: 33px;
+    font-size: 13px;
 }
 
 .table-1 td {
@@ -733,6 +726,10 @@ li .input {
 /*other*/
 .hover-underline:hover {
     text-decoration: underline !important;
+}
+
+.white-space-nowrap {
+    white-space: nowrap !important;
 }
 
 .text-max-width-633 {
@@ -896,6 +893,20 @@ li .input {
     display: flex;
 }
 
+.top-mobile {
+    position: relative;
+    display: none;
+}
+
+.top-mobile-menu {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: -27px;
+    width: 115px;
+    z-index: 33;
+}
+
 @media screen and (max-width: 779px) {
     :root {
         --box-spacing: 12px;
@@ -939,5 +950,41 @@ li .input {
 @media screen and(max-width: 400px) {
     .chapter-last-visitor {
         display: none;
+    }
+}
+
+/*table*/
+@media screen and (max-width: 966px) {
+    .table-1 tr:first-child, #wrapper-right {
+        display: none;
+    }
+
+    .table-1 tr {
+        display: block;
+    }
+
+    .table-add td textarea {
+        width: 55vw;
+    }
+
+    .table-add td input, textarea, select {
+        width: 55vw;
+    }
+
+    .table-1 td {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        height: auto;
+        padding: 10px 0;
+        max-width: 93vw;
+    }
+
+    .table-1 td::before {
+        font-weight: 733;
+        min-width: 63px;
+        text-align: right;
+        margin-right: 13px;
+        content: attr(data-label);
     }
 }

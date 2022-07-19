@@ -3,6 +3,7 @@ package main
 import (
 	"ciel-admin/internal/cmd"
 	_ "ciel-admin/internal/packed"
+	"ciel-admin/internal/service/sys"
 	"context"
 	"fmt"
 	"github.com/gogf/gf/v2/os/gcmd"
@@ -31,5 +32,6 @@ func main() {
 			return nil
 		},
 	})
+	cmd.Main.AddCommand(sys.GenCommon)
 	cmd.Main.Run(gctx.New())
 }

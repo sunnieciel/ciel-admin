@@ -44,8 +44,9 @@ gfcli:
     dao:
       - link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
         tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file,s_operation_log,s_admin_login_log,
-         f_node"
-        removePrefix: "s_,f_"
+         f_node,
+         u_user,u_user_login_log"
+        removePrefix: "s_,f_,u_"
         descriptionTag: true
         noModelComment: true
 options:

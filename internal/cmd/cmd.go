@@ -123,10 +123,10 @@ var (
 			})
 			s.Group("/adminLoginLog", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)
-				g.GET("/path", controller.AdminLoginLog.Path)
+				//g.GET("/path", controller.AdminLoginLog.Path)
 				g.Middleware(sys.LockAction, sys.AdminAction)
-				g.GET("/path/del/:id", controller.AdminLoginLog.Del)
-				g.GET("/clear", controller.AdminLoginLog.Clear)
+				//g.GET("/path/del/:id", controller.AdminLoginLog.Del)
+				//g.GET("/clear", controller.AdminLoginLog.Clear)
 			})
 			s.Group("/file", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.AuthAdmin)

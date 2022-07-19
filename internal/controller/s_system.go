@@ -947,10 +947,13 @@ func (c gen) GenFile(r *ghttp.Request) {
 	if err := genConf.Struct(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := d.SetUrlPrefix(); err != nil {
-		res.Err(err, r)
-	}
 	if d.GenType == 1 { // 生成静态页面
+		if d.HtmlGroup == "" {
+			res.Err(fmt.Errorf("html分组不能为空"), r)
+		}
+		if d.StructName == "" {
+			res.Err(fmt.Errorf("结构体名称不能为空"), r)
+		}
 		if err := sys.GenStaticHtmlFile(r.Context(), d); err != nil {
 			res.Err(err, r)
 		}

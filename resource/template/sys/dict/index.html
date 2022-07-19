@@ -52,15 +52,15 @@
                     </tr>
                     {{range .list}}
                     <tr>
-                        <td>{{.id}}</td>
-                        <td>{{.k}}</td>
-                        <td>{{.v}}</td>
-                        <td>{{.desc}}</td>
-                        <td>{{chooseSpan $.Config.options.dictGroup .group}}</td>
-                        <td>{{chooseSpan $.Config.options.dictType .type}}</td>
-                        <td>{{chooseSpan $.Config.options.status .status}}</td>
-                        <td>{{.created_at}}</td>
-                        <td align="center">
+                        <td data-label="ID">{{.id}}</td>
+                        <td data-label="Key">{{.k}}</td>
+                        <td data-label="Value">{{.v}}</td>
+                        <td data-label="说明">{{.desc}}</td>
+                        <td data-label="分组">{{chooseSpan $.Config.options.dictGroup .group}}</td>
+                        <td data-label="类型">{{chooseSpan $.Config.options.dictType .type}}</td>
+                        <td data-label="状态">{{chooseSpan $.Config.options.status .status}}</td>
+                        <td data-label="创建时间">{{.created_at}}</td>
+                        <td data-label="操作" align="center">
                             <a class="tag-info" href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>
                             <a class="tag-danger" href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
                         </td>

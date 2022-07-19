@@ -21,9 +21,10 @@ type AdminLoginLogDao struct {
 // AdminLoginLogColumns defines and stores column names for table s_admin_login_log.
 type AdminLoginLogColumns struct {
 	Id        string //
-	Uid       string //
-	Ip        string //
-	Area      string //
+	Uid       string // {"label":"用户id","searchType":1,"hide":1,"disabled":1,"required":1}
+	Ip        string // {"label":"登录IP","notShow":0,"fieldType":"text","editHide":0,"editDisabled":0,"required":1}
+	Area      string // {"searchType":2,"hide":1}
+	Status    string //
 	CreatedAt string //
 	UpdatedAt string //
 }
@@ -34,6 +35,7 @@ var adminLoginLogColumns = AdminLoginLogColumns{
 	Uid:       "uid",
 	Ip:        "ip",
 	Area:      "area",
+	Status:    "status",
 	CreatedAt: "created_at",
 	UpdatedAt: "updated_at",
 }

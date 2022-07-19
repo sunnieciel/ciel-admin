@@ -32,10 +32,10 @@
                     </tr>
                     {{range .list}}
                     <tr>
-                        <td>{{.id}}</td>
-                        <td>{{.name}}</td>
-                        <td>{{.created_at}}</td>
-                        <td align="center">
+                        <td data-label="ID">{{.id}}</td>
+                        <td data-label="角色">{{.name}}</td>
+                        <td data-label="创建时间">{{.created_at}}</td>
+                        <td data-label="操作" align="center">
                             <a href="/roleMenu/path?rid={{.id}}" class="tag-warning">MENU</a>
                             <a href="/roleApi/path?rid={{.id}}" class="tag-primary">API</a>
                             <a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>

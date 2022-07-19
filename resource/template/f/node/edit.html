@@ -41,11 +41,11 @@
                     {{end}}
                 </div>
                 <div class="cell-content">
-                    {{.Session.node_edit.summary}}
+                    {{.Session.node_edit.summary|md}}
                 </div>
                 {{if .Session.node_edit.main_things}}
                 <div class="cell-content">
-                    {{.Session.node_edit.main_things}}
+                    {{.Session.node_edit.main_things|md}}
                 </div>
                 {{end}}
                 <div class="cell btn">

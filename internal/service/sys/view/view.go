@@ -31,5 +31,6 @@ func BindFuncMap() gview.FuncMap {
 		"option":      option,
 		"chooseSpan":  chooseSpan,
 		"img":         img,
+		"md":          MD,
 	}
 }

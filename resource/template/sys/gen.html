@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta charset="UTF-8">
     <meta name="Content-Type" content="text/html;charset=utf-8">
+    <title>代码生成</title>
     <link rel="stylesheet" href="/resource/css/element-plus.css"/>
     <link href="/resource/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="/resource/css/font-awesome.min.css">
+    <link rel="Shortcut Icon" href="/cat.jpg" type="image/x-icon"/>
     <style>
         [v-cloak] {
             display: none;
@@ -171,9 +174,6 @@
         }
     </style>
     {{end}}
-    <title>代码生成</title>
-    <link rel="stylesheet" href="/resource/css/font-awesome.min.css">
-    <link rel="Shortcut Icon" href="/cat.jpg" type="image/x-icon"/>
 </head>
 <body>
 <div id="app" v-cloak>
@@ -299,11 +299,11 @@
                             <td v-text="i.Comment"></td>
                             <td v-text="i.FieldType"></td>
                             <td>
-                                <span v-if="i.NotShow==0" class="tag-info">是</span>
+                                <span v-if="i.Hide==0" class="tag-info">是</span>
                                 <span v-else class="tag-warning">否</span>
                             </td>
                             <td>
-                                <span v-if="i.EditDisabled==0" class="tag-info">否</span>
+                                <span v-if="i.Disabled==0" class="tag-info">否</span>
                                 <span v-else class="tag-warning">是</span>
                             </td>
                             <td>
@@ -338,12 +338,11 @@
                 <el-dialog v-model="dialogVisible" title="编辑" width="36%">
                     <div class="details">
                         <ul>
-                            <li><label class="input">字段名称 <input v-model="fieldDetail.Name" @keyup.enter="dialogVisible=false"> </label></li>
+                            <li><label class="input">字段名称 <input v-model="fieldDetail.Name" @keyup.enter="dialogVisible=false"></label></li>
                             <li><label class="input">标题 <input v-model="fieldDetail.Label" @keyup.enter="dialogVisible=false"> </label></li>
                             <li><label class="input">备注<input v-model="fieldDetail.Comment" @keyup.enter="dialogVisible=false"></label></li>
                             <li><label class="input">排序<input type="number" v-model="fieldDetail.Index" @keyup.enter="dialogVisible=false"></label></li>
                             <li><label class="input">查询字段<input v-model="fieldDetail.QueryName" @keyup.enter="dialogVisible=false"> </label>
-                                <br>
                                 <span class="tag-info">
                                     多表查询时，入参时的字段。eg: select t1.*, t2.ip
                                     from u_user t1
@@ -354,13 +353,15 @@
                             </li>
                         </ul>
                         <ul>
-                            <li><label class="input">字段类型 <select v-model="fieldDetail.FieldType">
-                                <option :value="'text'">文本</option>
-                                <option :value="'textarea'">文本域</option>
-                                <option :value="'select'">选项</option>
-                                <option :value="'number'">数字</option>
-                                <option :value="'img'">图片</option>
-                            </select></label></li>
+                            <li>
+                                <label class="input">字段类型 <select v-model="fieldDetail.FieldType">
+                                    <option :value="'text'">文本</option>
+                                    <option :value="'textarea'">文本域</option>
+                                    <option :value="'select'">选项</option>
+                                    <option :value="'number'">数字</option>
+                                    <option :value="'img'">图片</option>
+                                </select></label>
+                            </li>
                             <li v-show="this.fieldDetail.FieldType==='select'">
                                 <div class="input" style="display: flex;">
                                     <span>字段选项</span>
@@ -394,16 +395,25 @@
                                 <option :value="7">!=</option>
                                 <option :value="8">date</option>
                                 <option :value="9">date(start to end)</option>
-                            </select></label></li>
-                            <li><label class="input">编辑时展示 <select v-model="fieldDetail.EditHide">
-                                <option :value="0">是</option>
-                                <option :value="1">否</option>
-                            </select></label></li>
-                            <li><label class="input">编辑时禁用 <select v-model="fieldDetail.EditDisabled">
-                                <option :value="0">否</option>
-                                <option :value="1">是</option>
-                            </select></label></li>
-                            <li><label class="input">展示 <select v-model="fieldDetail.NotShow">
+                            </select></label>
+                            </li>
+                            <li>
+                                <label class="input">编辑时展示
+                                    <select v-model="fieldDetail.EditHide">
+                                        <option :value="0">是</option>
+                                        <option :value="1">否</option>
+                                    </select>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="input">编辑时禁用
+                                    <select v-model="fieldDetail.Disabled">
+                                        <option :value="0">否</option>
+                                        <option :value="1">是</option>
+                                    </select>
+                                </label>
+                            </li>
+                            <li><label class="input">展示 <select v-model="fieldDetail.Hide">
                                 <option :value="0">是</option>
                                 <option :value="1">否</option>
                             </select></label></li>
@@ -425,11 +435,9 @@
     </div>
 </div>
 </body>
-<script src="/resource/js/jquery-3.6.0.min.js"></script>
 <script src="/resource/js/vue.js"></script>
 <script src="/resource/js/element-plus.js"></script>
-<script src="/resource/js/js.cookie.min.js"></script>
-<script src="/resource/js/base.js"></script>
+{{include "/part/endJs.html" .}}
 <script>
     const app = Vue.createApp({
         data() {
@@ -442,8 +450,8 @@
                 assistant: {
                     tableItemActive: -1,
                 },
-                tables: [],
                 dialogVisible: false,
+                tables: [],
                 fields: [
                     {
                         Name: '',
@@ -453,8 +461,8 @@
                         QueryName: '',
                         Index: 0,
                         EditHide: 0,
-                        EditDisabled: 0,
-                        NotShow: 0,
+                        Disabled: 0,
+                        Hide: 0,
                         SelectType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=,8 date,9 date(start to end)
                         Required: 0,
                         Options: [
@@ -550,8 +558,8 @@
                     d.FieldType = 'text'
                     d.QueryName = d.Name
                     d.EditHide = 0
-                    d.NotShow = 0
-                    d.EditDisabled = 0
+                    d.Hide = 0
+                    d.Disabled = 0
                     d.SearchType = 0
                     d.Required = 0
                     d.Options = [{Name: '正常', Value: '1', Type: 'tag-info'}, {Name: '禁用', Value: '2', Type: 'tag-danger'},]
@@ -569,7 +577,7 @@
                     switch (d.Name) {
                         case "pwd":
                         case "password":
-                            d.NotShow = 1
+                            d.Hide = 1
                             break
                     }
                     this.fields.push(d)
@@ -618,8 +626,8 @@
                         QueryName: '',
                         Index: this.fields.length,
                         EditHide: 0,
-                        EditDisabled: 0,
-                        NotShow: 0,
+                        Disabled: 0,
+                        Hide: 0,
                         SearchType: 0, // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 !=,8 date,9 date(start to end)
                         Options: [
                             {

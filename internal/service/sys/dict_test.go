@@ -3,6 +3,7 @@ package sys
 import (
 	"fmt"
 	"github.com/kayon/iploc"
+	"strings"
 	"testing"
 )
 
@@ -22,4 +23,8 @@ func TestIP(t *testing.T) {
 	detail = loc.Find("1.24.41.0")
 	fmt.Println(detail.String())
 	fmt.Println(detail.Country, detail.Province, detail.City, detail.County)
+}
+func TestString(t *testing.T) {
+	s := "s_user"
+	fmt.Println(s[strings.Index(s, "_")+1:])
 }

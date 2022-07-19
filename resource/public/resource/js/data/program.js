@@ -59,13 +59,16 @@ let program = {
             urls: [
                 {class: "tag-info", name: "stackexchange", url: "https://stackexchange.com/"},
                 {class: "tag-info", name: "google翻译", url: "https://translate.google.com/?sl=zh-CN&tl=en&op=translate"},
-                {class: "tag-info", name: "ip138", url: "https://www.ip138.com/"},
                 {class: "tag-info", name: "在线工具", url: "https://tool.lu/"},
                 {class: "tag-info", name: "图片压缩", url: "https://www.bejson.com/ui/compress_img/"},
                 {class: "tag-info", name: "图片转base64", url: "https://www.bejson.com/ui/image2base64/"},
                 {class: "tag-info", name: "字符串转html", url: "https://uutool.cn/nl2br/"},
                 {class: "tag-info", name: "vimium", url: "https://juejin.cn/post/6844903815943028750"},
                 {class: "tag-info", name: "Text to speech", url: "https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech/#overview"},
+                {class: "tag-info", name: "ip138", url: "https://www.ip138.com/"},
+                {class: "tag-info", name: "dns域名检测", url: "https://dnsce.com/"},
+                {class: "tag-info", name: "域名延迟检测", url: "https://www.17ce.com/"},
+                {class: "tag-info", name: "banner", url: "https://patorjk.com/software/taag/#p=display&f=Graffiti&t=XXXQ"}
             ]
         }
     ]
