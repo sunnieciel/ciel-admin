@@ -89,6 +89,7 @@ create table s_admin_login_log
 ### step1 数据表准备
 
 ```text
+-- auto-generated definition
 create table u_user
 (
     id          bigint unsigned auto_increment primary key,
@@ -96,15 +97,17 @@ create table u_user
     pass        varchar(64)                        not null comment '{"hide":1,"editHide":1}',
     nickname    varchar(64)                        null comment '{"label":"昵称","required":1,"comment":"取一个昵称吧"}',
     description text                               null comment '{"fieldType":"markdown"}',
-    status      int      default 1                 null,
+    status      int      default 1                 null comment '{"searchType":2,"fieldType":"select","options":"1:正常:tag-info,2:禁用:tag-danger"}',
     created_at  datetime default CURRENT_TIMESTAMP null,
     updated_at  datetime default CURRENT_TIMESTAMP null,
     constraint uname unique (uname)
 );
 
+
+
 create table u_user_login_log
 (
-    id         bigint unsigned,
+    id         bigint unsigned auto_increment primary key,
     uid        bigint unsigned,
     ip         varchar(64),
     created_at datetime default current_timestamp,
