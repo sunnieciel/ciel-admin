@@ -146,7 +146,7 @@ done!
 
 ### step4 命令行生成代码
 
-1. 项目根目录下输入 `./main g -h` 可以看下我们需要对数据进行配置
+1. 项目根目录下输入 `./main g -h` 可以看下我们需要对哪些数据进行配置
 
 2. 然后输入命令`./main g -t1 u_user -t2 "u_user_login_log t2 on t2.id = t1.uid" -q "t1.*,t2.ip ip" -name "用户列表" -desc "这里是用户列表页面" -group "user" -g 1`
 
