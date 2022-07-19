@@ -8,6 +8,7 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/glog"
 	_ "net/http/pprof"
 	"time"
 )
@@ -21,6 +22,7 @@ var (
 		Arguments:   nil,
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			// 初始化服务
+			g.Log().SetFlags(glog.F_FILE_LONG | glog.F_TIME_DATE | glog.F_TIME_MILLI)
 			sys.Init()
 			g.View().BindFuncMap(view.BindFuncMap())
 			s := g.Server()
