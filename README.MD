@@ -1,4 +1,5 @@
 # free key admin 自由钥匙 - 个人的后台管理系统
+
 ```
 
 ███████╗██████╗ ███████╗███████╗    ██╗  ██╗███████╗██╗   ██╗     █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
@@ -9,6 +10,7 @@
 ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
   Welcome to use the build tools of freekey , let's go!
 ```
+
 ## 框架追求
 
 用越少的技术、越简单的方式来实现一个面向于web独立开发者的后台管理系统。另外不妨将此作为自己的秘密基地，记录自己的事情，记下自己喜欢的格言或语录等等。
@@ -73,6 +75,7 @@ free key admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系
 详情见：https://goframe.org/pages/viewpage.action?pageId=30740166
 
 ## 命令行代码生成
+https://github.com/1211ciel/ciel-admin/blob/master/documents/gencode.md
 
 ## css使用
 
