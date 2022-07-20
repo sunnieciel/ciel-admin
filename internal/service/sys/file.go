@@ -55,3 +55,19 @@ func UploadFile(ctx context.Context, r *ghttp.Request) error {
 func GetFileById(ctx context.Context, id interface{}) (*entity.File, error) {
 	return dao.File.GetById(ctx, id)
 }
+func RemoveFile(ctx context.Context, path string) error {
+	if !gfile.Exists(path) {
+		g.Log().Warningf(ctx, "path:%v is not exists", path)
+		return nil
+	}
+	if !gfile.IsFile(path) {
+		g.Log().Warningf(ctx, "path:%v is not file", path)
+		return nil
+	}
+	if err := gfile.Remove(path); err != nil {
+		g.Log().Errorf(ctx, "remove File error path is %v,err:%v", path, err.Error())
+		return fmt.Errorf("remove file error path is %v", path)
+	}
+	g.Log().Debugf(ctx, "Remove File success path is %v", path)
+	return nil
+}

@@ -565,16 +565,17 @@ func (c cFile) Del(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	p := gfile.Pwd() + path.String() + "/" + f.Url
-	if gfile.Exists(p) && gfile.IsFile(p) {
-		_ = gfile.Remove(p)
+	if err = sys.RemoveFile(r.Context(), p); err != nil {
+		res.Err(err, r)
 	}
 	msg := fmt.Sprintf(consts.MsgPrimary, "删除成功")
-	if err := sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
+	if err = sys.Del(r.Context(), c.T1, xparam.ID(r)); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
 	r.Response.RedirectTo(fmt.Sprint("/file/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
+
 func (c cFile) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
 	if err != nil {
