@@ -62,12 +62,13 @@ free key admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系
 │   ├── cmd   入口指令
 │   ├── const
 │   ├── controller
+│   ├── logic  供服务层调用
 │   ├── dao
 │   ├── model
-│   └── service
+│   └── service  
 ├── manifest
 ├── resource
-├── utility  //通用工具
+├── utility  通用工具
 ├── go.mod
 └── main.go 
 ```
@@ -75,6 +76,7 @@ free key admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系
 详情见：https://goframe.org/pages/viewpage.action?pageId=30740166
 
 ## 命令行代码生成
+
 https://github.com/1211ciel/ciel-admin/blob/master/documents/gencode.md
 
 ## css使用

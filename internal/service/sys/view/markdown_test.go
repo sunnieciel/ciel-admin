@@ -6,15 +6,11 @@ import (
 )
 
 func TestMarkdown(t *testing.T) {
-	md := []byte(`
-# hello
-<div class='tag-info'>hello</div>
+	str := `
+Name    | Age
+--------|-----:
+Bob     | 27
+Alice   | 23`
 
-    golang
-
-- ok
-- ok2
-`)
-	html := MD(md)
-	glog.Info(nil, html)
+	glog.Info(nil, MD(str))
 }
