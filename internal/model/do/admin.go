@@ -11,12 +11,13 @@ import (
 
 // Admin is the golang structure of table s_admin for DAO operations like Where/Data.
 type Admin struct {
-	g.Meta    `orm:"table:s_admin, do:true"`
-	Id        interface{} //
-	Rid       interface{} //
-	Uname     interface{} //
-	Pwd       interface{} //
-	Status    interface{} //
-	CreatedAt *gtime.Time //
-	UpdatedAt *gtime.Time //
+	g.Meta         `orm:"table:s_admin, do:true"`
+	Id             interface{} //
+	Rid            interface{} //
+	Uname          interface{} //
+	Pwd            interface{} //
+	UnreadMsgCount interface{} //
+	Status         interface{} //
+	CreatedAt      *gtime.Time //
+	UpdatedAt      *gtime.Time //
 }

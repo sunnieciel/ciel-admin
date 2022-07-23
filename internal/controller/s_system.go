@@ -985,9 +985,12 @@ func (c cAdminLoginLog) Put(r *ghttp.Request) {
 }
 
 func (c cAdminLoginLog) Clear(r *ghttp.Request) {
+	msg := fmt.Sprintf(consts.MsgPrimary, "操作成功")
 	if err := sys.ClearAdminLog(r.Context()); err != nil {
-		res.Err(err, r)
+		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
+	r.Session.Set("msg", msg)
+	r.Response.RedirectTo(fmt.Sprint("/adminLoginLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
 	res.Ok(r)
 }
 

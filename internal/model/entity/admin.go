@@ -10,11 +10,12 @@ import (
 
 // Admin is the golang structure for table admin.
 type Admin struct {
-	Id        int         `json:"id"        description:""`
-	Rid       int         `json:"rid"       description:""`
-	Uname     string      `json:"uname"     description:""`
-	Pwd       string      `json:"pwd"       description:""`
-	Status    int         `json:"status"    description:""`
-	CreatedAt *gtime.Time `json:"createdAt" description:""`
-	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
+	Id             int         `json:"id"             description:""`
+	Rid            int         `json:"rid"            description:""`
+	Uname          string      `json:"uname"          description:""`
+	Pwd            string      `json:"pwd"            description:""`
+	UnreadMsgCount int         `json:"unreadMsgCount" description:""`
+	Status         int         `json:"status"         description:""`
+	CreatedAt      *gtime.Time `json:"createdAt"      description:""`
+	UpdatedAt      *gtime.Time `json:"updatedAt"      description:""`
 }

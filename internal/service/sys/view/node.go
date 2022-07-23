@@ -40,7 +40,7 @@ func nodeTime(y, m, d interface{}) string {
 	if m != nil {
 		res += tag(m, fmt.Sprint(m, "月"))
 	}
-	if d != nil {
+	if d != nil && gconv.Int(d) != 0 {
 		res += tag(1, fmt.Sprint(d, "日"))
 	}
 	return res

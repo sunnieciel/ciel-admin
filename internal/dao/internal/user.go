@@ -22,10 +22,10 @@ type UserDao struct {
 type UserColumns struct {
 	Id          string //
 	Uname       string // {"label":"用户名","searchType":2,"required":1,"disabled":1}
-	Pass        string // {"hide":1,"editHide":1,}
+	Pass        string // {"hide":1,"editHide":1}
 	Nickname    string // {"label":"昵称","required":1,"comment":"取一个昵称吧"}
 	Description string // {"fieldType":"markdown"}
-	Status      string //
+	Status      string // {"searchType":2,"fieldType":"select","options":"1:正常:tag-info,2:禁用:tag-danger"}
 	CreatedAt   string //
 	UpdatedAt   string //
 }

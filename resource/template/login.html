@@ -71,7 +71,7 @@
         $.post("/admin/login", $("#login-form").serialize() + `&id=${id}`, async function (data) {
             if (data.code === 0) {
                 alert('Success')
-                window.open("{{.Config.home}}", "_blank");
+                location.href = '{{.Config.home}}'
             } else {
                 alert(data.msg)
                 await getCaptcha()

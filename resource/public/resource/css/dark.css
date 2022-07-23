@@ -20,6 +20,12 @@ hr {
     background-color: var(--white-006);
 }
 
+blockquote {
+    color: var(--steelblue-03);
+    border-left: 0.25em solid var(--steelblue-04);
+    background-color: var(--steelblue-06);
+}
+
 /*box*/
 .box {
     background-color: var(--steelblue-06);

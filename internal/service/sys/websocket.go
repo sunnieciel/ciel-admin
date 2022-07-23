@@ -75,6 +75,17 @@ func NoticeAllUser(ctx context.Context, msg interface{}) error {
 	}
 	return nil
 }
+func NoticeAdmin(ctx context.Context, msg interface{}, toUid int) error {
+	to := admins.Get(toUid)
+	if to != nil {
+		marshal, _ := json.Marshal(msg)
+		if err := to.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
+			g.Log().Error(ctx, err)
+			return err
+		}
+	}
+	return nil
+}
 func NoticeAllAdmin(ctx context.Context, msg interface{}) error {
 	marshal, _ := json.Marshal(msg)
 	for _, item := range admins.Values() {

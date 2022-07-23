@@ -110,6 +110,7 @@
     --elevation-box-shadow-4: rgba(0, 0, 0, .2) 0 2px 4px -1px, rgba(0, 0, 0, .14) 0px 4px 5px 0px, rgba(0, 0, 0, .12) 0px 1px 10px 0px;
     --elevation-box-shadow-5: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0px 6px 10px 0px, rgba(0, 0, 0, .12) 0px 1px 18px 0px;
     --elevation-box-shadow-6: rgba(0, 0, 0, .2) 0 5px 5px -3px, rgba(0, 0, 0, .14) 0px 8px 10px 1px, rgba(0, 0, 0, .12) 0px 3px 14px 2px;
+    --code-font: "Consolas", "Panic Sans", "Bitstream Vera Sans Mono", "Menlo", "Microsoft Yahei", monospace;
 }
 
 /*base*/
@@ -118,43 +119,78 @@
     padding: 0;
 }
 
+
+body,
+html {
+    font-family: "Helvetica Neue", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";;
+
+}
+
 body {
     display: none;
-}
-
-
-body {
-    font-family: "Segoe UI", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", "Apple Logo", sans-serif;
-}
-
-h1, h2 {
-    margin: 16px 0 16px;
 }
 
 h1 {
     font-size: 24px;
     font-weight: 500;
-    line-height: 1.5;
-    padding: 0
-}
-
-h2, h3 {
-    padding-left: 6px;
-    font-weight: 600;
+    line-height: 150%;
+    margin: 0 0 10px;
+    padding: 0;
+    line-break: anywhere
 }
 
 h2 {
-    padding-bottom: .3em;
     font-size: 18px;
+    font-weight: 600;
     line-height: 1.25;
+    margin: 24px 0 16px;
+    padding-bottom: .3em;
     word-break: break-word
 }
 
 h3 {
     font-size: 16px;
-    line-height: 1;
+    font-weight: 600;
+    line-height: 100%;
     margin: 20px 0 15px;
+    padding: 0;
     word-break: break-word
+}
+
+pre {
+    font-family: var(--code-font);
+    font-size: 13px;
+    letter-spacing: .015em;
+    line-height: 120%;
+    white-space: pre;
+    overflow: auto;
+    word-break: normal;
+    overflow-wrap: normal;
+    padding: .5em;
+    margin: .9em;
+}
+
+pre a {
+    color: inherit;
+    text-decoration: underline
+}
+
+blockquote {
+    margin-left: 6px;
+    padding: 0.5em 1em;
+    font-size: 12px;
+    color: var(--gray-001);
+    border-left: 0.25em solid var(--gray-001);
+    border-radius: 3px;
+}
+
+blockquote p {
+    text-indent: 0 !important;
+}
+
+code {
+    font-family: var(--code-font);
+    white-space: pre-wrap
 }
 
 li {
@@ -183,6 +219,32 @@ a:visited {
 
 a:hover {
     text-decoration: underline;
+}
+
+
+ul {
+    margin: 15px 0 15px 20px;
+    padding: 0
+}
+
+ul p {
+    text-indent: 0 !important;
+}
+
+ol li,
+ul li {
+    padding: 0;
+    margin: 0
+}
+
+ol {
+    margin: 1em 0 1em 2em;
+    padding: 0
+}
+
+.width-auto {
+    width: auto !important;
+    max-width: none !important;
 }
 
 
@@ -421,7 +483,7 @@ a:hover {
     border-radius: 0 0 3px 3px;
     line-height: 120%;
     min-height: 16px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .cell-tools span {

@@ -7,6 +7,15 @@
 <html lang="zh">
 <head>
     {{include "/part/meta.html" .}} <title>{{.node.Name}} - {{.Config.server.name}} </title>
+    <style>
+        .tag-info, .tag-primary, .tag-warning, .tag-success, .tag-brown, .tag-purple, .tag-danger {
+            white-space: nowrap !important;
+        }
+
+        .time {
+            display: inline-flex
+        }
+    </style>
 </head>
 <body>
 {{include "/part/top.html" .}}
@@ -21,14 +30,6 @@
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <input id="node_category" name="node_category" value="{{.Session.node_category}}" hidden>
                     <input id="node_level" name="node_level" value="{{.Session.node_level}}" hidden>
-                    <!--                    <label class='input'>等级 <select type='text' name='node_level' value='{{.Session.node_level}}' onchange='this.form.submit()'>-->
-                    <!--                        <option value='' class='tag-info'>请选择</option>-->
-                    <!--                        <option value='1' {{if eq .Query.node_level 1}} selected {{end}} class='tag-info'>普通</option>-->
-                    <!--                        <option value='2' {{if eq .Query.node_level 2}} selected {{end}} class='tag-success'>稀有</option>-->
-                    <!--                        <option value='3' {{if eq .Query.node_level 3}} selected {{end}} class='tag-primary'>传承</option>-->
-                    <!--                        <option value='4' {{if eq .Query.node_level 4}} selected {{end}} class='tag-warning'>唯一</option>-->
-                    <!--                        <option value='5' {{if eq .Query.node_level 5}} selected {{end}} class='tag-danger'>史诗</option>-->
-                    <!--                    </select>-->
                     <label class="input">年
                         <input list="year" type="text" name="node_year" value="{{.Session.node_year}}" onkeydown="if(event.keyCode===13)this.form.submit()">
                         <datalist id="year">
@@ -57,6 +58,7 @@
             <div class="box no-bottom-border">
                 {{.msg}}
                 <div class="cell category">
+                    <a href="#" class="tag-info" data="" onclick="$('#node_category').val($(this).attr('data')).parent().submit()">全部</a>
                     {{range .category}}
                     <a href="#" class="tag-info" data="{{.value}}" onclick="$('#node_category').val($(this).attr('data')).parent().submit()">{{.label}}</a>
                     {{end}}
@@ -78,7 +80,7 @@
                             <tr>
                                 <td>{{nodeLevel $i.level}}</td>
                                 <td>{{tag 1 $i.tag}}</td>
-                                <td>{{nodeTime $i.year $i.month $i.day}}</td>
+                                <td class="time">{{nodeTime $i.year $i.month $i.day}}</td>
                                 <td>{{nodeWeek $i.year $i.month $i.day}}</td>
                                 <td href='{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}'>
                                     <p class="link-4 text-max-width-633" onclick='location.href="{{$.node.Path}}/edit/{{$i.id}}?{{toUrlParams $.Query}}"'>{{$i.summary|html}}</p>

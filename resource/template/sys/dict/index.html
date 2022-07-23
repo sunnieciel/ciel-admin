@@ -41,9 +41,9 @@
                 <table class="table-1">
                     <tr>
                         <th>id</th>
+                        <th>说明</th>
                         <th>Key</th>
                         <th>Value</th>
-                        <th>说明</th>
                         <th>分组</th>
                         <th>类型</th>
                         <th>状态</th>
@@ -53,9 +53,9 @@
                     {{range .list}}
                     <tr>
                         <td data-label="ID">{{.id}}</td>
+                        <td data-label="说明">{{.desc}}</td>
                         <td data-label="Key">{{.k}}</td>
                         <td data-label="Value">{{.v}}</td>
-                        <td data-label="说明">{{.desc}}</td>
                         <td data-label="分组">{{chooseSpan $.Config.options.dictGroup .group}}</td>
                         <td data-label="类型">{{chooseSpan $.Config.options.dictType .type}}</td>
                         <td data-label="状态">{{chooseSpan $.Config.options.status .status}}</td>
