@@ -43,6 +43,7 @@ func Login(ctx context.Context, id, code, uname string, pwd string, ip string) e
 	if _, err = dao.AdminLoginLog.Ctx(ctx).Insert(do.AdminLoginLog{Uid: admin.Id, Ip: ip}); err != nil {
 		return err
 	}
+	dao.Admin.Ctx(ctx).Update(do.Admin{UnreadMsgCount: 1}, "id", admin.Id)
 	return nil
 }
 func Logout(ctx context.Context) error {

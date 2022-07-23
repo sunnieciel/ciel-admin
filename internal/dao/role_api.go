@@ -38,7 +38,7 @@ func (d roleApiDao) RoleNoApi(ctx context.Context, rid interface{}) (gdb.List, e
 	if len(array) != 0 {
 		db = db.WhereNotIn("id", array)
 	}
-	all, err := db.All()
+	all, err := db.Order("group").All()
 	if err != nil {
 		return nil, err
 	}

@@ -29,6 +29,7 @@
                             {{option .api_group .Session.api_group}}
                         </select>
                     </label>
+                    <label class="input">描述<input name="api_desc" value="{{.Session.api_desc}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                     <label class='input'>状态 <select type='text' name='api_status' onchange='this.form.submit()'>
                         <option value=''>请选择</option>
                         {{option .Config.options.status .Query.api_status}}

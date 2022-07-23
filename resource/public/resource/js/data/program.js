@@ -11,6 +11,7 @@ let program = {
                 {class: "tag-info", name: "李文周的博客", url: "https://www.liwenzhou.com/posts/Go/golang-menu/"},
                 {class: "tag-info", name: "websocket", url: "https://github.com/gorilla/websocket"},
                 {class: "tag-info", name: "awesome-go-cn", url: "https://github.com/jobbole/awesome-go-cn"},
+                {class: "tag-info", name: "C语言中文网", url: "http://c.biancheng.net/"}
             ]
         },
         {

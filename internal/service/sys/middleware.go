@@ -19,15 +19,23 @@ func CORS(r *ghttp.Request) {
 	r.Response.CORSDefault()
 	r.Middleware.Next()
 }
+
+// AuthAdmin auth admin
 func AuthAdmin(r *ghttp.Request) {
 	user, err := GetAdmin(r)
 	if err != nil || user == nil {
 		r.Response.RedirectTo("/admin/login")
 		return
 	}
-	b := CheckRoleApi(r.Context(), user.Admin.Rid, r.RequestURI, r.Method)
-	if !b {
-		res.Err(errors.New("没有权限"), r)
+	if !CheckRoleApi(r.Context(), user.Admin.Rid, r.RequestURI) {
+		switch r.Method {
+		case "GET", "DELETE", "POST":
+			r.Session.Set("msg", fmt.Sprintf(consts.MsgWarning, "权限不足"))
+			r.Response.RedirectTo(g.Config().MustGet(r.Context(), "home").String())
+			r.Exit()
+		default:
+			res.Err(fmt.Errorf("权限不足"), r)
+		}
 	}
 	r.Middleware.Next()
 }
@@ -64,7 +72,7 @@ func LockAction(r *ghttp.Request) {
 func AdminAction(r *ghttp.Request) {
 	user, err := GetAdmin(r)
 	if err != nil || user == nil {
-		r.Response.RedirectTo("/admin/login")
+		res.Err(fmt.Errorf("用户信息错误"), r)
 		return
 	}
 	uid := user.Admin.Id

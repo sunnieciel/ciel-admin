@@ -12,6 +12,7 @@ server:
   rootIp: "localhost"
   rootPath: "/home/holw/learn/ciel-admin/"
   clientMaxBodySize: "200MB"
+  wsUrl: "ws:/localhost:1211/admin/sys/ws"
 
 home: "/admin/menu/path"
 
@@ -56,3 +57,4 @@ options:
   dictGroup: "1:系统:tag-info,2:网站:tag-primary,3:备用:tag-warning,4:其他:tag-danger"
   dictType: "1:文本:tag-info,2:图片:tag-warning,3:富文本:tag-primary,4:文件:tag-danger,5:其他:tag-purple"
   fileGroup: "1:头像:tag-info,2:图片:tag-success,3:动图:tag-brown,4:音频:tag-warning,5:文件:tag-primary,6:其他:tag-danger"
+

@@ -22,6 +22,7 @@ type GenConf struct {
 	T1, T2, T3, T4, T5, T6 string
 	OrderBy                string
 	QueryField             string
+	ApiGroup               string // api 分组
 	Fields                 []*GenFiled
 }
 

@@ -28,11 +28,13 @@ var (
 			s := g.Server()
 			registerInterface(s) // 注册对外提供功能的接口
 			s.EnableAdmin("/debut/admin")
+			s.Group("/", func(g *ghttp.RouterGroup) {
+				g.GET("/", controller.Home.IndexPage)
+			})
 			s.Group("/admin", func(g *ghttp.RouterGroup) {
-				g.Middleware(sys.MiddlewareWhiteIp)
-				registerGenFileRouter(g) // 注册生成的代码路由
+				g.Middleware(sys.MiddlewareWhiteIp) // 白名单过滤  在字典表中为空时，这里不会进行检查的
+				registerGenFileRouter(g)            // 注册生成的代码路由
 				g.Group("/", func(g *ghttp.RouterGroup) {
-					g.GET("/", controller.Home.IndexPage)
 					g.GET("/login", controller.Admin.LoginPage)
 					g.GET("/to/:name", controller.Sys.To)
 					g.GET("/quotations", controller.Sys.Quotations)
@@ -143,20 +145,12 @@ var (
 					g.POST("/put", controller.File.Put)
 					g.POST("/upload", controller.File.Upload)
 				})
-				g.Group("/gen", func(g *ghttp.RouterGroup) {
-					g.Middleware(sys.AuthAdmin)
-					g.GET("/path", controller.Gen.Path)
-					g.GET("/tables", controller.Gen.Tables)
-					g.GET("/fields", controller.Gen.Fields)
-					g.Middleware(sys.LockAction)
-					g.POST("/", controller.Gen.GenFile)
-				})
 				g.Group("/node", func(g *ghttp.RouterGroup) {
 					g.Middleware(sys.AuthAdmin)
 					g.GET("/path", controller.Node.Path)
 					g.GET("/path/add", controller.Node.PathAdd)
 					g.GET("/path/edit/:id", controller.Node.PathEdit)
-					g.Middleware(sys.LockAction)
+					g.Middleware(sys.LockAction, sys.AdminAction)
 					g.GET("/path/del/:id", controller.Node.Del)
 					g.POST("/post", controller.Node.Post)
 					g.POST("/put", controller.Node.Put)
@@ -166,7 +160,7 @@ var (
 					g.GET("/path", controller.AdminLoginLog.Path)
 					g.GET("/path/add", controller.AdminLoginLog.PathAdd)
 					g.GET("/path/edit/:id", controller.AdminLoginLog.PathEdit)
-					g.Middleware(sys.LockAction)
+					g.Middleware(sys.LockAction, sys.AdminAction)
 					g.GET("/path/del/:id", controller.AdminLoginLog.Del)
 					g.POST("/post", controller.AdminLoginLog.Post)
 					g.POST("/put", controller.AdminLoginLog.Put)
@@ -176,6 +170,7 @@ var (
 					g.Middleware(sys.AuthAdmin)
 					g.GET("/ws", controller.Ws.GetAdminWs)
 				})
+				//s.EnableHTTPS("./server.crt", "./server.key")
 			})
 			go func() {
 				var ctx = context.Background()
@@ -185,9 +180,8 @@ var (
 					panic(err)
 				}
 				rootIp, err := g.Cfg().Get(ctx, "server.rootIp")
-				g.Log().Infof(nil, "Server start at :http://%s%s/login", rootIp, port)
+				g.Log().Infof(nil, "Server start at :http://%s%s/admin/login", rootIp, port)
 			}()
-			s.EnablePProf()
 			s.Run()
 			return nil
 		},

@@ -14,7 +14,7 @@ func registerGenFileRouter(s *ghttp.RouterGroup) {
 		g.GET("/path/edit/:id", controller.AdminMessage.PathEdit)
 		g.GET("/unreadMsgCount", controller.AdminMessage.UnreadMsgCount)
 		g.GET("/clearUnread", controller.AdminMessage.ClearUnreadMsg)
-		g.Middleware(sys.LockAction)
+		g.Middleware(sys.LockAction, sys.AdminAction)
 		g.GET("/path/del/:id", controller.AdminMessage.Del)
 		g.GET("/clear", controller.AdminMessage.Clear)
 		g.POST("/post", controller.AdminMessage.Post)

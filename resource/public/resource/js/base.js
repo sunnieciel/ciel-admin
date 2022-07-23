@@ -75,7 +75,7 @@ const updatePwd = () => {
     $.put("/admin/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
         if (res.code === 0) {
             alert('success')
-            location.href = '/login'
+            location.href = '/admin/login'
         } else {
             alert(res.msg)
         }

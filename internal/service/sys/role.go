@@ -4,8 +4,10 @@ import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
 	"context"
+	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
+	"regexp"
 	"strings"
 )
 
@@ -29,17 +31,21 @@ func RoleNoApi(ctx context.Context, rid interface{}) (gdb.List, error) {
 func AddRoleApi(ctx context.Context, rid int, aid []int) error {
 	return dao.RoleApi.AddRoleApi(ctx, rid, aid)
 }
-func CheckRoleApi(ctx context.Context, rid int, uri string, method string) bool {
+func CheckRoleApi(ctx context.Context, rid int, uri string) bool {
 	if strings.Contains(uri, "?") {
 		uri = strings.Split(uri, "?")[0]
 	}
 	if uri == "/" {
 		return true
 	}
+	s := fmt.Sprint(regexp.MustCompile(".+/del/").FindString(uri), ":id")
+	if s != ":id" {
+		uri = s
+	}
 	count, _ := g.DB().Ctx(ctx).Model("s_role t1").
 		LeftJoin("s_role_api t2 on t1.id = t2.rid").
 		LeftJoin("s_api t3 on t2.aid = t3.id").
-		Where("t3.url = ? and t3.method = ? and t1.id = ?  ", uri, method, rid).
+		Where("t3.url = ? and  t1.id = ?  ", uri, rid).
 		Count()
 	if count == 1 {
 		return false

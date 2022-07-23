@@ -71,7 +71,7 @@
     async function updatePwdById(id) {
         let pwd = prompt('请输入新密码')
         if (pwd) {
-            let res = await $.put('/admin/updatePwdWithoutOldPwd', {id, pwd})
+            let res = await $.put('/admin/admin/updatePwdWithoutOldPwd', {id, pwd})
             alert(res.msg)
         }
     }

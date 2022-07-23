@@ -3,7 +3,7 @@
 <script src="/resource/js/base.js"></script>
 <script>
     $(function () {
-        let ws = new WebSocket('ws:{{.Config.server.rootIp}}{{.Config.server.address}}/admin/sys/ws')
+        let ws = new WebSocket('{{.Config.server.wsUrl}}')
         try {
             ws.onopen = function () {
                 console.log('连接成功')
@@ -31,6 +31,5 @@
             alert(e.message)
         }
     })
-
 </script>
 

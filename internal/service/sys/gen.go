@@ -5,12 +5,10 @@ import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/utility/utils/xcmd"
 	"context"
-	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/text/gstr"
 )
 
 var GenCommon = &gcmd.Command{
@@ -35,6 +33,7 @@ var GenCommon = &gcmd.Command{
 		{Name: "pageLogo", Short: "logo", Brief: "页面图标,为空将随机生成"},
 		{Name: "pageName", Short: "name", Brief: "页面菜单名称"},
 		{Name: "genType", Short: "g", Brief: "生成类型1 crud 2静态页面"},
+		{Name: "apiGroup", Short: "apiGroup", Brief: "api分组 eg:用户"},
 		{Name: "htmlGroup", Short: "group", Brief: "html页面分组分组文件夹 '项目/resource/template/你输入的分组文件' eg sys "},
 	},
 }
@@ -59,7 +58,7 @@ start:
 	case 1: // CRUD
 		err := logic.CRUDBefore(ctx, &d)
 		logic.CRUDParseFields(ctx, &d)
-		if err = GenFile(ctx, d); err != nil {
+		if err = logic.GenFile(ctx, d); err != nil {
 			panic(err)
 		}
 	case 2: // 生成静态页面
@@ -74,29 +73,6 @@ start:
 	}
 	g.Log().Notice(ctx, "\n\n\n ██████╗ ██╗  ██╗    ███████╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██████╗ \n██╔═══██╗██║ ██╔╝    ██╔════╝██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██╔══██╗\n██║   ██║█████╔╝     █████╗  ██║██╔██╗ ██║██║███████╗███████║█████╗  ██║  ██║\n██║   ██║██╔═██╗     ██╔══╝  ██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║  ██║\n╚██████╔╝██║  ██╗    ██║     ██║██║ ╚████║██║███████║██║  ██║███████╗██████╔╝\n ╚═════╝ ╚═╝  ╚═╝    ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═════╝ \n                                                                             \n")
 	return nil
-}
-func GenFile(ctx context.Context, d bo.GenConf) (err error) {
-	if d.StructName == "" {
-		return fmt.Errorf("结构体名称不能为空")
-	}
-	if err = logic.GenMenu(ctx, d, func(name string) string {
-		return fmt.Sprintf("/admin/%s/path", gstr.CaseCamelLower(name))
-	}, ""); err != nil {
-		return err
-	}
-	if err = logic.GenController(d); err != nil {
-		return err
-	}
-	if err = logic.GenRouter(d); err != nil {
-		return err
-	}
-	if err = logic.GenHtml(d); err != nil {
-		return err
-	}
-	if err = logic.GenApi(ctx, d.HtmlGroup, d.StructName, d.PageName); err != nil {
-		return err
-	}
-	return
 }
 func GenStaticHtmlFile(ctx context.Context, d bo.GenConf) error {
 	return logic.GenStaticHtmlFile(ctx, d)

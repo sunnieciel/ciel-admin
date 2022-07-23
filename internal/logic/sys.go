@@ -78,6 +78,11 @@ func GenCodeSetConf(ctx context.Context, d *bo.GenConf, p *gcmd.Parser) int {
 	if d.HtmlGroup == "" {
 		d.HtmlGroup = xcmd.MustScan("分组文件夹(项目/resource/template/你输入的分组文件 ):").String()
 	}
+
+	d.ApiGroup = p.GetOpt("apiGroup").String()
+	if d.ApiGroup == "" {
+		d.ApiGroup = xcmd.MustScan("输入API分组:").String()
+	}
 	return genType
 }
 func GenCodeGreet(ctx context.Context) {
@@ -151,7 +156,48 @@ func CRUDParseFields(ctx context.Context, d *bo.GenConf) {
 	}
 }
 
-func GenMenu(ctx context.Context, d bo.GenConf, menuPathFuc func(name string) string, filePath string) error {
+func genHtml(c bo.GenConf) error {
+	if err := genIndex(c); err != nil {
+		return err
+	}
+	if c.AddBtn == 0 {
+		if err := genAdd(c); err != nil {
+			return err
+		}
+	}
+	if c.UpdateBtn == 0 {
+		if err := genEdit(c); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func GenFile(ctx context.Context, d bo.GenConf) (err error) {
+	if d.StructName == "" {
+		return fmt.Errorf("结构体名称不能为空")
+	}
+	if err = genMenu(ctx, d, func(name string) string {
+		return fmt.Sprintf("/admin/%s/path", gstr.CaseCamelLower(name))
+	}, ""); err != nil {
+		return err
+	}
+	if err = genController(d); err != nil {
+		return err
+	}
+	if err = genRouter(d); err != nil {
+		return err
+	}
+	if err = genHtml(d); err != nil {
+		return err
+	}
+	if err = genApi(ctx, d.HtmlGroup, d.PageName, d.ApiGroup); err != nil {
+		return err
+	}
+	return
+}
+
+func genMenu(ctx context.Context, d bo.GenConf, menuPathFuc func(name string) string, filePath string) error {
 	menuLevel1 := d.MenuLevel1
 	menuLeve2 := d.MenuLevel2
 	if menuLevel1 == "" {
@@ -239,7 +285,7 @@ here:
 	g.Log().Debugf(ctx, "新增二级菜单,排序为%v", m2Sort)
 	return nil
 }
-func GenController(d bo.GenConf) error {
+func genController(d bo.GenConf) error {
 	pwd := gfile.MainPkgPath()
 	line, err := xfile.ReadLine(fmt.Sprint(pwd, "/go.mod"), 1)
 	if err != nil {
@@ -332,7 +378,7 @@ func GenController(d bo.GenConf) error {
 	}
 	return nil
 }
-func GenRouter(d bo.GenConf) error {
+func genRouter(d bo.GenConf) error {
 	temp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/router.temp"))
 	structName := gstr.CaseCamelLower(d.StructName)
 	caseCamel := gstr.CaseCamel(structName)
@@ -357,18 +403,21 @@ func GenRouter(d bo.GenConf) error {
 	}
 	return nil
 }
-func GenApi(ctx context.Context, category string, name, pageName string) error {
+func genApi(ctx context.Context, name, pageName, group string) error {
+	if err := checkGroupOrSave(ctx, group); err != nil {
+		return err
+	}
 	if pageName == "" {
 		pageName = name
 	}
 	name = gstr.CaseCamelLower(name)
 	array := []*entity.Api{
-		{Url: fmt.Sprintf("/%s/path", name), Method: "1", Group: category, Desc: fmt.Sprintf("%s页面", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/path/add", name), Method: "1", Group: category, Desc: fmt.Sprintf("%s添加页面", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/path/edit/:id", name), Method: "1", Group: category, Desc: fmt.Sprintf("%s修改页面", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/path/del/:id", name), Method: "1", Group: category, Desc: fmt.Sprintf("%s删除操作", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: category, Desc: fmt.Sprintf("添加%s", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: category, Desc: fmt.Sprintf("修改%s", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s页面", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path/add", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s添加页面", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path/edit/:id", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s修改页面", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s/path/del/:id", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s删除操作", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: group, Desc: fmt.Sprintf("添加%s", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: group, Desc: fmt.Sprintf("修改%s", pageName), Status: 1},
 	}
 	for _, i := range array {
 		count, err := dao.Api.Ctx(ctx).Count("url = ? and method = ?", i.Url, i.Method)
@@ -385,22 +434,25 @@ func GenApi(ctx context.Context, category string, name, pageName string) error {
 	return nil
 }
 
-func GenHtml(c bo.GenConf) error {
-	if err := genIndex(c); err != nil {
+func checkGroupOrSave(ctx context.Context, group string) error {
+	d, err := dao.Dict.GetByKey(ctx, "api_group")
+	if err != nil {
 		return err
 	}
-	if c.AddBtn == 0 {
-		if err := genAdd(c); err != nil {
-			return err
+	for _, i := range gstr.Split(d.V, "\n") {
+		i = gstr.TrimAll(i)
+		if i == group {
+			return nil
 		}
 	}
-	if c.UpdateBtn == 0 {
-		if err := genEdit(c); err != nil {
-			return err
-		}
+	d.V += fmt.Sprint("\n", group)
+	if _, err = dao.Dict.Ctx(ctx).Save(d); err != nil {
+		return err
 	}
+	g.Log().Warningf(ctx, "%s 分组在词典表中不存在，已添加.", group)
 	return nil
 }
+
 func genEdit(c bo.GenConf) error {
 	structNameLower := gstr.CaseCamelLower(c.StructName)
 	editTemp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.edit.html"))
@@ -656,11 +708,10 @@ func genIndex(c bo.GenConf) error {
 	}
 	return nil
 }
-
 func GenStaticHtmlFile(ctx context.Context, c bo.GenConf) error {
 	htmlFilePath := fmt.Sprint("/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), ".html")
 	// gen menu
-	if err := GenMenu(ctx, c, func(name string) string {
+	if err := genMenu(ctx, c, func(name string) string {
 		return fmt.Sprintf("/admin/to/%s", c.StructName)
 	}, htmlFilePath); err != nil {
 		return err
