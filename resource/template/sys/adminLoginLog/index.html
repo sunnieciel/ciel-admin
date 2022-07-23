@@ -20,7 +20,7 @@
                     <a class="tag-info mr-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus" aria-hidden="true"></i></a>
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class="input">用户id <input type="text" name="adminLoginLog_uid" value="{{.Session.adminLoginLog_uid}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">用户名 <input type="text" name="adminLoginLog_uname" value="{{.Session.adminLoginLog_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">area <input type="text" name="adminLoginLog_area" value="{{.Session.adminLoginLog_area}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <button class="tag-warning" type="button" onclick="if(confirm('确认清空')){location.href='/adminLoginLog/clear'}">清空</button>
+                    <button class="tag-warning" type="button" onclick="if(confirm('确认清空')){location.href='/admin/adminLoginLog/clear'}">清空</button>
                 </form>
             </div>
             <div class="box no-bottom-border">

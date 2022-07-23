@@ -17,13 +17,13 @@
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
                     <img src="/resource/image/settings.png" alt="Settings" width="62" height="62">
-                    <a class="ml-12" href="/node/path?{{toUrlParams .Query}}">
+                    <a class="ml-12" href="/admin/node/path?{{toUrlParams .Query}}">
                         <i class="fa fa-hand-o-left"> 返回</i>
                     </a>
                 </div>
                 {{.msg}}
                 <div class="cell"><a class="link-2 link-2-active" href="#">记事本</a>
-                    <a class="link-2" href="/node/path/add?{{toUrlParams .Query}}">添加新笔记</a>
+                    <a class="link-2" href="/admin/node/path/add?{{toUrlParams .Query}}">添加新笔记</a>
                 </div>
                 <div class="cell">
                     {{if eq .Session.node_edit.level 1}} <span class='tag-info'>普通</span>{{end}}
@@ -50,9 +50,9 @@
                 {{end}}
                 <div class="cell btn">
                     <button class="btn-info mr-12" onclick="showEdit()">编辑</button>
-                    <button class="btn-info" onclick="if(confirm('确认删除?')){location.href='/node/path/del/{{.Session.node_edit.id}}?{{toUrlParams .Query}}'}">删除</button>
+                    <button class="btn-info" onclick="if(confirm('确认删除?')){location.href='/admin/node/path/del/{{.Session.node_edit.id}}?{{toUrlParams .Query}}'}">删除</button>
                 </div>
-                <form id="form" style="display: none" class="cell" method="post" action="/node/put?{{toUrlParams .Query}}">
+                <form id="form" style="display: none" class="cell" method="post" action="/admin/node/put?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
                         <input name='uid' value='{{.Session.node_edit.uid}}' hidden>
                         <tr>

@@ -661,7 +661,7 @@ func GenStaticHtmlFile(ctx context.Context, c bo.GenConf) error {
 	htmlFilePath := fmt.Sprint("/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), ".html")
 	// gen menu
 	if err := GenMenu(ctx, c, func(name string) string {
-		return fmt.Sprintf("/to/%s", c.StructName)
+		return fmt.Sprintf("/admin/to/%s", c.StructName)
 	}, htmlFilePath); err != nil {
 		return err
 	}

@@ -10,19 +10,20 @@ import (
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 	"strings"
 )
 
-func Init() {
-	get, err := g.Cfg().Get(gctx.New(), "server.imgPrefix")
+func Init(ctx context.Context) {
+	get, err := g.Cfg().Get(ctx, "server.imgPrefix")
 	if err != nil {
 		panic(err)
 	}
 	consts.ImgPrefix = get.String()
-
+	if err = DictSetWhiteIp(ctx); err != nil {
+		panic(err)
+	}
 }
 func List(ctx context.Context, c bo.Search) (count int, data gdb.List, err error) {
 	db := g.DB().Ctx(ctx).Model(c.T1 + " t1")

@@ -12,7 +12,7 @@
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
                     <img src="/resource/image/settings.png" alt="Settings" width="64" height="64">
-                    <a class="ml-12" href="/menu/path?{{toUrlParams .Query}}"> <i class="fa fa-hand-o-left" aria-hidden="true"> 返回</i> </a>
+                    <a class="ml-12" href="/admin/menu/path?{{toUrlParams .Query}}"> <i class="fa fa-hand-o-left" aria-hidden="true"> 返回</i> </a>
                 </div>
                 {{.msg}}
                 <div class="cell">
@@ -20,7 +20,7 @@
                     <a href="#" class="link-2">添加角色</a>
                     <a href="#" class="link-2">添加API</a>
                 </div>
-                <form class="cell" method="post" action="/menu/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/menu/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
                         <tr>
                             <td width="160" align="right">名称</td>

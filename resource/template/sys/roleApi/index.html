@@ -16,7 +16,7 @@
             <div class="box no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a href="/role/path" class="tag-info mr-3">back</a>
+                    <a href="/admin/role/path" class="tag-info mr-3">back</a>
                     <a class="tag-info" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus" aria-hidden="true"></i></a>
                     <a href="#" class="tag-danger ml-3" onclick="clearRoleApi()">清空</a>
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
@@ -66,7 +66,7 @@
                     return
                 }
             }
-            let res = await $.get("/roleApi/clear/" + rid)
+            let res = await $.get("/admin/roleApi/clear/" + rid)
             if (res.code === 0) {
                 location.reload()
             } else {

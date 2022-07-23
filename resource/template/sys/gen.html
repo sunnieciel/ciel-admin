@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="Content-Type" content="text/html;charset=utf-8">
     <title>代码生成</title>
-    <link rel="stylesheet" href="/resource/css/element-plus.css"/>
-    <link href="/resource/css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resource/css/font-awesome.min.css">
-    <link rel="Shortcut Icon" href="/cat.jpg" type="image/x-icon"/>
+    <link rel="stylesheet" href="/admin/resource/css/element-plus.css"/>
+    <link href="/admin/resource/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/resource/css/font-awesome.min.css">
+    <link rel="Shortcut Icon" href="/admin/cat.jpg" type="image/x-icon"/>
     <style>
         [v-cloak] {
             display: none;
@@ -91,7 +91,7 @@
         }
     </style>
     {{if eq .Cookie.dark 1}}
-    <link href="/resource/css/dark.css" rel="stylesheet">
+    <link href="/admin/resource/css/dark.css" rel="stylesheet">
     <style>
         .table-item:hover, .table-item-active {
             background-color: #253761;
@@ -165,7 +165,7 @@
         }
     </style>
     {{else}}
-    <link href="/resource/css/white.css" rel="stylesheet">
+    <link href="/admin/resource/css/white.css" rel="stylesheet">
     <style>
         .table-item:hover, .table-item-active {
             background-color: #f2f2f4;
@@ -517,7 +517,7 @@
                 return this.genConf.GenType == 0
             },
             async getMenus() {
-                let res = await $.get("/menu/level1")
+                let res = await $.get("/admin/menu/level1")
                 this.menus = res.data
             },
             async getTables() {

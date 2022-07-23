@@ -79,7 +79,7 @@ func (c cAdminMessage) Post(r *ghttp.Request) {
 	if err = sys.AddAdminUnReadMsg(r.Context(), d.ToUid); err != nil {
 		res.Err(err, r)
 	}
-	r.Response.RedirectTo(fmt.Sprint("/adminMessage/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/adminMessage/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cAdminMessage) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -88,7 +88,7 @@ func (c cAdminMessage) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/adminMessage/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/adminMessage/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cAdminMessage) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -110,7 +110,7 @@ func (c cAdminMessage) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/adminMessage/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/adminMessage/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 
 func (c cAdminMessage) UnreadMsgCount(r *ghttp.Request) {

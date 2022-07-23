@@ -54,10 +54,10 @@ const setDark = (v) => {
 // logout
 const logout = () => {
     $.ajax({
-        url: '/admin/logout', type: 'get', dataType: 'json', success: function (data) {
+        url: '/admin/admin/logout', type: 'get', dataType: 'json', success: function (data) {
             console.log(data)
             if (data.code === 0) {
-                window.location.href = '/login';
+                window.location.href = '/admin/login';
             }
         }
     });
@@ -72,7 +72,7 @@ const updatePwd = () => {
     if (!newPwd) {
         return
     }
-    $.put("/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
+    $.put("/admin/admin/updatePwd", {oldPwd: old, newPwd: newPwd}, (res) => {
         if (res.code === 0) {
             alert('success')
             location.href = '/login'
@@ -91,14 +91,14 @@ const handleMobileMenu = (e) => {
 
 // check unread msg count
 const checkUnreadMsgCount = async () => {
-    let {data} = await $.get('/adminMessage/unreadMsgCount')
+    let {data} = await $.get('/admin/adminMessage/unreadMsgCount')
     if (data !== 0) {
         msgNum.attr("data", data).change()
     }
 }
 // clear unread msg count
 const handleUnreadMsg = async () => {
-    let {code, msg} = await $.get('/adminMessage/clearUnread')
+    let {code, msg} = await $.get('/admin/adminMessage/clearUnread')
     if (code != 0) {
         alert(msg)
     }

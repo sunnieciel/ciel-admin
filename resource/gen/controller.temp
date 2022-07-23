@@ -61,7 +61,7 @@ func (c cMenu) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/menu/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/menu/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cMenu) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -70,7 +70,7 @@ func (c cMenu) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/menu/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/menu/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cMenu) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -92,5 +92,5 @@ func (c cMenu) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/menu/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/menu/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }

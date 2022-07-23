@@ -36,8 +36,8 @@
                         <td data-label="角色">{{.name}}</td>
                         <td data-label="创建时间">{{.created_at}}</td>
                         <td data-label="操作" align="center">
-                            <a href="/roleMenu/path?rid={{.id}}" class="tag-warning">MENU</a>
-                            <a href="/roleApi/path?rid={{.id}}" class="tag-primary">API</a>
+                            <a href="/admin/roleMenu/path?rid={{.id}}" class="tag-warning">MENU</a>
+                            <a href="/admin/roleApi/path?rid={{.id}}" class="tag-primary">API</a>
                             <a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>
                             <a href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
                         </td>

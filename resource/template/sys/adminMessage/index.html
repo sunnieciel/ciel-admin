@@ -22,7 +22,6 @@
             <div class="box no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a class="tag-info mr-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus" aria-hidden="true"></i></a>
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class="input">发送者 <input type="text" name="adminMessage_from_uname" value="{{.Session.adminMessage_from_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">接收者 <input type="text" name="adminMessage_to_uname" value="{{.Session.adminMessage_to_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                     <label class='input'>分组 <select type='text' name='adminMessage_group' value='{{.Session.adminMessage_group}}' onchange='this.form.submit()'>
@@ -75,7 +74,7 @@
                 {{include "/part/pagination.html" .}}
             </div>
             <div class="box no-bottom-border" style="width: 333px;">
-                <form class="cell" method="post" action="/adminMessage/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/adminMessage/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
                         <tr>
                             <input hidden name='from_uid' value='{{.Session.adminMessage_edit.from_uid}}'>
@@ -121,7 +120,7 @@
             alert('请选择分组')
             return
         }
-        let res = await $.get("/adminMessage/clear?group=" + selected)
+        let res = await $.get("/admin/adminMessage/clear?group=" + selected)
         if (res.code !== 0) {
             alert(res.msg)
         } else {

@@ -2,13 +2,13 @@
     <div class="w flex-center">
         <a href="{{.Config.home}}" class="logo mr-auto ">{{.Config.server.name}}</a>
         <div class="top-pc fs-15 top-right">
-            <a class="btn-warning msg-num" href="/adminMessage/path?{{toUrlParams $.Query}}" data="0" style="display: none">您有1条新的消息</a>
+            <a class="btn-warning msg-num" href="/admin/adminMessage/path?{{toUrlParams $.Query}}" data="0" style="display: none">您有1条新的消息</a>
             {{if .Session.adminInfo}}
             <a class="link-1 ">{{.Session.adminInfo.Admin.uname}}</a>
             <a class="link-1" onclick="updatePwd()">修改密码</a>
             <a class="link-1" onclick="logout()">登出</a>
             {{else}}
-            <a href="/login" class="link-1">登录</a>
+            <a href="/admin/login" class="link-1">登录</a>
             {{end}}
             {{if eq .Cookie.dark 1}}
             <a href="#" onclick="setDark(0)"><img src="/resource/image/toggle-dark.png" height="10" alt="dark"></a>
@@ -37,7 +37,7 @@
                 </div>
                 {{else}}
                 <div class="cell">
-                    <a href="/login" class="login link-1">登录</a>
+                    <a href="/admin/login" class="login link-1">登录</a>
                 </div>
                 {{end}}
                 <div class="cell no-bottom-border">

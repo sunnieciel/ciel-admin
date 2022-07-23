@@ -6,8 +6,7 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
-func registerGenFileRouter(s *ghttp.Server) {
-
+func registerGenFileRouter(s *ghttp.RouterGroup) {
 	s.Group("/adminMessage", func(g *ghttp.RouterGroup) {
 		g.Middleware(sys.AuthAdmin)
 		g.GET("/path", controller.AdminMessage.Path)

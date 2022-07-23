@@ -2,6 +2,7 @@ package consts
 
 var (
 	ImgPrefix string
+	WhiteIps  string
 )
 
 const (

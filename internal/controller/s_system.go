@@ -79,7 +79,7 @@ func (c cMenu) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/menu/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/menu/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cMenu) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -88,7 +88,7 @@ func (c cMenu) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/menu/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/menu/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cMenu) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -111,7 +111,7 @@ func (c cMenu) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/menu/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/menu/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 
 // ---Api-----------------------------------------------------------------
@@ -170,7 +170,7 @@ func (c cApi) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/api/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/api/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cApi) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -179,7 +179,7 @@ func (c cApi) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/api/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/api/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cApi) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -205,7 +205,7 @@ func (c cApi) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/api/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/api/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 
 // ---Role-----------------------------------------------------------------
@@ -277,7 +277,7 @@ func (c cRole) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/role/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/role/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cRole) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -286,7 +286,7 @@ func (c cRole) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/role/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/role/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cRole) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -308,7 +308,7 @@ func (c cRole) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/role/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/role/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cRole) RoleNoMenus(r *ghttp.Request) {
 	rid := r.GetQuery("rid")
@@ -332,7 +332,7 @@ func (c cRoleMenu) Path(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	node.Name = "角色菜单"
-	node.Path = "/roleMenu/path"
+	node.Path = "/admin/roleMenu/path"
 	c.Page, c.Size = res.GetPage(r)
 	total, data, err := sys.List(r.Context(), c.Search)
 	if err != nil {
@@ -366,7 +366,7 @@ func (c cRoleMenu) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/roleMenu/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/roleMenu/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cRoleMenu) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -375,14 +375,14 @@ func (c cRoleMenu) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/roleMenu/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/roleMenu/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cRoleApi) Path(r *ghttp.Request) {
 	node, err := sys.NodeInfo(r.Context(), r.URL.Path)
 	if err != nil {
 		res.Err(err, r)
 	}
-	node.Path = "/roleApi/path"
+	node.Path = "/admin/roleApi/path"
 	node.Name = "角色禁用API"
 	c.Page, c.Size = res.GetPage(r)
 	total, data, err := sys.List(r.Context(), c.Search)
@@ -417,7 +417,7 @@ func (c cRoleApi) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/roleApi/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/roleApi/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cRoleApi) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -426,7 +426,7 @@ func (c cRoleApi) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/roleApi/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/roleApi/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cRoleApi) Clear(r *ghttp.Request) {
 	err := sys.ClearRoleApi(r.Context(), r.Get("rid"))
@@ -480,7 +480,7 @@ func (c cDict) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/dict/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/dict/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cDict) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -489,7 +489,7 @@ func (c cDict) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/dict/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/dict/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cDict) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -510,8 +510,13 @@ func (c cDict) Put(r *ghttp.Request) {
 	if err := sys.Update(r.Context(), c.T1, d.Id, m); err != nil {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
+	if d.K == "white_ips" {
+		if err := sys.DictSetWhiteIp(r.Context(), d.V); err != nil {
+			res.Err(err, r)
+		}
+	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/dict/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/dict/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 
 type cFile struct{ bo.Search }
@@ -556,7 +561,7 @@ func (c cFile) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/file/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/file/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cFile) Del(r *ghttp.Request) {
 	f, err := sys.GetFileById(r.Context(), xparam.ID(r))
@@ -576,7 +581,7 @@ func (c cFile) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/file/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/file/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 
 func (c cFile) PathEdit(r *ghttp.Request) {
@@ -599,7 +604,7 @@ func (c cFile) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/file/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/file/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cFile) Upload(r *ghttp.Request) {
 	msg := fmt.Sprintf(consts.MsgPrimary, "上传成功")
@@ -607,7 +612,7 @@ func (c cFile) Upload(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgPrimary, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo("/file/path/add?" + xurl.ToUrlParams(r.GetQueryMap()))
+	r.Response.RedirectTo("/admin/file/path/add?" + xurl.ToUrlParams(r.GetQueryMap()))
 }
 
 type cOperationLog struct{ bo.Search }
@@ -652,7 +657,7 @@ func (c cOperationLog) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/operationLog/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/operationLog/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cOperationLog) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -661,7 +666,7 @@ func (c cOperationLog) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/operationLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/operationLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cOperationLog) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -683,7 +688,7 @@ func (c cOperationLog) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/operationLog/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/operationLog/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cOperationLog) Clear(r *ghttp.Request) {
 	msg := fmt.Sprintf(consts.MsgPrimary, "操作成功")
@@ -691,7 +696,7 @@ func (c cOperationLog) Clear(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo("/operationLog/path")
+	r.Response.RedirectTo("/admin/operationLog/path")
 }
 
 // ---System-----------------------------------------------------------------
@@ -804,7 +809,7 @@ func (c cAdmin) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/admin/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/admin/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cAdmin) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -813,7 +818,7 @@ func (c cAdmin) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/admin/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/admin/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cAdmin) PathEdit(r *ghttp.Request) {
 	roles, err := sys.Roles(r.Context())
@@ -841,7 +846,7 @@ func (c cAdmin) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/admin/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/admin/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cAdmin) LoginPage(r *ghttp.Request) {
 	res.Page(r, "login.html")
@@ -950,7 +955,7 @@ func (c cAdminLoginLog) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/adminLoginLog/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/adminLoginLog/path/add?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cAdminLoginLog) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -959,7 +964,7 @@ func (c cAdminLoginLog) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/adminLoginLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/adminLoginLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cAdminLoginLog) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -981,7 +986,7 @@ func (c cAdminLoginLog) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/adminLoginLog/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/adminLoginLog/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 
 func (c cAdminLoginLog) Clear(r *ghttp.Request) {
@@ -990,7 +995,7 @@ func (c cAdminLoginLog) Clear(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/adminLoginLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/adminLoginLog/path?", xurl.ToUrlParams(r.GetQueryMap())))
 	res.Ok(r)
 }
 
@@ -1072,7 +1077,7 @@ func (c cNode) Post(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/node/path/edit/", id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/node/path/edit/", id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cNode) Del(r *ghttp.Request) {
 	id := r.Get("id")
@@ -1081,7 +1086,7 @@ func (c cNode) Del(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/node/path?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/node/path?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func (c cNode) PathEdit(r *ghttp.Request) {
 	data, err := sys.GetById(r.Context(), c.Search.T1, xparam.ID(r))
@@ -1106,7 +1111,7 @@ func (c cNode) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	_ = r.Session.Set("msg", msg)
-	r.Response.RedirectTo(fmt.Sprint("/node/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
+	r.Response.RedirectTo(fmt.Sprint("/admin/node/path/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())))
 }
 func getCategory(r *ghttp.Request) []g.Map {
 	key, err := sys.DictGetByKey(r.Context(), "node-category")

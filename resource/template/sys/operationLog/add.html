@@ -17,13 +17,13 @@
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
                     <img src="/resource/image/settings.png" alt="Settings" width="62" height="62">
-                    <a class="ml-12" href="/operationLog/path?{{toUrlParams .Query}}"> <i class="fa fa-hand-o-left" aria-hidden="true"> 返回</i> </a>
+                    <a class="ml-12" href="/admin/operationLog/path?{{toUrlParams .Query}}"> <i class="fa fa-hand-o-left" aria-hidden="true"> 返回</i> </a>
                 </div>
                 {{.msg}}
                 <div class="cell">
                     <a class="link-2-active link-2 " href="#">添加操作日志</a>
                 </div>
-                <form class="cell" method="post" action="/operationLog/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/operationLog/post?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
                                                 <tr>
                             <td width='160' align='right'>管理员</td>

@@ -19,7 +19,7 @@
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
                     <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
                     <label class="input">管理员 <input type="text" name="operationLog_uname" value="{{.Session.operationLog_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">content <input type="text" name="operationLog_content" value="{{.Session.operationLog_content}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <a href="#" class="tag-warning" onclick="if(confirm('确认清空？')){location.href='/operationLog/clear'}">清空</a>
+                    <a href="#" class="tag-warning" onclick="if(confirm('确认清空？')){location.href='/admin/operationLog/clear'}">清空</a>
                 </form>
             </div>
             <div class="box no-bottom-border">

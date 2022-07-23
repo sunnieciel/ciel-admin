@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/text/gstr"
 	"net/http"
 	"time"
 )
@@ -21,7 +22,7 @@ func CORS(r *ghttp.Request) {
 func AuthAdmin(r *ghttp.Request) {
 	user, err := GetAdmin(r)
 	if err != nil || user == nil {
-		r.Response.RedirectTo("/login")
+		r.Response.RedirectTo("/admin/login")
 		return
 	}
 	b := CheckRoleApi(r.Context(), user.Admin.Rid, r.RequestURI, r.Method)
@@ -63,7 +64,7 @@ func LockAction(r *ghttp.Request) {
 func AdminAction(r *ghttp.Request) {
 	user, err := GetAdmin(r)
 	if err != nil || user == nil {
-		r.Response.RedirectTo("/login")
+		r.Response.RedirectTo("/admin/login")
 		return
 	}
 	uid := user.Admin.Id
@@ -105,11 +106,15 @@ func AdminAction(r *ghttp.Request) {
 		g.Log().Error(ctx, err)
 	}
 }
-func MiddlewareXIcon(r *ghttp.Request) {
-	header := r.GetHeader("Sec-Fetch-Dest")
-	if header == "image" {
-		//r.Response.Write("22222222")
-		//r.Exit()
+
+// MiddlewareWhiteIp white ip
+func MiddlewareWhiteIp(r *ghttp.Request) {
+	ips := consts.WhiteIps
+	if ips != "" {
+		if !gstr.Contains(consts.WhiteIps, r.GetClientIp()) {
+			r.Response.WriteStatus(http.StatusForbidden, fmt.Sprintf("%s ip error", r.GetClientIp()))
+			r.Exit()
+		}
 	}
 	r.Middleware.Next()
 }

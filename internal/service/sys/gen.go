@@ -80,7 +80,7 @@ func GenFile(ctx context.Context, d bo.GenConf) (err error) {
 		return fmt.Errorf("结构体名称不能为空")
 	}
 	if err = logic.GenMenu(ctx, d, func(name string) string {
-		return fmt.Sprintf("/%s/path", gstr.CaseCamelLower(name))
+		return fmt.Sprintf("/admin/%s/path", gstr.CaseCamelLower(name))
 	}, ""); err != nil {
 		return err
 	}

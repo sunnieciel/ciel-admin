@@ -68,7 +68,7 @@
 <script src="/resource/js/login.js"></script>
 <script>
     const handleLogin = () => {
-        $.post("/admin/login", $("#login-form").serialize() + `&id=${id}`, async function (data) {
+        $.post("/admin/admin/login", $("#login-form").serialize() + `&id=${id}`, async function (data) {
             if (data.code === 0) {
                 alert('Success')
                 location.href = '{{.Config.home}}'

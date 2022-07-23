@@ -13,7 +13,7 @@ server:
   rootPath: "/home/holw/learn/ciel-admin/"
   clientMaxBodySize: "200MB"
 
-home: "/menu/path"
+home: "/admin/menu/path"
 
 logger:
   path: "logs/default"
