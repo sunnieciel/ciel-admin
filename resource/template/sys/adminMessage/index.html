@@ -26,10 +26,10 @@
                     <label class="input">发送者 <input type="text" name="adminMessage_from_uname" value="{{.Session.adminMessage_from_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">接收者 <input type="text" name="adminMessage_to_uname" value="{{.Session.adminMessage_to_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                     <label class='input'>分组 <select type='text' name='adminMessage_group' value='{{.Session.adminMessage_group}}' onchange='this.form.submit()'>
                         <option value='' class='tag-info'>请选择</option>
-                        {{option "1:系统:tag-info,2:管理员:tag-warning,3:其他:tag-danger" .Query.adminMessage_group}}</select></label>
+                        {{option .Config.options.msgGroup .Query.adminMessage_group}}</select></label>
                     <label class='input'>类型 <select type='text' name='adminMessage_type' value='{{.Session.adminMessage_type}}' onchange='this.form.submit()'>
                         <option value='' class='tag-info'>请选择</option>
-                        {{option "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger" .Query.adminMessage_type}}</select></label><label class="input">内容 <input type="text" name="adminMessage_content" value="{{.Session.adminMessage_content}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">链接 <input type="text" name="adminMessage_link" value="{{.Session.adminMessage_link}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
+                        {{option .Config.options.msgType .Query.adminMessage_type}}</select></label><label class="input">内容 <input type="text" name="adminMessage_content" value="{{.Session.adminMessage_content}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">链接 <input type="text" name="adminMessage_link" value="{{.Session.adminMessage_link}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
                     <label class='input ml-12'>
                         <select id="groupOptions" name='adminMessage_group' value='{{.Session.adminMessage_group}}'>
                             <option value='' class='tag-info'>请选择分组</option>
@@ -58,8 +58,8 @@
                         <td>{{.id}}</td>
                         <td data-label='发送者'>{{.from_uname}}</td>
                         <td data-label='接收者'>{{.to_uname}}</td>
-                        <td data-label='分组'>{{chooseSpan "1:系统:tag-info,2:管理员:tag-warning,3:其他:tag-danger" .group}}</td>
-                        <td data-label='类型'>{{chooseSpan "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger" .type}}</td>
+                        <td data-label='分组'>{{chooseSpan $.Config.options.msgGroup .group}}</td>
+                        <td data-label='类型'>{{chooseSpan $.Config.options.msgType .type}}</td>
                         <td data-label='内容'>{{.content}}</td>
                         <td data-label='链接'>{{.link}}</td>
                         <td>{{chooseSpan $.Config.options.status .status}}</td>
@@ -85,11 +85,11 @@
                         </tr>
                         <tr>
                             <td align='right'>分组</td>
-                            <td><select name='group'>{{option "1:系统:tag-info,2:管理员:tag-warning,3:其他:tag-danger" .Session.adminMessage_edit.group}}</select></td>
+                            <td><select name='group'>{{option .Config.options.msgGroup .Session.adminMessage_edit.group}}</select></td>
                         </tr>
                         <tr>
                             <td align='right'>类型</td>
-                            <td><select name='type'>{{option "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger" .Session.adminMessage_edit.type}}</select></td>
+                            <td><select name='type'>{{option .Config.options.msgType .Session.adminMessage_edit.type}}</select></td>
                         </tr>
                         <tr>
                             <td width='160' align='right'>内容</td>

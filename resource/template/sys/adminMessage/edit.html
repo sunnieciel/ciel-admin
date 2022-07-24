@@ -39,11 +39,11 @@
                         </tr>
                         <tr>
                             <td align='right'>分组</td>
-                            <td><select name='group'>{{option "1:系统:tag-info,2:管理员:tag-warning,3:其他:tag-danger" .Session.adminMessage_edit.group}}</select></td>
+                            <td><select name='group'>{{option .Config.options.msgGroup .Session.adminMessage_edit.group}}</select></td>
                         </tr>
                         <tr>
                             <td align='right'>类型</td>
-                            <td><select name='type'>{{option "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger" .Session.adminMessage_edit.type}}</select></td>
+                            <td><select name='type'>{{option .Config.options.msgType .Session.adminMessage_edit.type}}</select></td>
                         </tr>
                         <tr>
                             <td width='160' align='right'>内容</td>

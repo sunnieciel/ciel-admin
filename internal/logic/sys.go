@@ -141,7 +141,7 @@ func CRUDParseFields(ctx context.Context, d *bo.GenConf) {
 	for _, i := range fields {
 		data := &bo.GenFiled{TableField: i}
 		if i.Comment != "" {
-			findString := makeToJsonStr(regexp.MustCompile("{.*}").FindString(i.Comment))
+			findString := makeToJsonStr2(regexp.MustCompile("{.*}").FindString(i.Comment))
 			json, err := gjson.DecodeToJson(findString)
 			if err != nil {
 				panic(fmt.Errorf("解析字段备注时格式不正确!请将格式修改为标准的json字符串。%v %v", findString, err))
@@ -777,4 +777,8 @@ func makeToJsonStr(str string) string {
 		strs = append(strs, fmt.Sprintf(`"options":%s`, t[1]))
 	}
 	return fmt.Sprintf(`{%s}`, strings.Join(strs, ","))
+}
+func makeToJsonStr2(str string) string {
+	re := regexp.MustCompile(`\s*"?(options)"?\s*:\s*"?((?:[^,]*?:[^,]*?:[^,]*?,?)*)"?\s*([,}])|\s*"?(\w+)"?\s*:\s*"?(.*?)"?\s*([,}])`)
+	return re.ReplaceAllString(str, `"$1$4":"$2$5"$3$6`)
 }
