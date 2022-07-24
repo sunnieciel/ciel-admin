@@ -19,6 +19,7 @@ import (
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gregex"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 	"math"
@@ -89,6 +90,29 @@ func GenCodeGreet(ctx context.Context) {
 	g.Log().Notice(ctx, "\n\n███████╗██████╗ ███████╗███████╗    ██╗  ██╗███████╗██╗   ██╗     █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗\n██╔════╝██╔══██╗██╔════╝██╔════╝    ██║ ██╔╝██╔════╝╚██╗ ██╔╝    ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║\n█████╗  ██████╔╝█████╗  █████╗      █████╔╝ █████╗   ╚████╔╝     ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║\n██╔══╝  ██╔══██╗██╔══╝  ██╔══╝      ██╔═██╗ ██╔══╝    ╚██╔╝      ██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║\n██║     ██║  ██║███████╗███████╗    ██║  ██╗███████╗   ██║       ██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║\n"+
 		"╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝\n Welcome to use the build tools of freekey , let's go!                                                                                                        \n")
 }
+func GenStaticHtmlFile(ctx context.Context, c bo.GenConf) error {
+	htmlFilePath := fmt.Sprint("/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), ".html")
+	// gen menu
+	if err := genMenu(ctx, c, func(name string) string {
+		return fmt.Sprintf("/admin/to/%s", c.StructName)
+	}, htmlFilePath); err != nil {
+		return err
+	}
+	temp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.static.html"))
+	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template", htmlFilePath))
+	if err != nil {
+		return err
+	}
+	date := gtime.Now()
+	temp = gstr.Replace(temp, "[date]", date.String())
+	if _, err = f.WriteString(temp); err != nil {
+		return err
+	}
+	if err = f.Close(); err != nil {
+		return err
+	}
+	return nil
+}
 func CRUDBefore(ctx context.Context, d *bo.GenConf) error {
 	tables, err := g.DB().Tables(ctx)
 	if err != nil {
@@ -117,7 +141,7 @@ func CRUDParseFields(ctx context.Context, d *bo.GenConf) {
 	for _, i := range fields {
 		data := &bo.GenFiled{TableField: i}
 		if i.Comment != "" {
-			findString := regexp.MustCompile("{.*}").FindString(i.Comment)
+			findString := makeToJsonStr(regexp.MustCompile("{.*}").FindString(i.Comment))
 			json, err := gjson.DecodeToJson(findString)
 			if err != nil {
 				panic(fmt.Errorf("解析字段备注时格式不正确!请将格式修改为标准的json字符串。%v %v", findString, err))
@@ -155,24 +179,6 @@ func CRUDParseFields(ctx context.Context, d *bo.GenConf) {
 		}
 	}
 }
-
-func genHtml(c bo.GenConf) error {
-	if err := genIndex(c); err != nil {
-		return err
-	}
-	if c.AddBtn == 0 {
-		if err := genAdd(c); err != nil {
-			return err
-		}
-	}
-	if c.UpdateBtn == 0 {
-		if err := genEdit(c); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 func GenFile(ctx context.Context, d bo.GenConf) (err error) {
 	if d.StructName == "" {
 		return fmt.Errorf("结构体名称不能为空")
@@ -196,7 +202,22 @@ func GenFile(ctx context.Context, d bo.GenConf) (err error) {
 	}
 	return
 }
-
+func genHtml(c bo.GenConf) error {
+	if err := genIndex(c); err != nil {
+		return err
+	}
+	if c.AddBtn == 0 {
+		if err := genAdd(c); err != nil {
+			return err
+		}
+	}
+	if c.UpdateBtn == 0 {
+		if err := genEdit(c); err != nil {
+			return err
+		}
+	}
+	return nil
+}
 func genMenu(ctx context.Context, d bo.GenConf, menuPathFuc func(name string) string, filePath string) error {
 	menuLevel1 := d.MenuLevel1
 	menuLeve2 := d.MenuLevel2
@@ -708,26 +729,52 @@ func genIndex(c bo.GenConf) error {
 	}
 	return nil
 }
-func GenStaticHtmlFile(ctx context.Context, c bo.GenConf) error {
-	htmlFilePath := fmt.Sprint("/", c.HtmlGroup, "/", gstr.CaseCamelLower(c.StructName), ".html")
-	// gen menu
-	if err := genMenu(ctx, c, func(name string) string {
-		return fmt.Sprintf("/admin/to/%s", c.StructName)
-	}, htmlFilePath); err != nil {
-		return err
+
+func makeToJsonStr(str string) string {
+	// 替换所有空格
+	replace, _ := gregex.Replace(`\s`, []byte(""), []byte(str))
+	// 处理key未加""的内容字段
+	replace, _ = gregex.Replace(`label|"label"`, []byte(`"label"`), replace)
+	replace, _ = gregex.Replace(`fieldType|"fieldType"`, []byte(`"fieldType"`), replace)
+	replace, _ = gregex.Replace(`searchType|"searchType"`, []byte(`"searchType"`), replace)
+	replace, _ = gregex.Replace(`editHide|"editHide"`, []byte(`"editHide"`), replace)
+	replace, _ = gregex.Replace(`addHide|"addHide"`, []byte(`"addHide"`), replace)
+	replace, _ = gregex.Replace(`hide|"hide"`, []byte(`"hide"`), replace)
+	replace, _ = gregex.Replace(`disabled|"disabled"`, []byte(`"disabled"`), replace)
+	replace, _ = gregex.Replace(`required|"required"`, []byte(`"required"`), replace)
+	replace, _ = gregex.Replace(`comment|"comment"`, []byte(`"comment"`), replace)
+	replace, _ = gregex.Replace(`options|"options"`, []byte(`"options"`), replace)
+	// 处理值未加个""的字段
+	doAdd := func(temp string) []string {
+		defer func() {
+			if r := recover(); r != nil {
+				panic(r)
+			}
+		}()
+		strs := make([]string, 0)
+		for _, i := range gstr.Split(temp, ",") {
+			i = gstr.TrimAll(i)
+			if i == "" {
+				continue
+			}
+			begin := gstr.Split(i, ":")[0]
+			end := gstr.Split(i, ":")[1]
+			end = gstr.Replace(end, `"`, "")
+			strs = append(strs, fmt.Sprintf(`%s:"%s"`, begin, end))
+		}
+		return strs
 	}
-	temp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.static.html"))
-	f, err := gfile.Create(fmt.Sprint(gfile.MainPkgPath(), "/resource/template", htmlFilePath))
-	if err != nil {
-		return err
+	temp := string(replace)
+	temp = temp[1 : len(temp)-1]
+	strs := make([]string, 0)
+	if !gstr.Contains(temp, `"options":`) {
+		strs = append(strs, doAdd(temp)...)
+	} else {
+		t := gstr.Split(temp, `"options":`)
+		strs = append(strs, doAdd(t[0])...)
+		t[1] = gstr.Replace(t[1], `"`, "")
+		t[1] = fmt.Sprintf(`"%s"`, t[1])
+		strs = append(strs, fmt.Sprintf(`"options":%s`, t[1]))
 	}
-	date := gtime.Now()
-	temp = gstr.Replace(temp, "[date]", date.String())
-	if _, err = f.WriteString(temp); err != nil {
-		return err
-	}
-	if err = f.Close(); err != nil {
-		return err
-	}
-	return nil
+	return fmt.Sprintf(`{%s}`, strings.Join(strs, ","))
 }

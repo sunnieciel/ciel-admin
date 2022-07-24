@@ -21,7 +21,7 @@ func Init(ctx context.Context) {
 		panic(err)
 	}
 	consts.ImgPrefix = get.String()
-	if err = DictSetWhiteIp(ctx); err != nil {
+	if err = SetWhiteIps(ctx); err != nil {
 		panic(err)
 	}
 }

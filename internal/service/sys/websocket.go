@@ -40,9 +40,11 @@ func GetAdminWs(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	admin, err := GetAdmin(r)
-	if err != nil {
+	if err != nil || admin == nil {
 		res.Err(err, r)
+		return
 	}
+
 	id := admin.Admin.Id
 	admins.Set(id, ws)
 	printAdminWs()

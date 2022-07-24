@@ -514,7 +514,7 @@ func (c cDict) Put(r *ghttp.Request) {
 		msg = fmt.Sprintf(consts.MsgWarning, err.Error())
 	}
 	if d.K == "white_ips" {
-		if err := sys.DictSetWhiteIp(r.Context(), d.V); err != nil {
+		if err := sys.SetWhiteIps(r.Context(), d.V); err != nil {
 			res.Err(err, r)
 		}
 	}
@@ -723,7 +723,7 @@ func (s cSys) GetDictByKey(r *ghttp.Request) {
 	res.OkData(data, r)
 }
 func (s cSys) To(r *ghttp.Request) {
-	name := r.Get("name")
+	name := r.Get("path")
 	if name.IsEmpty() || name.String() == "null" {
 		res.Err(fmt.Errorf("filename prefix cannot be empty"), r)
 	}

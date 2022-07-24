@@ -4,6 +4,7 @@ import (
 	"ciel-admin/internal/controller"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/internal/service/sys/view"
+	"ciel-admin/utility/utils/res"
 	"context"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -23,23 +24,21 @@ var (
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			// 初始化服务
 			g.Log().SetFlags(glog.F_FILE_LONG | glog.F_TIME_DATE | glog.F_TIME_MILLI)
-			sys.Init(ctx)
 			g.View().BindFuncMap(view.BindFuncMap())
+			sys.Init(ctx)
 			s := g.Server()
 			registerInterface(s) // 注册对外提供功能的接口
 			s.EnableAdmin("/debut/admin")
 			s.Group("/", func(g *ghttp.RouterGroup) {
 				g.GET("/", controller.Home.IndexPage)
+				g.GET("/session", func(r *ghttp.Request) {
+					r.Session.RemoveAll()
+					res.Ok(r)
+				})
 			})
 			s.Group("/admin", func(g *ghttp.RouterGroup) {
 				g.Middleware(sys.MiddlewareWhiteIp) // 白名单过滤  在字典表中为空时，这里不会进行检查的
 				registerGenFileRouter(g)            // 注册生成的代码路由
-				g.Group("/", func(g *ghttp.RouterGroup) {
-					g.GET("/login", controller.Admin.LoginPage)
-					g.GET("/to/:name", controller.Sys.To)
-					g.GET("/quotations", controller.Sys.Quotations)
-					g.Middleware(sys.AuthAdmin)
-				})
 				g.Group("/menu", func(g *ghttp.RouterGroup) {
 					g.Middleware(sys.AuthAdmin)
 					g.GET("/path", controller.Menu.Path)
@@ -170,7 +169,10 @@ var (
 					g.Middleware(sys.AuthAdmin)
 					g.GET("/ws", controller.Ws.GetAdminWs)
 				})
-				//s.EnableHTTPS("./server.crt", "./server.key")
+				g.GET("/login", controller.Admin.LoginPage)
+				g.GET("/to/:path", controller.Sys.To)
+				g.Middleware(sys.AuthAdmin)
+				g.GET("/quotations", controller.Sys.Quotations)
 			})
 			go func() {
 				var ctx = context.Background()

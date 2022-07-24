@@ -10,9 +10,8 @@ server:
   imgPrefix: "http://localhost:1211/upload/" # 图片前缀
   rootFilePath: "/resource/public/upload/"  # 文件上传路径
   rootIp: "localhost"
-  rootPath: "/home/holw/learn/ciel-admin/"
+  wsUrl: "ws://localhost:1211/admin/sys/ws"
   clientMaxBodySize: "200MB"
-  wsUrl: "ws:/localhost:1211/admin/sys/ws"
 
 home: "/admin/menu/path"
 

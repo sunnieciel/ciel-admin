@@ -32,7 +32,7 @@ func DictApiGroup(ctx context.Context) (string, error) {
 	return strings.Join(arr, ","), nil
 }
 
-func DictSetWhiteIp(ctx context.Context, v ...string) error {
+func SetWhiteIps(ctx context.Context, v ...string) error {
 	if len(v) == 0 {
 		d, err := dao.Dict.GetByKey(ctx, "white_ips")
 		if err != nil {

@@ -4,6 +4,7 @@ import (
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/model/bo"
 	"context"
+	"errors"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
@@ -18,6 +19,12 @@ func setAdmin(ctx context.Context, data *bo.Admin) error {
 }
 func GetAdmin(r *ghttp.Request) (*bo.Admin, error) {
 	get, err := r.Session.Get(AdminSessionKey)
+	if err != nil {
+		return nil, err
+	}
+	if get == nil {
+		return nil, errors.New("admin info is nil")
+	}
 	var data *bo.Admin
 	err = get.Scan(&data)
 	if err != nil {
