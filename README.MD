@@ -24,7 +24,7 @@ free key admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系
 - 后端: goframe v2.0.6
 - 前端: html,css,javascript, jquery-3.6.0
 
-## 实现的基本功能
+## 实现的功能
 
 - 角色权限管理 ok
 - 字典管理 ok
