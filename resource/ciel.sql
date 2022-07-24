@@ -39,12 +39,9 @@ CREATE TABLE `f_node` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `f_node_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `s_admin` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=453 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=459 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `f_node`
---
 --
 -- Table structure for table `s_admin`
 --
@@ -74,7 +71,7 @@ CREATE TABLE `s_admin` (
 
 LOCK TABLES `s_admin` WRITE;
 /*!40000 ALTER TABLE `s_admin` DISABLE KEYS */;
-INSERT INTO `s_admin` (`id`, `rid`, `uname`, `pwd`, `unread_msg_count`, `status`, `created_at`, `updated_at`) VALUES (1,1,'ciel','$2a$10$d/p5BXdgioeec6EuFI..uOc2.4n2aIPkWesEQVVMsbK5zaC7ZZI6K',1,1,'2022-03-08 08:59:33','2022-07-23 12:52:39'),(42,22,'admin','$2a$10$Y5w6PMtD2M6nXAgn0EIyL.rMDeqVtbA1BfbJlBCLUDOiifO2ZZA3m',0,1,'2022-07-02 11:28:52','2022-07-23 12:55:08');
+INSERT INTO `s_admin` (`id`, `rid`, `uname`, `pwd`, `unread_msg_count`, `status`, `created_at`, `updated_at`) VALUES (1,1,'ciel','$2a$10$Vo3PfpAzeBI2Dj4R0mKK7.B0o89ob154qF1RfcduamimLqbMU39fe',0,1,'2022-03-08 08:59:33','2022-07-24 15:05:25'),(42,1,'admin','$2a$10$VCrmz3RzJmO2aSX2CQSqsunK59fkkc4otXVWzPLCxsTRqSn/ybNzC',0,1,'2022-07-02 11:28:52','2022-07-24 15:04:56');
 /*!40000 ALTER TABLE `s_admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +93,7 @@ CREATE TABLE `s_admin_login_log` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `s_admin_login_log_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `s_admin` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +102,6 @@ CREATE TABLE `s_admin_login_log` (
 
 LOCK TABLES `s_admin_login_log` WRITE;
 /*!40000 ALTER TABLE `s_admin_login_log` DISABLE KEYS */;
-INSERT INTO `s_admin_login_log` (`id`, `uid`, `ip`, `area`, `status`, `created_at`, `updated_at`) VALUES (38,42,'::1',NULL,1,'2022-07-23 20:45:27','2022-07-23 20:45:27'),(39,42,'::1',NULL,1,'2022-07-23 20:49:32','2022-07-23 20:49:32'),(40,1,'::1',NULL,1,'2022-07-23 20:50:12','2022-07-23 20:50:12'),(41,42,'::1',NULL,1,'2022-07-23 20:52:23','2022-07-23 20:52:23');
 /*!40000 ALTER TABLE `s_admin_login_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +128,7 @@ CREATE TABLE `s_admin_message` (
   KEY `to_uid` (`to_uid`),
   CONSTRAINT `s_admin_message_ibfk_1` FOREIGN KEY (`from_uid`) REFERENCES `s_admin` (`id`),
   CONSTRAINT `s_admin_message_ibfk_2` FOREIGN KEY (`to_uid`) REFERENCES `s_admin` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +199,7 @@ CREATE TABLE `s_dict` (
 
 LOCK TABLES `s_dict` WRITE;
 /*!40000 ALTER TABLE `s_dict` DISABLE KEYS */;
-INSERT INTO `s_dict` (`id`, `k`, `v`, `desc`, `group`, `status`, `type`, `created_at`, `updated_at`) VALUES (11,'api_group','菜单\nAPI\n角色\n管理员\n字典\n文件\n操作日志\n登陆日志\n备忘录\n管理员消息','API分组选项','1',1,1,'2022-02-27 20:40:57','2022-07-23 20:34:11'),(22,'music-url','https://www.youtube.com/embed/videoseries?list=PLrzviuM_VBi2P4RQyQWGC5zZPvnEz4R62','登陆音乐列表','1',1,1,'2022-03-08 16:36:11','2022-07-14 15:47:17'),(33,'node-category','1.记事\r\n3.Mysql\r\n5.English\r\n6.Freekey\r\n8.Golang\r\n9.Idea\r\n10.js\r\n11.jquery\r\n12.Linux\r\n15.Nginx\r\n16.Errors\r\n17.Quotations','备忘录分类','1',1,1,'2022-07-07 20:18:58','2022-07-21 21:08:55'),(42,'white_ips','','系统白名单','1',1,1,'2022-07-23 19:04:44','2022-07-23 19:04:44');
+INSERT INTO `s_dict` (`id`, `k`, `v`, `desc`, `group`, `status`, `type`, `created_at`, `updated_at`) VALUES (11,'api_group','菜单\nAPI\n角色\n管理员\n字典\n文件\n操作日志\n登陆日志\n备忘录\n管理员消息\nhaha','API分组选项','1',1,1,'2022-02-27 20:40:57','2022-07-24 12:37:40'),(22,'music-url','https://www.youtube.com/embed/videoseries?list=PLrzviuM_VBi2P4RQyQWGC5zZPvnEz4R62','登陆音乐列表','1',1,1,'2022-03-08 16:36:11','2022-07-14 15:47:17'),(33,'node-category','1.记事\r\n3.Mysql\r\n5.English\r\n6.Freekey\r\n8.Golang\r\n9.Idea\r\n10.js\r\n11.jquery\r\n12.Linux\r\n15.Nginx\r\n16.Errors\r\n17.Quotations','备忘录分类','1',1,1,'2022-07-07 20:18:58','2022-07-21 21:08:55'),(42,'white_ips','','系统白名单','1',1,1,'2022-07-23 19:04:44','2022-07-23 19:04:44');
 /*!40000 ALTER TABLE `s_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +286,7 @@ CREATE TABLE `s_operation_log` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `s_operation_log_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `s_admin` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=949 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1019 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +295,7 @@ CREATE TABLE `s_operation_log` (
 
 LOCK TABLES `s_operation_log` WRITE;
 /*!40000 ALTER TABLE `s_operation_log` DISABLE KEYS */;
-INSERT INTO `s_operation_log` (`id`, `uid`, `content`, `response`, `method`, `uri`, `ip`, `use_time`, `created_at`) VALUES (941,1,'http://localhost:1211/admin/operationLog/clear','','GET','/admin/operationLog/clear','::1',10,'2022-07-23 20:50:53'),(942,42,'map[content:3 from_uid: group:1 link: to_uid:42 type:1]','','POST','/admin/adminMessage/post','::1',12,'2022-07-23 20:52:28'),(943,42,'map[content:33 from_uid: group:1 link: to_uid:1 type:1]','','POST','/admin/adminMessage/post','::1',13,'2022-07-23 20:52:39'),(944,42,'http://localhost:1211/admin/adminMessage/path/del/137?','','GET','/admin/adminMessage/path/del/:id','::1',2,'2022-07-23 20:52:43'),(945,42,'http://localhost:1211/admin/adminMessage/clear?group=1','','GET','/admin/adminMessage/clear','::1',10,'2022-07-23 20:52:52'),(946,42,'map[content:22 from_uid: group:1 link: to_uid:42 type:1]','','POST','/admin/adminMessage/post','::1',12,'2022-07-23 20:54:30'),(947,42,'map[content:欢迎你的到来 from_uid: group:1 link: to_uid:42 type:1]','','POST','/admin/adminMessage/post','::1',11,'2022-07-23 20:55:03'),(948,42,'http://localhost:1211/admin/adminMessage/path/del/138?','','GET','/admin/adminMessage/path/del/:id','::1',10,'2022-07-23 20:55:14');
+INSERT INTO `s_operation_log` (`id`, `uid`, `content`, `response`, `method`, `uri`, `ip`, `use_time`, `created_at`) VALUES (1017,42,'http://localhost:1211/admin/operationLog/clear','','GET','/admin/operationLog/clear','::1',9,'2022-07-24 23:05:43'),(1018,42,'http://localhost:1211/admin/adminLoginLog/clear','','GET','/admin/adminLoginLog/clear','::1',9,'2022-07-24 23:05:47');
 /*!40000 ALTER TABLE `s_operation_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +322,7 @@ CREATE TABLE `s_role` (
 
 LOCK TABLES `s_role` WRITE;
 /*!40000 ALTER TABLE `s_role` DISABLE KEYS */;
-INSERT INTO `s_role` (`id`, `name`, `created_at`, `updated_at`) VALUES (1,'Super Admin','2022-02-16 11:12:41','2022-02-21 04:46:24'),(22,'访客','2022-07-23 08:45:05','2022-07-23 08:45:05');
+INSERT INTO `s_role` (`id`, `name`, `created_at`, `updated_at`) VALUES (1,'Super Admin','2022-02-16 11:12:41','2022-02-21 04:46:24'),(22,'过客','2022-07-23 08:45:05','2022-07-24 12:51:22');
 /*!40000 ALTER TABLE `s_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -385,64 +381,6 @@ LOCK TABLES `s_role_menu` WRITE;
 INSERT INTO `s_role_menu` (`id`, `rid`, `mid`) VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(67,1,28),(68,1,30),(100,1,78),(136,1,132),(145,1,136),(147,1,138),(148,1,139),(167,1,151),(172,22,1),(173,22,2),(174,22,3),(175,22,4),(176,22,5),(177,22,28),(178,22,30),(179,22,78),(180,22,132),(181,22,136),(182,22,138),(183,22,139),(185,22,151),(186,1,152);
 /*!40000 ALTER TABLE `s_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `u_user`
---
-
-DROP TABLE IF EXISTS `u_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `u_user` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uname` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '{"label":"用户名","searchType":2,"required":1,"disabled":1}',
-  `pass` varchar(64) COLLATE utf8mb4_general_ci NOT NULL COMMENT '{"hide":1,"editHide":1}',
-  `nickname` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '{"label":"昵称","required":1,"comment":"取一个昵称吧"}',
-  `description` text COLLATE utf8mb4_general_ci COMMENT '{"fieldType":"markdown"}',
-  `status` int DEFAULT '1' COMMENT '{"searchType":2,"fieldType":"select","options":"1:正常:tag-info,2:禁用:tag-danger"}',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uname` (`uname`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `u_user`
---
-
-LOCK TABLES `u_user` WRITE;
-/*!40000 ALTER TABLE `u_user` DISABLE KEYS */;
-INSERT INTO `u_user` (`id`, `uname`, `pass`, `nickname`, `description`, `status`, `created_at`, `updated_at`) VALUES (1,'ciel','','ciel','33',2,'2022-07-19 15:45:32','2022-07-19 15:58:33'),(2,'morri','123','morri','morri',1,'2022-07-19 15:46:14','2022-07-19 15:46:14');
-/*!40000 ALTER TABLE `u_user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `u_user_login_log`
---
-
-DROP TABLE IF EXISTS `u_user_login_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `u_user_login_log` (
-  `id` bigint unsigned DEFAULT NULL,
-  `uid` bigint unsigned DEFAULT NULL,
-  `ip` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  KEY `uid` (`uid`),
-  CONSTRAINT `u_user_login_log_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `u_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `u_user_login_log`
---
-
-LOCK TABLES `u_user_login_log` WRITE;
-/*!40000 ALTER TABLE `u_user_login_log` DISABLE KEYS */;
-INSERT INTO `u_user_login_log` (`id`, `uid`, `ip`, `created_at`) VALUES (1,1,'127.0.0.1','2022-07-19 15:45:45'),(2,2,'localhost','2022-07-19 15:46:33');
-/*!40000 ALTER TABLE `u_user_login_log` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -453,4 +391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-23 20:57:39
+-- Dump completed on 2022-07-24 23:06:10
