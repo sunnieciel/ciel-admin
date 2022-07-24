@@ -31,8 +31,8 @@ free key admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系
 - 本地文件上传 ok
 - CURD文件生成 ok
 - 记事本功能 ok
-- 常用网站导航 ok
 - WebSocket后台聊天功能 ok
+- 常用网站导航 ok
 - 常用工具集合 todo
 
 这是菜单页面 （图标选择的是哆啦A梦 ）![](./documents/home1.png) ![](./documents/home2.png)
