@@ -7,7 +7,6 @@ import (
 )
 
 // 对外提供的接口放在此文件中
-
 func registerInterface(s *ghttp.Server) {
 	s.Group("/v1", func(g *ghttp.RouterGroup) {
 		g.Middleware(sys.CORS)

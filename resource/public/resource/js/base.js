@@ -23,12 +23,6 @@ $(async function () {
     $("#nav a").click(handleTopLinkSwitch)
     // handle top mobile menu event
     $(".top-mobile").click(handleMobileMenu)
-    // listen msg unread num change
-    msgNum.change(listenMsgUnreadNum)
-    // clear unread msg count
-    msgNum.click(handleUnreadMsg)
-    // check unread msg count
-    checkUnreadMsgCount()
 
 })
 
@@ -89,29 +83,5 @@ const handleMobileMenu = (e) => {
     e.stopPropagation()
 }
 
-// check unread msg count
-const checkUnreadMsgCount = async () => {
-    let {data} = await $.get('/admin/adminMessage/unreadMsgCount')
-    if (data !== 0) {
-        msgNum.attr("data", data).change()
-    }
-}
-// clear unread msg count
-const handleUnreadMsg = async () => {
-    let {code, msg} = await $.get('/admin/adminMessage/clearUnread')
-    if (code != 0) {
-        alert(msg)
-    }
-    msgNum.attr("data", 0).change()
-}
-// listen unread msg num
-const listenMsgUnreadNum = () => {
-    if (msgNum.attr("data") == 0) {
-        msgNum.hide()
-    } else {
-        msgNum.text(`您有${+msgNum.attr("data")}条新的消息`)
-        msgNum.show()
-    }
-}
 
 

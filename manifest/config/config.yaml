@@ -12,9 +12,7 @@ server:
   rootIp: "localhost"
   wsUrl: "ws://localhost:1211/admin/sys/ws"
   clientMaxBodySize: "200MB"
-
-home: "/admin/menu/path"
-
+home: "/admin/menu"
 logger:
   path: "logs/default"
   level: "all"
@@ -37,7 +35,6 @@ redis:
     address: "127.0.0.1:6379"
     db: 1
     pass: ""
-
 # CLI.
 gfcli:
   gen:
@@ -45,7 +42,7 @@ gfcli:
       - link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
         tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file,s_operation_log,s_admin_login_log,
          f_node,
-         u_user,u_user_login_log,s_admin_message"
+         u_user,u_user_login_log"
         removePrefix: "s_,f_,u_"
         descriptionTag: true
         noModelComment: true
@@ -58,4 +55,3 @@ options:
   fileGroup: "1:头像:tag-info,2:图片:tag-success,3:动图:tag-brown,4:音频:tag-warning,5:文件:tag-primary,6:其他:tag-danger"
   msgType: "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger"  # adminMessage 消息类型 可以在此扩展
   msgGroup: "1:系统:tag-info,2:管理员:tag-warning,3:其他:tag-danger"  # adminMessage 聊天分组 可以在此进行扩展
-

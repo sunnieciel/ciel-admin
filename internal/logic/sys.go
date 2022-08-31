@@ -1,3 +1,4 @@
+// Package logic 逻辑层
 package logic
 
 import (
@@ -371,7 +372,7 @@ func genController(d bo.GenConf) error {
 			t := "{"
 			t += fmt.Sprintf(`Name: "%s"`, name)
 			if searchType != 0 {
-				t += fmt.Sprintf(", SearchType: %d", searchType)
+				t += fmt.Sprintf(", Type: %d", searchType)
 			}
 			if queryName == "" {
 				queryName = i.Name
@@ -629,18 +630,18 @@ func genIndex(c bo.GenConf) error {
 	if c.AddBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[add]", ``)
 	} else {
-		indexTemp = gstr.Replace(indexTemp, "[add]", `<a class="tag-info mr-3" href="{{.node.Path}}/add?{{toUrlParams .Query}}" > <i class="fa fa-plus" aria-hidden="true"></i></a> `)
+		indexTemp = gstr.Replace(indexTemp, "[add]", `<a class="tag-info mr-3" href="{{.node.Index}}/add?{{toUrlParams .Query}}" > <i class="fa fa-plus" aria-hidden="true"></i></a> `)
 	}
 	if c.DelBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[del]", "")
 	} else {
-		indexTemp = gstr.Replace(indexTemp, "[del]", `<a href="#"  onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
+		indexTemp = gstr.Replace(indexTemp, "[del]", `<a href="#"  onclick="if(confirm('确认删除?')){location.href='{{$.node.Index}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
 `)
 	}
 	if c.UpdateBtn == 1 {
 		indexTemp = gstr.Replace(indexTemp, "[edit]", "")
 	} else {
-		indexTemp = gstr.Replace(indexTemp, "[edit]", `<a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>`)
+		indexTemp = gstr.Replace(indexTemp, "[edit]", `<a href="#" onclick=" location.href='{{$.node.Index}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>`)
 	}
 	// search
 	search := ``

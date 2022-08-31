@@ -16,25 +16,17 @@
         <div id="wrapper-left">
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
-                    <img src="/resource/image/settings.png" alt="Settings" width="62" height="62">
-                    <a class="ml-12" href="/admin/role/path?{{toUrlParams .Query}}"> <i class="fa fa-hand-o-left" aria-hidden="true"> 返回</i> </a>
+                    {{imgSettings}}
+                    {{a "ml-12" "/admin/role" (trans "zh-CN" "back") .Query}}
                 </div>
                 {{.msg}}
                 <div class="cell">
-                    <a class="link-2-active link-2 " href="#">添加角色</a>
+                    {{a "link-2-active" "#" "添加角色"}}
                 </div>
                 <form class="cell" method="post" action="/admin/role/post?{{toUrlParams .Query}}">
-                    <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                        <tr>
-                            <td width='160' align='right'>角色</td>
-                            <td width='auto' align='left'><input name='name'></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button class="btn-info" type="submit">提交</button>
-                            </td>
-                        </tr>
+                    <table class="table-add">
+                        {{editTrRequired "name" "角色" ""}}
+                        {{editTrSubmit}}
                     </table>
                 </form>
             </div>

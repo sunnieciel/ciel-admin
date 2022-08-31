@@ -17,34 +17,26 @@
             <div class="box no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
-                    <label class="input">用户id <input type="text" name="adminLoginLog_uid" value="{{.Session.adminLoginLog_uid}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class="input">用户名 <input type="text" name="adminLoginLog_uname" value="{{.Session.adminLoginLog_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <button class="tag-warning" type="button" onclick="if(confirm('确认清空')){location.href='/admin/adminLoginLog/clear'}">清空</button>
+                    <button class="tag-purple mr-auto" type="button" onclick="if(confirm('确认清空')){location.href='/admin/adminLoginLog/clear'}">清空</button>
+                    {{searchPageSize .Query}}
+                    {{input "uid" "用户名ID" .Query}}
+                    {{input "uname" "用户名" .Query}}
                 </form>
             </div>
             <div class="box no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
-                    <tr>
-                        <th>id</th>
-                        <th>用户id</th>
-                        <th>用户名</th>
-                        <th>登录IP</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </tr>
+                    <tr> {{th "id,用户ID,用户名,登录IP,状态,创建时间,操作"}}</tr>
                     {{range .list}}
                     <tr>
-                        <td>{{.id}}</td>
-                        <td data-label='用户id'>{{.uid}}</td>
-                        <td data-label='用户名'>{{.uname}}</td>
-                        <td data-label='登录IP'>{{.ip}}</td>
-                        <td>{{chooseSpan $.Config.options.status .status}}</td>
-                        <td>{{.created_at}}</td>
+                        {{td "ID" .id}}
+                        {{td "用户ID" .uid}}
+                        {{td "用户" .uname}}
+                        {{td "登录IP" .ip}}
+                        {{tdChoose "状态" $.Config.options.status .status}}
+                        {{td "创建时间" .created_at}}
                         <td align="center">
-                            <a href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
+                            {{aDel (concat "/admin/adminLoginLog/del/" .id) $.Query}}
                         </td>
                     </tr>
                     {{end}}

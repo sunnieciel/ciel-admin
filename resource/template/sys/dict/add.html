@@ -16,55 +16,20 @@
         <div id="wrapper-left">
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
-                    <img src="/resource/image/settings.png" alt="Settings" width="62" height="62">
-                    <a class="ml-12" href="/admin/dict/path?{{toUrlParams .Query}}"> <i class="fa fa-hand-o-left" aria-hidden="true"> 返回</i> </a>
+                    {{imgSettings}}
+                    {{a "ml-12" "/admin/dict" "返回" .Query}}
                 </div>
                 {{.msg}}
-                <div class="cell">
-                    <a class="link-2-active link-2 " href="#">添加dict</a>
-                </div>
+                <div class="cell">{{a "link-2-active" "#" "添加字典"}}</div>
                 <form class="cell" method="post" action="/admin/dict/post?{{toUrlParams .Query}}">
-                    <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                        <tr>
-                            <td width='160' align='right'>Key</td>
-                            <td width='auto' align='left'><input name='k' required></td>
-                        </tr>
-                        <tr>
-                            <td width='160' align='right'>Value</td>
-                            <td width='auto' align='left'><textarea name='v' required></textarea></td>
-                        </tr>
-                        <tr>
-                            <td width='160' align='right'>说明</td>
-                            <td width='auto' align='left'><input name='desc' required></td>
-                        </tr>
-                        <tr>
-                            <td align='right'>分组</td>
-                            <td><select name='group' required>
-                                {{option .Config.options.dictGroup ""}}
-                            </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align='right'>类型</td>
-                            <td><select name='type' required>
-                                {{option .Config.options.dictType ""}}
-                            </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align='right'>状态</td>
-                            <td>
-                                <select name='status'>
-                                    {{option .Config.options.status ""}}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button class="btn-info" type="submit">提交</button>
-                            </td>
-                        </tr>
+                    <table class="table-add">
+                        {{editTrRequired "k" "KEY" ""}}
+                        {{editTrTextarea "v" "VALUE" ""}}
+                        {{editTrRequired "desc" "说明" ""}}
+                        {{editTrOptions "group" "分组" .Config.options.dictGroup 1}}
+                        {{editTrOptions "type" "类型" .Config.options.dictType 1}}
+                        {{editTrOptions "status" "状态" .Config.options.status 1}}
+                        {{editTrSubmit}}
                     </table>
                 </form>
             </div>

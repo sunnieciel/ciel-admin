@@ -1,3 +1,4 @@
+// Package bo 业务对象封装
 package bo
 
 import (

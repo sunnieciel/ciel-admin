@@ -16,47 +16,18 @@
         <div id="wrapper-left">
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
-                    <img src="/resource/image/settings.png" alt="Settings" width="62" height="62">
-                    <a class="ml-12" href="/admin/admin/path?{{toUrlParams .Query}}">
-                        <i class="fa fa-hand-o-left"> 返回</i>
-                    </a>
+                    {{imgSettings}}
+                    {{a "ml-12" "/admin/admin" "返回" .Query}}
                 </div>
                 {{.msg}}
-                <div class="cell"><a class="link-2 link-2-active" href="#">修改admin</a></div>
+                <div class="cell">{{a "link-2-active" "#" "修改管理员"}}</div>
                 <form class="cell" method="post" action="/admin/admin/put?{{toUrlParams .Query}}">
-                    <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                        <tr>
-                            <td width="160" align="right">ID</td>
-                            <td align="left"><input name="id" readonly value="{{.Session.admin_edit.id}}"></td>
-                        </tr>
-                        <tr>
-                            <td width='160' align='right'>用户名</td>
-                            <td width='auto' align='left'><input name='uname' value='{{.Session.admin_edit.uname}}' readonly></td>
-                        </tr>
-
-                        <tr>
-                            <td width='160' align='right'>角色</td>
-                            <td width='auto' align='left'><select name="rid">
-                                {{range .roles}}
-                                <option value="{{.id}}" {{if eq $.Session.admin_edit.rid .id}} selected {{end}}>{{.name}}</option>
-                                {{end}}
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td align='right'>状态</td>
-                            <td>
-                                <select name="status">
-                                    <option class="tag-info" value="1" {{if eq .Session.admin_edit.status 1}} selected {{end}}>开启</option>
-                                    <option class="tag-danger" value="2" {{if eq .Session.admin_edit.status 2}} selected {{end}}>关闭</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button class="btn-info" type="submit">提交</button>
-                            </td>
-                        </tr>
+                    <table class="table-add">
+                        {{editTrReadonly "id" "ID" .Form.id}}
+                        {{editTrReadonly "uname" "用户名" .Form.uname}}
+                        {{editTrOptions "rid" "角色" .roles .Form.rid}}
+                        {{editTrOptions "status" "状态" .Config.options.status .Form.status}}
+                        {{editTrSubmit}}
                     </table>
                 </form>
             </div>

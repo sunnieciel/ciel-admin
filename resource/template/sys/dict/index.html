@@ -17,52 +17,33 @@
             <div class="box no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a class="tag-info" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus-square" aria-hidden="true"></i></a>
-                    <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
-                    <label class="input">Key <input type="text" name="dict_k" value="{{.Session.dict_k}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class="input">Value <input type="text" name="dict_v" value="{{.Session.dict_v}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class="input">说明<input type="text" name="dict_desc" value="{{.Session.dict_desc}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class='input'>分组<select type='text' name='dict_group' value='{{.Session.dict_group}}' onchange='this.form.submit()'>
-                        <option value='' class='tag-info'>请选择</option>
-                        {{option .Config.options.dictGroup .Query.dict_group}}
-                    </select></label>
-                    <label class='input'>状态 <select type='text' name='dict_status' value='{{.Session.dict_status}}' onchange='this.form.submit()'>
-                        <option value='' class='tag-info'>请选择</option>
-                        {{option .Config.options.status .Query.dict_status}}
-                    </select></label>
-                    <label class='input'>类型 <select type='text' name='dict_type' value='{{.Session.dict_type}}' onchange='this.form.submit()'>
-                        <option value='' class='tag-info'>请选择</option>
-                        {{option .Config.options.dictType .Query.dict_type}}
-                    </select></label>
+                    {{a "tag-purple mr-auto" "/admin/dict/add" "添加" .Query}}
+                    {{searchPageSize .Query}}
+                    {{input "k" "key" .Query}}
+                    {{input "v" "value" .Query}}
+                    {{input "desc" "说明" .Query}}
+                    {{options "group" "分组" .Config.options.dictGroup .Query}}
+                    {{options "status" "状态" .Config.options.status .Query}}
+                    {{options "type" "类型" .Config.options.dictType .Query}}
                 </form>
             </div>
             <div class="box no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
-                    <tr>
-                        <th>id</th>
-                        <th>说明</th>
-                        <th>Key</th>
-                        <th>Value</th>
-                        <th>分组</th>
-                        <th>类型</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </tr>
+                    <tr>{{th "id,说明,Key,Value,分组,类型,状态,创建时间,操作"}}</tr>
                     {{range .list}}
                     <tr>
-                        <td data-label="ID">{{.id}}</td>
-                        <td data-label="说明">{{.desc}}</td>
-                        <td data-label="Key">{{.k}}</td>
-                        <td data-label="Value">{{.v}}</td>
-                        <td data-label="分组">{{chooseSpan $.Config.options.dictGroup .group}}</td>
-                        <td data-label="类型">{{chooseSpan $.Config.options.dictType .type}}</td>
-                        <td data-label="状态">{{chooseSpan $.Config.options.status .status}}</td>
-                        <td data-label="创建时间">{{.created_at}}</td>
+                        {{td "ID" .id}}
+                        {{td "说明" .desc}}
+                        {{td "Key" .k}}
+                        {{td "Value" .v}}
+                        {{tdChoose "分组" $.Config.options.dictGroup .group}}
+                        {{tdChoose "类型" $.Config.options.dictType .type}}
+                        {{tdChoose "状态" $.Config.options.status .status}}
+                        {{td "创建时间" .created_at}}
                         <td data-label="操作" align="center">
-                            <a class="tag-info" href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>
-                            <a class="tag-danger" href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
+                            {{a "tag-primary" (concat "/admin/dict/edit/" .id) "编辑" $.Query}}
+                            {{aDel (concat "/admin/dict/del/" .id) .Query}}
                         </td>
                     </tr>
                     {{end}}

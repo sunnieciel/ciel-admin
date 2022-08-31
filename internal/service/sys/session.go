@@ -32,6 +32,7 @@ func GetAdmin(r *ghttp.Request) (*bo.Admin, error) {
 	}
 	return data, err
 }
+
 func RemoveAdmin(ctx context.Context) error {
 	return g.RequestFromCtx(ctx).Session.Remove(AdminSessionKey)
 }

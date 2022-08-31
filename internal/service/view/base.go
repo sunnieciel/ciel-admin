@@ -28,7 +28,7 @@ func SwitchTagClass(num int) string {
 	return class
 }
 
-func tag(i interface{}, content interface{}) string {
+func Tag(i interface{}, content interface{}) string {
 	if content == "" {
 		return ""
 	}

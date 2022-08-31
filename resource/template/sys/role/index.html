@@ -14,32 +14,29 @@
     <div class="w">
         <div id="wrapper-left">
             {{include "/part/nav.html" .}}
-            <div class="box no-bottom-border">
+            <div class="box-02 no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a class="tag-info" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus" aria-hidden="true"></i></a>
-                    <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
+                    {{a "tag-purple" "/admin/role/add" "添加" .Query}}
+                    {{searchPageSize .Query}}
                 </form>
             </div>
-            <div class="box no-bottom-border">
+            <div class="box-02 no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
                     <tr>
-                        <th>id</th>
-                        <th>角色</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
+                        {{th "id,角色,创建时间,操作"}}
                     </tr>
                     {{range .list}}
                     <tr>
-                        <td data-label="ID">{{.id}}</td>
-                        <td data-label="角色">{{.name}}</td>
-                        <td data-label="创建时间">{{.created_at}}</td>
-                        <td data-label="操作" align="center">
-                            <a href="/admin/roleMenu/path?rid={{.id}}" class="tag-warning">MENU</a>
-                            <a href="/admin/roleApi/path?rid={{.id}}" class="tag-primary">API</a>
-                            <a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>
-                            <a href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
+                        {{td "ID" .id}}
+                        {{td "角色" .name}}
+                        {{td "创建时间" .created_at}}
+                        <td align="center">
+                            {{a "tag-warning" (concat "/admin/roleMenu?rid=" .id) "MENU" }}
+                            {{a "tag-success" (concat "/admin/roleApi?rid=" .id) "API"}}
+                            {{a "tag-primary" (concat "/admin/role/edit/" .id) "修改" $.Query}}
+                            {{aDel (concat "/admin/role/del/" .id) $.Query}}
                         </td>
                     </tr>
                     {{end}}

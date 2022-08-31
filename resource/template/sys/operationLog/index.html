@@ -17,37 +17,27 @@
             <div class="box no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
-                    <label class="input">管理员 <input type="text" name="operationLog_uname" value="{{.Session.operationLog_uname}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label><label class="input">content <input type="text" name="operationLog_content" value="{{.Session.operationLog_content}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <a href="#" class="tag-warning" onclick="if(confirm('确认清空？')){location.href='/admin/operationLog/clear'}">清空</a>
+                    <a class="tag-purple mr-auto" href="#" onclick="if(confirm('确认清空？')){location.href='/admin/operationLog/clear'}">清空</a>
+                    {{searchPageSize .Query}}
+                    {{input "uname" "管理员" .Query.uname}}
                 </form>
             </div>
             <div class="box no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
-                    <tr>
-                        <th>id</th>
-                        <th>管理员</th>
-                        <th>请求内容</th>
-                        <th>方法</th>
-                        <th>URI</th>
-                        <th>IP</th>
-                        <th>耗时(ms)</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </tr>
+                    <tr>{{th "id,管理员,请求内容,方法,URI,IP,耗时(ms),创建时间,操作"}}</tr>
                     {{range .list}}
                     <tr>
-                        <td data-label="ID">{{.id}}</td>
-                        <td data-label="管理员">{{.uname}}</td>
-                        <td data-label="请求内容">{{.content}}</td>
-                        <td data-label="方法">{{.method}}</td>
-                        <td data-label="URI">{{.uri}}</td>
-                        <td data-label="IP">{{.ip}}</td>
-                        <td data-label="耗时(ms)">{{.use_time}}</td>
-                        <td data-label="创建时间">{{.created_at}}</td>
+                        {{td "ID" .id}}
+                        {{td "管理员" .uname}}
+                        {{td "请求内容" .content}}
+                        {{td "方法" .method}}
+                        {{td "URI" .uri}}
+                        {{td "IP" .ip}}
+                        {{td "耗时(ms)" .use_time}}
+                        {{td "创建时间" .created_at}}
                         <td data-label="操作" align="center">
-                            <a class="tag-info" href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
+                            {{aDel (concat "/admin/operationLog/del/" .id) $.Query}}
                         </td>
                     </tr>
                     {{end}}

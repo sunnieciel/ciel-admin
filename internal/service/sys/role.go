@@ -3,6 +3,7 @@ package sys
 import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/service/view"
 	"context"
 	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
@@ -61,10 +62,19 @@ func Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
 	d = append(d, menus...)
 	return d, err
 }
-func Roles(ctx context.Context) (gdb.List, error) {
+func Roles(ctx context.Context) (string, error) {
+	var (
+		array = make([]string, 0)
+	)
 	all, err := dao.Role.Ctx(ctx).All()
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	return all.List(), nil
+	for index, m := range all {
+		id := m["id"]
+		name := m["name"]
+		array = append(array, fmt.Sprintf(fmt.Sprintf("%v:%v:%s", id, name, view.SwitchTagClass(index))))
+	}
+
+	return strings.Join(array, ","), nil
 }

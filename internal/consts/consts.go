@@ -1,3 +1,4 @@
+// Package consts 常量
 package consts
 
 var (

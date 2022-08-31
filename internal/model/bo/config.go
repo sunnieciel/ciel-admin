@@ -21,10 +21,10 @@ type Search struct {
 }
 
 type Field struct {
-	Name       string
-	QueryName  string
-	SearchType int // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 != ,8 date,9 date begin
-	Value      interface{}
+	Name      string
+	QueryName string
+	Type      int // 0 no,1 = ,2 like,3 >, 4 <, 5>=,6 <=,7 != ,8 date,9 date begin
+	Value     interface{}
 }
 
 // FilterConditions 过滤需要查询的字段
@@ -36,10 +36,7 @@ func (s *Search) FilterConditions(ctx context.Context) []Field {
 			field.QueryName = field.Name
 		}
 		query := request.GetQuery(field.QueryName)
-		if query.IsEmpty() { // if query is empty get from session
-			get, _ := g.RequestFromCtx(ctx).Session.Get(field.QueryName)
-			field.Value = get.String()
-		} else {
+		if !query.IsEmpty() {
 			field.Value = query
 		}
 		data = append(data, field)

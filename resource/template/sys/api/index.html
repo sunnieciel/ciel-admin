@@ -14,53 +14,33 @@
     <div class="w">
         <div id="wrapper-left">
             {{include "/part/nav.html" .}}
-            <div class="box no-bottom-border">
+            <div class="box-02 no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a class="mt-3 tag-info" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus-square" aria-hidden="true"></i></a>
-                    <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
-                    <label class='input'>方法 <select type='text' name='api_method' value='{{.Session.api_method}}' onchange='this.form.submit()'>
-                        <option value=''>请选择</option>
-                        {{option .Config.options.api .Query.api_method}}
-                    </select></label>
-                    <label class="input">分组
-                        <select name="api_group" onchange="this.form.submit()">
-                            <option value="">请选择</option>
-                            {{option .api_group .Session.api_group}}
-                        </select>
-                    </label>
-                    <label class="input">描述<input name="api_desc" value="{{.Session.api_desc}}" onkeydown="if(event.keyCode===13)this.form.submit()"></label>
-                    <label class='input'>状态 <select type='text' name='api_status' onchange='this.form.submit()'>
-                        <option value=''>请选择</option>
-                        {{option .Config.options.status .Query.api_status}}
-                    </select></label>
+                    {{a "tag-purple mr-auto" "/admin/api/add" "添加"}}
+                    {{searchPageSize .Query}}
+                    {{options "method" "方法" .Config.options.api .Query}}
+                    {{options "group" "分组" .api_group .Query}}
+                    {{input "desc" "描述" .Query}}
+                    {{options "status" "状态" .Config.options.status .Query}}
                 </form>
             </div>
-            <div class="box no-bottom-border">
+            <div class="box-02 no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
-                    <tr>
-                        <th>id</th>
-                        <th>地址</th>
-                        <th>分组</th>
-                        <th>方法</th>
-                        <th>说明</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </tr>
+                    <tr>{{th "id,地址,分组,方法,说明,状态,创建时间,操作"}}</tr>
                     {{range .list}}
                     <tr>
-                        <td data-label="ID">{{.id}}</td>
-                        <td data-label="地址">{{.url}}</td>
-                        <td data-label="分组">{{.group}}</td>
-                        <td data-label="方法">{{chooseSpan $.Config.options.api .method}}</td>
-                        <td data-label="说明">{{.desc}}</td>
-                        <td data-label="状态">{{chooseSpan $.Config.options.status .status}}</td>
-                        <td data-label="创建时间">{{.created_at}}</td>
+                        {{td "ID" .id}}
+                        {{td "地址" .url}}
+                        {{td "分组" .group}}
+                        {{tdChoose "方法" $.Config.options.api .method}}
+                        {{td "说明" .desc}}
+                        {{tdChoose "状态" $.Config.options.status .status}}
+                        {{td "创建时间" .created_at}}
                         <td data-label="操作" align="center">
-                            <a class="tag-info" href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'"><i class="fa fa-wrench" aria-hidden="true"></i></a>
-                            <a class="tag-danger" href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}"><i class="fa fa-trash"></i></a>
+                            {{a "tag-primary" (concat "/admin/api/edit" .id) "修改" $.Query}}
+                            {{aDel (concat "/admin/api/del" .id) $.Query}}
                         </td>
                     </tr>
                     {{end}}

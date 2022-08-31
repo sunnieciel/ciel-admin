@@ -11,71 +11,26 @@
         <div id="wrapper-left">
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
-                    <img src="/resource/image/settings.png" alt="Settings" width="64" height="64">
-                    <a class="ml-12" href="/admin/menu/path?{{toUrlParams .Query}}">
-                        <i class="fa fa-hand-o-left"> 返回</i>
-                    </a>
+                    {{imgSettings}}
+                    {{a "ml-12" "/admin/menu" "返回" .Query}}
+                </div>
+                <div class="cell">
+                    {{a "link-2-active" "#" "编辑菜单" }}
                 </div>
                 {{.msg}}
-                <div class="cell"><a class="link-2 link-2-active" href="#">修改菜单</a></div>
                 <form class="cell" method="post" action="/admin/menu/put?{{toUrlParams .Query}}">
-                    <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                        <tr>
-                            <td width="160" align="right">ID</td>
-                            <td align="left"><input name="id" readonly value="{{.Session.menu_edit.id}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">名称</td>
-                            <td width="auto" align="left"><input name="name" required value="{{.Session.menu_edit.name}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">pid</td>
-                            <td width="auto" align="left"><input name="pid" required value="{{.Session.menu_edit.pid}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">icon</td>
-                            <td><input type="text" name="icon" value="{{.Session.menu_edit.icon}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">背景图</td>
-                            <td><input type="text" name="bg_img" value="{{.Session.menu_edit.bg_img}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">path</td>
-                            <td><input name="path" value="{{.Session.menu_edit.path}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">file_path</td>
-                            <td><input name="file_path" value="{{.Session.menu_edit.file_path}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">说明</td>
-                            <td><textarea name="desc">{{.Session.menu_edit.desc}}</textarea></td>
-                        </tr>
-                        <tr>
-                            <td align="right">sort</td>
-                            <td><input type="number" step="0.01" name="sort" value="{{.Session.menu_edit.sort}}"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">type</td>
-                            <td><select name="type">
-                                {{option .Config.options.menuType .Session.menu_edit.type}}
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td align="right">状态</td>
-                            <td>
-                                <select name="status">
-                                    {{option .Config.options.status .Session.menu_edit.status}}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button class="btn-info" type="submit">提交</button>
-                            </td>
-                        </tr>
+                    <table class="table-add">
+                        {{editTrReadonly "id" "ID" .Form.id}}
+                        {{editTrReadonly "name" "名称" .Form.name}}
+                        {{editTrReadonly "pid" "PID" .Form.pid}}
+                        {{editTr "icon" "图标" .Form.icon}}
+                        {{editTr "bg_img" "背景图" .Form.bg_img}}
+                        {{editTr "path" "PATH" .Form.path}}
+                        {{editTrTextarea "desc" "说明" .Form.desc}}
+                        {{editTrNumber "sort" "排序" .Form.sort 0.01 -1 300}}
+                        {{editTrOptions "type" "类型" .Config.options.menuType .Form.Type}}
+                        {{editTrOptions "status" "状态" .Config.options.status .Form.status}}
+                        {{editTrSubmit}}
                     </table>
                 </form>
             </div>

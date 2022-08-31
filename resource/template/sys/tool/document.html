@@ -6,16 +6,23 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    {{include "/part/meta.html" .}} <title>{{.node.Name}} - {{.Config.server.name}} </title>
+    {{include "/part/meta.html" .}} <title>文档 - {{.Config.server.name}} </title>
 </head>
 <body>
 {{include "/part/top.html" .}}
 <div id="wrapper">
     <div class="w">
         <div id="wrapper-left">
-            {{include "/part/nav.html" .}}
             <div class="box no-bottom-border">
-                {{include "/part/page_base_info.html" .}}
+                <div class="cell flex bg-dark color-white-1">
+                    <img class="s-icon-large mr-12" src="/resource/image/golang.png" alt="Financial" width="64" height="64">
+                    <div class="flex-1">
+                        <div class="flex-between ">
+                            <div><a class="color-blue hover-underline" href="{{.Config.home}}">{{.Config.server.name}}</a> &nbsp;›&nbsp; <span>文档</span></div>
+                        </div>
+                        <div class="fs-13 mt-5">暂无相关说明</div>
+                    </div>
+                </div>
                 <div class="cell flex-center no-bottom-border"></div>
             </div>
             <div class="box no-bottom-border">
@@ -86,12 +93,6 @@
                     <h2>登陆音乐列表</h2>
                     进入 <a href="http://localhost:1211/dict/path" target="_blank">系统>字典 </a> 设置 <code class="tag-info">登陆音乐列表</code> 将你喜欢听的
                     <code class="tag-danger">YouTube</code>音乐播放列表复制到此即可
-                </div>
-            </div>
-            <div class="box no-bottom-border">
-                <div class="cell">
-                    <h2>站点导航</h2>
-
                 </div>
             </div>
         </div>

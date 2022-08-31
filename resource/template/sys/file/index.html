@@ -14,40 +14,29 @@
     <div class="w">
         <div id="wrapper-left">
             {{include "/part/nav.html" .}}
-            <div class="box no-bottom-border">
+            <div class="box-02 no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a class="tag-info" href="{{.node.Path}}/add?{{toUrlParams .Query}}"> <i class="fa fa-plus" aria-hidden="true"></i></a>
-                    <input id="page" name="page" value="1" hidden> <input name="size" value="{{.Query.size}}" hidden>
-                    <label class='input'>分组 <select type='text' name='file_group' value='{{.Session.file_group}}' onchange='this.form.submit()'>
-                        <option value='' class='tag-info'>请选择</option>
-                        {{option .Config.options.fileGroup .Query.file_group}}
-                    </select></label>
+                    {{a "tag-purple mr-auto" "/admin/file/add" "添加" .Query}}
+                    {{searchPageSize .Query}}
+                    {{options "group" "分组" .Config.options.fileGroup .Query}}
                 </form>
             </div>
-            <div class="box no-bottom-border">
+            <div class="box-02 no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
-                    <tr>
-                        <th>id</th>
-                        <th>图片</th>
-                        <th>DBName</th>
-                        <th>分组</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </tr>
+                    <tr>{{th "id,图片,DBName,分组,状态,创建时间,操作"}}</tr>
                     {{range .list}}
                     <tr>
-                        <td data-label="ID">{{.id}}</td>
-                        <td data-label="图片">{{img .url}}</td>
-                        <td data-label="DBName">{{.url}}</td>
-                        <td data-label="分组">{{chooseSpan $.Config.options.fileGroup .group}}</td>
-                        <td data-label="状态">{{chooseSpan $.Config.options.status .status}}</td>
-                        <td data-label="创建时间">{{.created_at}}</td>
+                        {{td "ID" .id}}
+                        {{tdImg "图片" .url}}
+                        {{td "DBName" .url}}
+                        {{tdChoose "分组" $.Config.options.fileGroup .group}}
+                        {{tdChoose "状态" $.Config.options.status .status}}
+                        {{td "创建时间" .created_at}}
                         <td data-label="操作" align="center">
-                            <a href="#" onclick=" location.href='{{$.node.Path}}/edit/{{.id}}?{{toUrlParams $.Query}}'" class="tag-info"><i class="fa fa-wrench" aria-hidden="true"></i></a>
-                            <a href="#" onclick="if(confirm('确认删除?')){location.href='{{$.node.Path}}/del/{{.id}}?{{toUrlParams $.Query}}'}" class="tag-danger"><i class="fa fa-trash"></i></a>
+                            {{a "tag-primary" (concat "/admin/file/edit/" .id) "修改" $.Query}}
+                            {{aDel (concat "/admin/file/del/" .id) $.Query}}
                         </td>
                     </tr>
                     {{end}}

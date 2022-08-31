@@ -5,7 +5,7 @@ import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/do"
-	"ciel-admin/internal/service/sys/view"
+	"ciel-admin/internal/service/view"
 	"ciel-admin/utility/utils/xpwd"
 	"context"
 	"errors"
@@ -141,7 +141,7 @@ func ClearUnreadMsg(ctx context.Context) error {
 	return nil
 }
 
-//ClearAdminMessage clear admin message by group
+// ClearAdminMessage clear admin message by group
 func ClearAdminMessage(ctx context.Context, group string) error {
 	if _, err := dao.AdminMessage.Ctx(ctx).Where("group", group).Delete(); err != nil {
 		return err

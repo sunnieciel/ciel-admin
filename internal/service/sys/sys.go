@@ -1,3 +1,4 @@
+// Package sys 系统服务层
 package sys
 
 import (
@@ -52,7 +53,7 @@ func List(ctx context.Context, c bo.Search) (count int, data gdb.List, err error
 			if !strings.Contains(field, ".") {
 				field = "t1." + field
 			}
-			switch item.SearchType {
+			switch item.Type {
 			case 1:
 				db = db.Where(field, item.Value)
 			case 2: // like

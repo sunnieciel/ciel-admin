@@ -48,10 +48,9 @@ func GetPage(r *ghttp.Request) (page, size int) {
 		page = 1
 	}
 	if size <= 0 {
-		size = 15
+		size = 10
 	}
-	r.Session.SetMap(r.GetQueryMap())
-	return
+	return page, size
 }
 func Err(err error, r *ghttp.Request) {
 	err = r.Response.WriteJsonExit(g.Map{
@@ -93,6 +92,25 @@ func OkPage(page, size, total int, data interface{}, r *ghttp.Request) {
 	OkData(PageRes{TotalCount: int64(total), PageSize: int64(size), CurrPage: int64(page), List: data, TotalPage: int64(totalPage)}, r)
 }
 
+// Tpl template
+func Tpl(file string, data g.Map, r *ghttp.Request) {
+	if err := r.Response.WriteTpl(file, data); err != nil {
+		Err(err, r)
+	}
+}
+func OkSession(msg string, r *ghttp.Request) {
+	if err := r.Session.Set("msg", fmt.Sprintf(consts.MsgPrimary, msg)); err != nil {
+		Err(err, r)
+	}
+}
+func ErrSession(err error, r *ghttp.Request) {
+	if err = r.Session.Set("msg", fmt.Sprintf(consts.MsgWarning, err.Error())); err != nil {
+		Err(err, r)
+	}
+}
+func RedirectTo(path string, r *ghttp.Request) {
+	r.Response.RedirectTo(path)
+}
 func MsgWarning(r *ghttp.Request, page, msg string) {
 	r.Response.WriteTpl(page, g.Map{"msg": fmt.Sprintf(consts.MsgWarning, msg)})
 	r.Exit()

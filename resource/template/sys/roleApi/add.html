@@ -16,33 +16,27 @@
         <div id="wrapper-left">
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
-                    <img src="/resource/image/settings.png" alt="Settings" width="62" height="62">
-                    <a class="ml-12" href="/admin/roleApi/path?{{toUrlParams .Query}}"> <i class="fa fa-hand-o-left" aria-hidden="true"> 返回</i> </a>
+                    {{imgSettings}}
+                    {{a "ml-12" "/admin/roleApi" "返回" .Query}}
                 </div>
                 {{.msg}}
                 <div class="cell">
-                    <a class="link-2-active link-2 " href="#">添加角色禁用API</a>
+                    {{a "link-2-active" "#" "添加角色禁用API"}}
                 </div>
                 <form class="cell" method="post" action="/admin/roleApi/post?{{toUrlParams .Query}}">
-                    <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                        <tr>
-                            <td width='160' align='right'>角色</td>
-                            <td width='auto' align='left'><input name='rid' value="{{.Query.rid}}"></td>
-                        </tr>
+                    <table class="table-add">
+                        {{editTrRequired "rid" "角色" .Query.rid}}
                         <tr>
                             <td width='160' align='right'>API</td>
-                            <td width='auto' align='left'><select name='aid[]' multiple style="height: 333px">
-                                {{range .apis}}
-                                <option value="{{.id}}">『 {{.group}} 』{{.desc}} 》 {{.url}}</option>
-                                {{end}}
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button class="btn-info" type="submit">提交</button>
+                            <td width='auto' align='left'>
+                                <select name='aid[]' multiple style="height: 333px">
+                                    {{range .apis}}
+                                    <option value="{{.id}}">『 {{.group}} 』{{.desc}} 》 {{.url}}</option>
+                                    {{end}}
+                                </select>
                             </td>
                         </tr>
+                        {{editTrSubmit}}
                     </table>
                 </form>
             </div>

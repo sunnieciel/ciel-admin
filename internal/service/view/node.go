@@ -6,7 +6,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-func nodeWeek(y, m, d interface{}) string {
+func NodeWeek(y, m, d interface{}) string {
 	if y != nil && m != nil && d != nil {
 		t := gtime.NewFromStr(fmt.Sprintf("%v-%v-%v", y, m, d))
 		format := t.Format("w")
@@ -31,21 +31,21 @@ func nodeWeek(y, m, d interface{}) string {
 			d = "六"
 		default:
 		}
-		return tag(format, fmt.Sprintf("星期%s", d))
+		return Tag(format, fmt.Sprintf("星期%s", d))
 	}
 	return ""
 }
-func nodeTime(y, m, d interface{}) string {
-	res := tag(y, fmt.Sprint(y, "年"))
+func NodeTime(y, m, d interface{}) string {
+	res := Tag(y, fmt.Sprint(y, "年"))
 	if m != nil {
-		res += tag(m, fmt.Sprint(m, "月"))
+		res += Tag(m, fmt.Sprint(m, "月"))
 	}
 	if d != nil && gconv.Int(d) != 0 {
-		res += tag(1, fmt.Sprint(d, "日"))
+		res += Tag(1, fmt.Sprint(d, "日"))
 	}
 	return res
 }
-func nodeLevel(i interface{}) string {
+func NodeLevel(i interface{}) string {
 	content := ""
 	i2 := gconv.Int(i)
 	switch i2 {
@@ -66,5 +66,5 @@ func nodeLevel(i interface{}) string {
 	default:
 		content = "普通"
 	}
-	return tag(i, content)
+	return Tag(i, content)
 }

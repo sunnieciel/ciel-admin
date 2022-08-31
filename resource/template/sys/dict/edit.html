@@ -16,57 +16,21 @@
         <div id="wrapper-left">
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
-                    <img src="/resource/image/settings.png" alt="Settings" width="62" height="62">
-                    <a class="ml-12" href="/admin/dict/path?{{toUrlParams .Query}}">
-                        <i class="fa fa-hand-o-left"> 返回</i>
-                    </a>
+                    {{imgSettings}}
+                    {{a "ml-12" "/admin/dict" "返回" .Query}}
                 </div>
                 {{.msg}}
-                <div class="cell"><a class="link-2 link-2-active" href="#">修改dict</a></div>
+                <div class="cell">{{a "link-2-active" "#" "修改字典"}}</div>
                 <form class="cell" method="post" action="/admin/dict/put?{{toUrlParams .Query}}">
-                    <table class="table-add" cellspacing="5" cellpadding="0" border="0">
-                        <tr>
-                            <td width="160" align="right">ID</td>
-                            <td align="left"><input name="id" readonly value="{{.Session.dict_edit.id}}"></td>
-                        </tr>
-                        <tr>
-                            <td width='160' align='right'>Key</td>
-                            <td width='auto' align='left'><input name='k' value='{{.Session.dict_edit.k}}'></td>
-                        </tr>
-                        <tr>
-                            <td width='160' align='right'>Value</td>
-                            <td width='auto' align='left'><textarea name='v'>{{.Session.dict_edit.v}}</textarea></td>
-                        </tr>
-                        <tr>
-                            <td width='160' align='right'>说明</td>
-                            <td width='auto' align='left'><input name='desc' value='{{.Session.dict_edit.desc}}'></td>
-                        </tr>
-                        <tr>
-                            <td align='right'>分组</td>
-                            <td><select name='group'>
-                                {{option .Config.options.dictGroup .Session.dict_edit.group}}
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td align='right'>类型</td>
-                            <td><select name='type' id="type">
-                                {{option .Config.options.dictType .Session.dict_edit.type}}
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td align="right">状态</td>
-                            <td>
-                                <select name="status">
-                                    {{option .Config.options.status .Session.dict_edit.status}}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button class="btn-info" type="submit">提交</button>
-                            </td>
-                        </tr>
+                    <table class="table-add">
+                        {{editTrReadonly "id" "ID" .Form.id}}
+                        {{editTr "k" "KEY" .Form.k}}
+                        {{editTrTextarea "v" "VALUE" .Form.v}}
+                        {{editTr "desc" "说明" .Form.desc}}
+                        {{editTrOptions "group" "分组" .Config.options.dictGroup .Form.group}}
+                        {{editTrOptions "type" "类型" .Config.options.dictType .Form.type}}
+                        {{editTrOptions "status" "状态" .Config.options.status .Form.status}}
+                        {{editTrSubmit}}
                     </table>
                 </form>
             </div>

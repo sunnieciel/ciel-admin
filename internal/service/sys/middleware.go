@@ -83,6 +83,11 @@ func AdminAction(r *ghttp.Request) {
 	ip := r.GetClientIp()
 	begin := time.Now().UnixMilli()
 	response := ""
+	g.Log().Info(ctx, uri)
+	if uri == "/admin/operationLog/clear" {
+		r.Middleware.Next()
+		return
+	}
 
 	switch method {
 	case "GET":

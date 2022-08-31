@@ -3,7 +3,7 @@ package sys
 import (
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao"
-	"ciel-admin/internal/service/sys/view"
+	"ciel-admin/internal/service/view"
 	"context"
 	"fmt"
 	"github.com/gogf/gf/v2/text/gstr"

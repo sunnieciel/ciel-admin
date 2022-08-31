@@ -1,4 +1,4 @@
-# free key admin 自由钥匙 - 个人的后台管理系统
+# freekey admin 自由钥匙 - 个人的后台管理系统
 
 ```
 
@@ -29,11 +29,7 @@ free key admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系
 - 角色权限管理 ok
 - 字典管理 ok
 - 本地文件上传 ok
-- CURD文件生成 ok
-- 记事本功能 ok
-- WebSocket后台聊天功能 ok
 - 常用网站导航 ok
-- 常用工具集合 todo
 
 这是菜单页面 （图标选择的是哆啦A梦 ）![](./documents/home1.png) ![](./documents/home2.png)
 
@@ -75,10 +71,6 @@ free key admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系
 
 详情见：https://goframe.org/pages/viewpage.action?pageId=30740166
 
-## 命令行代码生成
-
-https://github.com/1211ciel/ciel-admin/blob/master/documents/gencode.md
-
 ## css使用
 
 ### `.tag`
@@ -96,27 +88,6 @@ https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 ## 反馈
 
 使用过程中如果遇见什么问题，可以发issue或发邮件1211sciel@gmail.com 我看到后会及时回复的。
-
-## v.1.1.0 更新计划(进行中)
-
-目前一直在修改、更新、整理，相关改变会比较大。
-
-**前端**
-
-- 将vue去掉，采用全服务端渲染方式。（做自己小项目使用的技术或框架,自然是越简单,越少越好。）
-- css整理为3个文件
-    - base.css 对结构进行描述
-    - white.css white模式色彩描述
-    - dark.css dark模式色彩描述
-
-**后端**
-
-- 随着goframe更新到v2.0.6 框架同时进行了更新。
-- `service`层使用包方式进行划分。
-
-> `service`层使用包方式进行划分，需要定义好各个模块的依赖关系。每个模块做自己的逻辑事情，不可循环依赖。
-> 查询事务都交给`dao`层处理，`service`层只做自己分内的逻辑业务。
-> `service` 层之间进行调用或业务增加，请确认好依赖关系，让各模块做好自己分内的事情，防止关系混乱，导致循环依赖。
 
 ## 更多预览
 
