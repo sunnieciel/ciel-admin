@@ -5,12 +5,16 @@ import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/do"
+	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xcaptcha"
 	"ciel-admin/utility/utils/xpwd"
+	"ciel-admin/utility/utils/xredis"
 	"context"
 	"errors"
+	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"time"
 )
 
 var (
@@ -72,7 +76,7 @@ func (a admin) UpdatePwd(ctx context.Context, pwd string, pwd2 string) error {
 		return errors.New("old password not match")
 	}
 	u.Pwd = xpwd.GenPwd(pwd2)
-	err = Session.RemoveAdminFromSession(ctx)
+	err = Session.RemoveAdmin(ctx)
 	if err != nil {
 		return err
 	}
@@ -106,4 +110,96 @@ func (a admin) ClearAllLoginLog(ctx context.Context) error {
 		return err
 	}
 	return nil
+}
+
+func (a admin) AuthMiddleware(r *ghttp.Request) {
+	user, err := Session.GetAdmin(r.Session)
+	if err != nil || user == nil {
+		r.Response.RedirectTo("/admin/login")
+		return
+	}
+	if !Role.CheckRoleApi(r.Context(), user.Admin.Rid, r.RequestURI) {
+		switch r.Method {
+		case "GET", "DELETE", "POST":
+			if err = r.Session.Set("msg", fmt.Sprintf(consts.MsgWarning, "权限不足")); err != nil {
+				res.Err(err, r)
+			}
+			r.Response.RedirectTo(g.Config().MustGet(r.Context(), "home").String())
+			r.Exit()
+		default:
+			res.Err(fmt.Errorf("权限不足"), r)
+		}
+	}
+	r.Middleware.Next()
+}
+
+func (a admin) LockMiddleware(r *ghttp.Request) {
+	var uid uint64
+	getAdmin, err := Session.GetAdmin(r.Session)
+	if err != nil {
+		res.Err(err, r)
+	}
+	uid = uint64(getAdmin.Admin.Id)
+	if uid == 0 {
+		err := errors.New("uid is empty")
+		g.Log().Error(nil, err)
+		res.Err(err, r)
+	}
+	lock, err := xredis.UserLock(uid)
+	if err != nil {
+		res.Err(err, r)
+	}
+	r.Middleware.Next()
+	lock.Unlock()
+}
+
+func (a admin) ActionMiddleware(r *ghttp.Request) {
+	user, err := Session.GetAdmin(r.Session)
+	if err != nil || user == nil {
+		res.Err(fmt.Errorf("用户信息错误"), r)
+		return
+	}
+	uid := user.Admin.Id
+	content := ""
+	method := r.Method
+	ctx := r.Context()
+	uri := r.Router.Uri
+	ip := r.GetClientIp()
+	begin := time.Now().UnixMilli()
+	response := ""
+	g.Log().Info(ctx, uri)
+	if uri == "/admin/operationLog/clear" {
+		r.Middleware.Next()
+		return
+	}
+
+	switch method {
+	case "GET":
+		content = r.GetUrl()
+	case "DELETE":
+		content = fmt.Sprintf("删除记录ID %s", r.Get("id").String())
+	case "POST", "PUT":
+		content = fmt.Sprint(r.GetFormMap())
+		if content == "" {
+			content = r.Request.PostForm.Encode()
+		}
+		if content == "" {
+			content = r.Request.Form.Encode()
+		}
+	}
+	r.Middleware.Next()
+	useTime := time.Now().UnixMilli() - begin
+	data := g.Map{
+		"uid":      uid,
+		"content":  content,
+		"method":   method,
+		"uri":      uri,
+		"response": response,
+		"use_time": useTime,
+		"ip":       ip,
+	}
+	_, err = dao.OperationLog.Ctx(ctx).Insert(data)
+	if err != nil {
+		g.Log().Error(ctx, err)
+	}
 }

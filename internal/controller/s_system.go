@@ -7,6 +7,7 @@ package controller
 import (
 	"ciel-admin/internal/service/dict"
 	"ciel-admin/internal/service/sys"
+	"ciel-admin/internal/service/ws"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xcaptcha"
 	"fmt"
@@ -84,17 +85,17 @@ func (s cSys) DocumentIndex(r *ghttp.Request) {
 }
 
 // --- Ws ------------------------------------------------------------------------
-type ws struct{}
+type cWs struct{}
 
-var Ws = &ws{}
+var Ws = &cWs{}
 
-func (w ws) GetUserWs(r *ghttp.Request) {
-	sys.GetUserWs(r)
+func (w cWs) GetUserWs(r *ghttp.Request) {
+	ws.GetUserWs(r)
 }
-func (w ws) GetAdminWs(r *ghttp.Request) {
-	sys.GetAdminWs(r)
+func (w cWs) GetAdminWs(r *ghttp.Request) {
+	ws.GetAdminWs(r)
 }
-func (w ws) NoticeUser(r *ghttp.Request) {
+func (w cWs) NoticeUser(r *ghttp.Request) {
 	var d struct {
 		Uid     int `v:"required"`
 		OrderId int `v:"required"`
@@ -103,13 +104,13 @@ func (w ws) NoticeUser(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	err = sys.NoticeUser(gctx.New(), d.Uid, d)
+	err = ws.NoticeUser(gctx.New(), d.Uid, d)
 	if err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
-func (w ws) NoticeAdmin(r *ghttp.Request) {
+func (w cWs) NoticeAdmin(r *ghttp.Request) {
 	var d struct {
 		Msg string `v:"required" json:"msg"`
 	}
@@ -117,7 +118,7 @@ func (w ws) NoticeAdmin(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	err = sys.NoticeAllAdmin(r.Context(), d)
+	err = ws.NoticeAllAdmin(r.Context(), d)
 	if err != nil {
 		res.Err(err, r)
 	}

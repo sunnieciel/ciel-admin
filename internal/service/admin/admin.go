@@ -15,14 +15,11 @@ func GetFromSession(r *ghttp.Session) (*bo.Admin, error) {
 	return logic.Session.GetAdmin(r)
 }
 
-func Logout(ctx context.Context) error {
-	return logic.Session.RemoveAdminFromSession(ctx)
-}
+func Logout(ctx context.Context) error { return logic.Session.RemoveAdmin(ctx) }
 
 func UpdatePwd(ctx context.Context, pwd string, pwd2 string) error {
 	return logic.Admin.UpdatePwd(ctx, pwd, pwd2)
 }
-
 func UpdateUname(ctx context.Context, id, uname interface{}) error {
 	return logic.Admin.UpdateUname(ctx, id, uname)
 }

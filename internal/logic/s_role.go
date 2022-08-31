@@ -45,7 +45,6 @@ func (r role) CheckRoleApi(ctx context.Context, rid int, uri string) bool {
 }
 
 func (r role) Roles(ctx context.Context) (string, error) {
-
 	var (
 		array = make([]string, 0)
 	)

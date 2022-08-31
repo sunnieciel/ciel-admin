@@ -71,9 +71,6 @@ func (d roleMenuDao) RoleNoMenu(ctx context.Context, rid interface{}) (gdb.List,
 
 func (d roleMenuDao) AddRoleMenu(ctx context.Context, rid int, mid []int) error {
 	return d.Transaction(ctx, func(ctx context.Context, tx *gdb.TX) error {
-		//if _, err := tx.Ctx(ctx).Model(d.T1()).Delete("rid", rid); err != nil {
-		//	return err
-		//}
 		for _, item := range mid {
 			if _, err := tx.Ctx(ctx).Model(d.Table()).Replace(g.Map{
 				"rid": rid,

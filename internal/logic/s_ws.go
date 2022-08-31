@@ -1,7 +1,6 @@
-package sys
+package logic
 
 import (
-	"ciel-admin/internal/service/admin"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xuser"
 	"context"
@@ -13,11 +12,15 @@ import (
 )
 
 var (
+	Ws     = lWs{}
 	users  = gmap.New(true)
 	admins = gmap.New(true)
 )
 
-func GetUserWs(r *ghttp.Request) {
+type lWs struct{}
+
+func (w lWs) GetUserWs(r *ghttp.Request) {
+
 	ws, err := r.WebSocket()
 	if err != nil {
 		res.Err(err, r)
@@ -35,12 +38,13 @@ func GetUserWs(r *ghttp.Request) {
 		g.Log().Info(gctx.New(), "ws:user msg ", messageType, msg)
 	}
 }
-func GetAdminWs(r *ghttp.Request) {
+
+func (w lWs) GetAdminWs(r *ghttp.Request) {
 	ws, err := r.WebSocket()
 	if err != nil {
 		res.Err(err, r)
 	}
-	adminBo, err := admin.GetFromSession(r.Session)
+	adminBo, err := Session.GetAdmin(r.Session)
 	if err != nil || adminBo == nil {
 		res.Err(err, r)
 		return
@@ -59,13 +63,8 @@ func GetAdminWs(r *ghttp.Request) {
 		g.Log().Info(gctx.New(), "ws:admin msg ", messageType, msg)
 	}
 }
-func printUserWs() {
-	g.Log().Infof(gctx.New(), "user连接个数%v %v", len(users.Map()), users.Keys())
-}
-func printAdminWs() {
-	//g.Log().Infof(gctx.New(), "admin连接个数%v %v", len(admins.Map()), admins.Keys())
-}
-func NoticeAllUser(ctx context.Context, msg interface{}) error {
+
+func (w lWs) NoticeAllUser(ctx context.Context, msg interface{}) error {
 	if users.Size() == 0 {
 		return nil
 	}
@@ -78,8 +77,9 @@ func NoticeAllUser(ctx context.Context, msg interface{}) error {
 	}
 	return nil
 }
-func NoticeAdmin(ctx context.Context, msg interface{}, toUid int) error {
-	to := admins.Get(toUid)
+
+func (w lWs) NoticeAdmin(ctx context.Context, msg interface{}, uid int) error {
+	to := admins.Get(uid)
 	if to != nil {
 		marshal, _ := json.Marshal(msg)
 		if err := to.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
@@ -89,7 +89,8 @@ func NoticeAdmin(ctx context.Context, msg interface{}, toUid int) error {
 	}
 	return nil
 }
-func NoticeAllAdmin(ctx context.Context, msg interface{}) error {
+
+func (w lWs) NoticeAllAdmin(ctx context.Context, msg interface{}) error {
 	marshal, _ := json.Marshal(msg)
 	for _, item := range admins.Values() {
 		if err := item.(*ghttp.WebSocket).WriteMessage(1, marshal); err != nil {
@@ -99,7 +100,8 @@ func NoticeAllAdmin(ctx context.Context, msg interface{}) error {
 	}
 	return nil
 }
-func NoticeUser(ctx context.Context, uid int, msg interface{}) error {
+
+func (w lWs) NoticeUser(ctx context.Context, uid int, msg interface{}) error {
 	marshal, _ := json.Marshal(msg)
 	item := users.Get(uid)
 	if item != nil {
@@ -109,4 +111,11 @@ func NoticeUser(ctx context.Context, uid int, msg interface{}) error {
 		}
 	}
 	return nil
+}
+
+func printUserWs() {
+	g.Log().Infof(gctx.New(), "user连接个数%v %v", len(users.Map()), users.Keys())
+}
+func printAdminWs() {
+	//g.Log().Infof(gctx.New(), "admin连接个数%v %v", len(admins.Map()), admins.Keys())
 }

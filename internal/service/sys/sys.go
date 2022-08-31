@@ -4,14 +4,16 @@ package sys
 import (
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao"
+	"ciel-admin/internal/logic"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
-	"ciel-admin/internal/service/dict"
+	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xstr"
 	"ciel-admin/utility/utils/xtime"
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 	"strings"
@@ -23,7 +25,7 @@ func Init(ctx context.Context) {
 		panic(err)
 	}
 	consts.ImgPrefix = get.String()
-	if err = dict.SetWhiteIps(ctx); err != nil {
+	if err = logic.Dict.SetWhiteIps(ctx); err != nil {
 		panic(err)
 	}
 }
@@ -105,7 +107,6 @@ func List(ctx context.Context, c bo.Search) (count int, data gdb.List, err error
 	data = all.List()
 	return
 }
-
 func Add(ctx context.Context, table, data interface{}) error {
 	if _, err := g.DB().Ctx(ctx).Model(table).Insert(data); err != nil {
 		g.Log().Error(ctx, err)
@@ -113,27 +114,12 @@ func Add(ctx context.Context, table, data interface{}) error {
 	}
 	return nil
 }
-func AddGetID(ctx context.Context, table, data interface{}) (int64, error) {
-	id, err := g.DB().Ctx(ctx).Model(table).InsertAndGetId(data)
-	if err != nil {
-		g.Log().Error(ctx, err)
-		return 0, err
-	}
-	return id, nil
-}
 func Del(ctx context.Context, table, id interface{}) (err error) {
 	if _, err = g.DB().Ctx(ctx).Model(table).Delete("id", id); err != nil {
 		g.Log().Error(ctx, err)
 		return
 	}
 	return
-}
-func DelBatch(ctx context.Context, table string, ids []interface{}) error {
-	if _, err := g.DB().Ctx(ctx).Model(table).WhereIn("id", ids).Delete(); err != nil {
-		g.Log().Error(ctx, err)
-		return err
-	}
-	return nil
 }
 func Update(ctx context.Context, table string, id, data interface{}) error {
 	// 空值过滤
@@ -195,11 +181,21 @@ func Icon(ctx context.Context, path string) (string, error) {
 	return consts.ImgPrefix + icon, err
 }
 
-// operationLog
-
 func OperationLogClear(ctx context.Context) error {
 	if _, err := dao.OperationLog.Ctx(ctx).Delete("id is not null"); err != nil {
 		return err
 	}
 	return nil
+}
+func MsgFromSession(r *ghttp.Request) string {
+	msg, err := r.Session.Get("msg")
+	if err != nil {
+		return ""
+	}
+	if !msg.IsEmpty() {
+		if err = r.Session.Remove("msg"); err != nil {
+			res.Err(err, r)
+		}
+	}
+	return msg.String()
 }

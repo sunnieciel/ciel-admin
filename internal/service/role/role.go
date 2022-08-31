@@ -22,9 +22,6 @@ func NoApi(ctx context.Context, rid interface{}) (gdb.List, error) {
 func AddRoleApi(ctx context.Context, rid int, aid []int) error {
 	return dao.RoleApi.AddRoleApi(ctx, rid, aid)
 }
-func CheckRoleApi(ctx context.Context, rid int, uri string) bool {
-	return logic.Role.CheckRoleApi(ctx, rid, uri)
-}
 func Roles(ctx context.Context) (string, error) {
 	return logic.Role.Roles(ctx)
 }
