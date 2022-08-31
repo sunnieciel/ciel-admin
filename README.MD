@@ -1,4 +1,5 @@
 # 🍉 freekey admin 自由钥匙 - 个人的后台管理系统
+
 ```
 ███████╗██████╗ ███████╗███████╗    ██╗  ██╗███████╗██╗   ██╗     █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
 ██╔════╝██╔══██╗██╔════╝██╔════╝    ██║ ██╔╝██╔════╝╚██╗ ██╔╝    ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
@@ -76,6 +77,144 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 3. 修改`config.yaml`文件配置:`mysql`,`redis` 将数据库信息替换成您自己的
 4. 启动项目：到项目根目录下执行 `gf run main.go`
 5. 浏览器打开 http://localhost:1211/login  默认用户名 `ciel` 密码 `1`
+
+---
+
+## 🫠 自定义模版函数使用
+
+### 使用实例
+
+您可以像下面这样写简便的书写`html`代码.
+
+#### 输入
+
+```html
+
+<table class="table-1">
+    <tr>{{th "id,pid,名称,图标,背景图,路径,排序,类型,状态,创建时间,操作"}}</tr>
+    {{range .list}}
+    <tr>
+        {{td "ID" .id}}
+        {{td "PID" .pid}}
+        {{td "名称" .name}}
+        {{tdImg "图标" .icon}}
+        {{tdImg "背景图" .bg_img}}
+        {{td "路径" .path}}
+        {{td "排序" .sort}}
+        {{tdChoose "类型" $.Config.options.menuType .type}}
+        {{tdChoose "状态" $.Config.options.status .status}}
+        {{td "创建时间" .created_at}}
+        <td align="center">
+            {{a "tag-primary" (concat "/admin/menu/edit/" .id) "修改" $.Query}}
+            {{aDel (concat "/admin/menu/del/" .id) $.Query}}
+        </td>
+    </tr>
+    {{end}}
+</table
+```
+
+#### 输出
+
+```html
+
+<table class="table-1">
+    <tbody>
+    <tr>
+        <th>id</th>
+        <th>pid</th>
+        <th>名称</th>
+        <th>图标</th>
+        <th>背景图</th>
+        <th>路径</th>
+        <th>排序</th>
+        <th>类型</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>操作</th>
+    </tr>
+    <tr>
+        <td data-label="ID">2</td>
+        <td data-label="PID">1</td>
+        <td data-label="名称">菜单</td>
+        <td data-label="图标"><a href="http://localhost:1211/upload/1/2022/03/FdI4Yw.gif" target="_blank"><img class="s-icon" src="http://localhost:1211/upload/1/2022/03/FdI4Yw.gif" alt="not fond"></a></td>
+        <td data-label="背景图"><span class="Tag-normal">暂无图片</span></td>
+        <td data-label="路径">/admin/menu</td>
+        <td data-label="排序">1.1</td>
+        <td data-label="类型"><span class="tag-info">菜单</span></td>
+        <td data-label="状态"><span class="tag-info">正常</span></td>
+        <td data-label="创建时间">2022-02-16 19:14:13</td>
+        <td align="center">
+            <a class="tag-primary" href="/admin/menu/edit/2">修改</a>
+            <a class="tag-purple" href="#" onclick="if(confirm('确认删除?')){location.href='/admin/menu/del/2?'}">删除</a>
+        </td>
+    </tr>
+    ...
+    </tbody>
+</table>
+```
+
+[goframe 文档链接]( https://goframe.org/pages/viewpage.action?pageId=1114228)
+
+### freekey封装示例
+
+#### a
+
+ ```html
+ {{a "tag-purple mr-auto" "/admin/menu/add" "添加"}}
+输出
+<a class="tag-purple mr-auto" href="/admin/menu/add">添加</a> 
+ ```
+
+#### input
+
+```html
+{{input "pid" "pid" .Query}}
+输出
+<label class="input">pid<input type="text" name="pid" value="" onkeydown="if(event.keyCode===13)this.form.submit()"> </label>
+```
+
+#### th
+
+```html
+{{th "id,pid,名称,图标,背景图,路径,排序,类型,状态,创建时间,操作"}}
+输出
+<tr>
+    <th>id</th>
+    <th>pid</th>
+    <th>名称</th>
+    <th>图标</th>
+    <th>背景图</th>
+    <th>路径</th>
+    <th>排序</th>
+    <th>类型</th>
+    <th>状态</th>
+    <th>创建时间</th>
+    <th>操作</th>
+</tr>
+```
+
+#### td
+
+```html
+{{td "ID" .id}}
+输出
+<td data-label="ID">136</td>
+```
+
+#### searchPageSize
+
+
+```html
+{{searchPageSize .Query}}
+输出
+<input id="page" name="page" value="1" hidden="">
+<input name="size" value="10" hidden="">
+```
+
+> [源码](https://github.com/1211ciel/ciel-admin/tree/master/internal/service/view)
+
+
+---
 
 ## 🌈 css使用
 
