@@ -1,5 +1,4 @@
-# freekey admin 自由钥匙 - 个人的后台管理系统
-
+# 🍉 freekey admin 自由钥匙 - 个人的后台管理系统
 ```
 ███████╗██████╗ ███████╗███████╗    ██╗  ██╗███████╗██╗   ██╗     █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
 ██╔════╝██╔══██╗██╔════╝██╔════╝    ██║ ██╔╝██╔════╝╚██╗ ██╔╝    ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
@@ -9,11 +8,11 @@
 ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
 ```
 
-## 追求
+## 🍓 追求
 
 用越少的技术、越简单的方式来实现一个面向于web独立开发者的后台管理系统。
 
-## 说明
+## 🍌 说明
 
 freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系统，提供了权限管理、本地文件上传等基本功能。采用`服务端渲染`，整个项目一键启动。
 
@@ -22,7 +21,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 - 后端: goframe v2.0.6, msyql,redis
 - 前端: html,css,javascript, jquery-3.6.0
 
-## 实现的功能
+## 🍒 实现的功能
 
 - 角色权限管理
 - 字典管理
@@ -33,7 +32,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 
 > 更多浏览在页末
 
-## 项目结构
+## 🌴 项目结构
 
 ```text
 ├── hack
@@ -43,7 +42,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 │   ├── controller 控制层     提供对外接口           --- 😀 "您需要的所有功能我都可以为您实现,请告诉我吧~"
 │   ├── dao        数据查询层  数据库查询操作在此层执行 --- 🤪 "数据库相关的信息我最了解。"
 │   ├── logic      逻辑层     业务逻辑在此层进行处理,  --- 😎 "不管你的逻辑有多复杂，交给在下吧～"
-│   ├── model      实体层     包含 bo do entity     --- 🤗 "我这里包含了你可能会用到的所有 模型实体哦 "
+│   ├── model      实体层     包含 bo do entity     --- 🤗 "我这里包含了你可能会用到的所有模型实体。"
 │   └── service    服务层     为控制层提供服务支持     --- 🙂 "我只衷心为您服务~"
 │       ├── admin                                 --- 🫡 "您想注册一个管理员？"
 │       ├── dict                                  --- 😛 "查字典、查字典"
@@ -63,14 +62,14 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 
 详情见：https://goframe.org/pages/viewpage.action?pageId=30740166
 
-## 环境安装
+## 🌸 环境安装
 
 1. golang环境 安装
 2. mysql 安装
 3. redis 安装
 4. gf 安装  https://goframe.org/pages/viewpage.action?pageId=1115782
 
-## 快速开始
+## ✨️ 快速开始
 
 1. 下载项目 https://github.com/1211ciel/ciel-admin/releases/tag/v.1.0.9
 2. 创建数据库并导入项目`resource`目录下的`ciel.sql`
@@ -78,7 +77,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 4. 启动项目：到项目根目录下执行 `gf run main.go`
 5. 浏览器打开 http://localhost:1211/login  默认用户名 `ciel` 密码 `1`
 
-## css使用
+## 🌈 css使用
 
 ### `.tag`
 
@@ -86,12 +85,12 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 
 ![](./documents/tag.png) <br> ![](./documents/tag2.png)
 
-### 更多class
+### 💦 更多class
 
 https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 ![](./documents/class1.png) <br>
 ![](./documents/class2.png)
 
-## 反馈
+## 🥵 反馈
 
 使用过程中如果遇见什么问题，可以发issue或发邮件1211sciel@gmail.com 我看到后会及时回复的。
