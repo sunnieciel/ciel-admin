@@ -3,6 +3,8 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/admin"
+	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -13,8 +15,6 @@ import (
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
 )
-
-//  ---admin-------------------------------------------------------------------
 
 type cAdmin struct{ cBase }
 
@@ -33,7 +33,7 @@ func (c cAdmin) Index(r *ghttp.Request) {
 		file = fmt.Sprintf("%s/index.html", c.FileDir)
 		path = r.URL.Path
 	)
-	roles, err := sys.Roles(ctx)
+	roles, err := role.Roles(ctx)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -60,7 +60,7 @@ func (c cAdmin) AddIndex(r *ghttp.Request) {
 		ctx  = r.Context()
 		file = fmt.Sprintf("%s/add.html", c.FileDir)
 	)
-	roles, err := sys.Roles(ctx)
+	roles, err := role.Roles(ctx)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -103,7 +103,7 @@ func (c cAdmin) EditIndex(r *ghttp.Request) {
 		file  = fmt.Sprintf("%s/edit.html", c.FileDir)
 		id    = xparam.ID(r)
 	)
-	roles, err := sys.Roles(r.Context())
+	roles, err := role.Roles(r.Context())
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -148,13 +148,13 @@ func (c cAdmin) Login(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.Login(r.Context(), d.Id, d.Code, d.Uname, d.Pwd, r.GetClientIp()); err != nil {
+	if err := admin.Login(r.Context(), d.Id, d.Code, d.Uname, d.Pwd, r.GetClientIp()); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
 }
 func (c cAdmin) Logout(r *ghttp.Request) {
-	err := sys.Logout(r.Context())
+	err := admin.Logout(r.Context())
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -168,7 +168,7 @@ func (c cAdmin) UpdatePwd(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.UpdateAdminPwd(r.Context(), d.OldPwd, d.NewPwd); err != nil {
+	if err := admin.UpdatePwd(r.Context(), d.OldPwd, d.NewPwd); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -181,7 +181,7 @@ func (c cAdmin) UpdateUname(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.UpdateAdminUname(r.Context(), d.Id, d.Uname); err != nil {
+	if err := admin.UpdateUname(r.Context(), d.Id, d.Uname); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -194,7 +194,7 @@ func (c cAdmin) UpdatePwdWithoutOldPwd(r *ghttp.Request) {
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	if err := sys.UpdateAdminPwdWithoutOldPwd(r.Context(), d.Id, d.Pwd); err != nil {
+	if err := admin.UpdatePwdWithoutOldPwd(r.Context(), d.Id, d.Pwd); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)

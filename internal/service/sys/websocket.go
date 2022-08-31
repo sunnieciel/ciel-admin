@@ -1,6 +1,7 @@
 package sys
 
 import (
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xuser"
 	"context"
@@ -39,13 +40,13 @@ func GetAdminWs(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	admin, err := GetAdmin(r)
-	if err != nil || admin == nil {
+	adminBo, err := admin.GetFromSession(r.Session)
+	if err != nil || adminBo == nil {
 		res.Err(err, r)
 		return
 	}
 
-	id := admin.Admin.Id
+	id := adminBo.Admin.Id
 	admins.Set(id, ws)
 	printAdminWs()
 	for {

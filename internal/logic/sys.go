@@ -20,7 +20,6 @@ import (
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gregex"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 	"math"
@@ -44,8 +43,7 @@ func Fields(ctx context.Context, tableName string) ([]*gdb.TableField, error) {
 	return res, nil
 }
 
-// genCodeCURD
-
+// GenCodeSetConf genCodeCURD
 func GenCodeSetConf(ctx context.Context, d *bo.GenConf, p *gcmd.Parser) int {
 	d.T1 = p.GetOpt("t1").String()
 	d.T2 = p.GetOpt("t2").String()
@@ -455,7 +453,6 @@ func genApi(ctx context.Context, name, pageName, group string) error {
 	}
 	return nil
 }
-
 func checkGroupOrSave(ctx context.Context, group string) error {
 	d, err := dao.Dict.GetByKey(ctx, "api_group")
 	if err != nil {
@@ -474,7 +471,6 @@ func checkGroupOrSave(ctx context.Context, group string) error {
 	g.Log().Warningf(ctx, "%s 分组在词典表中不存在，已添加.", group)
 	return nil
 }
-
 func genEdit(c bo.GenConf) error {
 	structNameLower := gstr.CaseCamelLower(c.StructName)
 	editTemp := gfile.GetContents(fmt.Sprint(gfile.MainPkgPath(), "/resource/gen/temp.edit.html"))
@@ -731,54 +727,6 @@ func genIndex(c bo.GenConf) error {
 	return nil
 }
 
-func makeToJsonStr(str string) string {
-	// 替换所有空格
-	replace, _ := gregex.Replace(`\s`, []byte(""), []byte(str))
-	// 处理key未加""的内容字段
-	replace, _ = gregex.Replace(`label|"label"`, []byte(`"label"`), replace)
-	replace, _ = gregex.Replace(`fieldType|"fieldType"`, []byte(`"fieldType"`), replace)
-	replace, _ = gregex.Replace(`searchType|"searchType"`, []byte(`"searchType"`), replace)
-	replace, _ = gregex.Replace(`editHide|"editHide"`, []byte(`"editHide"`), replace)
-	replace, _ = gregex.Replace(`addHide|"addHide"`, []byte(`"addHide"`), replace)
-	replace, _ = gregex.Replace(`hide|"hide"`, []byte(`"hide"`), replace)
-	replace, _ = gregex.Replace(`disabled|"disabled"`, []byte(`"disabled"`), replace)
-	replace, _ = gregex.Replace(`required|"required"`, []byte(`"required"`), replace)
-	replace, _ = gregex.Replace(`comment|"comment"`, []byte(`"comment"`), replace)
-	replace, _ = gregex.Replace(`options|"options"`, []byte(`"options"`), replace)
-	// 处理值未加个""的字段
-	doAdd := func(temp string) []string {
-		defer func() {
-			if r := recover(); r != nil {
-				panic(r)
-			}
-		}()
-		strs := make([]string, 0)
-		for _, i := range gstr.Split(temp, ",") {
-			i = gstr.TrimAll(i)
-			if i == "" {
-				continue
-			}
-			begin := gstr.Split(i, ":")[0]
-			end := gstr.Split(i, ":")[1]
-			end = gstr.Replace(end, `"`, "")
-			strs = append(strs, fmt.Sprintf(`%s:"%s"`, begin, end))
-		}
-		return strs
-	}
-	temp := string(replace)
-	temp = temp[1 : len(temp)-1]
-	strs := make([]string, 0)
-	if !gstr.Contains(temp, `"options":`) {
-		strs = append(strs, doAdd(temp)...)
-	} else {
-		t := gstr.Split(temp, `"options":`)
-		strs = append(strs, doAdd(t[0])...)
-		t[1] = gstr.Replace(t[1], `"`, "")
-		t[1] = fmt.Sprintf(`"%s"`, t[1])
-		strs = append(strs, fmt.Sprintf(`"options":%s`, t[1]))
-	}
-	return fmt.Sprintf(`{%s}`, strings.Join(strs, ","))
-}
 func makeToJsonStr2(str string) string {
 	re := regexp.MustCompile(`\s*"?(options)"?\s*:\s*"?((?:[^,]*?:[^,]*?:[^,]*?,?)*)"?\s*([,}])|\s*"?(\w+)"?\s*:\s*"?(.*?)"?\s*([,}])`)
 	return re.ReplaceAllString(str, `"$1$4":"$2$5"$3$6`)

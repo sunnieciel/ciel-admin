@@ -1,18 +1,19 @@
-package sys
+package logic
 
 import (
 	"ciel-admin/internal/dao"
-	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/service/view"
 	"context"
 	"fmt"
-	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"regexp"
 	"strings"
 )
 
-func ClearRoleApi(ctx context.Context, rid interface{}) error {
+type role struct {
+}
+
+func (r role) ClearApi(ctx context.Context, rid interface{}) error {
 	_, err := dao.Role.GetById(ctx, rid)
 	if err != nil {
 		return err
@@ -20,19 +21,8 @@ func ClearRoleApi(ctx context.Context, rid interface{}) error {
 	_, err = dao.RoleApi.Ctx(ctx).Delete("rid", rid)
 	return err
 }
-func RoleNoMenu(ctx context.Context, rid interface{}) (interface{}, error) {
-	return dao.RoleMenu.RoleNoMenu(ctx, rid)
-}
-func AddRoleMenu(ctx context.Context, rid int, mid []int) error {
-	return dao.RoleMenu.AddRoleMenu(ctx, rid, mid)
-}
-func RoleNoApi(ctx context.Context, rid interface{}) (gdb.List, error) {
-	return dao.RoleApi.RoleNoApi(ctx, rid)
-}
-func AddRoleApi(ctx context.Context, rid int, aid []int) error {
-	return dao.RoleApi.AddRoleApi(ctx, rid, aid)
-}
-func CheckRoleApi(ctx context.Context, rid int, uri string) bool {
+
+func (r role) CheckRoleApi(ctx context.Context, rid int, uri string) bool {
 	if strings.Contains(uri, "?") {
 		uri = strings.Split(uri, "?")[0]
 	}
@@ -53,16 +43,9 @@ func CheckRoleApi(ctx context.Context, rid int, uri string) bool {
 	}
 	return true
 }
-func Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
-	var d = make([]*bo.Menu, 0)
-	menus, err := dao.RoleMenu.Menus(ctx, rid, pid)
-	if err != nil {
-		return nil, err
-	}
-	d = append(d, menus...)
-	return d, err
-}
-func Roles(ctx context.Context) (string, error) {
+
+func (r role) Roles(ctx context.Context) (string, error) {
+
 	var (
 		array = make([]string, 0)
 	)
@@ -75,6 +58,9 @@ func Roles(ctx context.Context) (string, error) {
 		name := m["name"]
 		array = append(array, fmt.Sprintf(fmt.Sprintf("%v:%v:%s", id, name, view.SwitchTagClass(index))))
 	}
-
 	return strings.Join(array, ","), nil
 }
+
+var (
+	Role = role{}
+)

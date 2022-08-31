@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/dict"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -48,7 +49,7 @@ func (c cApi) Index(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	apiGroup, err := sys.DictApiGroup(ctx)
+	apiGroup, err := dict.ApiGroup(ctx)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -62,7 +63,7 @@ func (c cApi) Index(r *ghttp.Request) {
 	}, r)
 }
 func (c cApi) AddIndex(r *ghttp.Request) {
-	apiGroup, err := sys.DictApiGroup(r.Context())
+	apiGroup, err := dict.ApiGroup(r.Context())
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -79,7 +80,7 @@ func (c cApi) EditIndex(r *ghttp.Request) {
 	for k, v := range data.Map() {
 		r.SetForm(k, v)
 	}
-	apiGroup, err := sys.DictApiGroup(r.Context())
+	apiGroup, err := dict.ApiGroup(r.Context())
 	if err != nil {
 		res.Err(err, r)
 	}

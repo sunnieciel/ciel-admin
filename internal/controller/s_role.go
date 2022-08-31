@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -114,7 +115,7 @@ func (c cRole) RoleNoMenus(r *ghttp.Request) {
 		rid = r.GetQuery("rid")
 		ctx = r.Context()
 	)
-	data, err := sys.RoleNoMenu(ctx, rid)
+	data, err := role.NoMenu(ctx, rid)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -125,7 +126,7 @@ func (c cRole) RoleNoApis(r *ghttp.Request) {
 		rid = r.GetQuery("rid")
 		ctx = r.Context()
 	)
-	data, err := sys.RoleNoApi(ctx, rid)
+	data, err := role.NoApi(ctx, rid)
 	if err != nil {
 		res.Err(err, r)
 	}

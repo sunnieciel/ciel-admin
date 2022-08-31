@@ -6,6 +6,7 @@ import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/dict"
 	"ciel-admin/utility/utils/xstr"
 	"ciel-admin/utility/utils/xtime"
 	"context"
@@ -22,7 +23,7 @@ func Init(ctx context.Context) {
 		panic(err)
 	}
 	consts.ImgPrefix = get.String()
-	if err = SetWhiteIps(ctx); err != nil {
+	if err = dict.SetWhiteIps(ctx); err != nil {
 		panic(err)
 	}
 }
@@ -192,10 +193,6 @@ func Icon(ctx context.Context, path string) (string, error) {
 		return icon, nil
 	}
 	return consts.ImgPrefix + icon, err
-}
-
-func MenusLevel1(ctx context.Context) ([]gdb.Value, error) {
-	return dao.Menu.Ctx(ctx).Array("name", "pid=-1")
 }
 
 // operationLog

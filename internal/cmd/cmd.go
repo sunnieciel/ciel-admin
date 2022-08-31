@@ -39,7 +39,6 @@ var (
 					g.GET("/", controller.Menu.Index)             // 主页面
 					g.GET("/add", controller.Menu.AddIndex)       // 添加页面
 					g.GET("/edit/:id", controller.Menu.EditIndex) // 修改页面
-					g.GET("/level1", controller.Sys.Level1)
 					g.Middleware(sys.LockAction, sys.AdminAction)
 					g.GET("/del/:id", controller.Menu.Del) // 删除请求
 					g.POST("/post", controller.Menu.Post)  // 添加请求
@@ -55,7 +54,6 @@ var (
 					g.POST("/post", controller.Api.Post)
 					g.POST("/put", controller.Api.Put)
 				})
-
 				g.Group("/roleMenu", func(g *ghttp.RouterGroup) {
 					g.Middleware(sys.AuthAdmin)
 					g.GET("/", controller.RoleMenu.Path)
@@ -139,16 +137,6 @@ var (
 					g.POST("/post", controller.File.Post)
 					g.POST("/put", controller.File.Put)
 					g.POST("/upload", controller.File.Upload)
-				})
-				g.Group("/node", func(g *ghttp.RouterGroup) {
-					g.Middleware(sys.AuthAdmin)
-					g.GET("/path", controller.Node.Path)
-					g.GET("/path/add", controller.Node.PathAdd)
-					g.GET("/path/edit/:id", controller.Node.PathEdit)
-					g.Middleware(sys.LockAction, sys.AdminAction)
-					g.GET("/path/del/:id", controller.Node.Del)
-					g.POST("/post", controller.Node.Post)
-					g.POST("/put", controller.Node.Put)
 				})
 				g.Group("/adminLoginLog", func(g *ghttp.RouterGroup) {
 					g.Middleware(sys.AuthAdmin)

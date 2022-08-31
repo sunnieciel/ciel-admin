@@ -18,7 +18,7 @@ $(async function () {
 
 const getCaptcha = () => {
     id = Math.random();
-    $("#captcha").val("")
+    $("#xcaptcha").val("")
     $.get("/admin/admin/getCaptcha?id=" + id, function (res) {
         $("#code").attr("src", res.data);
     })

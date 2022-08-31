@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -123,7 +124,7 @@ func (c cAdminLoginLog) Clear(r *ghttp.Request) {
 		path = fmt.Sprintf("%s?%s", c.ReqPath, xurl.ToUrlParams(r.GetQueryMap()))
 	)
 	res.OkSession("操作成功", r)
-	if err := sys.ClearAdminLog(r.Context()); err != nil {
+	if err := admin.ClearLoginLog(r.Context()); err != nil {
 		res.ErrSession(err, r)
 	}
 	res.RedirectTo(path, r)

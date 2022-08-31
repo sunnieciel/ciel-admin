@@ -3,6 +3,8 @@ package sys
 import (
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao"
+	"ciel-admin/internal/service/admin"
+	"ciel-admin/internal/service/role"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xjwt"
 	"ciel-admin/utility/utils/xredis"
@@ -22,12 +24,12 @@ func CORS(r *ghttp.Request) {
 
 // AuthAdmin auth admin
 func AuthAdmin(r *ghttp.Request) {
-	user, err := GetAdmin(r)
+	user, err := admin.GetFromSession(r.Session)
 	if err != nil || user == nil {
 		r.Response.RedirectTo("/admin/login")
 		return
 	}
-	if !CheckRoleApi(r.Context(), user.Admin.Rid, r.RequestURI) {
+	if !role.CheckRoleApi(r.Context(), user.Admin.Rid, r.RequestURI) {
 		switch r.Method {
 		case "GET", "DELETE", "POST":
 			r.Session.Set("msg", fmt.Sprintf(consts.MsgWarning, "权限不足"))
@@ -51,7 +53,7 @@ func UserAuth(c *ghttp.Request) {
 func LockAction(r *ghttp.Request) {
 	uid := r.Get(Uid).Uint64()
 	if uid == 0 {
-		getAdmin, err := GetAdmin(r)
+		getAdmin, err := admin.GetFromSession(r.Session)
 		if err != nil {
 			res.Err(err, r)
 		}
@@ -70,7 +72,7 @@ func LockAction(r *ghttp.Request) {
 	lock.Unlock()
 }
 func AdminAction(r *ghttp.Request) {
-	user, err := GetAdmin(r)
+	user, err := admin.GetFromSession(r.Session)
 	if err != nil || user == nil {
 		res.Err(fmt.Errorf("用户信息错误"), r)
 		return

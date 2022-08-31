@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/dict"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -118,7 +119,7 @@ func (c cDict) Put(r *ghttp.Request) {
 		res.ErrSession(err, r)
 	}
 	if d.K == "white_ips" {
-		if err := sys.SetWhiteIps(r.Context(), d.V); err != nil {
+		if err := dict.SetWhiteIps(r.Context(), d.V); err != nil {
 			res.Err(err, r)
 		}
 	}

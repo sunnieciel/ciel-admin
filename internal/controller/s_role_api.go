@@ -2,6 +2,7 @@ package controller
 
 import (
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xurl"
@@ -61,7 +62,7 @@ func (c cRoleApi) AddIndex(r *ghttp.Request) {
 		rid  = r.Get("rid")
 		file = fmt.Sprintf("%s/add.html", c.FileDir)
 	)
-	apis, err := sys.RoleNoApi(ctx, rid)
+	apis, err := role.NoApi(ctx, rid)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -80,7 +81,7 @@ func (c cRoleApi) Post(r *ghttp.Request) {
 	)
 	_ = r.Parse(&d)
 	res.OkSession("添加成功", r)
-	if err := sys.AddRoleApi(ctx, d.Rid, d.Aid); err != nil {
+	if err := role.AddRoleApi(ctx, d.Rid, d.Aid); err != nil {
 		res.ErrSession(err, r)
 	}
 	res.RedirectTo(path, r)
@@ -105,7 +106,7 @@ func (c cRoleApi) Clear(r *ghttp.Request) {
 		ctx = r.Context()
 		rid = r.Get("rid")
 	)
-	err := sys.ClearRoleApi(ctx, rid)
+	err := role.ClearApi(ctx, rid)
 	if err != nil {
 		res.Err(err, r)
 	}

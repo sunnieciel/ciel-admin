@@ -2,6 +2,7 @@ package controller
 
 import (
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xurl"
@@ -59,7 +60,7 @@ func (c cRoleMenu) PathAdd(r *ghttp.Request) {
 		file = fmt.Sprintf("%s/add.html", c.FileDir)
 		msg  = sys.MsgFromSession(r)
 	)
-	menus, err := sys.RoleNoMenu(ctx, rid)
+	menus, err := role.NoMenu(ctx, rid)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -76,7 +77,7 @@ func (c cRoleMenu) Post(r *ghttp.Request) {
 	)
 	_ = r.ParseForm(&d)
 	res.OkSession("添加成功", r)
-	if err := sys.AddRoleMenu(ctx, d.Rid, d.Mid); err != nil {
+	if err := role.AddRoleMenu(ctx, d.Rid, d.Mid); err != nil {
 		res.ErrSession(err, r)
 	}
 	r.Response.RedirectTo(path)

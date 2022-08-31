@@ -1,8 +1,6 @@
-package sys
+package xcaptcha
 
-import (
-	"github.com/mojocn/base64Captcha"
-)
+import "github.com/mojocn/base64Captcha"
 
 var (
 	Store = base64Captcha.DefaultMemStore

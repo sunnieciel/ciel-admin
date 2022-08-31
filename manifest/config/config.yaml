@@ -35,17 +35,6 @@ redis:
     address: "127.0.0.1:6379"
     db: 1
     pass: ""
-# CLI.
-gfcli:
-  gen:
-    dao:
-      - link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
-        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file,s_operation_log,s_admin_login_log,
-         f_node,
-         u_user,u_user_login_log"
-        removePrefix: "s_,f_,u_"
-        descriptionTag: true
-        noModelComment: true
 options:
   status: "1:正常:tag-info,2:禁用:tag-danger"
   api: "1:GET:tag-success,2:POST:tag-primary,3:PUT:tag-warning,4:DELETE:tag-danger"
@@ -54,4 +43,3 @@ options:
   dictType: "1:文本:tag-info,2:图片:tag-warning,3:富文本:tag-primary,4:文件:tag-danger,5:其他:tag-purple"
   fileGroup: "1:头像:tag-info,2:图片:tag-success,3:动图:tag-brown,4:音频:tag-warning,5:文件:tag-primary,6:其他:tag-danger"
   msgType: "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger"  # adminMessage 消息类型 可以在此扩展
-  msgGroup: "1:系统:tag-info,2:管理员:tag-warning,3:其他:tag-danger"  # adminMessage 聊天分组 可以在此进行扩展

@@ -3,8 +3,10 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/file"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
+	"ciel-admin/utility/utils/xfile"
 	"ciel-admin/utility/utils/xparam"
 	"ciel-admin/utility/utils/xurl"
 	"fmt"
@@ -92,7 +94,7 @@ func (c cFile) Del(r *ghttp.Request) {
 		table = c.Table
 		id    = xparam.ID(r)
 	)
-	f, err := sys.GetFileById(ctx, id)
+	f, err := file.GetById(ctx, id)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -101,7 +103,7 @@ func (c cFile) Del(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	filePath := gfile.Pwd() + path.String() + "/" + f.Url
-	if err = sys.RemoveFile(ctx, filePath); err != nil {
+	if err = xfile.Remove(ctx, filePath); err != nil {
 		res.Err(err, r)
 	}
 	res.OkSession("删除成功", r)
@@ -135,7 +137,7 @@ func (c cFile) Upload(r *ghttp.Request) {
 		path = fmt.Sprintf("%s/add?%s", c.ReqPath, xurl.ToUrlParams(r.GetQueryMap()))
 	)
 	res.OkSession("上传成功", r)
-	if err := sys.UploadFile(ctx, r); err != nil {
+	if err := file.Upload(ctx, r); err != nil {
 		res.ErrSession(err, r)
 	}
 	res.RedirectTo(path, r)

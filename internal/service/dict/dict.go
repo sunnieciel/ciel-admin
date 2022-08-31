@@ -1,4 +1,4 @@
-package sys
+package dict
 
 import (
 	"ciel-admin/internal/consts"
@@ -10,14 +10,14 @@ import (
 	"strings"
 )
 
-func DictGetByKey(ctx context.Context, key string) (string, error) {
+func GetByKey(ctx context.Context, key string) (string, error) {
 	dict, err := dao.Dict.GetByKey(ctx, key)
 	if err != nil {
 		return "", err
 	}
 	return dict.V, nil
 }
-func DictApiGroup(ctx context.Context) (string, error) {
+func ApiGroup(ctx context.Context) (string, error) {
 	d, err := dao.Dict.GetByKey(ctx, "api_group")
 	if err != nil {
 		return "", err
