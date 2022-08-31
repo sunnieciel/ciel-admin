@@ -155,7 +155,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 
 [goframe 文档链接]( https://goframe.org/pages/viewpage.action?pageId=1114228)
 
-### freekey封装示例
+### 封装示例
 
 #### a
 
