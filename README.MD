@@ -75,7 +75,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 
 ## ✨️ 快速开始
 
-1. 下载项目 https://github.com/2033ciel/ciel-admin/releases/tag/v.1.0.9
+1. 下载项目 https://github.com/1211ciel/ciel-admin/releases/tag/v.1.0.9
 2. 创建数据库并导入项目`resource`目录下的`ciel.sql`
 3. 修改`config.yaml`文件配置:`mysql`,`redis` 将数据库信息替换成您自己的
 4. 启动项目：到项目根目录下执行 `gf run main.go`
@@ -216,8 +216,8 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 <input name="size" value="10" hidden="">
 ```
 
-[查看更多](https://github.com/2033ciel/ciel-admin/blob/master/documents/tempFun.md)
-> [源码](https://github.com/2033ciel/ciel-admin/tree/master/internal/service/view)
+[查看更多](https://github.com/1211ciel/ciel-admin/blob/master/documents/tempFun.md)
+> [源码](https://github.com/1211ciel/ciel-admin/tree/master/internal/service/view)
 
 
 ---
@@ -232,7 +232,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 
 ### 💦 更多class
 
-https://github.com/2033ciel/ciel-admin/blob/master/documents/class.md
+https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
 ![](./documents/class1.png) <br>
 ![](./documents/class2.png)
 
