@@ -23,6 +23,14 @@ type UserColumns struct {
 	Id        string //
 	Uname     string //
 	Pass      string //
+	Nickname  string //
+	Icon      string //
+	Summary   string //
+	Desc      string //
+	JoinIp    string // 注册IP
+	Device    string // 设备名称
+	Phone     string //
+	Email     string //
 	Status    string //
 	CreatedAt string //
 	UpdatedAt string //
@@ -33,6 +41,14 @@ var userColumns = UserColumns{
 	Id:        "id",
 	Uname:     "uname",
 	Pass:      "pass",
+	Nickname:  "nickname",
+	Icon:      "icon",
+	Summary:   "summary",
+	Desc:      "desc",
+	JoinIp:    "join_ip",
+	Device:    "device",
+	Phone:     "phone",
+	Email:     "email",
 	Status:    "status",
 	CreatedAt: "created_at",
 	UpdatedAt: "updated_at",

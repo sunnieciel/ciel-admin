@@ -21,8 +21,8 @@
                 <form class="cell" method="post" action="/admin/menu/put?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrReadonly "id" "ID" .Form.id}}
-                        {{editTrReadonly "name" "名称" .Form.name}}
-                        {{editTrReadonly "pid" "PID" .Form.pid}}
+                        {{editTr "name" "名称" .Form.name}}
+                        {{editTr "pid" "PID" .Form.pid}}
                         {{editTr "icon" "图标" .Form.icon}}
                         {{editTr "bg_img" "背景图" .Form.bg_img}}
                         {{editTr "path" "PATH" .Form.path}}

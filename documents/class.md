@@ -1,6 +1,6 @@
 ### 常用clas
 
-登陆后台后在 [http://localhost:1211/to/document](http://localhost:1211/to/document) 进行查看
+登陆后台后在 [http://localhost:2033/to/document](http://localhost:2033/to/document) 进行查看
 ![](class1.png)
 ![](class2.png)
 

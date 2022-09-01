@@ -13,6 +13,14 @@ type User struct {
 	Id        uint64      `json:"id"        description:""`
 	Uname     string      `json:"uname"     description:""`
 	Pass      string      `json:"pass"      description:""`
+	Nickname  string      `json:"nickname"  description:""`
+	Icon      string      `json:"icon"      description:""`
+	Summary   string      `json:"summary"   description:""`
+	Desc      string      `json:"desc"      description:""`
+	JoinIp    string      `json:"joinIp"    description:"注册IP"`
+	Device    string      `json:"device"    description:"设备名称"`
+	Phone     string      `json:"phone"     description:""`
+	Email     string      `json:"email"     description:""`
 	Status    uint        `json:"status"    description:""`
 	CreatedAt *gtime.Time `json:"createdAt" description:""`
 	UpdatedAt *gtime.Time `json:"updatedAt" description:""`

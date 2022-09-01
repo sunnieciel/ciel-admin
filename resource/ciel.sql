@@ -295,7 +295,7 @@ CREATE TABLE `s_operation_log` (
 
 LOCK TABLES `s_operation_log` WRITE;
 /*!40000 ALTER TABLE `s_operation_log` DISABLE KEYS */;
-INSERT INTO `s_operation_log` (`id`, `uid`, `content`, `response`, `method`, `uri`, `ip`, `use_time`, `created_at`) VALUES (1017,42,'http://localhost:1211/admin/operationLog/clear','','GET','/admin/operationLog/clear','::1',9,'2022-07-24 23:05:43'),(1018,42,'http://localhost:1211/admin/adminLoginLog/clear','','GET','/admin/adminLoginLog/clear','::1',9,'2022-07-24 23:05:47');
+INSERT INTO `s_operation_log` (`id`, `uid`, `content`, `response`, `method`, `uri`, `ip`, `use_time`, `created_at`) VALUES (1017,42,'http://localhost:2033/admin/operationLog/clear','','GET','/admin/operationLog/clear','::1',9,'2022-07-24 23:05:43'),(1018,42,'http://localhost:2033/admin/adminLoginLog/clear','','GET','/admin/adminLoginLog/clear','::1',9,'2022-07-24 23:05:47');
 /*!40000 ALTER TABLE `s_operation_log` ENABLE KEYS */;
 UNLOCK TABLES;
 

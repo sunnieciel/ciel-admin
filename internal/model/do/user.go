@@ -15,6 +15,14 @@ type User struct {
 	Id        interface{} //
 	Uname     interface{} //
 	Pass      interface{} //
+	Nickname  interface{} //
+	Icon      interface{} //
+	Summary   interface{} //
+	Desc      interface{} //
+	JoinIp    interface{} // 注册IP
+	Device    interface{} // 设备名称
+	Phone     interface{} //
+	Email     interface{} //
 	Status    interface{} //
 	CreatedAt *gtime.Time //
 	UpdatedAt *gtime.Time //
