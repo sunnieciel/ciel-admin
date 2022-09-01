@@ -233,6 +233,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 ### 💦 更多class
 
 https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md
+
 ![](./documents/class1.png) <br>
 ![](./documents/class2.png)
 
