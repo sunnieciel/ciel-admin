@@ -10,8 +10,11 @@ import (
 	"strings"
 )
 
-type role struct {
-}
+var (
+	Role = role{}
+)
+
+type role struct{}
 
 func (r role) ClearApi(ctx context.Context, rid interface{}) error {
 	_, err := dao.Role.GetById(ctx, rid)
@@ -59,7 +62,3 @@ func (r role) Roles(ctx context.Context) (string, error) {
 	}
 	return strings.Join(array, ","), nil
 }
-
-var (
-	Role = role{}
-)

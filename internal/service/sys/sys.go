@@ -144,7 +144,6 @@ func NodeInfo(ctx context.Context, path string) (*entity.Menu, error) {
 	m, err := dao.Menu.GetByPath(ctx, path)
 	if err != nil {
 		m = &entity.Menu{}
-		//return nil, err
 	}
 	if m.Icon == "" {
 		m.Icon = gstr.Replace(consts.ImgPrefix, "/upload", "") + "resource/image/golang.png"

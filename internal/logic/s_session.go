@@ -10,10 +10,10 @@ import (
 
 var (
 	AdminSessionKey = "adminInfo"
+	Session         = session{}
 )
 
-type session struct {
-}
+type session struct{}
 
 func (s session) SetAdmin(ctx context.Context, b *bo.Admin) error {
 	return g.RequestFromCtx(ctx).Session.Set(AdminSessionKey, b)
@@ -38,7 +38,3 @@ func (session) GetAdmin(r *ghttp.Session) (*bo.Admin, error) {
 func (s session) RemoveAdmin(ctx context.Context) error {
 	return g.RequestFromCtx(ctx).Session.Remove(AdminSessionKey)
 }
-
-var (
-	Session = session{}
-)

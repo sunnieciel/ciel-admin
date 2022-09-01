@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>代码生成</title>
+    {{include "/part/meta.html" .}}
+</head>
+<body>
+{{include "/part/top.html" .}}
+<div id="wrapper">
+    <div class="w">
+        <div id="wrapper-left">
+            {{include "/part/nav.html" .}}
+            <div class="box-02 no-bottom-border">
+                {{include "/part/page_base_info.html" .}}
+                <form class="cell" id="gen">
+                    <table class="table-add">
+                        {{editTrOptions "table" "数据表" .tables ""}}
+                        {{editTrDesc "prefix" "表前缀" "" "用于去掉表前缀确认结构体的名称 (如果没有可以为空)"}}
+                        {{editTrDesc "group" "一级菜单分组" "" "顶级菜单"}}
+                        {{editTrDesc "menu" "菜单名称" "" "页面菜单的名称"}}
+                        {{editTrDesc "apiGroup" "API分组" "" "确认生成的API操作分组, 一般与菜单名称一致"}}
+                        {{editTrDesc "htmlGroup" "HTML分组文件夹" "" "确认html页面的分组(请使用英文) 如 user, 则用户列表，用户登录日志等则可设置为同一分组 user"}}
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="btn-info" href="#" onclick="genSubmit()">生成基础代码</a>
+                            </td>
+                            <td>
+                                <span class="color-desc-02 fs-12">操作会生成,控制层文件、路由文件、html文件、api记录、菜单记录</span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <div class="cell color-desc-02">
+                    <p class="color-red fs-12">请注意：同一张表执行多次生成操作，之前生成的控制层、及html页面内容会被覆盖。</p>
+                    <p class="color-desc-02 fs-12 mt-10">相同的api,菜单,路由不会重复生成。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{include "/part/footer.html" .}}
+{{include "/part/endJs.html" .}}
+<script>
+    const genSubmit = async () => {
+        const {code, msg} = await $.post('/admin/gen/table', $("#gen").serialize())
+        alert(msg)
+    }
+</script>
+</body>
+</html>

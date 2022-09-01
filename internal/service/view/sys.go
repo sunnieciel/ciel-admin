@@ -28,7 +28,7 @@ func Nav(s []interface{}, path interface{}) string {
 			}
 			currentPageClas := "" // 当前页面的class
 			if path == c.Get("path").String() {
-				currentPageClas = "Tag-blue"
+				currentPageClas = "tag-blue"
 			}
 			subNav += fmt.Sprintf("<a class='link-3 %s' data='%s' href='%s' %s>%s</a>",
 				currentPageClas,

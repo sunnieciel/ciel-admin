@@ -155,6 +155,11 @@ var (
 					g.Middleware(admin.AuthMiddleware)
 					g.GET("/ws", controller.Ws.GetAdminWs)
 				})
+				g.Group("/gen", func(g *ghttp.RouterGroup) {
+					g.Middleware(admin.AuthMiddleware)
+					g.GET("/", controller.Gen.Index)
+					g.POST("/table", controller.Gen.Gen)
+				})
 				g.GET("/login", controller.Admin.LoginPage)
 				g.GET("/to/:path", controller.Sys.To)
 				g.Middleware(admin.AuthMiddleware)

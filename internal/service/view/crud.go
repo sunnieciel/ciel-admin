@@ -100,6 +100,11 @@ func EditTr(name string, title string, value interface{}) string {
 		title, name, value)
 }
 
+func EditTrDesc(name string, title string, value interface{}, desc string) string {
+	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input name="%s" value="%v"></td><td class="color-desc-02 fs-12">%s</td></tr> `,
+		title, name, value, desc)
+}
+
 func EditTrPass(name string, title string, value interface{}) string {
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input type="password" reqeuired name="%s" value="%v"></td></tr> `,
 		title, name, value)

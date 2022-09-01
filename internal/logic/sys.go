@@ -423,6 +423,7 @@ func genRouter(d bo.GenConf) error {
 	}
 	return nil
 }
+
 func genApi(ctx context.Context, name, pageName, group string) error {
 	if err := checkGroupOrSave(ctx, group); err != nil {
 		return err
@@ -726,7 +727,6 @@ func genIndex(c bo.GenConf) error {
 	}
 	return nil
 }
-
 func makeToJsonStr2(str string) string {
 	re := regexp.MustCompile(`\s*"?(options)"?\s*:\s*"?((?:[^,]*?:[^,]*?:[^,]*?,?)*)"?\s*([,}])|\s*"?(\w+)"?\s*:\s*"?(.*?)"?\s*([,}])`)
 	return re.ReplaceAllString(str, `"$1$4":"$2$5"$3$6`)

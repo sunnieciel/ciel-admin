@@ -36,7 +36,7 @@ let read = {
         {
             name: "书籍",
             urls: [
-                {class: "tag-success", name: "自由钥匙", url: "https://www.freekey.cc/"},
+                {class: "tag-success", name: "自由钥匙", url: "https://www.Freekey.cc/"},
                 {class: "tag-success", name: "怒努书坊", url: "https://www.kanunu8.com/"},
                 {class: "tag-success", name: "维基文库", url: "https://www.wikisource.org/"},
             ]

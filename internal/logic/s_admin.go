@@ -21,8 +21,7 @@ var (
 	Admin = admin{}
 )
 
-type admin struct {
-}
+type admin struct{}
 
 func (admin) Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
 	var d = make([]*bo.Menu, 0)

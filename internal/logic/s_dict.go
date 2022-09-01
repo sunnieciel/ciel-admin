@@ -14,8 +14,7 @@ var (
 	Dict = dict{}
 )
 
-type dict struct {
-}
+type dict struct{}
 
 // SetWhiteIps 更新ip白名单
 func (dict) SetWhiteIps(ctx context.Context, v ...string) error {

@@ -15,8 +15,9 @@ import (
 	"time"
 )
 
-type file struct {
-}
+var File = file{}
+
+type file struct{}
 
 func (f file) Upload(ctx context.Context, r *ghttp.Request) error {
 	files := r.GetUploadFiles("file")
@@ -55,5 +56,3 @@ func (f file) Upload(ctx context.Context, r *ghttp.Request) error {
 	}
 	return nil
 }
-
-var File = file{}

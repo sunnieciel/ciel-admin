@@ -71,6 +71,17 @@ func Ok(r *ghttp.Request) {
 		return
 	}
 }
+
+func OkMsg(msg string, r *ghttp.Request) {
+	err := r.Response.WriteJsonExit(g.Map{
+		"code": 0,
+		"msg":  msg,
+	})
+	if err != nil {
+		g.Log().Error(r.Context(), err)
+		return
+	}
+}
 func OkData(data interface{}, r *ghttp.Request) {
 	_ = r.Response.WriteJsonExit(g.Map{
 		"code": 0,
