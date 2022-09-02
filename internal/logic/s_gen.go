@@ -444,3 +444,18 @@ func (l lGen) TableFields(ctx context.Context, table string) ([]*gdb.TableField,
 	sort.Slice(arr, func(i, j int) bool { return arr[i].Index < arr[j].Index })
 	return arr, nil
 }
+
+func (l lGen) MenuLeve1(ctx context.Context) (string, error) {
+	var (
+		arr []string
+	)
+	all, err := dao.Menu.Ctx(ctx).Array("name", "pid=-1")
+	if err != nil {
+		g.Log().Error(ctx, err)
+		return "", err
+	}
+	for _, i := range all {
+		arr = append(arr, i.String())
+	}
+	return strings.Join(arr, ","), nil
+}

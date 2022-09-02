@@ -16,9 +16,9 @@
                     <table class="table-add">
                         {{editTrOptions "table" "数据表" .tables ""}}
                         {{editTrDesc "prefix" "表前缀" "" "用于去掉表前缀确认结构体的名称 (如果没有可以为空)"}}
-                        {{editTrDesc "group" "一级菜单分组" "" "顶级菜单"}}
                         {{editTrDesc "menu" "菜单名称" "" "页面菜单的名称"}}
                         {{editTrDesc "apiGroup" "API分组" "" "确认生成的API操作分组, 一般与菜单名称一致"}}
+                        {{editTrInputListDesc "group" "一级菜单分组" .menuLevel1 "顶级菜单" }}
                         {{editTrDesc "htmlGroup" "HTML分组文件夹" "" "确认html页面的分组(请使用英文) 如 user, 则用户列表，用户登录日志等则可设置为同一分组 user"}}
                         <tr>
                             <td></td>
@@ -40,6 +40,7 @@
                     <p>1. 创建数据表</p>
                     <p>2. 使用 <a href="https://goframe.org/pages/viewpage.action?pageId=3673173" target="_blank" title="如果不清楚gf gen dao 的使用，可点击进行查看">gf gen dao</a> 生成基础代码 </p>
                     <p>3. 到此页面进行生成操作</p>
+                    <p class="mt-10"><a href="https://github.com/1211ciel/ciel-admin/blob/master/documents/gen.md" target="_blank">查看示例</a></p>
                 </div>
             </div>
         </div>
@@ -49,9 +50,21 @@
 {{include "/part/endJs.html" .}}
 <script>
     const genSubmit = async () => {
-        const {code, msg} = await $.post('/admin/gen/table', $("#gen").serialize())
+        const {msg} = await $.post('/admin/gen/table', $("#gen").serialize())
         alert(msg)
     }
+    $("select[name='table']").change(e => {
+        let table = e.target.value
+        let prefix = table.substring(0, table.indexOf('_') + 1)
+        if (prefix) {
+            $("input[name='prefix']").val(prefix)
+        }
+        let structName = table.substring(table.indexOf('_') + 1)
+        if (structName) {
+            $("input[name='menu']").val(structName)
+            $("input[name='apiGroup']").val(structName)
+        }
+    })
 </script>
 </body>
 </html>

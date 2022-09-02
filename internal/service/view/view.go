@@ -48,14 +48,15 @@ func BindFuncMap() gview.FuncMap {
 		"aFun":           AFun, // a with function
 		"imgSettings":    ImgSettings,
 		// 添加或修改 tr
-		"editTr":         EditTr,
-		"editTrDesc":     EditTrDesc,
-		"editTrPass":     EditTrPass,
-		"editTrReadonly": EditTrReadonly,
-		"editTrTextarea": EditTrTextarea,
-		"editTrRequired": EditTrRequired,
-		"editTrNumber":   EditTrNumber,
-		"editTrOptions":  EditTrOption,
-		"editTrSubmit":   EditTrSubmit,
+		"editTr":              EditTr,
+		"editTrInputListDesc": EditTrInputListDesc,
+		"editTrDesc":          EditTrDesc,
+		"editTrPass":          EditTrPass,
+		"editTrReadonly":      EditTrReadonly,
+		"editTrTextarea":      EditTrTextarea,
+		"editTrRequired":      EditTrRequired,
+		"editTrNumber":        EditTrNumber,
+		"editTrOptions":       EditTrOption,
+		"editTrSubmit":        EditTrSubmit,
 	}
 }

@@ -5,6 +5,9 @@ import (
 	"context"
 )
 
+func MenuLeve1(ctx context.Context) (string, error) {
+	return logic.Gen.MenuLeve1(ctx)
+}
 func Tables(ctx context.Context) (string, error) {
 	return logic.Gen.Tables(ctx)
 }

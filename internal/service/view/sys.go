@@ -74,7 +74,7 @@ func Option(in string, flag interface{}) string {
 		if d[0] == gconv.String(flag) {
 			selected = "selected"
 		}
-		res += fmt.Sprintf("<Option value='%v' class='%v'  %v>%v</Option>", d[0], d[2], selected, d[1])
+		res += fmt.Sprintf("<option value='%v' class='%v'  %v>%v</option>", d[0], d[2], selected, d[1])
 	}
 	return res
 }

@@ -27,12 +27,17 @@ func (c cGen) Index(r *ghttp.Request) {
 	if err != nil {
 		res.ErrSession(err, r)
 	}
-	g.Log().Infof(ctx, tables)
+
+	menuLeve1, err := gen.MenuLeve1(ctx)
+	if err != nil {
+		res.Err(err, r)
+	}
 	res.Tpl("/sys/gen/index.html", g.Map{
-		"node":   node,
-		"path":   path,
-		"msg":    sys.MsgFromSession(r),
-		"tables": tables,
+		"node":       node,
+		"path":       path,
+		"msg":        sys.MsgFromSession(r),
+		"menuLevel1": menuLeve1,
+		"tables":     tables,
 	}, r)
 }
 

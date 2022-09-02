@@ -5,6 +5,7 @@ import (
 	"ciel-admin/utility/utils/xurl"
 	"fmt"
 	"github.com/gogf/gf/v2/text/gstr"
+	"strings"
 )
 
 // Input 拼接input框
@@ -103,6 +104,35 @@ func EditTr(name string, title string, value interface{}) string {
 func EditTrDesc(name string, title string, value interface{}, desc string) string {
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input name="%s" value="%v"></td><td class="color-desc-02 fs-12">%s</td></tr> `,
 		title, name, value, desc)
+}
+
+// EditTrInputListDesc
+// 输入 name=group
+// 输入 一级分类菜单
+// 输入 系统:,工具,用户
+// 输入 这是一个选项输入框
+// 输入 用户
+// 输出
+func EditTrInputListDesc(name, title, options, desc string) string {
+	var (
+		option string
+	)
+	for _, i := range strings.Split(options, ",") {
+		temp := gstr.TrimAll(i)
+		if temp != "" {
+			option += fmt.Sprintf(`<option>%s</option>`, temp)
+		}
+	}
+	return fmt.Sprintf(`<tr>
+<td align="right">%s</td>
+<td>
+<input type="text" list="list-%s" name="%s">
+<datalist id="list-%s">
+%s
+</datalist>
+</td>
+<td class="color-desc-02 fs-12">%s</td>
+</tr>`, title, name, name, name, option, desc)
 }
 
 func EditTrPass(name string, title string, value interface{}) string {
