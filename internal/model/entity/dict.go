@@ -11,6 +11,7 @@ import (
 // Dict is the golang structure for table dict.
 type Dict struct {
 	Id        uint64      `json:"id"        description:""`
+	Title     string      `json:"title"     description:""`
 	K         string      `json:"k"         description:""`
 	V         string      `json:"v"         description:""`
 	Desc      string      `json:"desc"      description:""`

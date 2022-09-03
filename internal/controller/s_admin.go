@@ -8,7 +8,6 @@ import (
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
-	"ciel-admin/utility/utils/xpwd"
 	"ciel-admin/utility/utils/xurl"
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
@@ -68,17 +67,15 @@ func (c cAdmin) AddIndex(r *ghttp.Request) {
 }
 func (c cAdmin) Post(r *ghttp.Request) {
 	var (
-		d     = entity.Admin{}
-		ctx   = r.Context()
-		path  = fmt.Sprintf("%s/add?%s", c.ReqPath, xurl.ToUrlParams(r.GetQueryMap()))
-		table = c.Table
+		d    = entity.Admin{}
+		ctx  = r.Context()
+		path = fmt.Sprintf("%s/add?%s", c.ReqPath, xurl.ToUrlParams(r.GetQueryMap()))
 	)
 	if err := r.Parse(&d); err != nil {
 		res.Err(err, r)
 	}
-	d.Pwd = xpwd.GenPwd(d.Pwd)
 	res.OkSession("添加成功", r)
-	if err := sys.Add(ctx, table, &d); err != nil {
+	if err := admin.Add(ctx, d); err != nil {
 		res.ErrSession(err, r)
 	}
 	res.RedirectTo(path, r)
@@ -205,8 +202,8 @@ func (c cAdmin) RegisterRouter(g *ghttp.RouterGroup) {
 		g.GET("/getCaptcha", Sys.GetCaptcha) // 获取验证码
 		g.POST("/login", c.Login)
 		g.Middleware(admin.AuthMiddleware)
-		g.GET("/logout", c.Logout)
 		g.GET("/", c.Index)
+		g.GET("/logout", c.Logout)
 		g.GET("/add", c.AddIndex)
 		g.GET("/edit/:id", c.EditIndex)
 		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)

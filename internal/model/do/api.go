@@ -16,8 +16,8 @@ type Api struct {
 	Url       interface{} //
 	Method    interface{} //
 	Group     interface{} //
+	Type      interface{} // 类型 1添加 2删除 3修改 4查看 5 页面
 	Desc      interface{} //
-	Status    interface{} //
 	CreatedAt *gtime.Time //
 	UpdatedAt *gtime.Time //
 }

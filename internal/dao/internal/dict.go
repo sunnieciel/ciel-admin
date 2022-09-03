@@ -21,6 +21,7 @@ type DictDao struct {
 // DictColumns defines and stores column names for table s_dict.
 type DictColumns struct {
 	Id        string //
+	Title     string //
 	K         string //
 	V         string //
 	Desc      string //
@@ -34,6 +35,7 @@ type DictColumns struct {
 //  dictColumns holds the columns for table s_dict.
 var dictColumns = DictColumns{
 	Id:        "id",
+	Title:     "title",
 	K:         "k",
 	V:         "v",
 	Desc:      "desc",

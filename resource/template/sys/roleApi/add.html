@@ -23,20 +23,48 @@
                 <div class="cell">
                     {{a "link-2-active" "#" "添加角色禁用API"}}
                 </div>
-                <form class="cell" method="post" action="/admin/roleApi/post?{{toUrlParams .Query}}">
+                <form id="form" class="cell" method="post" action="/admin/roleApi/post?{{toUrlParams .Query}}">
                     <table class="table-add">
-                        {{editTrRequired "rid" "角色" .Query.rid}}
+                        {{editTrReadonly "rid" "角色id" .role.Id}}
+                        {{editTrReadonly "name" "角色" .role.Name}}
                         <tr>
-                            <td width='160' align='right'>API</td>
+                            <td width='160' align='right'>APIs</td>
                             <td width='auto' align='left'>
-                                <select name='aid[]' multiple style="height: 333px">
+                                <select name='aid[]' multiple style="height: 333px;width: 600px">
                                     {{range .apis}}
+                                    {{if eq .type 1}}
+                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-primary width-auto block">【{{.group}}】【添加】 {{.desc}} ({{.url}})</option>
+                                    {{else if eq .type 2}}
+                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-danger width-auto block">【{{.group}}】【删除】 {{.desc}} ({{.url}})</option>
+                                    {{else if eq .type 3}}
+                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-warning width-auto block">【{{.group}}】【修改】 {{.desc}} ({{.url}})</option>
+                                    {{else if eq .type 4}}
+                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-success width-auto block">【{{.group}}】【查询】 {{.desc}} ({{.url}})</option>
+                                    {{else if eq .type 5}}
+                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-success width-auto block">【{{.group}}】【查询】 {{.desc}} ({{.url}})</option>
+                                    {{else}}
                                     <option value="{{.id}}">『 {{.group}} 』{{.desc}} 》 {{.url}}</option>
+                                    {{end}}
                                     {{end}}
                                 </select>
                             </td>
                         </tr>
-                        {{editTrSubmit}}
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="tag-success" href="#" onclick="handleChoose(5)">禁用所有页面</a>
+                                <a class="tag-success" href="#" onclick="handleChoose(4)">禁用所有查询API</a>
+                                <a class="tag-primary" href="#" onclick="handleChoose(1)">禁用所有添加API</a>
+                                <a class="tag-warning" href="#" onclick="handleChoose(3)">禁用所有修改API</a>
+                                <a class="tag-danger" href="#" onclick="handleChoose(2)">禁用所有删除API</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button class="btn-warning" type="submit">提交</button>
+                            </td>
+                        </tr>
                     </table>
                 </form>
             </div>
@@ -45,5 +73,11 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script>
+    const handleChoose = (type) => {
+        $("select[name='aid[]']").find(`option[data-type='${type}']`).attr('selected', true)
+        $("#form").submit()
+    }
+</script>
 </body>
 </html>

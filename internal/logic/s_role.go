@@ -16,13 +16,56 @@ var (
 
 type role struct{}
 
-func (r role) ClearApi(ctx context.Context, rid interface{}) error {
-	_, err := dao.Role.GetById(ctx, rid)
+func (r role) ClearApi(ctx context.Context, rid interface{}, t int) error {
+	// 做实际的清除工作
+	if t == 0 {
+		if _, err := dao.RoleApi.Ctx(ctx).Delete("rid", rid); err != nil {
+			g.Log().Error(ctx, err)
+			return err
+		}
+	}
+	all, err := dao.RoleApi.Ctx(ctx).All("rid", rid)
 	if err != nil {
+		g.Log().Error(ctx, err)
 		return err
 	}
-	_, err = dao.RoleApi.Ctx(ctx).Delete("rid", rid)
-	return err
+	if all.IsEmpty() {
+		return nil
+	}
+	for _, i := range all {
+		apiData, err := dao.Api.GetById(ctx, i["aid"].Int())
+		if err != nil {
+			return err
+		}
+		apiType := apiData.Type
+		switch t {
+		case 1: // 允许所有查询
+			if apiType == 4 || apiType == 5 {
+				if _, err = dao.RoleApi.Ctx(ctx).Delete("id", i["id"]); err != nil {
+					return err
+				}
+			}
+		case 2: // 允许所有添加操作
+			if apiType == 1 {
+				if _, err = dao.RoleApi.Ctx(ctx).Delete("id", i["id"]); err != nil {
+					return err
+				}
+			}
+		case 3: // 允许所有修改操作
+			if apiType == 3 {
+				if _, err = dao.RoleApi.Ctx(ctx).Delete("id", i["id"]); err != nil {
+					return err
+				}
+			}
+		case 4: // 允许所有删除操作
+			if apiType == 2 {
+				if _, err = dao.RoleApi.Ctx(ctx).Delete("id", i["id"]); err != nil {
+					return err
+				}
+			}
+		}
+	}
+	return nil
 }
 
 func (r role) ClearMenu(ctx context.Context, rid interface{}) error {

@@ -13,6 +13,7 @@ import (
 type Dict struct {
 	g.Meta    `orm:"table:s_dict, do:true"`
 	Id        interface{} //
+	Title     interface{} //
 	K         interface{} //
 	V         interface{} //
 	Desc      interface{} //

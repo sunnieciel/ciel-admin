@@ -24,6 +24,7 @@
                 <form class="cell" method="post" action="/admin/dict/put?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrReadonly "id" "ID" .Form.id}}
+                        {{editTr "title" "标题" .Form.title}}
                         {{editTr "k" "KEY" .Form.k}}
                         {{editTrTextarea "v" "VALUE" .Form.v}}
                         {{editTr "desc" "说明" .Form.desc}}

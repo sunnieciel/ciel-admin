@@ -17,6 +17,14 @@ func Input(name, nameDesc string, query map[string]interface{}) string {
 	return fmt.Sprintf(`<label class="input">%s<input type="text" name="%s" value="%v" onkeydown="if(event.keyCode===13)this.form.submit()"> </label>`, nameDesc, name, v)
 }
 
+func InputHidden(name string, query map[string]interface{}) string {
+	v := query[name]
+	if v == nil {
+		v = ""
+	}
+	return fmt.Sprintf(`<input type="hidden" name="%s" value="%v" onkeydown="if(event.keyCode===13)this.form.submit()"> </label>`, name, v)
+}
+
 func Options(name, nameDesc, options string, query map[string]interface{}) string {
 	v := query[name]
 	if v == nil {
@@ -45,6 +53,9 @@ func Th(str string) string {
 // 输入 ID 1
 // 输出 <td data-label="ID">1</td>
 func Td(name string, value interface{}) string {
+	if value == nil {
+		value = "- - -"
+	}
 	return fmt.Sprintf(`<td data-label="%s">%v</td>`, name, value)
 }
 
@@ -91,17 +102,23 @@ func AFun(className string, href string, name string, f string, query ...map[str
 	return fmt.Sprintf(`<a class="%s" href="%s%s" onclick="%s">%s</a>`, className, href, q, f, name)
 }
 func ADel(href string, query map[string]interface{}) string {
-	return fmt.Sprintf(`<a class="tag-purple" href="#" onclick="if(confirm('确认删除?')){location.href='%s?%s'}">删除</a>`, href, xurl.ToUrlParams(query))
+	return fmt.Sprintf(`<a class="tag-danger" href="#" onclick="if(confirm('确认删除?')){location.href='%s?%s'}">删除</a>`, href, xurl.ToUrlParams(query))
 }
 func ImgSettings() string {
 	return `<img src="/resource/image/settings.png" alt="Settings" width="64" height="64">`
 }
 func EditTr(name string, title string, value interface{}) string {
+	if value == nil {
+		value = ""
+	}
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input name="%s" value="%v"></td></tr> `,
 		title, name, value)
 }
 
 func EditTrDesc(name string, title string, value interface{}, desc string) string {
+	if value == nil {
+		value = ""
+	}
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input name="%s" value="%v"></td><td class="color-desc-02 fs-12">%s</td></tr> `,
 		title, name, value, desc)
 }
@@ -136,26 +153,41 @@ func EditTrInputListDesc(name, title, options, desc string) string {
 }
 
 func EditTrPass(name string, title string, value interface{}) string {
-	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input type="password" reqeuired name="%s" value="%v"></td></tr> `,
+	if value == nil {
+		value = ""
+	}
+	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input type="password" required name="%s" value="%v"></td></tr> `,
 		title, name, value)
 }
 
 func EditTrReadonly(name string, title string, value interface{}) string {
+	if value == nil {
+		value = ""
+	}
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input name="%s" readonly value="%v"></td></tr> `,
 		title, name, value)
 }
 
 func EditTrRequired(name string, title string, value interface{}) string {
+	if value == nil {
+		value = ""
+	}
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input name="%s" required value="%v"></td></tr> `,
 		title, name, value)
 }
 
 func EditTrTextarea(name string, title string, value interface{}) string {
+	if value == nil {
+		value = ""
+	}
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><textarea name="%s" >%v</textarea></td></tr> `,
 		title, name, value)
 }
 
 func EditTrNumber(name string, title string, value interface{}, step float64, min, max float64) string {
+	if value == nil {
+		value = ""
+	}
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input type="number"  name="%s" value="%v" step='%f' min="%f" max="%f"></td></tr> `,
 		title, name, value, step, min, max)
 }
@@ -167,6 +199,9 @@ func EditTrNumber(name string, title string, value interface{}, step float64, mi
 // 输入 value 1
 // 输出 <tr><td align="right">类型</td><td><select name="type"><option value="1" class="tag-info">菜单</option><option value="2" class="tag-warning">分组</option></select></td></tr>
 func EditTrOption(name, title, options string, value interface{}) string {
+	if value == nil {
+		value = ""
+	}
 	return fmt.Sprintf(`<tr><td align="right">%s</td><td><select name="%s">%s</select></td></tr>`, title, name, Option(options, value))
 }
 func EditTrSubmit() string {

@@ -8,8 +8,8 @@ import (
 	"github.com/gogf/gf/v2/database/gdb"
 )
 
-func ClearApi(ctx context.Context, rid interface{}) error {
-	return logic.Role.ClearApi(ctx, rid)
+func ClearApi(ctx context.Context, rid interface{}, t int) error {
+	return logic.Role.ClearApi(ctx, rid, t)
 }
 func NoMenu(ctx context.Context, rid interface{}) (gdb.List, error) {
 	return dao.RoleMenu.RoleNoMenu(ctx, rid)

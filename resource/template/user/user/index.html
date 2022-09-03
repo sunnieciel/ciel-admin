@@ -19,7 +19,7 @@
             <div class="box-02 no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form class="cell flex-center no-bottom-border p-3" action="/admin/user" method="get">
-                    {{a "tag-purple mr-auto" "/admin/user/add" "添加"}}
+                    {{a "tag-primary mr-auto" "/admin/user/add" "添加"}}
                     {{searchPageSize .Query}}
                     {{input "id" "id" .Query}}
                     {{input "uname" "用户名" .Query}}
@@ -47,7 +47,7 @@
                         {{td "updated_at" .updated_at}}
 
                         <td align="center">
-                            {{a "tag-primary" (concat "/admin/user/edit/" .id) "修改" $.Query}}
+                            {{a "tag-warning" (concat "/admin/user/edit/" .id) "修改" $.Query}}
                             {{aDel (concat "/admin/user/del/" .id) $.Query}}
                         </td>
                     </tr>

@@ -14,8 +14,8 @@ type Api struct {
 	Url       string      `json:"url"       description:""`
 	Method    string      `json:"method"    description:""`
 	Group     string      `json:"group"     description:""`
+	Type      uint        `json:"type"      description:"类型 1添加 2删除 3修改 4查看 5 页面"`
 	Desc      string      `json:"desc"      description:""`
-	Status    int         `json:"status"    description:""`
 	CreatedAt *gtime.Time `json:"createdAt" description:""`
 	UpdatedAt *gtime.Time `json:"updatedAt" description:""`
 }

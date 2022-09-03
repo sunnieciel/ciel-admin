@@ -5,7 +5,11 @@
 package dao
 
 import (
+	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao/internal"
+	"ciel-admin/internal/model/entity"
+	"context"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 // internalApiDao is internal type for wrapping internal DAO implements.
@@ -15,6 +19,22 @@ type internalApiDao = *internal.ApiDao
 // You can define custom methods on it to extend its functionality as you wish.
 type apiDao struct {
 	internalApiDao
+}
+
+func (d apiDao) GetById(ctx context.Context, id interface{}) (*entity.Api, error) {
+	var data entity.Api
+	one, err := d.Ctx(ctx).WherePri(id).One()
+	if err != nil {
+		return nil, err
+	}
+	if one.IsEmpty() {
+		return nil, consts.ErrDataNotFound
+	}
+	if err = one.Struct(&data); err != nil {
+		g.Log().Error(ctx, err)
+		return nil, err
+	}
+	return &data, nil
 }
 
 var (

@@ -316,6 +316,16 @@ ol {
     width: 120px !important;
 }
 
+.w-180 {
+    width: 180px !important;
+    min-width: 180px !important;
+    max-width: 180px !important;
+}
+
+.w-220 {
+    width: 220px !important;
+}
+
 .w-fifty {
     width: 50% !important;
 }

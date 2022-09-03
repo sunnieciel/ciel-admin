@@ -28,8 +28,8 @@
                         {{editTrRequired "url" "地址" ""}}
                         {{editTrOptions "method" "方法" .Config.options.api 1}}
                         {{editTrOptions "group" "分组" .api_group ""}}
-                        {{editTr "desc" "说明" ""}}
-                        {{editTrOptions "status" "状态" .Config.options.status 1}}
+                        {{editTrOptions "type" "类型" .Config.options.apiType 5}}
+                        {{editTrRequired "desc" "说明" ""}}
                         {{editTrSubmit}}
                     </table>
                 </form>

@@ -307,12 +307,12 @@ func (l lGen) genApi(ctx context.Context, name, pageName, group string) error {
 	}
 	name = gstr.CaseCamelLower(name)
 	array := []*entity.Api{
-		{Url: fmt.Sprintf("/%s", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s页面", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/add", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s添加页面", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/edit/:id", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s修改页面", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s/del/:id", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s删除操作", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: group, Desc: fmt.Sprintf("添加%s", pageName), Status: 1},
-		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: group, Desc: fmt.Sprintf("修改%s", pageName), Status: 1},
+		{Url: fmt.Sprintf("/%s", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s页面", pageName), Type: 5},
+		{Url: fmt.Sprintf("/%s/add", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s添加页面", pageName), Type: 5},
+		{Url: fmt.Sprintf("/%s/edit/:id", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s修改页面", pageName), Type: 5},
+		{Url: fmt.Sprintf("/%s/del/:id", name), Method: "1", Group: group, Desc: fmt.Sprintf("%s删除操作", pageName), Type: 2},
+		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: group, Desc: fmt.Sprintf("添加%s", pageName), Type: 1},
+		{Url: fmt.Sprintf("/%s", name), Method: "2", Group: group, Desc: fmt.Sprintf("修改%s", pageName), Type: 3},
 	}
 	for _, i := range array {
 		count, err := dao.Api.Ctx(ctx).Count("url = ? and method = ?", i.Url, i.Method)

@@ -24,8 +24,8 @@ type ApiColumns struct {
 	Url       string //
 	Method    string //
 	Group     string //
+	Type      string // 类型 1添加 2删除 3修改 4查看 5 页面
 	Desc      string //
-	Status    string //
 	CreatedAt string //
 	UpdatedAt string //
 }
@@ -36,8 +36,8 @@ var apiColumns = ApiColumns{
 	Url:       "url",
 	Method:    "method",
 	Group:     "group",
+	Type:      "type",
 	Desc:      "desc",
-	Status:    "status",
 	CreatedAt: "created_at",
 	UpdatedAt: "updated_at",
 }

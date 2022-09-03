@@ -25,6 +25,9 @@
                     <table class="table-add">
                         {{editTrOptions "rid" "角色" .roles 1}}
                         {{editTrRequired "uname" "用户名" ""}}
+                        {{editTr "nickname" "昵称" .Form.nickname}}
+                        {{editTr "email" "邮箱" .Form.email}}
+                        {{editTr "phone" "电话" .Form.phone}}
                         {{editTrPass "pwd" "密码" ""}}
                         {{editTrOptions "status" "状态" .Config.options.status 1}}
                         {{editTrSubmit}}

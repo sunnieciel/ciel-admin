@@ -35,8 +35,9 @@ func BindFuncMap() gview.FuncMap {
 		"md":          MD,
 		"trans":       xtrans.T,
 		// 查询 input
-		"input":   Input,
-		"options": Options,
+		"input":      Input,
+		"inputHidde": InputHidden,
+		"options":    Options,
 		// table
 		"th":             Th,
 		"td":             Td,

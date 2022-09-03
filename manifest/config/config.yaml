@@ -38,6 +38,7 @@ redis:
 options:
   status: "1:正常:tag-info,2:禁用:tag-danger"
   api: "1:GET:tag-success,2:POST:tag-primary,3:PUT:tag-warning,4:DELETE:tag-danger"
+  apiType: "1:添加:tag-primary,2:删除:tag-danger,3:修改:tag-warning,4:查看:tag-success,5:页面:tag-info"
   menuType: "1:菜单:tag-info,2:分组:tag-warning"
   dictGroup: "1:系统:tag-info,2:网站:tag-primary,3:备用:tag-warning,4:其他:tag-danger"
   dictType: "1:文本:tag-info,2:图片:tag-warning,3:富文本:tag-primary,4:文件:tag-danger,5:其他:tag-purple"

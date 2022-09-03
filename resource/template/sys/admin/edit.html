@@ -25,6 +25,9 @@
                     <table class="table-add">
                         {{editTrReadonly "id" "ID" .Form.id}}
                         {{editTrReadonly "uname" "用户名" .Form.uname}}
+                        {{editTr "nickname" "昵称" .Form.nickname}}
+                        {{editTr "email" "邮箱" .Form.email}}
+                        {{editTr "phone" "电话" .Form.phone}}
                         {{editTrOptions "rid" "角色" .roles .Form.rid}}
                         {{editTrOptions "status" "状态" .Config.options.status .Form.status}}
                         {{editTrSubmit}}

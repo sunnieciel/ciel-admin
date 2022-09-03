@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    {{include "/part/meta.html" .}} <title>"角色禁用API" - {{.Config.server.name}} </title>
+    {{include "/part/meta.html" .}} <title>角色禁用API - {{.Config.server.name}} </title>
 </head>
 <body>
 {{include "/part/top.html" .}}
@@ -17,21 +17,29 @@
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="/admin/roleApi" method="get">
                     {{a "tag-info" "/admin/role" "后退"}}
-                    {{a "tag-primary" (concat "/admin/roleApi/add?rid=" .Query.rid) "添加"}}
-                    {{aFun "tag-purple ml-3" "#" "清空" "clearRoleApi()"}}
+                    {{a "tag-info" (concat "/admin/roleApi/add?rid=" .Query.rid) "添加禁用API"}}
+                    {{inputHidde "rid" "rid" .Query}}
+                    {{aFun "tag-info ml-3 " "#" "允许所有操作" "clearRoleApi(0)"}}
+                    {{aFun "tag-success ml-3 " "#" "允许所有查询操作" "clearRoleApi(1)"}}
+                    {{aFun "tag-primary ml-3 " "#" "允许所有添加操作" "clearRoleApi(2)"}}
+                    {{aFun "tag-warning ml-3 " "#" "允许所有修改操作" "clearRoleApi(3)"}}
+                    {{aFun "tag-danger ml-3 mr-auto" "#" "允许所有删除操作" "clearRoleApi(4)"}}
+                    {{options "type" "类型" .Config.options.apiType .Query}}
+                    {{options "group" "分组" .groups .Query}}
                     {{searchPageSize .Query}}
                 </form>
             </div>
             <div class="box no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
-                    <tr> {{th "id,角色,分组,URL,方法,说明,操作"}}</tr>
+                    <tr> {{th "id,角色,路径,分组,类型,方法,说明,操作"}}</tr>
                     {{range .list}}
                     <tr>
                         {{td "ID" .id}}
                         {{td "角色" .r_name}}
+                        {{td "路径" .url}}
                         {{td "分组" .group}}
-                        {{td "URL" .url}}
+                        {{tdChoose "type" $.Config.options.apiType .type}}
                         {{tdChoose "method" $.Config.options.api .method}}
                         {{td "说明" .desc}}
                         <td data-label="操作" align="center">
@@ -49,8 +57,8 @@
 {{include "/part/endJs.html" .}}
 </body>
 <script>
-    async function clearRoleApi() {
-        if (confirm('确认清空？')) {
+    async function clearRoleApi(type) {
+        if (confirm('确认执行该操作？')) {
             let rid = '{{.Query.rid}}'
             if (!rid) {
                 rid = prompt('请输入角色id')
@@ -58,7 +66,7 @@
                     return
                 }
             }
-            let res = await $.get("/admin/roleApi/clear/" + rid)
+            let res = await $.get(`/admin/roleApi/clear/${rid}?type=${type}`)
             if (res.code === 0) {
                 location.reload()
             } else {

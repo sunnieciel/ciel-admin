@@ -3,10 +3,14 @@ package admin
 import (
 	"ciel-admin/internal/logic"
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/model/entity"
 	"context"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
+func Add(ctx context.Context, in entity.Admin) error {
+	return logic.Admin.Add(ctx, in)
+}
 func Login(ctx context.Context, id, code, uname string, pwd string, ip string) error {
 	return logic.Admin.Login(ctx, id, code, uname, pwd, ip)
 }

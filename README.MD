@@ -113,7 +113,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
         {{tdChoose "状态" $.Config.options.status .status}}
         {{td "创建时间" .created_at}}
         <td align="center">
-            {{a "tag-primary" (concat "/admin/menu/edit/" .id) "修改" $.Query}}
+            {{a "tag-warning" (concat "/admin/menu/edit/" .id) "修改" $.Query}}
             {{aDel (concat "/admin/menu/del/" .id) $.Query}}
         </td>
     </tr>
@@ -168,7 +168,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 #### a
 
  ```html
- {{a "tag-purple mr-auto" "/admin/menu/add" "添加"}}
+ {{a "tag-primary mr-auto" "/admin/menu/add" "添加"}}
 输出
 <a class="tag-purple mr-auto" href="/admin/menu/add">添加</a> 
  ```

@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/service/admin"
+	"ciel-admin/internal/service/dict"
 	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
@@ -25,33 +26,47 @@ func (c cRoleApi) Index(r *ghttp.Request) {
 		ctx = r.Context()
 		s   = bo.Search{
 			T1: "s_role_api", T2: "s_role t2 on t1.rid = t2.id", T3: "s_api t3 on t1.aid = t3.id",
-			OrderBy:      "t3.group",
-			SearchFields: "t1.*,t2.name r_name,t3.url url,t3.group,t3.method,t3.desc ", Fields: []bo.Field{
+			OrderBy:      "t3.group,t3.type",
+			SearchFields: "t1.*,t2.name r_name,t3.url url,t3.group,t3.method,t3.desc,t3.type", Fields: []bo.Field{
 				{Name: "id"},
 				{Name: "rid", Type: 1},
 				{Name: "aid"},
+				{Name: "t3.group", QueryName: "group", Type: 1},
+				{Name: "t3.type", QueryName: "type", Type: 1},
 				{Name: "t2.name", QueryName: "r_name", Type: 2},
 				{Name: "t3.url"},
 			},
 		}
 		path = r.URL.Path
 		file = fmt.Sprintf("%s/index.html", c.FileDir)
+		rid  = r.GetQuery("rid").Int()
 	)
 	node, err := sys.NodeInfo(ctx, path)
 	if err != nil {
 		res.Err(err, r)
 	}
+	roleInfo, err := role.GetById(ctx, rid)
+	if err != nil {
+		res.Err(err, r)
+	}
+	node.Name = "角色禁用API"
+	node.Desc = fmt.Sprintf("如果你不希望<span class='color-red strong'>【%s】</span>角色访问某些api功能，可以点击添加按钮，将他们添加到下面的列表中", roleInfo.Name)
 	s.Page, s.Size = res.GetPage(r)
 	total, data, err := sys.List(r.Context(), s)
 	if err != nil {
 		res.Err(err, r)
 	}
+	groups, err := dict.ApiGroup(ctx)
+	if err != nil {
+		res.Err(err, r)
+	}
 	if err = r.Response.WriteTpl(file, g.Map{
-		"list": data,
-		"page": r.GetPage(total, s.Size).GetContent(3),
-		"node": node,
-		"msg":  sys.MsgFromSession(r),
-		"path": r.URL.Path,
+		"list":   data,
+		"page":   r.GetPage(total, s.Size).GetContent(3),
+		"node":   node,
+		"msg":    sys.MsgFromSession(r),
+		"path":   path,
+		"groups": groups,
 	}); err != nil {
 		res.Err(err, r)
 	}
@@ -67,7 +82,15 @@ func (c cRoleApi) AddIndex(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	d := g.Map{"msg": sys.MsgFromSession(r), "apis": apis}
+	roleData, err := role.GetById(ctx, rid)
+	if err != nil {
+		res.Err(err, r)
+	}
+	d := g.Map{
+		"msg":  sys.MsgFromSession(r),
+		"apis": apis,
+		"role": roleData,
+	}
 	_ = r.Response.WriteTpl(file, d)
 }
 
@@ -106,8 +129,9 @@ func (c cRoleApi) Clear(r *ghttp.Request) {
 	var (
 		ctx = r.Context()
 		rid = r.Get("rid")
+		t   = r.Get("type").Int()
 	)
-	err := role.ClearApi(ctx, rid)
+	err := role.ClearApi(ctx, rid, t)
 	if err != nil {
 		res.Err(err, r)
 	}

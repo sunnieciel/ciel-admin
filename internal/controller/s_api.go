@@ -36,7 +36,7 @@ func (c cApi) Index(r *ghttp.Request) {
 			Fields: []bo.Field{
 				{Name: "method", Type: 1},
 				{Name: "group", Type: 2},
-				{Name: "status", Type: 1},
+				{Name: "type", Type: 1},
 				{Name: "desc", Type: 2},
 			},
 		}

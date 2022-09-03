@@ -5,6 +5,7 @@ import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/do"
+	"ciel-admin/internal/model/entity"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xcaptcha"
 	"ciel-admin/utility/utils/xpwd"
@@ -201,4 +202,31 @@ func (a admin) ActionMiddleware(r *ghttp.Request) {
 	if err != nil {
 		g.Log().Error(ctx, err)
 	}
+}
+
+func (a admin) Add(ctx context.Context, in entity.Admin) error {
+	if in.Pwd == "" {
+		return consts.ErrPassEmpty
+	}
+	if in.Nickname == "" {
+		in.Nickname = in.Uname
+	}
+	if in.Email != "" {
+		if err := g.Validator().Rules("email").Data(in.Email).Run(ctx); err != nil {
+			return consts.ErrFormatEmail
+		}
+	}
+	count, err := dao.Admin.Ctx(ctx).Count("uname", in.Uname)
+	if err != nil {
+		return err
+	}
+	if count != 0 {
+		return consts.ErrUnameAlreadyExist
+	}
+	in.Pwd = xpwd.GenPwd(in.Pwd)
+	if _, err = dao.Admin.Ctx(ctx).Insert(in); err != nil {
+		g.Log().Error(ctx, err)
+		return err
+	}
+	return nil
 }
