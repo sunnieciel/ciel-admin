@@ -23,8 +23,8 @@ func (c cRoleMenu) Path(r *ghttp.Request) {
 			T1:           "s_role_menu",
 			T2:           "s_role  t2 on t1.rid = t2.id",
 			T3:           "s_menu t3 on t1.mid = t3.id",
-			OrderBy:      "t1.id desc",
-			SearchFields: "t1.*,t2.name role_name ,t3.name menu_name",
+			OrderBy:      "t3.sort ",
+			SearchFields: "t1.*,t2.name role_name ,t3.name menu_name,t3.pid ",
 			Fields: []bo.Field{
 				{Name: "rid", Type: 1},
 			},
@@ -45,6 +45,9 @@ func (c cRoleMenu) Path(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
+	for _, datum := range data {
+		g.Log().Info(ctx, datum)
+	}
 	res.Tpl(file, g.Map{
 		"list": data,
 		"page": r.GetPage(total, s.Size).GetContent(3),
@@ -64,7 +67,14 @@ func (c cRoleMenu) PathAdd(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	res.Tpl(file, g.Map{"msg": msg, "menus": menus}, r)
+	roleData, err := role.GetById(ctx, rid)
+	if err != nil {
+		res.Err(err, r)
+	}
+	for _, i := range menus {
+		g.Log().Info(ctx, i)
+	}
+	res.Tpl(file, g.Map{"msg": msg, "menus": menus, "role": roleData}, r)
 }
 func (c cRoleMenu) Post(r *ghttp.Request) {
 	var (

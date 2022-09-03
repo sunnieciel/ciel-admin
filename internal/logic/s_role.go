@@ -25,6 +25,17 @@ func (r role) ClearApi(ctx context.Context, rid interface{}) error {
 	return err
 }
 
+func (r role) ClearMenu(ctx context.Context, rid interface{}) error {
+	_, err := dao.Role.GetById(ctx, rid)
+	if err != nil {
+		return err
+	}
+	if _, err = dao.RoleMenu.Ctx(ctx).Delete("rid", rid); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (r role) CheckRoleApi(ctx context.Context, rid int, uri string) bool {
 	if strings.Contains(uri, "?") {
 		uri = strings.Split(uri, "?")[0]

@@ -132,3 +132,15 @@ func (c cRole) RoleNoApis(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
+
+func (c cRole) Clear(r *ghttp.Request) {
+	var (
+		rid = r.GetQuery("rid").Int()
+		ctx = r.Context()
+	)
+	res.OkSession("清除成功", r)
+	if err := role.Clear(ctx, rid); err != nil {
+		res.ErrSession(err, r)
+	}
+	res.RedirectTo("", r)
+}

@@ -18,6 +18,7 @@
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
                     {{a "tag-info mr-3" "/admin/role" "back" .Query}}
                     {{a "tag-purple" "/admin/roleMenu/add" "添加" .Query}}
+                    {{a "tag-warning" (concat "/admin/roleMenu/clear?rid=" .Query.rid) "清空" }}
                     {{searchPageSize .Query}}
                 </form>
             </div>
@@ -29,7 +30,13 @@
                     <tr>
                         {{td "ID" .id}}
                         {{td "角色" .role_name}}
-                        {{td "菜单" .menu_name}}
+                        <td>
+                            {{if eq .pid -1}}
+                            <span class="color-blue strong">{{.menu_name}}</span>
+                            {{else}}
+                            <span class="ml-9">|- &nbsp; {{.menu_name}}</span>
+                            {{end}}
+                        </td>
                         <td data-label="操作" align="center">
                             {{aDel (concat "/admin/roleMenu/del/" .id) $.Query}}
                         </td>

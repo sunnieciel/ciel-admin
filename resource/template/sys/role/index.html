@@ -33,8 +33,8 @@
                         {{td "角色" .name}}
                         {{td "创建时间" .created_at}}
                         <td align="center">
-                            {{a "tag-warning" (concat "/admin/roleMenu?rid=" .id) "MENU" }}
-                            {{a "tag-success" (concat "/admin/roleApi?rid=" .id) "API"}}
+                            {{a "tag-warning" (concat "/admin/roleMenu?rid=" .id) "菜单权限" }}
+                            {{a "tag-success" (concat "/admin/roleApi?rid=" .id) "API权限"}}
                             {{a "tag-primary" (concat "/admin/role/edit/" .id) "修改" $.Query}}
                             {{aDel (concat "/admin/role/del/" .id) $.Query}}
                         </td>

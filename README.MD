@@ -10,7 +10,8 @@
 ```
 
 ## v1.1 morri 版本正在更新中
-如果你想先尝试，可以是直接  git clone 项目. 
+
+如果你想先尝试，可以Fork 一份到自己的github(直接clone 文件可能有点大,因为包含以前老的版本).
 
 ## 🍓 追求
 
@@ -82,6 +83,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 5. 浏览器打开 http://localhost:2033/login  默认用户名 `ciel` 密码 `1`
 
 ## 🍀 CRUD代码生成
+
 [查看示例](https://github.com/1211ciel/ciel-admin/blob/master/documents/gen.md)
 
 ---

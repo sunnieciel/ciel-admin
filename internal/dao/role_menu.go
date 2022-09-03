@@ -62,7 +62,7 @@ func (d roleMenuDao) RoleNoMenu(ctx context.Context, rid interface{}) (gdb.List,
 	if len(array) != 0 {
 		db = db.WhereNotIn("id", array)
 	}
-	all, err := db.All()
+	all, err := db.Order("sort").All()
 	if err != nil {
 		return nil, err
 	}

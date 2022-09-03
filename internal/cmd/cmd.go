@@ -71,6 +71,7 @@ var (
 					g.GET("/nomenus", controller.Role.RoleNoMenus)
 					g.GET("/noapis", controller.Role.RoleNoApis)
 					g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+					g.GET("/clear/:id", controller.Role.Clear)
 					g.GET("/del/:id", controller.Role.Del)
 					g.POST("/post", controller.Role.Post)
 					g.POST("/put", controller.Role.Put)

@@ -25,12 +25,17 @@
                 </div>
                 <form class="cell" method="post" action="/admin/roleMenu/post?{{toUrlParams .Query}}">
                     <table class="table-add">
-                        {{editTrRequired "rid" "角色ID" .Query.rid}}
+                        {{editTrReadonly "name" "角色" .role.Name}}
+                        {{editTrReadonly "rid" "角色ID" .role.Id}}
                         <tr>
                             <td width='160' align='right'>菜单</td>
                             <td width='auto' align='left'><select name='mid[]' multiple style="height: 333px;">
                                 {{range .menus}}
-                                <option value="{{.id}}">{{.name}}</option>
+                                {{if eq .pid -1}}
+                                <option value="{{.id}}" class="color-blue strong mt-3">{{.name}}</option>
+                                {{else}}
+                                <option class="ml-12" value="{{.id}}">|-&nbsp;{{.name}}</option>
+                                {{end}}
                                 {{end}}
                             </select></td>
                         </tr>
