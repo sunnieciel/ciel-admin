@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -108,4 +109,16 @@ func (c cMenu) Put(r *ghttp.Request) {
 	}
 	path := fmt.Sprint(c.ReqPath, "/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap()))
 	res.RedirectTo(path, r)
+}
+func (c cMenu) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/menu", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Index)             // 主页面
+		g.GET("/add", c.AddIndex)       // 添加页面
+		g.GET("/edit/:id", c.EditIndex) // 修改页面
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/del/:id", c.Del) // 删除请求
+		g.POST("/post", c.Post)  // 添加请求
+		g.POST("/put", c.Put)    // 修改请求
+	})
 }

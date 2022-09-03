@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -124,4 +125,19 @@ func (c cOperationLog) Clear(r *ghttp.Request) {
 	}
 	path := c.ReqPath
 	res.RedirectTo(path, r)
+}
+
+func (c cOperationLog) RegisterRouter(g *ghttp.RouterGroup) {
+
+	g.Group("/operationLog", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Index)
+		g.GET("/add", c.AddIndex)
+		g.GET("/edit/:id", c.EditIndex)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/del/:id", c.Del)
+		g.POST("/post", c.Post)
+		g.POST("/put", c.Put)
+		g.GET("/clear", c.Clear)
+	})
 }

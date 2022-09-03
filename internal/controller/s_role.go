@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
@@ -143,4 +144,20 @@ func (c cRole) Clear(r *ghttp.Request) {
 		res.ErrSession(err, r)
 	}
 	res.RedirectTo("", r)
+}
+
+func (c cRole) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/role", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Index)
+		g.GET("/add", c.AddIndex)
+		g.GET("/edit/:id", c.EditIndex)
+		g.GET("/nomenus", c.RoleNoMenus)
+		g.GET("/noapis", c.RoleNoApis)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/clear/:id", c.Clear)
+		g.GET("/del/:id", c.Del)
+		g.POST("/post", c.Post)
+		g.POST("/put", c.Put)
+	})
 }

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/gen"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
@@ -60,4 +61,12 @@ func (c cGen) Gen(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.OkMsg("生成成功", r)
+}
+
+func (c cGen) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/gen", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Index)
+		g.POST("/table", c.Gen)
+	})
 }

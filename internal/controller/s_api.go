@@ -3,6 +3,7 @@ package controller
 import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/dict"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
@@ -117,4 +118,17 @@ func (c cApi) Put(r *ghttp.Request) {
 		res.ErrSession(err, r)
 	}
 	res.RedirectTo(fmt.Sprint(c.ReqPath, "/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap())), r)
+}
+
+func (c cApi) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/api", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Index)
+		g.GET("/add", c.AddIndex)
+		g.GET("/edit/:id", c.EditIndex)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/del/:id", c.Del)
+		g.POST("/post", c.Post)
+		g.POST("/put", c.Put)
+	})
 }

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
@@ -111,4 +112,16 @@ func (c cRoleApi) Clear(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.Ok(r)
+}
+
+func (c cRoleApi) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/roleApi", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Index)
+		g.GET("/add", c.AddIndex)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/del/:id", c.Del)
+		g.GET("/clear/:rid", c.Clear)
+		g.POST("/post", c.Post)
+	})
 }

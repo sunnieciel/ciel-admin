@@ -129,3 +129,18 @@ func (c cAdminLoginLog) Clear(r *ghttp.Request) {
 	}
 	res.RedirectTo(path, r)
 }
+
+func (c cAdminLoginLog) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/adminLoginLog", func(g *ghttp.RouterGroup) {
+
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Path)
+		g.GET("/add", c.PathAdd)
+		g.GET("/edit/:id", c.PathEdit)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/del/:id", c.Del)
+		g.POST("/post", c.Post)
+		g.POST("/put", c.Put)
+		g.GET("/clear", c.Clear)
+	})
+}

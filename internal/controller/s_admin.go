@@ -199,3 +199,22 @@ func (c cAdmin) UpdatePwdWithoutOldPwd(r *ghttp.Request) {
 	}
 	res.Ok(r)
 }
+
+func (c cAdmin) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/admin", func(g *ghttp.RouterGroup) {
+		g.GET("/getCaptcha", Sys.GetCaptcha) // 获取验证码
+		g.POST("/login", c.Login)
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/logout", c.Logout)
+		g.GET("/", c.Index)
+		g.GET("/add", c.AddIndex)
+		g.GET("/edit/:id", c.EditIndex)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.PUT("/updatePwd", c.UpdatePwd)
+		g.PUT("/updatePwdWithoutOldPwd", c.UpdatePwdWithoutOldPwd)
+		g.PUT("/updateUname", c.UpdateUname)
+		g.GET("/del/:id", c.Del)
+		g.POST("/post", c.Post)
+		g.POST("/put", c.Put)
+	})
+}

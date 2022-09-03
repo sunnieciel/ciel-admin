@@ -1,11 +1,2 @@
-	s.Group("/menu", func(g *ghttp.RouterGroup) {
-		g.Middleware(admin.AuthMiddleware)
-		g.GET("/", controller.Menu.Index)
-		g.GET("/add", controller.Menu.AddIndex)
-		g.GET("/edit/:id", controller.Menu.EditIndex)
-        g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
-		g.GET("/del/:id", controller.Menu.Del)
-		g.POST("/post", controller.Menu.Post)
-		g.POST("/put", controller.Menu.Put)
-	})
+	controller.Menu.RegisterRouter(s)
 }

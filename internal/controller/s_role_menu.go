@@ -2,6 +2,7 @@ package controller
 
 import (
 	"ciel-admin/internal/model/bo"
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/role"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
@@ -44,9 +45,6 @@ func (c cRoleMenu) Path(r *ghttp.Request) {
 	total, data, err := sys.List(ctx, s)
 	if err != nil {
 		res.Err(err, r)
-	}
-	for _, datum := range data {
-		g.Log().Info(ctx, datum)
 	}
 	res.Tpl(file, g.Map{
 		"list": data,
@@ -104,4 +102,15 @@ func (c cRoleMenu) Del(r *ghttp.Request) {
 		res.ErrSession(err, r)
 	}
 	res.RedirectTo(path, r)
+}
+
+func (c cRoleMenu) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/roleMenu", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Path)
+		g.GET("/add", c.PathAdd)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/del/:id", c.Del)
+		g.POST("/post", c.Post)
+	})
 }

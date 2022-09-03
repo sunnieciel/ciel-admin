@@ -5,12 +5,12 @@
 package controller
 
 import (
+	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/dict"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/internal/service/ws"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xcaptcha"
-	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gctx"
@@ -45,23 +45,6 @@ func (s cSys) GetDictByKey(r *ghttp.Request) {
 	}
 	res.OkData(data, r)
 }
-func (s cSys) To(r *ghttp.Request) {
-	name := r.Get("path")
-	if name.IsEmpty() || name.String() == "null" {
-		res.Err(fmt.Errorf("filename prefix cannot be empty"), r)
-	}
-	node, err := sys.NodeInfo(r.Context(), r.URL.Path)
-	if err != nil {
-		res.Err(err, r)
-	}
-	if node.FilePath == "" {
-		res.Err(fmt.Errorf("node file path is empty"), r)
-	}
-	_ = r.Response.WriteTpl(node.FilePath, g.Map{
-		"node": node,
-		"path": r.URL.Path,
-	})
-}
 func (s cSys) GetCaptcha(r *ghttp.Request) {
 	var driver = xcaptcha.NewDriver().ConvertFonts()
 	c := captcha.NewCaptcha(driver, xcaptcha.Store)
@@ -82,6 +65,15 @@ func (s cSys) Quotations(r *ghttp.Request) {
 }
 func (s cSys) DocumentIndex(r *ghttp.Request) {
 	res.Tpl("/sys/tool/document.html", nil, r)
+}
+
+func (s cSys) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/sys", func(g *ghttp.RouterGroup) {
+		g.GET("/noticeAdmin", Ws.NoticeAdmin)
+		g.GET("/document", s.DocumentIndex)
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/ws", Ws.GetAdminWs)
+	})
 }
 
 // --- Ws ------------------------------------------------------------------------
