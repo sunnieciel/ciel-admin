@@ -148,7 +148,8 @@
 }
 
 body {
-    font-family: "Helvetica Neue", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";!important;
+    font-family: "Helvetica Neue", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+!important;
 }
 
 body {
@@ -1090,6 +1091,11 @@ ol {
 .table-1 tr th:first-child,
 .table-1 tr th:last-child {
     text-align: center;
+}
+
+.table-1 tr td:last-child,
+.table-1 tr th:last-child {
+    padding-right: 33px;
 }
 
 .table-1 td:hover {

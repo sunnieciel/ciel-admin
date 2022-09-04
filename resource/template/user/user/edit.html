@@ -7,7 +7,7 @@
 <html lang="zh">
 <head>
     {{include "/part/meta.html" .}}
-    <title>用户列表修改菜单 - {{.Config.server.name}}</title>
+    <title>修改用户【{{.Form.uname}}】信息 - {{.Config.server.name}}</title>
 </head>
 <body>
 {{include "/part/top.html" .}}
@@ -20,26 +20,24 @@
                     {{a "ml-12" "/admin/user" "返回" .Query}}
                 </div>
                 <div class="cell">
-                    {{a "link-2-active" "#" "用户列表编辑菜单" }}
+                    {{a "link-2-active" "#" "修改用户信息" }}
                 </div>
                 {{.msg}}
                 <form class="cell" method="post" action="/admin/user/put?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrReadonly "id" "id" .Form.id}}
-                        {{editTr "uname" "uname" .Form.uname}}
-                        {{editTr "pass" "pass" .Form.pass}}
-                        {{editTr "nickname" "nickname" .Form.nickname}}
-                        {{editTr "icon" "icon" .Form.icon}}
-                        {{editTr "summary" "summary" .Form.summary}}
-                        {{editTr "desc" "desc" .Form.desc}}
-                        {{editTr "join_ip" "join_ip" .Form.join_ip}}
-                        {{editTr "device" "device" .Form.device}}
-                        {{editTr "phone" "phone" .Form.phone}}
-                        {{editTr "email" "email" .Form.email}}
-                        {{editTrOptions "status" "status" .Config.options.status .Form.status}}
+                        {{editTrReadonly "用户名" "uname" .Form.uname}}
+                        {{editTr "nickname" "昵称" .Form.nickname}}
+                        {{editTr "icon" "图标" .Form.icon}}
+                        {{editTr "summary" "简介" .Form.summary}}
+                        {{editTr "desc" "备注" .Form.desc}}
+                        {{editTrReadonly "join_ip" "注册IP" .Form.join_ip}}
+                        {{editTrReadonly "device" "注册设备" .Form.device}}
+                        {{editTr "phone" "手机" .Form.phone}}
+                        {{editTr "email" "邮箱" .Form.email}}
+                        {{editTrOptions "status" "状态" .Config.options.status .Form.status}}
                         {{editTrReadonly "created_at" "created_at" .Form.created_at}}
                         {{editTrReadonly "updated_at" "updated_at" .Form.updated_at}}
-
                         {{editTrSubmit}}
                     </table>
                 </form>

@@ -23,6 +23,29 @@ type cUser struct{ cBase }
 
 var User = cUser{cBase{"u_user", "/admin/user", "/user/user"}}
 
+func (c cUser) RegisterRouter(s *ghttp.RouterGroup) {
+	s.Group("/user", func(g *ghttp.RouterGroup) {
+		g.Middleware(admin.AuthMiddleware)
+		g.GET("/", c.Index)
+		g.GET("/add", c.AddIndex)
+		g.GET("/edit/:id", c.EditIndex)
+		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/del/:id", c.Del)
+		g.POST("/post", c.Post)
+		g.POST("/put", c.Put)
+		g.PUT("/updateUname", c.UpdateUname)
+		g.PUT("/updatePass", c.UpdatePass)
+	})
+}
+
+// RegisterWebApi 注册Api服务
+func (c cUser) RegisterWebApi(s *ghttp.RouterGroup) {
+	s.Group("/user", func(g *ghttp.RouterGroup) {
+		g.POST("/register", c.Register)
+		g.POST("/login", c.Login)
+	})
+}
+
 func (c cUser) Index(r *ghttp.Request) {
 	var (
 		ctx     = r.Context()
@@ -32,7 +55,9 @@ func (c cUser) Index(r *ghttp.Request) {
 		s       = bo.Search{T1: c.Table, OrderBy: "t1.id desc", Fields: []bo.Field{
 			{Name: "id", Type: 1},
 			{Name: "uname", Type: 2},
+			{Name: "status", Type: 1},
 			{Name: "desc", Type: 2},
+			{Name: "join_ip", Type: 2},
 		}}
 	)
 	node, err := sys.NodeInfo(ctx, reqPath)
@@ -116,21 +141,6 @@ func (c cUser) Put(r *ghttp.Request) {
 	res.RedirectTo(path, r)
 }
 
-func (c cUser) RegisterRouter(s *ghttp.RouterGroup) {
-	s.Group("/user", func(g *ghttp.RouterGroup) {
-		g.Middleware(admin.AuthMiddleware)
-		g.GET("/", c.Index)
-		g.GET("/add", c.AddIndex)
-		g.GET("/edit/:id", c.EditIndex)
-		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
-		g.GET("/del/:id", c.Del)
-		g.POST("/post", c.Post)
-		g.POST("/put", c.Put)
-		g.PUT("/updateUname", c.UpdateUname)
-		g.PUT("/updatePass", c.UpdatePass)
-	})
-}
-
 func (c cUser) UpdateUname(r *ghttp.Request) {
 	var (
 		ctx = r.Context()
@@ -158,4 +168,42 @@ func (c cUser) UpdatePass(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.Ok(r)
+}
+
+func (c cUser) Register(r *ghttp.Request) {
+	var (
+		d struct {
+			Uname string `v:"required|passport#用户名不能为空|用户名格式不正确"`
+			Pass  string `v:"required|password#密码不能为空|密码格式不正确"`
+		}
+		ctx = r.Context()
+		ip  = r.GetClientIp()
+	)
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	vo, err := user.Register(ctx, d.Uname, d.Pass, ip)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(vo, r)
+}
+
+func (c cUser) Login(r *ghttp.Request) {
+	var (
+		d struct {
+			Uname string `v:"required|passport#用户名不能为空|用户名格式不正确"`
+			Pass  string `v:"required|password#密码不能为空|密码格式不正确"`
+		}
+		ctx = r.Context()
+		ip  = r.GetClientIp()
+	)
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	vo, err := user.Login(ctx, d.Uname, d.Pass, ip)
+	if err != nil {
+		res.Err(err, r)
+	}
+	res.OkData(vo, r)
 }

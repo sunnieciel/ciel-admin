@@ -5,6 +5,8 @@ import (
 	"github.com/gogf/gf/v2/util/grand"
 )
 
+// GenIcon  随机生成头像
+// 国内网络不能用
 func GenIcon() string {
 	switch grand.N(1, 100) % 5 {
 	case 1:

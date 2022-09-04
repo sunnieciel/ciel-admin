@@ -17,4 +17,5 @@ var (
 	ErrUnameExist        = errors.New("用户名已存在")
 	ErrUnameFormat       = errors.New("用户名格式不正确")
 	ErrPassFormat        = errors.New("密码格式不正确")
+	ErrPassErrorTooMany  = errors.New("密码错误次数太多")
 )

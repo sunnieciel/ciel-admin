@@ -3,6 +3,7 @@ package logic
 import (
 	"ciel-admin/internal/dao"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/utility/utils/xicon"
 	"context"
 	"errors"
 	"fmt"
@@ -55,4 +56,8 @@ func (f file) Upload(ctx context.Context, r *ghttp.Request) error {
 		}
 	}
 	return nil
+}
+
+func (f file) RandomUserIcon(ctx context.Context) (string, error) {
+	return xicon.GenIcon(), nil
 }

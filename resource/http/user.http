@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "uname": "user222",
-  "pwd": "FM0WPhQb"
+  "pass": "FM0WPhQb"
 }
 
 > {% client.global.set("token", response.body.data.token); %}
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "uname": "user222",
-  "pwd": "FM0WPhQb"
+  "pass": "FM0WPhQb"
 }
 
 > {% client.global.set("token", response.body.data.token); %}

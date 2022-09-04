@@ -4,7 +4,7 @@ gfcli:
     dao:
       - link: "mysql:root:12345678@tcp(127.0.0.1:3306)/ciel"
         tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file,s_operation_log,s_admin_login_log, 
-        u_user,u_user_login_log"
+        u_user,u_user_login_log,u_gold"
         removePrefix: "s_,u_"
         descriptionTag: true
         noModelComment: true
