@@ -18,12 +18,12 @@
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="/admin/roleApi" method="get">
                     {{a "tag-info" "/admin/role" "后退"}}
                     {{a "tag-info" (concat "/admin/roleApi/add?rid=" .Query.rid) "添加禁用API"}}
-                    {{inputHidde "rid" "rid" .Query}}
-                    {{aFun "tag-info ml-3 " "#" "允许所有操作" "clearRoleApi(0)"}}
-                    {{aFun "tag-success ml-3 " "#" "允许所有查询操作" "clearRoleApi(1)"}}
-                    {{aFun "tag-primary ml-3 " "#" "允许所有添加操作" "clearRoleApi(2)"}}
-                    {{aFun "tag-warning ml-3 " "#" "允许所有修改操作" "clearRoleApi(3)"}}
-                    {{aFun "tag-danger ml-3 mr-auto" "#" "允许所有删除操作" "clearRoleApi(4)"}}
+                    {{inputHidde "rid" .Query}}
+                    {{aFun "tag-info ml-3 " "允许所有操作" "clearRoleApi(0)"}}
+                    {{aFun "tag-success ml-3" "允许查询操作" "clearRoleApi(1)"}}
+                    {{aFun "tag-primary ml-3 " "允许添加操作" "clearRoleApi(2)"}}
+                    {{aFun "tag-warning ml-3 " "允许修改操作" "clearRoleApi(3)"}}
+                    {{aFun "tag-danger ml-3 mr-auto" "允许删除操作" "clearRoleApi(4)"}}
                     {{options "type" "类型" .Config.options.apiType .Query}}
                     {{options "group" "分组" .groups .Query}}
                     {{searchPageSize .Query}}
@@ -58,20 +58,18 @@
 </body>
 <script>
     async function clearRoleApi(type) {
-        if (confirm('确认执行该操作？')) {
-            let rid = '{{.Query.rid}}'
+        let rid = '{{.Query.rid}}'
+        if (!rid) {
+            rid = prompt('请输入角色id')
             if (!rid) {
-                rid = prompt('请输入角色id')
-                if (!rid) {
-                    return
-                }
+                return
             }
-            let res = await $.get(`/admin/roleApi/clear/${rid}?type=${type}`)
-            if (res.code === 0) {
-                location.reload()
-            } else {
-                alert(res.msg)
-            }
+        }
+        let res = await $.get(`/admin/roleApi/clear/${rid}?type=${type}`)
+        if (res.code === 0) {
+            location.reload()
+        } else {
+            alert(res.msg)
         }
     }
 </script>

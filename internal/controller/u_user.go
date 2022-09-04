@@ -9,6 +9,7 @@ import (
 	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/sys"
+	"ciel-admin/internal/service/user"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
 	"ciel-admin/utility/utils/xurl"
@@ -31,6 +32,7 @@ func (c cUser) Index(r *ghttp.Request) {
 		s       = bo.Search{T1: c.Table, OrderBy: "t1.id desc", Fields: []bo.Field{
 			{Name: "id", Type: 1},
 			{Name: "uname", Type: 2},
+			{Name: "desc", Type: 2},
 		}}
 	)
 	node, err := sys.NodeInfo(ctx, reqPath)
@@ -86,8 +88,8 @@ func (c cUser) Post(r *ghttp.Request) {
 }
 func (c cUser) Del(r *ghttp.Request) {
 	var (
-		id    = r.Get("id")
 		table = c.Table
+		id    = r.Get("id")
 	)
 	res.OkSession("删除成功", r)
 	if err := sys.Del(r.Context(), table, id); err != nil {
@@ -124,5 +126,36 @@ func (c cUser) RegisterRouter(s *ghttp.RouterGroup) {
 		g.GET("/del/:id", c.Del)
 		g.POST("/post", c.Post)
 		g.POST("/put", c.Put)
+		g.PUT("/updateUname", c.UpdateUname)
+		g.PUT("/updatePass", c.UpdatePass)
 	})
+}
+
+func (c cUser) UpdateUname(r *ghttp.Request) {
+	var (
+		ctx = r.Context()
+		d   struct {
+			Uname string `v:"required"`
+			Id    uint64 `v:"required"`
+		}
+	)
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := user.UpdateUname(ctx, d.Uname, d.Id); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+
+func (c cUser) UpdatePass(r *ghttp.Request) {
+	var (
+		ctx  = r.Context()
+		pass = r.GetForm("pass").String()
+		id   = r.GetForm("id").Uint64()
+	)
+	if err := user.UpdatePass(ctx, pass, id); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
 }

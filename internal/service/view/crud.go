@@ -91,15 +91,8 @@ func A(className string, href string, name string, query ...map[string]interface
 	return fmt.Sprintf(`<a class="%s" href="%s%s">%s</a>`, className, href, q, name)
 }
 
-func AFun(className string, href string, name string, f string, query ...map[string]interface{}) string {
-	var q string
-	if len(query) > 0 {
-		params := xurl.ToUrlParams(query[0])
-		if query != nil && params != "" {
-			q = fmt.Sprint("?", params)
-		}
-	}
-	return fmt.Sprintf(`<a class="%s" href="%s%s" onclick="%s">%s</a>`, className, href, q, f, name)
+func AFun(className string, name, f string) string {
+	return fmt.Sprintf(`<a class="%s" href="#" onclick="%s">%s</a>`, className, f, name)
 }
 func ADel(href string, query map[string]interface{}) string {
 	return fmt.Sprintf(`<a class="tag-danger" href="#" onclick="if(confirm('确认删除?')){location.href='%s?%s'}">删除</a>`, href, xurl.ToUrlParams(query))

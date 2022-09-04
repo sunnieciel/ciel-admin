@@ -38,8 +38,8 @@
                         {{tdChoose "状态" $.Config.options.status .status}}
                         {{td "创建时间" .created_at}}
                         <td data-label="操作" align="center">
-                            {{aFun "tag-warning" "#" "用户名" (concat "updateUnameById(" .id ")")}}
-                            {{aFun "tag-success" "#" "密码" (concat "updatePwdById(" .id ")")}}
+                            {{aFun "tag-warning" "用户名" (concat "updateUnameById(" .id ")")}}
+                            {{aFun "tag-success" "密码" (concat "updatePwdById(" .id ")")}}
                             {{a "tag-warning" (concat "/admin/admin/edit/" .id) "修改" $.Query}}
                             {{aDel (concat "/admin/admin/del/" .id) $.Query}}
                         </td>
