@@ -28,7 +28,7 @@ database:
     level: "all"
     stdout: true
   default:
-    link: "mysql:ciel:2zL4YEdLpLJirysN@tcp(127.0.0.1:3306)/ciel"
+    link: "mysql:root:12345678@tcp(127.0.0.1:3306)/ciel"
     debug: true
 redis:
   default:
