@@ -2,7 +2,6 @@ package sys
 
 import (
 	"ciel-admin/internal/consts"
-	"ciel-admin/utility/utils/xjwt"
 	"fmt"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/text/gstr"
@@ -12,20 +11,6 @@ import (
 func CORS(r *ghttp.Request) {
 	r.Response.CORSDefault()
 	r.Middleware.Next()
-}
-
-var (
-	Uid = "userInfoKey"
-)
-
-func UserAuth(c *ghttp.Request) {
-	userInfo, err := xjwt.UserInfo(c)
-	if err != nil {
-		c.Response.WriteStatus(http.StatusForbidden, consts.ErrAuth.Error())
-		c.Exit()
-	}
-	c.SetParam(Uid, userInfo.Uid)
-	c.Middleware.Next()
 }
 
 // WhiteIpMiddleware white ip

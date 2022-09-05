@@ -55,6 +55,21 @@ func (d userDao) GetByUname(ctx context.Context, uname string) (*entity.User, er
 	return &data, nil
 }
 
+func (d userDao) GetById(ctx context.Context, id uint64) (*entity.User, error) {
+	var data entity.User
+	one, err := d.Ctx(ctx).WherePri(id).One()
+	if err != nil {
+		return nil, err
+	}
+	if one.IsEmpty() {
+		return nil, consts.ErrDataNotFound
+	}
+	if err = one.Struct(&data); err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
 var (
 	// User is globally public accessible object for table u_user operations.
 	User = userDao{

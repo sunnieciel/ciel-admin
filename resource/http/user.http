@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "uname": "user222",
-  "pass": "FM0WPhQb"
+  "pass": "a1231231"
 }
 
 > {% client.global.set("token", response.body.data.token); %}
@@ -23,3 +23,35 @@ Content-Type: application/json
 ### 登录信息
 GET {{url}}/v1/user/info
 Authorization: {{token}}
+
+### 修改密码
+PUT {{url}}/v1/user/updatePass
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "oldPass": "a1231232",
+  "newPass": "a1231231"
+}
+
+### 修改昵称
+PUT {{url}}/v1/user/updateNickname
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "nickname": "morri33"
+}
+
+### 查看可选择的头像
+GET {{url}}/v1/user/icons
+Content-Type: application/json
+
+### 修改头像
+PUT {{url}}/v1/user/updateIcon
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "icon": "https://www.gravatar.com/avatar/1784507156?d=wavatar&f=y"
+}

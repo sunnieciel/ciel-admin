@@ -40,6 +40,23 @@ func (d goldDao) GetByUidTx(ctx context.Context, tx *gdb.TX, id uint64) (*entity
 	return &data, nil
 }
 
+func (d goldDao) GetByUid(ctx context.Context, uid uint64) (*entity.Gold, error) {
+	var data entity.Gold
+	one, err := d.Ctx(ctx).Where("uid", uid).One()
+	if err != nil {
+		g.Log().Error(ctx, err)
+		return nil, err
+	}
+	if one.IsEmpty() {
+		return nil, consts.ErrDataNotFound
+	}
+	if err = one.Struct(&data); err != nil {
+		g.Log().Error(ctx, err)
+		return nil, err
+	}
+	return &data, nil
+}
+
 var (
 	// Gold is globally public accessible object for table u_gold operations.
 	Gold = goldDao{

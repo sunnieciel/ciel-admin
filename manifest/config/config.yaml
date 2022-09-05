@@ -45,3 +45,8 @@ options:
   fileGroup: "1:头像:tag-info,2:图片:tag-success,3:动图:tag-brown,4:音频:tag-warning,5:文件:tag-primary,6:其他:tag-danger"
   msgType: "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger"  # adminMessage 消息类型 可以在此扩展
   userStatus: "1:正常:tag-success,2:禁用:tag-danger,3:锁定:tag-warning"
+  goldStatus: "0:未设置密码:tag-info,1:正常:tag-success,2:禁用:tag-danger"
+  goldChangeTypes: "1:支付宝充值:tag-primary,2:微信充值:tag-success,3:银行卡充值:tag-warning,4:PayPal充值:tag-info,5:人工扣除:tag-warning"
+  topUpTypes: "1:支付宝:tag-primary,2:微信:tag-success,3:银行卡:tag-warning,4:PayPal:tag-info" # 充值类型
+  deductTypes: "5:人工扣除:tag-warning"
+

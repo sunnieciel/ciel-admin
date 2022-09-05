@@ -121,11 +121,7 @@ func (a admin) AuthMiddleware(r *ghttp.Request) {
 	if !Role.CheckRoleApi(r.Context(), user.Admin.Rid, r.RequestURI) {
 		switch r.Method {
 		case "GET", "DELETE", "POST":
-			if err = r.Session.Set("msg", fmt.Sprintf(consts.MsgWarning, "权限不足")); err != nil {
-				res.Err(err, r)
-			}
-			r.Response.RedirectTo(g.Config().MustGet(r.Context(), "home").String())
-			r.Exit()
+			res.Err(consts.ErrAuthNotEnough, r)
 		default:
 			res.Err(fmt.Errorf("权限不足"), r)
 		}
@@ -167,7 +163,6 @@ func (a admin) ActionMiddleware(r *ghttp.Request) {
 	ip := r.GetClientIp()
 	begin := time.Now().UnixMilli()
 	response := ""
-	g.Log().Info(ctx, uri)
 	if uri == "/admin/operationLog/clear" {
 		r.Middleware.Next()
 		return

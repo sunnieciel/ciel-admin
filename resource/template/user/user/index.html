@@ -21,7 +21,6 @@
                 <form class="cell flex-center no-bottom-border p-3" action="/admin/user" method="get">
                     <div class="mr-auto"></div>
                     {{searchPageSize .Query}}
-                    {{input "id" "id" .Query}}
                     {{input "uname" "用户名" .Query}}
                     {{input "desc" "备注" .Query}}
                     {{input "join_ip" "注册IP" .Query}}

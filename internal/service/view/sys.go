@@ -110,7 +110,7 @@ func ChooseSpan(options string, flagValue interface{}) string {
 func Img(in interface{}) string {
 	url := gconv.String(in)
 	if url == "" {
-		return fmt.Sprint("<span class='Tag-normal'>暂无图片</span>")
+		return fmt.Sprint("<span class='tag-info fs-12'>暂无图片</span>")
 	}
 	if !strings.HasPrefix(url, "http") {
 		url = consts.ImgPrefix + url

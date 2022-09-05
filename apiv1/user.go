@@ -8,4 +8,5 @@ type LoginVo struct {
 	Email      string `json:"email"`
 	Phone      string `json:"phone"`
 	GoldStatus uint   `json:"gold_status"`
+	Token      string `json:"token"`
 }

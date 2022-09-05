@@ -5,6 +5,7 @@
 package controller
 
 import (
+	"ciel-admin/internal/consts"
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/admin"
@@ -13,6 +14,7 @@ import (
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
 	"ciel-admin/utility/utils/xurl"
+	"ciel-admin/utility/utils/xuser"
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -22,6 +24,19 @@ import (
 type cUser struct{ cBase }
 
 var User = cUser{cBase{"u_user", "/admin/user", "/user/user"}}
+
+// RegisterWebApi 注册Api服务
+func (c cUser) RegisterWebApi(s *ghttp.RouterGroup) {
+	s.Group("/user", func(g *ghttp.RouterGroup) {
+		g.POST("/register", c.Register)
+		g.POST("/login", c.Login)
+		g.GET("/icons", c.Icons)
+		g.Middleware(user.AuthMiddleware)
+		g.PUT("/updatePass", c.UpdatePassByUser)   // 用户修改密码
+		g.PUT("/updateNickname", c.UpdateNickname) //  修改昵称
+		g.PUT("/updateIcon", c.UpdateIcon)         // 修改头像
+	})
+}
 
 func (c cUser) RegisterRouter(s *ghttp.RouterGroup) {
 	s.Group("/user", func(g *ghttp.RouterGroup) {
@@ -34,15 +49,7 @@ func (c cUser) RegisterRouter(s *ghttp.RouterGroup) {
 		g.POST("/post", c.Post)
 		g.POST("/put", c.Put)
 		g.PUT("/updateUname", c.UpdateUname)
-		g.PUT("/updatePass", c.UpdatePass)
-	})
-}
-
-// RegisterWebApi 注册Api服务
-func (c cUser) RegisterWebApi(s *ghttp.RouterGroup) {
-	s.Group("/user", func(g *ghttp.RouterGroup) {
-		g.POST("/register", c.Register)
-		g.POST("/login", c.Login)
+		g.PUT("/updatePass", c.UpdatePassByAdmin)
 	})
 }
 
@@ -133,6 +140,7 @@ func (c cUser) Put(r *ghttp.Request) {
 	}
 	m := gconv.Map(d)
 	delete(m, "createdAt")
+	delete(m, "pass")
 	res.OkSession("修改成功", r)
 	if err := sys.Update(r.Context(), table, d.Id, m); err != nil {
 		res.ErrSession(err, r)
@@ -158,13 +166,13 @@ func (c cUser) UpdateUname(r *ghttp.Request) {
 	res.Ok(r)
 }
 
-func (c cUser) UpdatePass(r *ghttp.Request) {
+func (c cUser) UpdatePassByAdmin(r *ghttp.Request) {
 	var (
 		ctx  = r.Context()
 		pass = r.GetForm("pass").String()
 		id   = r.GetForm("id").Uint64()
 	)
-	if err := user.UpdatePass(ctx, pass, id); err != nil {
+	if err := user.UpdatePassByAdmin(ctx, pass, id); err != nil {
 		res.Err(err, r)
 	}
 	res.Ok(r)
@@ -206,4 +214,60 @@ func (c cUser) Login(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.OkData(vo, r)
+}
+
+func (c cUser) UpdatePassByUser(r *ghttp.Request) {
+	var (
+		d struct {
+			OldPass string `v:"required|password#旧密码不能为空|密码格式不正确"`
+			NewPass string `v:"required|password#新密码不能为空|密码格式不正确"`
+		}
+		ctx = r.Context()
+		uid = xuser.Uid(r)
+	)
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := user.UpdatePassByUser(ctx, d.OldPass, d.NewPass, uid); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+
+func (c cUser) UpdateNickname(r *ghttp.Request) {
+	var (
+		ctx      = r.Context()
+		nickname = r.GetForm("nickname").String()
+		uid      = xuser.Uid(r)
+	)
+	if nickname == "" {
+		res.Err(consts.ErrNicknameEmpty, r)
+	}
+	if err := user.UpdateNickname(ctx, nickname, uid); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
+}
+
+func (c cUser) Icons(r *ghttp.Request) {
+	var (
+		ctx = r.Context()
+	)
+	icons := user.Icons(ctx)
+	res.OkData(icons, r)
+}
+
+func (c cUser) UpdateIcon(r *ghttp.Request) {
+	var (
+		ctx  = r.Context()
+		icon = r.GetForm("icon").String()
+		uid  = xuser.Uid(r)
+	)
+	if icon == "" {
+		res.Err(consts.ErrIconEmpty, r)
+	}
+	if err := user.UpdateIcon(ctx, icon, uid); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
 }

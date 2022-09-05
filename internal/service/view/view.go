@@ -36,6 +36,7 @@ func BindFuncMap() gview.FuncMap {
 		"trans":       xtrans.T,
 		// 查询 input
 		"input":      Input,
+		"inputDate":  InputDate,
 		"inputHidde": InputHidden,
 		"options":    Options,
 		// table
@@ -49,15 +50,20 @@ func BindFuncMap() gview.FuncMap {
 		"aFun":           AFun, // a with function
 		"imgSettings":    ImgSettings,
 		// 添加或修改 tr
-		"editTr":              EditTr,
-		"editTrInputListDesc": EditTrInputListDesc,
-		"editTrDesc":          EditTrDesc,
-		"editTrPass":          EditTrPass,
-		"editTrReadonly":      EditTrReadonly,
-		"editTrTextarea":      EditTrTextarea,
-		"editTrRequired":      EditTrRequired,
-		"editTrNumber":        EditTrNumber,
-		"editTrOptions":       EditTrOption,
-		"editTrSubmit":        EditTrSubmit,
+		"editTr":                EditTr,
+		"editTrHidden":          EditTrHidden,
+		"editTrInputListDesc":   EditTrInputListDesc,
+		"editTrDesc":            EditTrDesc,
+		"editTrPass":            EditTrPass,
+		"editTrReadonly":        EditTrReadonly,
+		"editTrTextarea":        EditTrTextarea,
+		"editTrRequired":        EditTrRequired,
+		"editTrNumber":          EditTrNumber,
+		"editTrNumberDesc":      EditTrNumberDesc,
+		"editTrOptions":         EditTrOptions,
+		"editTrOptionsReadonly": EditTrOptionsReadonly,
+		"editTrSubmit":          EditTrSubmit,
+		// book
+		"balance": Balance,
 	}
 }

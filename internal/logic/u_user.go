@@ -4,7 +4,9 @@ import (
 	"ciel-admin/apiv1"
 	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao"
+	"ciel-admin/internal/model/do"
 	"ciel-admin/internal/model/entity"
+	"ciel-admin/utility/utils/xjwt"
 	"ciel-admin/utility/utils/xpwd"
 	"context"
 	"github.com/gogf/gf/v2/database/gdb"
@@ -118,6 +120,11 @@ func (l user) loginVo(ctx context.Context, tx *gdb.TX, id uint64) (*apiv1.LoginV
 		return nil, err
 	}
 	data.GoldStatus = gold.Status
+	token, err := xjwt.GenToken(userData.Uname, userData.Id, 0)
+	if err != nil {
+		return nil, err
+	}
+	data.Token = token
 	return &data, nil
 }
 
@@ -145,6 +152,12 @@ func (l user) Login(ctx context.Context, uname string, pass string, ip string) (
 			Uid: userData.Id,
 			Ip:  ip,
 		}
+		if userData.PassErrorCount != 0 {
+			if _, err = tx.Model(dao.User.Table()).WherePri(userData.Id).Update(do.User{PassErrorCount: 0}); err != nil {
+				g.Log().Error(ctx, err)
+				return err
+			}
+		}
 		if _, err = tx.Model(dao.UserLoginLog.Table()).Insert(loginLog); err != nil {
 			g.Log().Error(ctx, err)
 			return err
@@ -159,4 +172,39 @@ func (l user) Login(ctx context.Context, uname string, pass string, ip string) (
 		return nil, err
 	}
 	return &data, nil
+}
+
+func (l user) UpdatePassByUser(ctx context.Context, oldPass string, newPass string, id uint64) error {
+	userData, err := dao.User.GetById(ctx, id)
+	if err != nil {
+		return err
+	}
+	if !xpwd.ComparePassword(userData.Pass, oldPass) {
+		return consts.ErrOldPassNotMatch
+	}
+	data := do.User{Pass: xpwd.GenPwd(newPass)}
+	if _, err := dao.User.Ctx(ctx).WherePri(id).Update(data); err != nil {
+		g.Log().Error(ctx, err)
+		return err
+	}
+	return nil
+}
+
+func (l user) UpdateNickname(ctx context.Context, nickname string, uid uint64) error {
+	if len(nickname) > 16 {
+		return consts.ErrMaxLengthSixTy
+	}
+	if _, err := dao.User.Ctx(ctx).WherePri(uid).Update(do.User{Nickname: nickname}); err != nil {
+		g.Log().Error(ctx, err)
+		return err
+	}
+	return nil
+}
+
+func (l user) UpdateIcon(ctx context.Context, icon string, uid uint64) error {
+	if _, err := dao.User.Ctx(ctx).WherePri(uid).Data(do.User{Icon: icon}).Update(); err != nil {
+		g.Log().Error(ctx, err)
+		return err
+	}
+	return nil
 }

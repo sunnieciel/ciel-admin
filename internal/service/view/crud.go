@@ -17,6 +17,14 @@ func Input(name, nameDesc string, query map[string]interface{}) string {
 	return fmt.Sprintf(`<label class="input">%s<input type="text" name="%s" value="%v" onkeydown="if(event.keyCode===13)this.form.submit()"> </label>`, nameDesc, name, v)
 }
 
+func InputDate(name, nameDesc string, query map[string]interface{}) string {
+	v := query[name]
+	if v == nil {
+		v = ""
+	}
+	return fmt.Sprintf(`<label class="input">%s<input type="date" name="%s" value="%v" onchange="this.form.submit()"> </label>`, nameDesc, name, v)
+}
+
 func InputHidden(name string, query map[string]interface{}) string {
 	v := query[name]
 	if v == nil {
@@ -107,6 +115,12 @@ func EditTr(name string, title string, value interface{}) string {
 	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input name="%s" value="%v"></td></tr> `,
 		title, name, value)
 }
+func EditTrHidden(name string, value interface{}) string {
+	if value == nil {
+		value = ""
+	}
+	return fmt.Sprintf(`<input type="hidden" name="%s" value="%v" >`, name, value)
+}
 
 func EditTrDesc(name string, title string, value interface{}, desc string) string {
 	if value == nil {
@@ -185,17 +199,32 @@ func EditTrNumber(name string, title string, value interface{}, step float64, mi
 		title, name, value, step, min, max)
 }
 
-// EditTrOption 编辑或添加 select 类型
+func EditTrNumberDesc(name string, title string, value interface{}, step float64, min, max float64, desc string) string {
+	if value == nil {
+		value = ""
+	}
+	return fmt.Sprintf(`<tr><td width="160" align="right">%s</td><td align="left"><input type="number"  name="%s" value="%v" step='%f' min="%f" max="%f"></td><td class='color-desc-02 fs-12'>%s</td></tr> `,
+		title, name, value, step, min, max, desc)
+}
+
+// EditTrOptions 编辑或添加 select 类型
 // 输入 name type
 // 输入 title 类型
 // 输入 options
 // 输入 value 1
 // 输出 <tr><td align="right">类型</td><td><select name="type"><option value="1" class="tag-info">菜单</option><option value="2" class="tag-warning">分组</option></select></td></tr>
-func EditTrOption(name, title, options string, value interface{}) string {
+func EditTrOptions(name, title, options string, value interface{}) string {
 	if value == nil {
 		value = ""
 	}
 	return fmt.Sprintf(`<tr><td align="right">%s</td><td><select name="%s">%s</select></td></tr>`, title, name, Option(options, value))
+}
+
+func EditTrOptionsReadonly(name, title, options string, value interface{}) string {
+	if value == nil {
+		value = ""
+	}
+	return fmt.Sprintf(`<tr><td align="right">%s</td><td><select name="%s" disabled>%s</select></td></tr>`, title, name, Option(options, value))
 }
 func EditTrSubmit() string {
 	return fmt.Sprintf(`<tr><td></td><td><button class="btn-info" type="submit">提交</button></td></tr>`)

@@ -18,4 +18,11 @@ var (
 	ErrUnameFormat       = errors.New("用户名格式不正确")
 	ErrPassFormat        = errors.New("密码格式不正确")
 	ErrPassErrorTooMany  = errors.New("密码错误次数太多")
+	ErrTwoPassNotMatch   = errors.New("两次输入的密码不匹配")
+	ErrOldPassNotMatch   = errors.New("旧密码不正确")
+	ErrNicknameEmpty     = errors.New("昵称不能为空")
+
+	ErrMaxLengthSixTy = errors.New("允许的最长字符为16")
+
+	ErrIconEmpty = errors.New("图片不能为空")
 )

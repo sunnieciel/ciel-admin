@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/part/meta.html" .}}
+    <title>{{.user.Uname}} 充值页面</title>
+</head>
+<body>
+{{include "/part/top.html" .}}
+<div id="wrapper">
+    <div class="w">
+        <div id="wrapper-left">
+            <div class="box no-bottom-border">
+                <div class="cell flex-center">
+                    <img src="/resource/image/gold@2x.png" alt="" height="64">
+                    {{a "ml-12" "/admin/gold" "返回" .Query}}
+                </div>
+                {{.msg}}
+                <div class="cell">
+                    {{a "link-2-active" "#" "充值"}}
+                    {{a "link-2" (concat "/admin/gold/deduct/" .user.Id ) "扣除" .Query}}
+                    {{a "link-2" "/admin/goldChangeLog" "账变记录" .Query}}
+                </div>
+                <form class="cell" action="/admin/gold/topUpByAdmin" method="post">
+                    <table class="table-add">
+
+                        <tr>
+                            <td width="160" align="right">用户</td>
+                            <td class="tag-warning">{{.user.Uname}}</td>
+                        </tr>
+                        <tr>
+                            <td width="160" align="right">当前金币</td>
+                            <td><span class="tag-5">{{.goldInfo.Balance|balance}}</span></td>
+                        </tr>
+                        {{editTrHidden "uid" .user.Id}}
+                        {{editTrOptions "type" "充值类型" .Config.options.topUpTypes 1}}
+                        {{editTrNumberDesc "gold" "充值金币" 33 1 1 10000 "10000铜币 = 100银币 = 1金币"}}
+                        {{editTr "desc" "备注" ""}}
+                        {{editTrSubmit}}
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{include "/part/footer.html" .}}
+{{include "/part/endJs.html" .}}
+</body>
+</html>

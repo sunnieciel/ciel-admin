@@ -286,6 +286,12 @@ ol {
     background-color: transparent !important;
 }
 
+
+input:read-only {
+    cursor: default;
+    color: var(--gray-001) !important;
+}
+
 /*base2*/
 .block {
     display: block !important;
@@ -1185,6 +1191,28 @@ li .input {
     outline: none !important;
     transition: var(--transition);
     font-size: 16px;
+}
+
+/*dialog*/
+.mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: .6;
+    z-index: 999;
+    background-color: #000;
+}
+
+.dialog .content {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -93%);
+    z-index: 999;
+    /*width: 600px;*/
+    /*height: 400px;*/
+    overflow: auto;
 }
 
 /*other*/
