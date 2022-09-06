@@ -8,6 +8,7 @@ import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/service/admin"
 	"ciel-admin/internal/service/sys"
+	"ciel-admin/internal/service/user"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xurl"
 	"fmt"
@@ -71,5 +72,17 @@ func (c cUserLoginLog) RegisterRouter(g *ghttp.RouterGroup) {
 		g.GET("/", c.Index) // 主页面
 		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
 		g.GET("/del/:id", c.Del) // 删除请求
+		g.GET("/clear", c.Clear)
 	})
+}
+
+func (c cUserLoginLog) Clear(r *ghttp.Request) {
+	var (
+		ctx = r.Context()
+	)
+	res.OkSession("ok", r)
+	if err := user.ClearLoginLog(ctx); err != nil {
+		res.ErrSession(err, r)
+	}
+	res.RedirectTo("/admin/userLoginLog", r)
 }

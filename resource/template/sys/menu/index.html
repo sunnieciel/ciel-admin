@@ -3,6 +3,8 @@
 <head>
     {{include "/part/meta.html" .}}
     <title>{{.node.Name}} - {{.Config.server.name}} </title>
+    <style>
+    </style>
 </head>
 <body>
 {{include "/part/top.html" .}}
@@ -28,7 +30,13 @@
                     <tr>
                         {{td "ID" .id}}
                         {{td "PID" .pid}}
-                        {{td "名称" .name}}
+                        <td data-label="名称">
+                            {{if eq .type 1}}
+                            <span class="ml-6"> |- {{.name}}</span>
+                            {{else}}
+                            <span class="color-blue strong">{{.name}}</span>
+                            {{end}}
+                        </td>
                         {{tdImg "图标" .icon}}
                         {{tdImg "背景图" .bg_img}}
                         {{td "路径" .path}}
@@ -36,9 +44,12 @@
                         {{tdChoose "类型" $.Config.options.menuType .type}}
                         {{tdChoose "状态" $.Config.options.status .status}}
                         {{td "创建时间" .created_at}}
-                        <td align="center">
+                        <td align="left">
                             {{a "tag-warning" (concat "/admin/menu/edit/" .id) "修改" $.Query}}
                             {{aDel (concat "/admin/menu/del/" .id) $.Query}}
+                            {{if eq .type 2}}
+                            <a class="tag-success" href="#" onclick="setGroupSort('{{.id}}')" title="设置会修改所有子菜单">分组排序</a>
+                            {{end}}
                         </td>
                     </tr>
                     {{end}}
@@ -50,5 +61,17 @@
 </div>
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
+<script>
+    async function setGroupSort(id) {
+        let sort = prompt('请输入一个数字')
+        if (sort) {
+            const {code, msg} = await $.put('/admin/menu/setGroupSort', {id, sort})
+            alert(msg)
+            if (code === 0) {
+                location.reload()
+            }
+        }
+    }
+</script>
 </body>
 </html>

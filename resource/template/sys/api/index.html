@@ -19,9 +19,9 @@
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
                     {{a "tag-primary mr-auto" "/admin/api/add" "添加"}}
                     {{searchPageSize .Query}}
+                    {{options "group" "分组" .api_group .Query}}
                     {{options "type" "类型" .Config.options.apiType .Query}}
                     {{options "method" "方法" .Config.options.api .Query}}
-                    {{options "group" "分组" .api_group .Query}}
                     {{input "desc" "描述" .Query}}
                 </form>
             </div>

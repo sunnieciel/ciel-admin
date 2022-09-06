@@ -81,7 +81,7 @@ func TdChoose(name string, options string, value interface{}) string {
 	return Td(name, ChooseSpan(options, value))
 }
 
-func SearchPageSize(query map[string]interface{}) string {
+func SearchPageSize(query map[string]interface{}, s ...int) string {
 	size := query["size"]
 	if size == nil {
 		size = 10
