@@ -33,7 +33,7 @@ func Balance(in interface{}) string {
 	if g != "" && g != "-" {
 		res += fmt.Sprint(g, gold)
 	}
-	if si != "" && si != "00" {
+	if si != "" && si != "00" && si != "-" {
 		if gstr.HasPrefix(si, "0") {
 			si = si[1:]
 		}

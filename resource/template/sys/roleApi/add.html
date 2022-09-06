@@ -28,25 +28,16 @@
                         {{editTrReadonly "rid" "角色id" .role.Id}}
                         {{editTrReadonly "name" "角色" .role.Name}}
                         <tr>
+                            <td align="right">分组过滤</td>
+                            <td><select id="group-options">
+                                <option value="">请选择</option>
+                                {{option .groups 0}}
+                            </select></td>
+                        </tr>
+                        <tr>
                             <td width='160' align='right'>APIs</td>
                             <td width='auto' align='left'>
-                                <select name='aid[]' multiple style="height: 333px;width: 600px">
-                                    {{range .apis}}
-                                    {{if eq .type 1}}
-                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-primary width-auto block">【{{.group}}】【添加】 {{.desc}} ({{.url}})</option>
-                                    {{else if eq .type 2}}
-                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-danger width-auto block">【{{.group}}】【删除】 {{.desc}} ({{.url}})</option>
-                                    {{else if eq .type 3}}
-                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-warning width-auto block">【{{.group}}】【修改】 {{.desc}} ({{.url}})</option>
-                                    {{else if eq .type 4}}
-                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-success width-auto block">【{{.group}}】【查询】 {{.desc}} ({{.url}})</option>
-                                    {{else if eq .type 5}}
-                                    <option value="{{.id}}" data-type="{{.type}}" class="tag-success width-auto block">【{{.group}}】【查询】 {{.desc}} ({{.url}})</option>
-                                    {{else}}
-                                    <option value="{{.id}}">『 {{.group}} 』{{.desc}} 》 {{.url}}</option>
-                                    {{end}}
-                                    {{end}}
-                                </select>
+                                <select name='aid[]' multiple style="height: 333px;width: 600px"></select>
                             </td>
                         </tr>
                         <tr>
@@ -74,9 +65,39 @@
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
 <script>
+    let apis = JSON.parse('{{json .apis}}')
+    let $select = $("select[name='aid[]']");
+    $(function () {
+        $select.html(apis.map(i => apiOptions(i.type, i.id, i.group, i.desc, i.url)))
+    })
     const handleChoose = (type) => {
-        $("select[name='aid[]']").find(`option[data-type='${type}']`).attr('selected', true)
+        $select.find(`option[data-type='${type}']`).attr('selected', true)
         $("#form").submit()
+    }
+
+    $("#group-options").on('change', function () {
+        let v = this.value
+        $select.html('')
+        if (v) {
+            $select.html(apis.filter(i => i.group === v).map((i) => apiOptions(i.type, i.id, i.group, i.desc, i.url)))
+        } else {
+            $select.html(apis.map((i) => apiOptions(i.type, i.id, i.group, i.desc, i.url)))
+        }
+    })
+
+    function apiOptions(t, id, group, desc, url) {
+        switch (t) {
+            case 1:
+                return `<option value="${id}" data-type="${t}"  class="tag-primary width-auto block">【${group}】【添加】 ${desc} (${url})</option>`
+            case 2:
+                return `<option value="${id}" data-type="${t}"  class="tag-danger width-auto block">【${group}】【删除】 ${desc} (${url})</option>`
+            case 3:
+                return `<option value="${id}" data-type="${t}"  class="tag-warning width-auto block">【${group}】【修改】 ${desc} (${url})</option>`
+            case 4:
+                return `<option value="${id}" data-type="${t}" class="tag-success width-auto block">【${group}】【查询】 ${desc} (${url})</option>`
+            case 5:
+                return `<option value="${id}" data-type="${t}" class="tag-success width-auto block">【${group}】【页面】 ${desc} (${url})</option>`
+        }
     }
 </script>
 </body>

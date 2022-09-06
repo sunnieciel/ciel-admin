@@ -86,10 +86,16 @@ func (c cRoleApi) AddIndex(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
+
+	groups, err := dict.ApiGroup(ctx)
+	if err != nil {
+		res.Err(err, r)
+	}
 	d := g.Map{
-		"msg":  sys.MsgFromSession(r),
-		"apis": apis,
-		"role": roleData,
+		"msg":    sys.MsgFromSession(r),
+		"apis":   apis,
+		"role":   roleData,
+		"groups": groups,
 	}
 	_ = r.Response.WriteTpl(file, d)
 }

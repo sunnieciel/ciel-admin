@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
 	"math"
 	"time"
 )
@@ -49,4 +50,25 @@ func (l lGoldStatisticsLog) Clear(ctx context.Context) error {
 		return err
 	}
 	return nil
+}
+
+func (l lGoldStatisticsLog) GoldReport(ctx context.Context, begin string, end string) (gdb.Record, error) {
+	if begin == "" {
+		begin = gtime.Now().AddDate(0, -6, 0).StartOfDay().String()
+	}
+	db := dao.GoldStatisticsLog.Ctx(ctx).
+		FieldSum("t1", "t1").
+		FieldSum("t2", "t2").
+		FieldSum("t3", "t3").
+		FieldSum("t4", "t4").
+		FieldSum("t5", "t5").
+		WhereGTE("created_date", begin)
+	if end != "" {
+		db = db.WhereLTE("created_date", end)
+	}
+	one, err := db.One()
+	if err != nil {
+		return nil, err
+	}
+	return one, nil
 }
