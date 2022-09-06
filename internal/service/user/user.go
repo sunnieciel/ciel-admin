@@ -43,3 +43,6 @@ func Login(ctx context.Context, uname, pass, ip string) (*apiv1.LoginVo, error) 
 func GetById(ctx context.Context, id uint64) (*entity.User, error) {
 	return dao.User.GetById(ctx, id)
 }
+func ClearLoginLog(ctx context.Context) error {
+	return logic.User.ClearLoginLog(ctx)
+}

@@ -32,3 +32,11 @@ func (l lGoldChangeLog) Add(ctx context.Context, tx *gdb.TX, transId string, t i
 	}
 	return nil
 }
+
+func (l lGoldChangeLog) Clear(ctx context.Context) error {
+	if _, err := dao.GoldChangeLog.Ctx(ctx).Delete("id is not null"); err != nil {
+		g.Log().Error(ctx, err)
+		return err
+	}
+	return nil
+}

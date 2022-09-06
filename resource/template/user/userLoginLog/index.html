@@ -19,7 +19,7 @@
             <div class="box-02 no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form class="cell flex-center no-bottom-border p-3" action="/admin/userLoginLog" method="get">
-                    <div class="mr-auto"></div>
+                    <a class="tag-danger mr-auto" onclick="if(confirm('确认清空?')){location.href='/admin/userLoginLog/clear'}">清空</a>
                     {{searchPageSize .Query}}
                     {{input "uname" "用户名" .Query}}
                     {{input "ip" "IP" .Query}}

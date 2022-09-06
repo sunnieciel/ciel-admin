@@ -32,7 +32,7 @@ func (c cApi) Index(r *ghttp.Request) {
 		ctx     = r.Context()
 		reqPath = r.Request.URL.Path
 		s       = bo.Search{
-			T1: c.Table, OrderBy: "t1.group,t1.id desc",
+			T1: c.Table, OrderBy: "t1.group,t1.type,t1.id desc",
 			Fields: []bo.Field{
 				{Name: "method", Type: 1},
 				{Name: "group", Type: 2},

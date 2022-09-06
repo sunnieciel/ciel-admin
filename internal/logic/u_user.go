@@ -208,3 +208,11 @@ func (l user) UpdateIcon(ctx context.Context, icon string, uid uint64) error {
 	}
 	return nil
 }
+
+func (l user) ClearLoginLog(ctx context.Context) error {
+	if _, err := dao.UserLoginLog.Ctx(ctx).Delete("id is not null"); err != nil {
+		g.Log().Error(ctx, err)
+		return err
+	}
+	return nil
+}

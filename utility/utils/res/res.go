@@ -41,14 +41,18 @@ func Page(r *ghttp.Request, page string, data ...interface{}) {
 	}
 	r.Exit()
 }
-func GetPage(r *ghttp.Request) (page, size int) {
+func GetPage(r *ghttp.Request, defaultSize ...int) (page, size int) {
 	page = r.GetQuery("page").Int()
 	size = r.GetQuery("size").Int()
 	if page <= 0 {
 		page = 1
 	}
 	if size <= 0 {
-		size = 10
+		if len(defaultSize) > 0 {
+			size = defaultSize[0]
+		} else {
+			size = 10
+		}
 	}
 	return page, size
 }

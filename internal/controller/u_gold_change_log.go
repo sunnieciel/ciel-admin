@@ -8,6 +8,7 @@ import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/admin"
+	"ciel-admin/internal/service/goldchangelog"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -28,6 +29,7 @@ func (c cGoldChangeLog) RegisterRouter(g *ghttp.RouterGroup) {
 		g.GET("/", c.Index)             // 主页面
 		g.GET("/edit/:id", c.EditIndex) // 修改页面
 		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
+		g.GET("/clear", c.Clear)
 		g.GET("/del/:id", c.Del) // 删除请求
 		g.POST("/post", c.Post)  // 添加请求
 		g.POST("/put", c.Put)    // 修改请求
@@ -126,4 +128,15 @@ func (c cGoldChangeLog) Put(r *ghttp.Request) {
 	}
 	path := fmt.Sprint(c.ReqPath, "/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap()))
 	res.RedirectTo(path, r)
+}
+
+func (c cGoldChangeLog) Clear(r *ghttp.Request) {
+	var (
+		ctx = r.Context()
+	)
+	res.OkSession("ok", r)
+	if err := goldchangelog.Clear(ctx); err != nil {
+		res.ErrSession(err, r)
+	}
+	res.RedirectTo("/admin/goldChangeLog", r)
 }

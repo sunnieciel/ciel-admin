@@ -4,6 +4,7 @@ import (
 	"ciel-admin/internal/model/bo"
 	"ciel-admin/internal/model/entity"
 	"ciel-admin/internal/service/admin"
+	"ciel-admin/internal/service/menu"
 	"ciel-admin/internal/service/sys"
 	"ciel-admin/utility/utils/res"
 	"ciel-admin/utility/utils/xparam"
@@ -24,7 +25,7 @@ func (c cMenu) Index(r *ghttp.Request) {
 		reqPath = r.URL.Path
 		file    = fmt.Sprintf("%s/index.html", c.FileDir)
 		msg     = sys.MsgFromSession(r)
-		s       = bo.Search{T1: c.Table, OrderBy: "t1.sort desc,t1.id desc", Fields: []bo.Field{
+		s       = bo.Search{T1: c.Table, OrderBy: "t1.sort ,t1.id desc", Fields: []bo.Field{
 			{Name: "pid", Type: 1},
 			{Name: "name", Type: 2},
 			{Name: "path", Type: 2},
@@ -34,7 +35,10 @@ func (c cMenu) Index(r *ghttp.Request) {
 	if err != nil {
 		res.Err(err, r)
 	}
-	s.Page, s.Size = res.GetPage(r)
+	s.Page, s.Size = res.GetPage(r, 50)
+	if s.Size == 10 {
+		s.Size = 50
+	}
 	total, data, err := sys.List(ctx, s)
 	if err != nil {
 		res.Err(err, r)
@@ -117,8 +121,26 @@ func (c cMenu) RegisterRouter(g *ghttp.RouterGroup) {
 		g.GET("/add", c.AddIndex)       // 添加页面
 		g.GET("/edit/:id", c.EditIndex) // 修改页面
 		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
-		g.GET("/del/:id", c.Del) // 删除请求
-		g.POST("/post", c.Post)  // 添加请求
-		g.POST("/put", c.Put)    // 修改请求
+		g.GET("/del/:id", c.Del)               // 删除请求
+		g.POST("/post", c.Post)                // 添加请求
+		g.POST("/put", c.Put)                  // 修改请求
+		g.PUT("/setGroupSort", c.SetGroupSort) // 设置分组排序
 	})
+}
+
+func (c cMenu) SetGroupSort(r *ghttp.Request) {
+	var (
+		ctx = r.Context()
+		d   struct {
+			Id   uint64
+			Sort int
+		}
+	)
+	if err := r.Parse(&d); err != nil {
+		res.Err(err, r)
+	}
+	if err := menu.SetGroupSort(ctx, d.Sort, d.Id); err != nil {
+		res.Err(err, r)
+	}
+	res.Ok(r)
 }

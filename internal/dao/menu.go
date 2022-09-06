@@ -63,3 +63,28 @@ func (d menuDao) GetByName(ctx context.Context, name string) (*entity.Menu, erro
 	}
 	return &data, nil
 }
+
+func (d menuDao) GetById(ctx context.Context, id uint64) (*entity.Menu, error) {
+	var data entity.Menu
+	one, err := d.Ctx(ctx).WherePri(id).One()
+	if err != nil {
+		return nil, err
+	}
+	if one.IsEmpty() {
+		return nil, consts.ErrDataNotFound
+	}
+	if err = one.Struct(&data); err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
+func (d menuDao) ListByPid(ctx context.Context, id int) ([]*entity.Menu, error) {
+	var data = make([]*entity.Menu, 0)
+	err := d.Ctx(ctx).Scan(&data, "pid", id)
+	if err != nil {
+		g.Log().Error(ctx, err)
+		return nil, err
+	}
+	return data, nil
+}
