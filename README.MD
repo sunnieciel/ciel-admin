@@ -86,10 +86,10 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 
 1. golang环境 安装
 2. mysql 安装
-3. redis 安装
+3. redis 安
 4. gf 安装  https://goframe.org/pages/viewpage.action?pageId=1115782
 
-## ✨️ 快速开始
+## ✨️ 快速开始 
 
 1. 下载项目 https://github.com/1211ciel/ciel-admin/archive/refs/tags/v1.1.zip
 2. 创建数据库并导入项目`resource`目录下的`ciel.sql`
