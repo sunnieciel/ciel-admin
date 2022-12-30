@@ -5,11 +5,7 @@
 package dao
 
 import (
-	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao/internal"
-	"ciel-admin/internal/model/entity"
-	"context"
-	"github.com/gogf/gf/v2/frame/g"
 )
 
 // internalMenuDao is internal type for wrapping internal DAO implements.
@@ -29,62 +25,3 @@ var (
 )
 
 // Fill with you ideas below.
-
-func (d menuDao) GetByPath(ctx context.Context, path string) (*entity.Menu, error) {
-	var data entity.Menu
-	one, err := d.Ctx(ctx).One("path", path)
-	if err != nil {
-		g.Log().Error(ctx, err)
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrDataNotFound
-	}
-	if err = one.Struct(&data); err != nil {
-		g.Log().Error(ctx, err)
-		return nil, err
-	}
-	return &data, nil
-}
-
-func (d menuDao) GetByName(ctx context.Context, name string) (*entity.Menu, error) {
-	var data entity.Menu
-	one, err := d.Ctx(ctx).One("name", name)
-	if err != nil {
-		g.Log().Error(ctx, err)
-		return nil, nil
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrDataNotFound
-	}
-	if err = one.Struct(&data); err != nil {
-		g.Log().Error(ctx, err)
-		return nil, err
-	}
-	return &data, nil
-}
-
-func (d menuDao) GetById(ctx context.Context, id uint64) (*entity.Menu, error) {
-	var data entity.Menu
-	one, err := d.Ctx(ctx).WherePri(id).One()
-	if err != nil {
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrDataNotFound
-	}
-	if err = one.Struct(&data); err != nil {
-		return nil, err
-	}
-	return &data, nil
-}
-
-func (d menuDao) ListByPid(ctx context.Context, id int) ([]*entity.Menu, error) {
-	var data = make([]*entity.Menu, 0)
-	err := d.Ctx(ctx).Scan(&data, "pid", id)
-	if err != nil {
-		g.Log().Error(ctx, err)
-		return nil, err
-	}
-	return data, nil
-}

@@ -17,13 +17,13 @@
             <div class="box no-bottom-border">
                 <div class="cell flex-center">
                     {{imgSettings}}
-                    {{a "ml-12" "/admin/topUpCategory" "返回" .Query}}
+                    {{a "ml-12" "/admin/walletChangeType" "返回" .Query}}
                 </div>
                 <div class="cell">
                     {{a "link-2-active" "#" "充值类型编辑菜单" }}
                 </div>
                 {{.msg}}
-                <form class="cell" method="post" action="/admin/topUpCategory/put?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/walletChangeType/put?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrReadonly "id" "id" .Form.id}}
                         {{editTrRequired "title" "标题" .Form.title}}

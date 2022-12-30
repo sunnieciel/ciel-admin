@@ -8,7 +8,7 @@ let program = {
             name: "后端",
             urls: [
                 {class: "tag-info", name: "goframe", url: "https://goframe.org/pages/viewpage.action?pageId=1114119"},
-                {class: "tag-info", name: "李文周的博客", url: "https://www.liwenzhou.com/posts/Go/golang-menu/"},
+                {class: "tag-info", name: "李文周的博客", url: "https://www.liwenzhou.com/updates/Go/golang-menu/"},
                 {class: "tag-info", name: "websocket", url: "https://github.com/gorilla/websocket"},
                 {class: "tag-info", name: "awesome-go-cn", url: "https://github.com/jobbole/awesome-go-cn"},
                 {class: "tag-info", name: "C语言中文网", url: "http://c.biancheng.net/"}
@@ -67,7 +67,7 @@ let program = {
                 {class: "tag-info", name: "图片压缩", url: "https://www.bejson.com/ui/compress_img/"},
                 {class: "tag-info", name: "图片转base64", url: "https://www.bejson.com/ui/image2base64/"},
                 {class: "tag-info", name: "字符串转html", url: "https://uutool.cn/nl2br/"},
-                {class: "tag-info", name: "vimium", url: "https://juejin.cn/post/6844903815943028750"},
+                {class: "tag-info", name: "vimium", url: "https://juejin.cn/update/6844903815943028750"},
                 {class: "tag-info", name: "Text to speech", url: "https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech/#overview"},
                 {class: "tag-info", name: "ip138", url: "https://www.ip138.com/"},
                 {class: "tag-info", name: "dns域名检测", url: "https://dnsce.com/"},

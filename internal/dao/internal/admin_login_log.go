@@ -29,7 +29,7 @@ type AdminLoginLogColumns struct {
 	UpdatedAt string //
 }
 
-//  adminLoginLogColumns holds the columns for table s_admin_login_log.
+// adminLoginLogColumns holds the columns for table s_admin_login_log.
 var adminLoginLogColumns = AdminLoginLogColumns{
 	Id:        "id",
 	Uid:       "uid",

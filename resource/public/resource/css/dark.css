@@ -264,6 +264,14 @@ blockquote {
     color: var(--blue-03) !important;
 }
 
+.tag-answer {
+    border: 2px solid var(--gray-001);
+    border-bottom: 4px solid var(--gray-001);
+}
+
+.tag-answer:hover {
+    background-color: var(--dusk-001);
+}
 
 /*color*/
 .color-gray {
@@ -495,6 +503,10 @@ blockquote {
     background-color: var(--steelblue-11);
 }
 
+.bg-box {
+    background-color: var(--steelblue-06) !important;
+}
+
 ::placeholder {
     color: var(--steelblue-03);
 }
@@ -515,6 +527,11 @@ blockquote {
     color: var(--white-001);
 }
 
+
+.progress-all {
+    background-color: #3c464d;
+}
+
 /*layout*/
 #sub-nav {
     background-color: var(--steelblue-11);
@@ -523,6 +540,15 @@ blockquote {
 
 #wrapper {
     background-color: var(--steelblue-05);
+}
+
+.right-title {
+    color: var(--silver-08)
+}
+
+.right-nav li:hover {
+    background-color: var(--steelblue-11);
+    /*border-bottom: 1px solid var(--steelblue-05);*/
 }
 
 #footer {

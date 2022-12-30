@@ -26,7 +26,7 @@ type RoleColumns struct {
 	UpdatedAt string //
 }
 
-//  roleColumns holds the columns for table s_role.
+// roleColumns holds the columns for table s_role.
 var roleColumns = RoleColumns{
 	Id:        "id",
 	Name:      "name",

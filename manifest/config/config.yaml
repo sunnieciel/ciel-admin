@@ -27,26 +27,26 @@ database:
   logger:
     level: "all"
     stdout: true
-  default:
-    link: "mysql:root:12345678@tcp(127.0.0.1:3306)/ciel"
+  #  default:
+  #    link: "mysql:root:12345678@tcp(localhost:3306)/freekey_system"
+  #    debug: true
+  sys:
+    link: "mysql:root:12345678@tcp(localhost:3306)/freekey_system"
     debug: true
 redis:
   default:
-    address: "127.0.0.1:6379"
+    address: "localhost:6379"
     db: 1
     pass: ""
 options:
-  status: "1:正常:tag-info,2:禁用:tag-danger"
+  status: "1:YES:tag-success,2:NO:tag-danger"
   api: "1:GET:tag-success,2:POST:tag-primary,3:PUT:tag-warning,4:DELETE:tag-danger"
   apiType: "1:添加:tag-primary,2:删除:tag-danger,3:修改:tag-warning,4:查看:tag-success,5:页面:tag-info"
   menuType: "1:菜单:tag-info,2:分组:tag-warning"
   dictGroup: "1:系统:tag-info,2:网站:tag-primary,3:备用:tag-warning,4:其他:tag-danger"
   dictType: "1:文本:tag-info,2:图片:tag-warning,3:富文本:tag-primary,4:文件:tag-danger,5:其他:tag-purple"
   fileGroup: "1:头像:tag-info,2:图片:tag-success,3:动图:tag-brown,4:音频:tag-warning,5:文件:tag-primary,6:其他:tag-danger"
-  msgType: "1:文字:tag-info,2:图片:tag-primary,3:语音:tag-warning,4:视频:tag-success,5:链接:tag-danger"  # adminMessage 消息类型 可以在此扩展
   userStatus: "1:正常:tag-success,2:禁用:tag-danger,3:锁定:tag-warning"
-  goldStatus: "0:未设置密码:tag-info,1:正常:tag-success,2:禁用:tag-danger"
-  goldChangeTypes: "1:支付宝充值:tag-primary,2:微信充值:tag-success,3:银行卡充值:tag-warning,4:PayPal充值:tag-info,5:人工扣除:tag-warning"
-  topUpTypes: "1:支付宝:tag-primary,2:微信:tag-success,3:银行卡:tag-warning,4:PayPal:tag-info" # 充值类型
+  walletStatus: "0:未设置密码:tag-info,1:正常:tag-success,2:禁用:tag-danger"
+  walletChangeTypes: "1:增加金额:tag-warning,2:减少金额:tag-danger"
   deductTypes: "5:人工扣除:tag-warning"
-

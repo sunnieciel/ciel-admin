@@ -30,7 +30,7 @@ type ApiColumns struct {
 	UpdatedAt string //
 }
 
-//  apiColumns holds the columns for table s_api.
+// apiColumns holds the columns for table s_api.
 var apiColumns = ApiColumns{
 	Id:        "id",
 	Url:       "url",

@@ -21,7 +21,7 @@
                 </div>
                 {{.msg}}
                 <div class="cell">{{a "link-2-active" "#" "添加管理员"}}</div>
-                <form class="cell" method="post" action="/admin/admin/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/admin/add?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrOptions "rid" "角色" .roles 1}}
                         {{editTrRequired "uname" "用户名" ""}}

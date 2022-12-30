@@ -5,10 +5,9 @@
 package controller
 
 import (
-	"[mod]/internal/model/bo"
+	"[mod]/internal/model"
 	"[mod]/internal/model/entity"
-	"[mod]/internal/service/admin"
-	"[mod]/internal/service/sys"
+	"[mod]/internal/service"
 	"[mod]/utility/utils/res"
 	"[mod]/utility/utils/xparam"
 	"[mod]/utility/utils/xurl"
@@ -20,24 +19,36 @@ import (
 
 type cMenu struct{ cBase }
 
-var Menu = cMenu{cBase{"[table]", "/admin/menu", "/[htmlGroup]/menu"}}
+var Menu = &cMenu{cBase{"[table]", "/admin/menu", "/[htmlGroup]/menu","[dbGroup]"}}
 
+func (c cMenu) RegisterRouter(g *ghttp.RouterGroup) {
+	g.Group("/menu", func(g *ghttp.RouterGroup) {
+		g.Middleware(service.Admin.MiddlewareAuth)
+		g.GET("/", c.Index)             // 主页面
+		g.GET("/add", c.IndexAdd)       // 添加页面
+		g.GET("/edit/:id", c.IndexEdit) // 修改页面
+		g.Middleware(service.Admin.MiddlewareLock, service.Admin.MiddlewareActionLog)
+		g.GET("/del/:id", c.Del) // 删除请求
+		g.POST("/add", c.Add)  // 添加请求
+		g.POST("/update", c.Update)    // 修改请求
+	})
+}
 func (c cMenu) Index(r *ghttp.Request) {
 	var (
 		ctx     = r.Context()
 		reqPath = r.URL.Path
 		file    = fmt.Sprintf("%s/index.html", c.FileDir)
-		msg     = sys.MsgFromSession(r)
-		s       = bo.Search{T1: c.Table, OrderBy: "t1.id desc", Fields: []bo.Field{
+		msg     = service.System.GetMsgFromSession(r)
+		s       = model.Search{T1: c.Table, OrderBy: "t1.id desc", Fields: []model.Field{
 			{Name: "id", Type: 1},
 		}}
 	)
-	node, err := sys.NodeInfo(ctx, reqPath)
+	node, err := service.System.NodeInfo(ctx, reqPath)
 	if err != nil {
 		res.Err(err, r)
 	}
 	s.Page, s.Size = res.GetPage(r)
-	total, data, err := sys.List(ctx, s)
+	total, data, err := service.System.List(ctx, s, c.DBGroup)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -50,17 +61,17 @@ func (c cMenu) Index(r *ghttp.Request) {
 		"msg":  msg,
 	}, r)
 }
-func (c cMenu) AddIndex(r *ghttp.Request) {
-	res.Tpl(fmt.Sprint(c.FileDir, "/add.html"), g.Map{"msg": sys.MsgFromSession(r)}, r)
+func (c cMenu) IndexAdd(r *ghttp.Request) {
+	res.Tpl(fmt.Sprint(c.FileDir, "/add.html"), g.Map{"msg": service.System.GetMsgFromSession(r)}, r)
 }
-func (c cMenu) EditIndex(r *ghttp.Request) {
+func (c cMenu) IndexEdit(r *ghttp.Request) {
 	var (
 		table = c.Table
 		id    = xparam.ID(r)
-		d     = g.Map{"msg": sys.MsgFromSession(r)}
+		d     = g.Map{"msg": service.System.GetMsgFromSession(r)}
 		f     = fmt.Sprint(c.FileDir, "/edit.html")
 	)
-	data, err := sys.GetById(r.Context(), table, id)
+	data, err := service.System.GetById(r.Context(), table, id, c.DBGroup)
 	if err != nil {
 		res.Err(err, r)
 	}
@@ -69,7 +80,7 @@ func (c cMenu) EditIndex(r *ghttp.Request) {
 	}
 	res.Tpl(f, d, r)
 }
-func (c cMenu) Post(r *ghttp.Request) {
+func (c cMenu) Add(r *ghttp.Request) {
 	var (
 		d = entity.Menu{}
 	)
@@ -77,7 +88,7 @@ func (c cMenu) Post(r *ghttp.Request) {
 		res.Err(err, r)
 	}
 	res.OkSession("添加成功", r)
-	if err := sys.Add(r.Context(), c.Table, &d); err != nil {
+	if err := service.System.Add(r.Context(), c.Table, &d, c.DBGroup); err != nil {
 		res.ErrSession(err, r)
 	}
 	path := fmt.Sprint(c.ReqPath, "/add?", xurl.ToUrlParams(r.GetQueryMap()))
@@ -89,13 +100,13 @@ func (c cMenu) Del(r *ghttp.Request) {
 		table = c.Table
 	)
 	res.OkSession("删除成功", r)
-	if err := sys.Del(r.Context(), table, id); err != nil {
+	if err := service.System.Del(r.Context(), table, id, c.DBGroup); err != nil {
 		res.ErrSession(err, r)
 	}
 	path := fmt.Sprint(c.ReqPath, "?", xurl.ToUrlParams(r.GetQueryMap()))
 	res.RedirectTo(path, r)
 }
-func (c cMenu) Put(r *ghttp.Request) {
+func (c cMenu) Update(r *ghttp.Request) {
 	var (
 		d     = entity.Menu{}
 		table = c.Table
@@ -106,22 +117,9 @@ func (c cMenu) Put(r *ghttp.Request) {
 	m := gconv.Map(d)
 	delete(m, "createdAt")
 	res.OkSession("修改成功", r)
-	if err := sys.Update(r.Context(), table, d.Id, m); err != nil {
+	if err := service.System.Update(r.Context(), table, d.Id, m, c.DBGroup); err != nil {
 		res.ErrSession(err, r)
 	}
 	path := fmt.Sprint(c.ReqPath, "/edit/", d.Id, "?", xurl.ToUrlParams(r.GetQueryMap()))
 	res.RedirectTo(path, r)
-}
-
-func (c cMenu) RegisterRouter(g *ghttp.RouterGroup) {
-	g.Group("/menu", func(g *ghttp.RouterGroup) {
-		g.Middleware(admin.AuthMiddleware)
-		g.GET("/", c.Index)             // 主页面
-		g.GET("/add", c.AddIndex)       // 添加页面
-		g.GET("/edit/:id", c.EditIndex) // 修改页面
-		g.Middleware(admin.LockMiddleware, admin.ActionMiddleware)
-		g.GET("/del/:id", c.Del) // 删除请求
-		g.POST("/post", c.Post)  // 添加请求
-		g.POST("/put", c.Put)    // 修改请求
-	})
 }

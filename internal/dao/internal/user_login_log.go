@@ -27,7 +27,7 @@ type UserLoginLogColumns struct {
 	UpdatedAt string //
 }
 
-//  userLoginLogColumns holds the columns for table u_user_login_log.
+// userLoginLogColumns holds the columns for table u_user_login_log.
 var userLoginLogColumns = UserLoginLogColumns{
 	Id:        "id",
 	Uid:       "uid",

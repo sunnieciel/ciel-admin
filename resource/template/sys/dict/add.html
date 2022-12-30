@@ -21,7 +21,7 @@
                 </div>
                 {{.msg}}
                 <div class="cell">{{a "link-2-active" "#" "添加字典"}}</div>
-                <form class="cell" method="post" action="/admin/dict/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/dict/add?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrRequired "title" "标题" ""}}
                         {{editTrRequired "k" "KEY" ""}}

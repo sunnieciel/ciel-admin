@@ -1,7 +1,9 @@
 package xtime
 
 import (
+	"fmt"
 	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
 	"strconv"
 	"time"
 )
@@ -37,18 +39,18 @@ func EndOfDateStr(date string) time.Time {
 	return t
 }
 
-//获取传入的时间所在月份的第一天，即某月第一天的0点。如传入time.Now(), 返回当前月份的第一天0点时间。
+// 获取传入的时间所在月份的第一天，即某月第一天的0点。如传入time.Now(), 返回当前月份的第一天0点时间。
 func BeginDateOfMonth(d time.Time) time.Time {
 	d = d.AddDate(0, 0, -d.Day()+1)
 	return ZeroTime(d)
 }
 
-//获取传入的时间所在月份的最后一天，即某月最后一天的0点。如传入time.Now(), 返回当前月份的最后一天0点时间。
+// 获取传入的时间所在月份的最后一天，即某月最后一天的0点。如传入time.Now(), 返回当前月份的最后一天0点时间。
 func EndDateOfMonth(d time.Time) time.Time {
 	return BeginDateOfMonth(d).AddDate(0, 1, -1)
 }
 
-//获取某一天的0点时间
+// 获取某一天的0点时间
 func ZeroTime(d time.Time) time.Time {
 	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
 }
@@ -68,4 +70,26 @@ func MsToTime(ms string) (time.Time, error) {
 func Century(year int) int {
 	y := year/100 + 1
 	return y
+}
+
+// TopicTime 帖子时间
+func TopicTime(in interface{}) string {
+	t := gtime.New(in)
+	now := gtime.Now()
+	switch {
+	case t.After(now.Add(-time.Second * 60)):
+		return "几秒前"
+	case t.After(now.Add(-time.Minute * 60)):
+		return fmt.Sprintf("%.f 分钟前", now.Sub(t).Minutes())
+	case t.After(now.Add(-time.Minute * 60 * 24)):
+		sub := now.Sub(t)
+		s := gstr.Split(sub.String(), "m")[0]
+		s = gstr.Replace(s, "h", " 小时 ")
+		s += " 分钟前"
+		return fmt.Sprintf(s)
+	case t.After(now.Add(-time.Minute * 60 * 24 * 356)):
+		return fmt.Sprintf("%.f 天前", now.Sub(t).Hours()/24)
+	default:
+		return t.String()
+	}
 }

@@ -1,34 +1,6 @@
 <script src="/resource/js/js.cookie.min.js"></script>
 <script src="/resource/js/jquery-3.6.0.min.js"></script>
 <script src="/resource/js/base.js"></script>
-<script>
-    $(function () {
-        let ws = new WebSocket('{{.Config.server.wsUrl}}')
-        try {
-            ws.onopen = function () {
-                console.log('连接成功')
-            }
-            ws.onclose = function () {
-                if (ws) {
-                    ws.close()
-                    ws = null
-                }
-                console.log('连接关闭')
-            }
-            ws.onerror = function () {
-                if (ws) {
-                    ws.close()
-                    ws = null
-                }
-                console.log('连接关闭')
-            }
-            ws.onmessage = function ({}) {
-                speechSynthesis.speak(new SpeechSynthesisUtterance('你有一条新消息'));
-                msgNum.attr("data", +msgNum.attr("data") + 1).change()
-            }
-        } catch (e) {
-            alert(e.message)
-        }
-    })
-</script>
-
+<script src="/resource/js/table2excel.min.js"></script>
+<script> let ws = new WebSocket('{{.Config.server.wsUrl}}') </script>
+<script src="/resource/js/ws.js"></script>

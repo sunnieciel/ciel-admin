@@ -11,26 +11,25 @@ jQuery.each(["put", "delete"], function (i, method) {
     };
 });
 let msgNum = $(".msg-num") // unread msg element
-const keyScrollPos = "scroll" // key scroll
 $(async function () {
     // show body after page loaded
-    $("body").show(3)
-    // listen window scroll event
-    $(window).scroll(() => sessionStorage.setItem(keyScrollPos, window.scrollY))
-    // handle scroll to original position
-    handleScrollToOriginalPosition()
-    // handle top link switch event
-    $("#nav a").click(handleTopLinkSwitch)
-    // handle top mobile menu event
+    $("body").show()
+    if (location.pathname.startsWith("/admin")) {
+        $("#nav a").click(handleTopLinkSwitch)
+    }
     $(".top-mobile").click(handleMobileMenu)
-
 })
-
-// handle keep original position when window reload
-function handleScrollToOriginalPosition() {
-    let scrollY = sessionStorage.getItem(keyScrollPos);
-    if (scrollY) window.scrollTo(0, scrollY);
-}
+// 使页面刷新后滚动到原先的位置
+// $(function () {
+//     const keyScrollPos = "scroll" // key scroll
+//     $(window).scroll(() => sessionStorage.setItem(keyScrollPos, window.scrollY))
+//     handleScrollToOriginalPosition()
+//     function handleScrollToOriginalPosition() {
+//         let scrollY = sessionStorage.getItem(keyScrollPos);
+//         if (scrollY) window.scrollTo(0, scrollY);
+//     }
+// })
+//
 
 // handle top link switch event
 function handleTopLinkSwitch() {
@@ -45,7 +44,14 @@ const setDark = (v) => {
     Cookies.set('dark', v)
     location.reload()
 }
-// logout
+// handle mobile menu show or hide
+const handleMobileMenu = (e) => {
+    let mobileMenu = $(".top-mobile-menu")
+    mobileMenu.toggle()
+    $(document).one("click", () => mobileMenu.hide())
+    e.stopPropagation()
+}
+// admin  logout
 const logout = () => {
     $.ajax({
         url: '/admin/admin/logout', type: 'get', dataType: 'json', success: function (data) {
@@ -56,7 +62,7 @@ const logout = () => {
         }
     });
 }
-// update password
+// admin update password
 const updatePwd = () => {
     let old = prompt('请输入你的旧密码');
     if (!old) {
@@ -75,13 +81,8 @@ const updatePwd = () => {
         }
     });
 }
-// handle mobile menu show or hide
-const handleMobileMenu = (e) => {
-    let mobileMenu = $(".top-mobile-menu")
-    mobileMenu.toggle()
-    $(document).one("click", () => mobileMenu.hide())
-    e.stopPropagation()
+
+function goTop() {
+    event.preventDefault();
+    $("html, body").animate({scrollTop: 0}, 1000);
 }
-
-
-

@@ -25,17 +25,17 @@
                     {{input "desc" "备注" .Query}}
                     {{input "join_ip" "注册IP" .Query}}
                     {{options "status" "状态" .Config.options.userStatus .Query}}
+                    <a class="tag-warning" href="#" id="export">导出</a>
                 </form>
             </div>
             <div class="box-02 no-bottom-border">
                 {{.msg}}
                 <table class="table-1">
-                    <tr>{{th "ID,用户名,头像,备注,注册IP,状态,注册时间,OPERATION"}}</tr>
+                    <tr>{{th "ID,用户名,备注,注册IP,状态,注册时间,OPERATION"}}</tr>
                     {{range .list}}
                     <tr>
                         {{td "id" .id}}
                         {{td "用户名" .uname}}
-                        {{tdImg "头像" .icon}}
                         {{td "备注" .desc}}
                         {{td "注册IP" .join_ip}}
                         {{tdChoose "status" $.Config.options.userStatus .status}}
@@ -78,6 +78,11 @@
             }
         }
     }
+    $("#export").on("click", function () {
+        $(".table-1").table2excel({
+            filename: `用户信息-${new Date().toLocaleDateString()}.xls`
+        })
+    })
 </script>
 </body>
 </html>

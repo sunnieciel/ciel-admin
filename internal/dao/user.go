@@ -5,12 +5,7 @@
 package dao
 
 import (
-	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao/internal"
-	"ciel-admin/internal/model/entity"
-	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
 )
 
 // internalUserDao is internal type for wrapping internal DAO implements.
@@ -20,54 +15,6 @@ type internalUserDao = *internal.UserDao
 // You can define custom methods on it to extend its functionality as you wish.
 type userDao struct {
 	internalUserDao
-}
-
-func (d userDao) GetByIdTx(ctx context.Context, tx *gdb.TX, id uint64) (*entity.User, error) {
-	var data entity.User
-	one, err := tx.Ctx(ctx).Model(d.Table()).WherePri(id).One()
-	if err != nil {
-		g.Log().Error(ctx, err)
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrDataNotFound
-	}
-	if err = one.Struct(&data); err != nil {
-		g.Log().Error(ctx, err)
-		return nil, err
-	}
-	return &data, nil
-}
-
-func (d userDao) GetByUname(ctx context.Context, uname string) (*entity.User, error) {
-	var data entity.User
-	one, err := d.Ctx(ctx).One("uname", uname)
-	if err != nil {
-		g.Log().Error(ctx, err)
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrLogin
-	}
-	if err = one.Struct(&data); err != nil {
-		return nil, err
-	}
-	return &data, nil
-}
-
-func (d userDao) GetById(ctx context.Context, id uint64) (*entity.User, error) {
-	var data entity.User
-	one, err := d.Ctx(ctx).WherePri(id).One()
-	if err != nil {
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrDataNotFound
-	}
-	if err = one.Struct(&data); err != nil {
-		return nil, err
-	}
-	return &data, nil
 }
 
 var (

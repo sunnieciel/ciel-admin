@@ -25,7 +25,7 @@ type RoleMenuColumns struct {
 	Mid string //
 }
 
-//  roleMenuColumns holds the columns for table s_role_menu.
+// roleMenuColumns holds the columns for table s_role_menu.
 var roleMenuColumns = RoleMenuColumns{
 	Id:  "id",
 	Rid: "rid",

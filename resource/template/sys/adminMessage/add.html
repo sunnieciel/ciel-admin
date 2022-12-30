@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    {{include "/part/meta.html" .}}
+    <title>添加管理员信息 - {{.Config.server.name}}</title>
+</head>
+<body>
+{{include "/part/top.html" .}}
+<div id="wrapper">
+    <div class="w">
+        <div id="wrapper-left">
+            <div class="box-02 no-bottom-border">
+                <div class="cell flex-center">
+                    {{imgSettings}}
+                    <a class="ml-12" href="/admin/adminMessage?{{toUrlParams .Query}}">返回</a>
+                </div>
+                {{.msg}}
+                <form class="cell" method="post" action="/admin/adminMessage/add?{{toUrlParams .Query}}">
+                    <table class="table-add">
+                        {{editTrRequired "uname" "管理员" ""}}
+                        {{editTrRequired "title" "标题" ""}}
+                        {{editTr "url" "地址" ""}}
+                        {{editTrSubmit}}
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{include "/part/footer.html" .}}
+{{include "/part/endJs.html" .}}
+</body>
+</html>

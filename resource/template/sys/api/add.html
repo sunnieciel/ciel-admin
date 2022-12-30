@@ -23,7 +23,7 @@
                 <div class="cell">
                     {{a "link-2-active" "#" "添加API"}}
                 </div>
-                <form class="cell" method="post" action="/admin/api/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/api/add?{{toUrlParams .Query}}">
                     <table class="table-add" cellspacing="5" cellpadding="0" border="0">
                         {{editTrRequired "url" "地址" ""}}
                         {{editTrOptions "method" "方法" .Config.options.api 1}}

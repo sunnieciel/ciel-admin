@@ -18,7 +18,7 @@
                 <div class="cell">
                     {{a "link-2-active" "#" "添加菜单" }}
                 </div>
-                <form class="cell" method="post" action="/admin/menu/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/menu/add?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrRequired "pid" "PID" ""}}
                         {{editTrRequired "name" "名称" ""}}

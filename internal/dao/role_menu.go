@@ -6,10 +6,6 @@ package dao
 
 import (
 	"ciel-admin/internal/dao/internal"
-	"ciel-admin/internal/model/bo"
-	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
 )
 
 // internalRoleMenuDao is internal type for wrapping internal DAO implements.
@@ -29,56 +25,3 @@ var (
 )
 
 // Fill with you ideas below.
-
-func (d roleMenuDao) Menus(ctx context.Context, rid int, pid int) ([]*bo.Menu, error) {
-	var data []*bo.Menu
-	err := g.DB().Ctx(ctx).Model(d.Table()+" t1").
-		LeftJoin(Menu.Table()+" t2 on t1.mid = t2.id").
-		Fields("t2.*").
-		Where("t1.rid = ? and t2.pid = ?", rid, pid).
-		Order("t2.sort").
-		Scan(&data)
-	if err != nil {
-		return nil, err
-	}
-	for _, item := range data {
-		if item.Type == 2 {
-			children, err := d.Menus(ctx, rid, item.Id)
-			if err != nil {
-				return nil, err
-			}
-			item.Children = children
-		}
-	}
-	return data, nil
-}
-
-func (d roleMenuDao) RoleNoMenu(ctx context.Context, rid interface{}) (gdb.List, error) {
-	array, err := d.Ctx(ctx).Array("mid", "rid", rid)
-	if err != nil {
-		return nil, err
-	}
-	db := Menu.Ctx(ctx)
-	if len(array) != 0 {
-		db = db.WhereNotIn("id", array)
-	}
-	all, err := db.Order("sort").All()
-	if err != nil {
-		return nil, err
-	}
-	return all.List(), nil
-}
-
-func (d roleMenuDao) AddRoleMenu(ctx context.Context, rid int, mid []int) error {
-	return d.Transaction(ctx, func(ctx context.Context, tx *gdb.TX) error {
-		for _, item := range mid {
-			if _, err := tx.Ctx(ctx).Model(d.Table()).Replace(g.Map{
-				"rid": rid,
-				"mid": item,
-			}); err != nil {
-				return err
-			}
-		}
-		return nil
-	})
-}

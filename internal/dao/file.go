@@ -5,10 +5,7 @@
 package dao
 
 import (
-	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao/internal"
-	"ciel-admin/internal/model/entity"
-	"context"
 )
 
 // internalFileDao is internal type for wrapping internal DAO implements.
@@ -28,18 +25,3 @@ var (
 )
 
 // Fill with you ideas below.
-
-func (d fileDao) GetById(ctx context.Context, id interface{}) (*entity.File, error) {
-	var data entity.File
-	one, err := d.Ctx(ctx).Where("id", id).One()
-	if err != nil {
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrDataNotFound
-	}
-	if err = one.Struct(&data); err != nil {
-		return nil, err
-	}
-	return &data, nil
-}

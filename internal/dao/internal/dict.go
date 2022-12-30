@@ -32,7 +32,7 @@ type DictColumns struct {
 	UpdatedAt string //
 }
 
-//  dictColumns holds the columns for table s_dict.
+// dictColumns holds the columns for table s_dict.
 var dictColumns = DictColumns{
 	Id:        "id",
 	Title:     "title",

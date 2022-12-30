@@ -2,9 +2,12 @@
 gfcli:
   gen:
     dao:
-      - link: "mysql:root:12345678@tcp(127.0.0.1:3306)/ciel"
-        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file,s_operation_log,s_admin_login_log, 
-        u_user,u_user_login_log,u_gold,u_top_up_category,u_gold_change_log,u_gold_statistics_log"
-        removePrefix: "s_,u_"
+      - link: "mysql:root:12345678@tcp(localhost:3306)/freekey_system"
+        tables: "s_admin,s_role,s_menu,s_role_menu,s_api,s_role_api,s_dict,s_file,s_operation_log,s_admin_login_log,s_admin_message,
+        u_user,u_user_login_log,
+        u_wallet,u_wallet_change_type,u_wallet_change_log,u_wallet_statistics_log,u_wallet_top_up_application,
+        c_banner,
+        "
+        removePrefix: "s_,u_,c_"
         descriptionTag: true
         noModelComment: true

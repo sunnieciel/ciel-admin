@@ -12,8 +12,15 @@
             {{include "/part/nav.html" .}}
             <div class="box-02 no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
+                <div class="cell">
+                </div>
                 <form class="cell" id="gen">
                     <table class="table-add">
+                        <tr>
+                            <td width="160" align="right">数据库</td>
+                            <td align="left"><input id="db" name="db" value="{{.Request.db}}"></td>
+                            <td class="color-desc-02 fs-12">选择不同的数据库在此进行（eg: sys）</td>
+                        </tr>
                         {{editTrOptions "table" "数据表" .tables ""}}
                         {{editTrDesc "prefix" "表前缀" "" "用于去掉表前缀确认结构体的名称 (如果没有可以为空)"}}
                         {{editTrDesc "menu" "菜单名称" "" "页面菜单的名称"}}
@@ -49,6 +56,11 @@
 {{include "/part/footer.html" .}}
 {{include "/part/endJs.html" .}}
 <script>
+    $("#db").on('keypress', (function (e) {
+        if (e.which === 13) {
+            location.href = `/admin/gen?db=${$(this).val()}`
+        }
+    }))
     const genSubmit = async () => {
         const {msg} = await $.post('/admin/gen/table', $("#gen").serialize())
         alert(msg)

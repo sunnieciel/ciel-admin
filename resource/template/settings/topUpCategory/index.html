@@ -18,8 +18,8 @@
             {{include "/part/nav.html" .}}
             <div class="box-02 no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
-                <form class="cell flex-center no-bottom-border p-3" action="/admin/topUpCategory" method="get">
-                    {{a "tag-primary mr-auto" "/admin/topUpCategory/add" "添加"}}
+                <form class="cell flex-center no-bottom-border p-3" action="/admin/walletChangeType" method="get">
+                    {{a "tag-primary mr-auto" "/admin/walletChangeType/add" "添加"}}
                     {{searchPageSize .Query}}
                     {{options "type" "类型" .Config.options.topUpTypes .Query}}
                 </form>
@@ -38,8 +38,8 @@
                         {{td "备注" .desc}}
                         {{tdChoose "status" $.Config.options.status .status}}
                         <td align="center">
-                            {{a "tag-warning" (concat "/admin/topUpCategory/edit/" .id) "修改" $.Query}}
-                            {{aDel (concat "/admin/topUpCategory/del/" .id) $.Query}}
+                            {{a "tag-warning" (concat "/admin/walletChangeType/edit/" .id) "修改" $.Query}}
+                            {{aDel (concat "/admin/walletChangeType/del/" .id) $.Query}}
                         </td>
                     </tr>
                     {{end}}

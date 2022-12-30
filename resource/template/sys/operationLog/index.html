@@ -17,7 +17,8 @@
             <div class="box no-bottom-border">
                 {{include "/part/page_base_info.html" .}}
                 <form id="searchForm" class="cell flex-center no-bottom-border" action="{{.node.Path}}" method="get">
-                    <a class="tag-danger mr-auto" href="#" onclick="if(confirm('确认清空？')){location.href='/admin/operationLog/clear'}">清空</a>
+                    <a class="tag-danger mr-auto" href="#"
+                       onclick="if(confirm('确认清空？')){location.href='/admin/operationLog/clear'}">清空</a>
                     {{searchPageSize .Query}}
                     {{input "uname" "管理员" .Query.uname}}
                 </form>
@@ -32,7 +33,7 @@
                         {{td "管理员" .uname}}
                         {{td "URI" .uri}}
                         {{td "方法" .method}}
-                        {{td "请求内容" .content}}
+                        <td data-label="内容">{{.content|text}}</td>
                         {{td "IP" .ip}}
                         {{td "耗时(ms)" .use_time}}
                         {{td "创建时间" .created_at}}

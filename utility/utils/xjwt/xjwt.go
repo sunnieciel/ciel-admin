@@ -16,7 +16,7 @@ var (
 	authorizationKey    = "Authorization"
 )
 
-func init() {
+func Init() {
 	get, err := g.Cfg().Get(nil, "server.jwtExpireDuration")
 	if err != nil {
 		panic(err)

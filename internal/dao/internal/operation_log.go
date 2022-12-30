@@ -31,7 +31,7 @@ type OperationLogColumns struct {
 	CreatedAt string //
 }
 
-//  operationLogColumns holds the columns for table s_operation_log.
+// operationLogColumns holds the columns for table s_operation_log.
 var operationLogColumns = OperationLogColumns{
 	Id:        "id",
 	Uid:       "uid",

@@ -6,9 +6,6 @@ package dao
 
 import (
 	"ciel-admin/internal/dao/internal"
-	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
 )
 
 // internalRoleApiDao is internal type for wrapping internal DAO implements.
@@ -28,32 +25,3 @@ var (
 )
 
 // Fill with you ideas below.
-
-func (d roleApiDao) RoleNoApi(ctx context.Context, rid interface{}) (gdb.List, error) {
-	array, err := d.Ctx(ctx).Array("aid", "rid", rid)
-	if err != nil {
-		return nil, err
-	}
-	db := Api.Ctx(ctx)
-	if len(array) != 0 {
-		db = db.WhereNotIn("id", array)
-	}
-	all, err := db.Order("group,type").All()
-	if err != nil {
-		return nil, err
-	}
-	return all.List(), nil
-}
-
-func (d roleApiDao) AddRoleApi(ctx context.Context, rid int, aid []int) error {
-	for _, item := range aid {
-		_, err := d.Ctx(ctx).Replace(g.Map{
-			"rid": rid,
-			"aid": item,
-		})
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}

@@ -35,7 +35,7 @@ type MenuColumns struct {
 	UpdatedAt string //
 }
 
-//  menuColumns holds the columns for table s_menu.
+// menuColumns holds the columns for table s_menu.
 var menuColumns = MenuColumns{
 	Id:        "id",
 	Pid:       "pid",

@@ -1,0 +1,125 @@
+.tag-info, .tag-primary, .tag-warning, .tag-success, .tag-brown, .tag-purple, .tag-danger {
+    display: inline-flex;
+    white-space: nowrap !important;
+}
+
+.content p {
+    text-indent: 0;
+    margin-bottom: 0;
+}
+
+.progress-box {
+    padding: 13px;
+    width: 23%;
+}
+
+.progress-all, .progress-current {
+    height: 13px;
+    border-radius: 13px;
+    background-color: var(--gray-008);
+}
+
+.progress-current {
+    background-color: transparent;
+    width: 1%;
+    transition-duration: 1s;
+}
+
+.paragraph-tool {
+    display: flex;
+    align-items: center;
+}
+
+.paragraph-tool a, span {
+    white-space: nowrap;
+}
+
+.word-detail {
+    width: 100%;
+    border: 1px solid var(--gray-005);
+    border-radius: 3px;
+    margin-top: 3px;
+    display: none;
+    padding: 3px 6px 13px;
+}
+
+.input-practice {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: var(--white-002);
+    border: none;
+    width: 93%;
+    border-radius: 13px;
+}
+
+.input-practice:focus-visible {
+    outline: 1px solid #a6a6b0;
+    border: none;
+}
+
+.input-practice-error, .input-practice-error:focus-visible {
+    background-color: var(--red-01) !important;
+    outline-color: var(--red-03) !important;
+    color: var(--red-03);
+}
+
+/*单词练习*/
+.practice-box {
+    /*width: 50%;*/
+    border-radius: 3px;
+    margin-top: 13px;
+    padding: 13px;
+    display: none;
+}
+
+.practice-question-title {
+    margin-top: 7px;
+    font-weight: 700;
+}
+
+.practice-options-box {
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.practice-option, .practice-option-error, .practice-option-success, .practice-option-info {
+    cursor: pointer;
+    margin: 3px;
+    padding: 0 6px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.practice-option-error {
+    cursor: default;
+}
+
+.practice-option-success {
+    cursor: default;
+}
+
+.practice-option-info {
+    cursor: default;
+}
+
+/*练习进度*/
+.practice-progress-all, .practice-progress-current {
+    width: 80%;
+    height: 13px;
+    border-radius: 13px;
+    transition-duration: 1s;
+}
+
+.practice-progress-current {
+    width: 0;
+}
+
+.practice-notice {
+    cursor: pointer;
+    margin-top: 3px;
+    padding: 6px;
+    border-radius: 6px;
+    display: none;
+}

@@ -57,37 +57,26 @@ func GetPage(r *ghttp.Request, defaultSize ...int) (page, size int) {
 	return page, size
 }
 func Err(err error, r *ghttp.Request) {
-	err = r.Response.WriteJsonExit(g.Map{
+	r.Response.WriteJsonExit(g.Map{
 		"code": -1,
 		"msg":  err.Error(),
 	})
-	if err != nil {
-		g.Log().Error(r.Context(), err)
-	}
 }
 func Ok(r *ghttp.Request) {
-	err := r.Response.WriteJsonExit(g.Map{
+	r.Response.WriteJsonExit(g.Map{
 		"code": 0,
 		"msg":  "ok",
 	})
-	if err != nil {
-		g.Log().Error(r.Context(), err)
-		return
-	}
 }
 
 func OkMsg(msg string, r *ghttp.Request) {
-	err := r.Response.WriteJsonExit(g.Map{
+	r.Response.WriteJsonExit(g.Map{
 		"code": 0,
 		"msg":  msg,
 	})
-	if err != nil {
-		g.Log().Error(r.Context(), err)
-		return
-	}
 }
 func OkData(data interface{}, r *ghttp.Request) {
-	_ = r.Response.WriteJsonExit(g.Map{
+	r.Response.WriteJsonExit(g.Map{
 		"code": 0,
 		"msg":  "ok",
 		"data": data,
@@ -109,9 +98,8 @@ func OkPage(page, size, total int, data interface{}, r *ghttp.Request) {
 
 // Tpl template
 func Tpl(file string, data g.Map, r *ghttp.Request) {
-	if err := r.Response.WriteTpl(file, data); err != nil {
-		Err(err, r)
-	}
+	_ = r.Response.WriteTpl(file, data)
+
 }
 func OkSession(msg string, r *ghttp.Request) {
 	if err := r.Session.Set("msg", fmt.Sprintf(consts.MsgPrimary, msg)); err != nil {
@@ -125,12 +113,4 @@ func ErrSession(err error, r *ghttp.Request) {
 }
 func RedirectTo(path string, r *ghttp.Request) {
 	r.Response.RedirectTo(path)
-}
-func MsgWarning(r *ghttp.Request, page, msg string) {
-	r.Response.WriteTpl(page, g.Map{"msg": fmt.Sprintf(consts.MsgWarning, msg)})
-	r.Exit()
-}
-func MsgPrimary(r *ghttp.Request, page, msg string) {
-	r.Response.WriteTpl(page, g.Map{"msg": fmt.Sprintf(consts.MsgPrimary, msg)})
-	r.Exit()
 }

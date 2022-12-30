@@ -25,7 +25,7 @@ type RoleApiColumns struct {
 	Aid string //
 }
 
-//  roleApiColumns holds the columns for table s_role_api.
+// roleApiColumns holds the columns for table s_role_api.
 var roleApiColumns = RoleApiColumns{
 	Id:  "id",
 	Rid: "rid",

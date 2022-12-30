@@ -23,7 +23,7 @@
                 <div class="cell">
                     {{a "link-2-active" "#" "添加角色"}}
                 </div>
-                <form class="cell" method="post" action="/admin/role/post?{{toUrlParams .Query}}">
+                <form class="cell" method="post" action="/admin/role/add?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrRequired "name" "角色" ""}}
                         {{editTrSubmit}}

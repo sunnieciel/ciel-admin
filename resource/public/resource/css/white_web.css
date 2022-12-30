@@ -1,0 +1,17 @@
+.cell-nav {
+    background-color: var(--white-003);
+}
+
+/*english */
+.morri-circle {
+    stroke: #ffc800;
+}
+
+.morri-circle-backend {
+    stroke: rgb(229, 229, 229);
+}
+
+.brik {
+    background-color: var(--green-07);
+}
+

@@ -5,10 +5,7 @@
 package dao
 
 import (
-	"ciel-admin/internal/consts"
 	"ciel-admin/internal/dao/internal"
-	"ciel-admin/internal/model/entity"
-	"context"
 )
 
 // internalAdminDao is internal type for wrapping internal DAO implements.
@@ -28,27 +25,3 @@ var (
 )
 
 // Fill with you ideas below.
-
-func (d adminDao) GetByUname(ctx context.Context, uname string) (*entity.Admin, error) {
-	var data entity.Admin
-	one, err := d.Ctx(ctx).One("uname", uname)
-	if err != nil {
-		return nil, err
-	}
-	if one.IsEmpty() {
-		return nil, consts.ErrLogin
-	}
-	err = one.Struct(&data)
-	if err != nil {
-		return nil, err
-	}
-	return &data, nil
-}
-
-func (d adminDao) Update(ctx context.Context, admin *entity.Admin) error {
-	_, err := d.Ctx(ctx).Update(admin, "id", admin.Id)
-	if err != nil {
-		return err
-	}
-	return nil
-}

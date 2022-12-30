@@ -23,7 +23,7 @@
                 <div class="cell">
                     {{a "link-2-active" "#" "添加角色禁用API"}}
                 </div>
-                <form id="form" class="cell" method="post" action="/admin/roleApi/post?{{toUrlParams .Query}}">
+                <form id="form" class="cell" method="post" action="/admin/roleApi/add?{{toUrlParams .Query}}">
                     <table class="table-add">
                         {{editTrReadonly "rid" "角色id" .role.Id}}
                         {{editTrReadonly "name" "角色" .role.Name}}
@@ -66,6 +66,7 @@
 {{include "/part/endJs.html" .}}
 <script>
     let apis = JSON.parse('{{json .apis}}')
+    console.log(apis)
     let $select = $("select[name='aid[]']");
     $(function () {
         $select.html(apis.map(i => apiOptions(i.type, i.id, i.group, i.desc, i.url)))

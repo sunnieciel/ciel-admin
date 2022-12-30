@@ -5,13 +5,15 @@ import (
 	_ "ciel-admin/internal/packed"
 	"context"
 	"fmt"
+	_ "github.com/gogf/gf/contrib/drivers/mysql/v2"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gctx"
 	_ "net/http/pprof"
 )
 
 func main() {
-	cmd.Main.AddCommand(&gcmd.Command{
+	//g.Cfg().GetAdapter().(*gcfg.AdapterFile).SetFileName("./manifest/config/config-prod.yaml")
+	_ = cmd.Main.AddCommand(&gcmd.Command{
 		Name:        "hello",
 		Brief:       "这是一个欢迎对话命令",
 		Description: "我在学习gf的gcmd包",

@@ -28,7 +28,7 @@ type FileColumns struct {
 	UpdatedAt string //
 }
 
-//  fileColumns holds the columns for table s_file.
+// fileColumns holds the columns for table s_file.
 var fileColumns = FileColumns{
 	Id:        "id",
 	Url:       "url",

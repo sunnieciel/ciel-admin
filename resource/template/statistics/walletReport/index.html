@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    {{include "/part/meta.html" .}}
+    <title>{{.node.Name}} - {{.Config.server.name}} </title>
+    <script src="/resource/js/echarts.min.js"></script>
+</head>
+<body>
+{{include "/part/top.html" .}}
+<div id="wrapper">
+    <div class="w">
+        <div id="wrapper-left">
+            {{include "/part/nav.html" .}}
+            <div class="box-02 no-bottom-border">
+                {{include "/part/page_base_info.html" .}}
+                <form class="cell flex-center no-bottom-border p-3" action="/admin/walletReport" method="get">
+                    <span class="mr-auto"></span>
+                    {{input "uname" "用户名" .Query}}
+                    {{inputDate "begin" "开始日期" .Query}}
+                    {{inputDate "end" "结束日期" .Query}}
+                </form>
+            </div>
+            <div class="box no-bottom-border">
+                <div class="cell no-bottom-border">
+                    <div id="main" style="width: 600px;height: 400px"></div>
+                    <p class="color-desc-02 fs-12">默认最近半年</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{include "/part/footer.html" .}}
+{{include "/part/endJs.html" .}}
+<script>
+    let dark = '{{if eq .Cookie.dark 1}}dark{{end}}'
+    const obj = JSON.parse('{{json .report}}')
+    let titles = JSON.parse('{{json .array}}')
+    let values = [
+        {value: obj.t1, itemStyle: {color: '#429fff'}},
+        {value: obj.t2, itemStyle: {color: 'green'}},
+        {value: obj.t3, itemStyle: {color: '#929499'}},
+        {value: obj.t4, itemStyle: {color: '#9fa0a5'}},
+        {value: obj.t5, itemStyle: {color: '#e4a13c'}},
+    ]
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'), dark);
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '账变报表'
+        },
+        tooltip: {},
+        xAxis: {
+            type: 'category',
+            splitLine: {show: true},
+            data: titles
+        },
+        yAxis: {},
+        series: [{
+            type: 'bar',
+            label: {
+                show: true,
+                position: 'inside'
+            },
+            data: values
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+</script>
+</body>
+</html>

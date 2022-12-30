@@ -20,30 +20,32 @@ type AdminDao struct {
 
 // AdminColumns defines and stores column names for table s_admin.
 type AdminColumns struct {
-	Id        string //
-	Rid       string //
-	Uname     string //
-	Pwd       string //
-	Nickname  string //
-	Email     string //
-	Phone     string //
-	Status    string //
-	CreatedAt string //
-	UpdatedAt string //
+	Id           string //
+	Rid          string //
+	Uname        string //
+	UnreadMsgNum string //
+	Pwd          string //
+	Nickname     string //
+	Email        string //
+	Phone        string //
+	Status       string //
+	CreatedAt    string //
+	UpdatedAt    string //
 }
 
-//  adminColumns holds the columns for table s_admin.
+// adminColumns holds the columns for table s_admin.
 var adminColumns = AdminColumns{
-	Id:        "id",
-	Rid:       "rid",
-	Uname:     "uname",
-	Pwd:       "pwd",
-	Nickname:  "nickname",
-	Email:     "email",
-	Phone:     "phone",
-	Status:    "status",
-	CreatedAt: "created_at",
-	UpdatedAt: "updated_at",
+	Id:           "id",
+	Rid:          "rid",
+	Uname:        "uname",
+	UnreadMsgNum: "unread_msg_num",
+	Pwd:          "pwd",
+	Nickname:     "nickname",
+	Email:        "email",
+	Phone:        "phone",
+	Status:       "status",
+	CreatedAt:    "created_at",
+	UpdatedAt:    "updated_at",
 }
 
 // NewAdminDao creates and returns a new DAO object for table data access.
