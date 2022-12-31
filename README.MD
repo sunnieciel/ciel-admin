@@ -109,7 +109,7 @@ freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系�
 - GetXXX 查询单个数据
 - ListXXX 查询集合数据
 - DelXXX 删除单个数据
-- DelXXXs 删除集合数据¬
+- DelXXXs 删除集合数据
 - UpdateXXX 更新单个数据
 - UpdateXXXs 更新多个数据
 - CheckXXX 相关规则的检查
@@ -158,4 +158,3 @@ func (c cRole) Update(r *ghttp.Request) {}            // 修改角色操作
 ## 🥵 反馈
 
 使用过程中如果遇见什么问题，可以发issue或发邮件1211sciel@gmail.com 我看到后会及时回复的。
-
