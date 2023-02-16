@@ -2300,7 +2300,6 @@ func (c cWallet) ListChangeLogs(ctx context.Context, req *v1.ListChangeLogReq) (
 	}
 	return
 }
-
 func (c cWallet) GetInfo(ctx context.Context, req *v1.WalletInfoReq) (res *v1.WalletInfoRes, err error) {
 	return service.Wallet.GetInfo(ctx)
 }
