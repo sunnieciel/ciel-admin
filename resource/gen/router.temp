@@ -1,2 +1,0 @@
-	controller.Menu.RegisterRouter(s)
-}

@@ -1,160 +1,153 @@
-# 🍉 freekey admin 自由钥匙 - 个人的后台管理系统
+# 🍉 freekey admin 自由钥匙 - 后台管理系统
 
-```
-███████╗██████╗ ███████╗███████╗    ██╗  ██╗███████╗██╗   ██╗     █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
-██╔════╝██╔══██╗██╔════╝██╔════╝    ██║ ██╔╝██╔════╝╚██╗ ██╔╝    ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
-█████╗  ██████╔╝█████╗  █████╗      █████╔╝ █████╗   ╚████╔╝     ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║
-██╔══╝  ██╔══██╗██╔══╝  ██╔══╝      ██╔═██╗ ██╔══╝    ╚██╔╝      ██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║
-██║     ██║  ██║███████╗███████╗    ██║  ██╗███████╗   ██║       ██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║
-╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
+## 说明
 
-v 1.2
-```
-
-## 🍓 追求
-
-用越少的技术、越简单的方式来实现一个面向于web独立开发者的后台管理系统。
-
-## 🍌 说明
-
-freekey admin(自由钥匙) 一个V2EX风格go语言写的个人后台管理系统，提供了权限管理、本地文件上传等基本功能。采用`服务端渲染`，整个项目一键启动。
-
+freekey admin(自由钥匙) 一个V2EX风格 `Golang+React+NextJS` 写的后台管理系统，提供了权限管理、本地文件上传等基本功能。
 使用到的技术:
 
-- 后端: goframe v2.2.5, mysql,redis
-- 前端: html,css,javascript, jquery-3.6.0
+- 后台: GoFrame
+- 前台: React, Nextjs, SWR,Axios, React-toastify, Js-cookie
 
 ## 🍒 内置功能
 
-### 后台
+### 1. 系统
 
-角色权限管理、字典管理、本地文件上传、用户管理 、用户登录日志、用户钱包、充值类型、账变记录、账变统计、账变报表
+菜单, API, 角色, 管理员, 字典, 文件, 操作日志, 登录日志, 账变类型, 账变统计, 账变报表, banner
 
-这是菜单页面 （图标选择的是哆啦A梦 ）![](./documents/home1.png) ![](./documents/home2.png)
+### 2. 用户业务
 
-### API
+用户管理, 用户登录日志, 用户钱包, 充值类型, 账变记录, 账变统计, 账变报表, 充值订单, 提现订单
+> GoFrame框架支持全自动化的接口文档生成，保障代码与接口文档同步维护，自动生成的接口文档采用的是标准的OpenAPIv3协议。
+>
+> 相关文档 https://goframe.org/pages/viewpage.action?pageId=47703679
+>
+> 项目运行后在 http://127.0.0.1:2033/swagger 查看
 
-完成一般系统都会涉及的主要接口。 http://localhost:2033/swagger (启动项目可直接访问接口文档)
+### 3. 商品业务 todo
 
-- 系统: 查询所有字典、查询Banner图列表、查询单个字典信息、上传图片 (到本地服务器)
-- 用户: 可选头像、用户登录信息、登录、注册、修改头像 、修改昵称、修改密码
-- 钱包: 创建充值订单、设置钱包密码、查询钱包信息、查询账变记录、查询账变类型、查询充值记录、查询充值类型、修改钱包密码
+### 4. 小说业务 todo
 
-### 计划中模块
+### 5. 论坛业务 todo
 
-- 活动模块 todo
-- 商品买卖 todo
-- 商品主题购买 todo
-- 商品二手交易所 todo
-
----
+### 6. 聊天业务 todo
 
 ## 🌸 环境安装
 
+### 后台
+
 1. golang环境 安装
 2. mysql 安装
-3. redis 安
-4. gf 安装  https://goframe.org/pages/viewpage.action?pageId=1115782
+3. redis 安装
+4. gf 安装 https://goframe.org/pages/viewpage.action?pageId=1115782
 
---- 
+### 前台
+
+1. nodejs 安装
+2. nextjs 安装
+
+## 项目结构
+
+```text
+
+├── backend                     后台项目 
+│   ├── api                     对外接口	对外提供服务的输入/输出数据结构定义。考虑到版本管理需要，往往以api/xxx/v1...存在.
+│   ├── hack                    工具脚本	存放项目开发工具、脚本等内容。例如，CLI工具的配置，各种shell/bat脚本等文件。
+│   ├── internal                内部逻辑  业务逻辑存放目录。通过Golang internal特性对外部隐藏可见性。
+│   │   ├── cmd                 入口指令  命令行管理目录。可以管理维护多个命令行。
+│   │   ├── consts              常量定义  项目所有常量定义。
+│   │   ├── controller          接口处理  接收/解析用户输入参数的入口/接口层。
+│   │   ├── dao                 数据访问  数据访问对象，这是一层抽象对象，用于和底层数据库交互，仅包含最基础的 CURD 方法
+│   │   ├── logic               业务封装  业务逻辑封装管理，特定的业务逻辑实现和封装。往往是项目中最复杂的部分。
+│   │   ├── model               结构模型  数据结构管理模块，管理数据实体对象，以及输入与输出数据结构定义。
+│   │   ├── packed
+│   │   ├── service             业务层   负责业务逻辑的处理， 具体执行 logic 层
+│   │   └── z_httptest          接口测试 
+│   ├── manifest                交付清单  包含程序编译、部署、运行、配置的文件。常见内容如下：
+│   │   └── config              配置管理  配置文件存放目录。
+│   ├── resource                静态资源
+│   └── utility                 公共工具  不同项目可公用的工具方法放此目录
+└── frontend                    前台项目
+    ├── compoents               组件
+    ├── consts                  常量
+    ├── data                    数据工具
+    ├── libs                    业务工具
+    ├── pages                   页面
+    │   └── backend             后台页面
+    └── public                  静态资源
+        ├── css
+        ├── fonts
+        └── image
+```
 
 ## ✨️ 快速开始
 
-1. 下载项目 https://github.com/1211ciel/ciel-admin/releases/tag/v1.2
-2. 创建数据库并导入项目`resource`目录下的`freekey_system.sql`
-3. 修改`config.yaml`文件配置:`mysql`,`redis` 将数据库信息替换成您自己的
-4. 启动项目：到项目根目录下执行 `gf run main.go`
-5. 浏览器打开 http://localhost:2033/login  默认用户名 `ciel` 密码 `1`
+### 后台运行
 
---- 
+1. 下载项目 `git clone https://github.com/1211ciel/freekey-admin.git`
+2. 创建数据库并导入项目 `/backend/freekey_admin.sql`
+3. 修改 `/backend/manifest/config/config.yaml` 文件配置:mysql,redis 信息替换成您自己的
+4. 进入 `/backend` 目录下 运行 `go mod tidy` 下载依赖。下载完成后 运行 `gf run main.go`
 
-## 🍀 [CRUD代码生成](https://github.com/1211ciel/ciel-admin/blob/master/documents/gen.md)
+### 前台运行
 
---- 
+1. 进入 `/frontend` 目录下 运行 `npm install` 下载项目依赖
+2. 下载完成后 运行 `npm run dev`
+3. 访问  http://localhost:3000 用户名: `admin` 密码: `1`
 
-## 🌴 [项目结构](https://goframe.org/pages/viewpage.action?pageId=30740166)
+## 接口快速开发
 
-```text
-├── api
-├── hack
-├── internal   
-│   ├── cmd        入口指令                         ---👌 "如果没什么事的话，就让我们开始吧。"
-│   ├── consts     常量                            --- 🙂 "请相信，我是永远不会改变的~"
-│   ├── controller 控制层     提供对外接口           --- 😀 "您需要的所有功能我都可以为您实现,请告诉我吧~"
-│   ├── dao        数据查询层  数据库查询操作在此层执行 --- 🤪 "数据库相关的信息我最了解。"
-│   ├── logic      逻辑层     业务逻辑在此层进行处理,  --- 😎 "不管你的逻辑有多复杂，交给在下吧～"
-│   ├── model      实体层     包含 bo do entity     --- 🤗 "我这里包含了你可能会用到的所有模型实体。"
-│   └── service    服务层     为控制层提供服务支持     --- 🙂 "我只衷心为您服务~"
-├── main.go                                       --- 🌞 "go!"
-├── manifest   // 配置文件                          --- 🌼 "有什么事情可以先告诉我."
-├── resource   // 静态或其他资源                     --- 🍀 "我是html 请到这里找来我吧"
-└── utility    // 通用工具                          --- 🐶 "如果其他项目也想使用的话，请交给我."
+这里以用户创建充值订单的前后台的所有功能进行示例讲解。 [点击查看](docs/demo_interface.md)
 
-      "我们一直在这里，等你!"
-🌞 👌 🙂 😀 🤪 😎 🤗 🙂 🌞 🌼 🍀 🐶  
-```
+## 🌈 CSS
 
---- 
+在项目中，使用了两套CSS样式：白天和黑夜。这些样式包括了许多不同的元素，例如按钮（.btn）、标签（.tag）、图标（.icon）、信息框（.info-box）、主题（.theme）、输入框（.input）和表格（.table）等等。可以在不同的网站上使用，以提高用户体验和设计美感。
 
-## 🌼 包、分层职责及方法名的建议
+通过使用这些样式，你可以快速地创建出一个现代化和美观的网站。
 
-`dao`包、`model.entity`包为 `gf` 工具自动生成，最好不要在工具自动生成的包下面写代码。
+样式文件在 `/freekey-admin/frontend/public/css`
 
-控制层、服务层、逻辑层的代码各自的职责都划分好，具体执行的逻辑代码最好都写到 `logic` 包下。这样如果后面有对数据库新的增加或删除，可以直接删除工具自动生成的包，重新生成即可。
+项目启动后可以在 http://localhost:3000/backend/sys/test?name=CSS 页面进行查看
 
-**方法名建议**：
+以下是一些常用样式:
 
-- IndexXXX 服务端渲染的页面
-- AddXXX 添加数据
-- GetXXX 查询单个数据
-- ListXXX 查询集合数据
-- DelXXX 删除单个数据
-- DelXXXs 删除集合数据
-- UpdateXXX 更新单个数据
-- UpdateXXXs 更新多个数据
-- CheckXXX 相关规则的检查
-- CountXXX 统计某些数据
-- TakeXXX 查询多个组合的数据
+![](docs/btn.jpg)
+![](docs/btn-dark.jpg)
 
-**方法顺序排列**：(从易到难) 渲染页面，添加数据，查询数据，删除数据，修改数据，其他。
 
-例如：
+![](docs/link.jpg)
+![](docs/link-dark.jpg)
 
-```text
-func (c cRole) Index(r *ghttp.Request) {}             // 角色页面
-func (c cRole) IndexAdd(r *ghttp.Request) {}          // 角色添加页面
-func (c cRole) IndexEdit(r *ghttp.Request) {}         // 角色修改页面
-func (c cRole) Add(r *ghttp.Request) {}               // 添加角色操作
-func (c cRole) ListRoleNoMenus(r *ghttp.Request) {}   // 查询角色不包含的菜单集合
-func (c cRole) ListRoleNoApis(r *ghttp.Request) {}    // 查询角色不包含的api集合
-func (c cRole) Del(r *ghttp.Request) {}               // 删除角色操作
-func (c cRole) DelRoles(r *ghttp.Request) {}          // 删除多个角色操作
-func (c cRole) Update(r *ghttp.Request) {}            // 修改角色操作
-```
 
-这样分的好处在于，扩展新的功能时可以直接定位到各自的位置，让自己的思路清晰，代码也更可观。
+![](docs/tag.jpg)
+![](docs/tag-dark.jpg)
 
----
 
-## 👌 [自定义模版函数使用](./documents/template.md)
+![](docs/icon.jpg)
+![](docs/icon-dark.jpg)
 
----
 
-## 🌈 [css使用](./documents/class.md)
+![](docs/info-box.jpg)
+![](docs/info-box-dark.jpg)
 
-### `.tag`
 
-`.tag-info` `.tag-success` `.tag-priamry` `.tag-wanrnig` `.tag-brown` `.tag-purple` `.tag-danger`
+![](docs/theme.jpg)
+![](docs/theme-dark.jpg)
 
-![](./documents/tag.png) <br> ![](./documents/tag2.png)
 
-### 💦 [更多class](https://github.com/1211ciel/ciel-admin/blob/master/documents/class.md)
+![](docs/input.jpg)
+![](docs/input-dark.jpg)
 
-![](./documents/class1.png) <br>
-![](./documents/class2.png)
 
---- 
+![](docs/table.jpg)
+![](docs/table-dark.jpg)
 
-## 🥵 反馈
+## 致谢
 
-使用过程中如果遇见什么问题，可以发issue或发邮件1211sciel@gmail.com 我看到后会及时回复的。
+- [V2EX](https://www.v2ex.com/)
+- [GoFrame](https://github.com/gogf/gf)
+- [React](https://github.com/facebook/react)
+- [next.js](https://github.com/vercel/next.js)
+- [swr](https://github.com/vercel/swr)
+- [axios](https://github.com/axios/axios)
+- [react-toastify](https://github.com/fkhadra/react-toastify)
+- [js-cookie](https://github.com/js-cookie/js-cookie)
