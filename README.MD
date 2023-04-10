@@ -133,11 +133,6 @@ freekey admin(自由钥匙) 一个V2EX风格 `Golang+React+NextJS` 写的后台�
 ![](docs/theme.jpg)
 ![](docs/theme-dark.jpg)
 
-
-![](docs/input.jpg)
-![](docs/input-dark.jpg)
-
-
 ![](docs/table.jpg)
 ![](docs/table-dark.jpg)
 
