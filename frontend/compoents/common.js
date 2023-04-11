@@ -38,7 +38,7 @@ export const ImgUpload = ({options, onSuccess}) => {
         setFiles(e.target.files)
     }
     const handleUpload = async () => {
-        if (files.length == 0) {
+        if (files.length === 0) {
             toast.warning('文件不能为空')
             return
         }
@@ -47,13 +47,17 @@ export const ImgUpload = ({options, onSuccess}) => {
             formData.append('file', files[i])
         }
         try {
-            const {data} = await axios.post(`${process.env.BASE_API}/file/upload?group=${group}`, formData, {
+            const res = await axios.post(`${process.env.BASE_API}/file/upload?group=${group}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'token': jsCookie.get(keyToken)
                 }
             })
-            onSuccess(data)
+            if (res.data.code !== 0) {
+                toast.error(res.data.msg)
+                return
+            }
+            onSuccess(res.data.data)
         } catch (err) {
             setError(err)
         }

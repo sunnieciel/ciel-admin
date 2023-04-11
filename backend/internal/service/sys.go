@@ -427,7 +427,7 @@ func (s sSys) AdminLogin(ctx context.Context, req *v1.AdminLoginReq) (string, er
 	if err = logic.Sys.AddAdminLoginLog(ctx, admin.Id); err != nil {
 		return "", err
 	}
-	token, err := xjwt.GenToken(admin.Uname, uint64(admin.Id), 1)
+	token, err := xjwt.GenToken(admin.Uname, uint64(admin.Id), uint64(admin.Rid))
 	if err != nil {
 		return "", err
 	}

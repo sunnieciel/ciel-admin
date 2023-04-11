@@ -51,9 +51,11 @@ const MainPage = ({setShowType, setId, query, setQuery, setDefaultData}) => {
     const handleSort = async (id) => {
         let sort = prompt('请输入一个数字')
         if (sort) {
-            await updateSortMenu(id, sort)
-            toast.success('修改成功')
-            mutate()
+            const {code} = await updateSortMenu(id, sort)
+            if (code === 0) {
+                toast.success('修改成功')
+                mutate()
+            }
         }
     }
     return <>

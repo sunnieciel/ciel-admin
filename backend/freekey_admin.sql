@@ -107,7 +107,6 @@ CREATE TABLE `s_admin_login_log` (
 
 LOCK TABLES `s_admin_login_log` WRITE;
 /*!40000 ALTER TABLE `s_admin_login_log` DISABLE KEYS */;
-INSERT INTO `s_admin_login_log` (`id`, `uid`, `ip`, `status`, `created_at`, `updated_at`) VALUES (363,42,'::1',1,'2023-04-07 19:28:03','2023-04-07 19:28:03');
 /*!40000 ALTER TABLE `s_admin_login_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +135,7 @@ CREATE TABLE `s_api` (
 
 LOCK TABLES `s_api` WRITE;
 /*!40000 ALTER TABLE `s_api` DISABLE KEYS */;
-INSERT INTO `s_api` (`id`, `group`, `url`, `method`, `desc`, `created_at`, `updated_at`) VALUES (1,'管理员','/backend/getCaptcha','GET','获取验证码','2023-01-16 17:04:25','2023-01-19 15:35:00'),(2,'管理员','/backend/login','POST','管理员登录','2023-01-16 17:07:50','2023-01-16 17:07:50'),(3,'管理员','/backend/admin/getInfo','GET','获取登录信息','2023-01-16 17:08:19','2023-01-16 17:08:19'),(4,'管理员','/backend/admin/getMenu','GET','获取菜单信息','2023-01-16 09:08:55','2023-01-17 15:23:33'),(5,'菜单','/backend/menu','GET',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(6,'菜单','/backend/menu/list','GET',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(7,'菜单','/backend/menu','POST',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(8,'菜单','/backend/menu','PUT',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(9,'菜单','/backend/menu','DELETE',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(10,'菜单','/backend/menu/sort','GET','菜单排序','2023-01-16 17:08:55','2023-01-16 17:08:55'),(11,'API','/backend/api','GET',NULL,'2023-01-16 09:12:32','2023-01-18 08:18:09'),(12,'API','/backend/api/list','GET',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(13,'API','/backend/api','POST',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(14,'API','/backend/api','PUT',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(15,'API','/backend/api','DELETE',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(16,'角色','/backend/role','GET',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(17,'角色','/backend/role/list','GET',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(18,'角色','/backend/role','POST',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(19,'角色','/backend/role','PUT',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(20,'角色','/backend/role','DELETE',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(21,'角色','/backend/roleApi','GET',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(22,'角色','/backend/roleApi/list','GET',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(23,'角色','/backend/roleApi','POST',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(24,'角色','/backend/roleApi','PUT',NULL,'2023-01-16 17:14:31','2023-01-16 17:14:31'),(25,'角色','/backend/roleApi','DELETE',NULL,'2023-01-16 17:14:31','2023-01-16 17:14:31'),(26,'角色','/backend/roleMenu','GET',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(27,'角色','/backend/roleMenu','GET',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(28,'角色','/backend/roleMenu','POST',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(29,'角色','/backend/roleMenu','PUT',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(30,'角色','/backend/roleMenu','DELETE',NULL,'2023-01-16 19:36:56','2023-01-19 15:35:05'),(31,'管理员','/backend/admin/updateUname','PUT','修改管理员用户名','2023-01-16 23:10:52','2023-04-04 12:35:22'),(32,'管理员','/backend/adminn/updatePass','PUT','修改管理员密码','2023-01-17 15:20:31','2023-01-17 15:20:31'),(43,'角色','/backend/role','GET','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(44,'角色','/backend/role/list','GET','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(45,'角色','/backend/role','POST','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(46,'角色','/backend/role','PUT','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(47,'角色','/backend/role','DELETE','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(48,'字典','/backend/dict','GET','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(49,'字典','/backend/dict/list','GET','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(50,'字典','/backend/dict','POST','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(51,'字典','/backend/dict','PUT','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(52,'字典','/backend/dict','DELETE','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(53,'文件','/backend/file','GET','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(54,'文件','/backend/file/list','GET','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(55,'文件','/backend/file','POST','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(56,'文件','/backend/file','PUT','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(57,'文件','/backend/file','DELETE','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(58,'文件','/backend/file/upload','POST','上传文件','2023-01-19 17:01:43','2023-01-19 17:01:43'),(59,'操作日志','/backend/operationLog','GET','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(60,'操作日志','/backend/operationLog/list','GET','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(61,'操作日志','/backend/operationLog','POST','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(62,'操作日志','/backend/operationLog','PUT','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(63,'操作日志','/backend/operationLog','DELETE','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(64,'操作日志','/backend/operationLog/delClear','DELETE','清空操作日志','2023-01-19 17:02:23','2023-04-04 12:35:59'),(65,'登陆日志','/backend/adminLoginLog','GET','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(66,'登陆日志','/backend/adminLoginLog/list','GET','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(67,'登陆日志','/backend/adminLoginLog','POST','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(68,'登陆日志','/backend/adminLoginLog','PUT','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(69,'登陆日志','/backend/adminLoginLog','DELETE','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(70,'登陆日志','/backend/adminLoginLog/delClear','DELETE','清空管理员登录日志','2023-01-19 17:03:51','2023-04-04 12:36:13'),(71,'banner','/backend/banner','GET','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(72,'banner','/backend/banner/list','GET','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(73,'banner','/backend/banner','POST','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(74,'banner','/backend/banner','PUT','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(75,'banner','/backend/banner','DELETE','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(76,'用户','/backend/user','GET','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(77,'用户','/backend/user/list','GET','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(78,'用户','/backend/user','POST','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(79,'用户','/backend/user','PUT','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(80,'用户','/backend/user','DELETE','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(81,'用户','/backend/user/updateUname','PUT','修改用户名','2023-01-19 17:05:03','2023-01-19 17:05:03'),(82,'用户','/backend/user/updatePass','PUT','修改用户密码','2023-01-19 17:05:34','2023-04-04 12:38:40'),(83,'用户登录日志','/backend/userLoginLog','GET','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(84,'用户登录日志','/backend/userLoginLog/list','GET','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(85,'用户登录日志','/backend/userLoginLog','POST','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(86,'用户登录日志','/backend/userLoginLog','PUT','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(87,'用户登录日志','/backend/userLoginLog','DELETE','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(88,'钱包','/backend/wallet','GET','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(89,'钱包','/backend/wallet/list','GET','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(90,'钱包','/backend/wallet','POST','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(91,'钱包','/backend/wallet','PUT','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(92,'钱包','/backend/wallet','DELETE','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(93,'钱包','/backend/wallet/updatePass','PUT','修改钱包密码','2023-01-19 17:07:57','2023-04-04 12:39:32'),(94,'钱包','/backend/wallet/updateByAdmin','PUT','管理员充值提现','2023-01-19 17:08:21','2023-04-04 12:39:21'),(95,'账变类型','/backend/walletChangeType','GET','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(96,'账变类型','/backend/walletChangeType/list','GET','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(97,'账变类型','/backend/walletChangeType','POST','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(98,'账变类型','/backend/walletChangeType','PUT','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(99,'账变类型','/backend/walletChangeType','DELETE','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(100,'账变记录','/backend/walletChangeLog','GET','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(101,'账变记录','/backend/walletChangeLog/list','GET','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(102,'账变记录','/backend/walletChangeLog','POST','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(103,'账变记录','/backend/walletChangeLog','PUT','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(104,'账变记录','/backend/walletChangeLog','DELETE','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(105,'充值订单','/backend/walletTopUpApplication','GET','','2023-01-19 17:13:59','2023-01-19 17:13:59'),(106,'充值订单','/backend/walletTopUpApplication/list','GET','','2023-01-19 17:13:59','2023-01-19 17:13:59'),(107,'充值订单','/backend/walletTopUpApplication','POST','','2023-01-19 17:13:59','2023-01-19 17:13:59'),(108,'充值订单','/backend/walletTopUpApplication','PUT','','2023-01-19 17:13:59','2023-01-19 17:13:59'),(109,'充值订单','/backend/walletTopUpApplication','DELETE','','2023-01-19 17:13:59','2023-01-19 17:13:59'),(110,'菜单','/backend/api/addGroup','POST','','2023-01-19 18:50:11','2023-01-19 18:50:11'),(137,'用户登录日志','/userLoginLog/delClear','DELETE','清空用户登录日志','2023-04-04 12:26:22','2023-04-04 12:26:42'),(138,'API','/api/addGroup','POST','添加一组API\n','2023-04-04 12:31:45','2023-04-04 12:31:45'),(139,'角色','/roleApi/addRoleApis','POST','添加角色api权限','2023-04-04 12:33:36','2023-04-04 12:33:36'),(140,'角色','/roleApi/clear','DELETE','清除角色api权限','2023-04-04 12:34:05','2023-04-04 12:34:05'),(141,'角色','/roleMenu/addRoleMenus','POST','添加角色菜单','2023-04-04 12:34:36','2023-04-04 12:34:36'),(142,'角色','/roleMenu/clear','DELETE','清除角色菜单','2023-04-04 12:34:57','2023-04-04 12:34:57'),(148,'充值订单','/walletTopUpApplication/updateByAdmin','PUT','审核充值订单','2023-04-04 12:41:45','2023-04-04 12:41:45'),(149,'提现订单','/backend/walletWithdrawApplication','GET','','2023-04-04 12:42:01','2023-04-04 12:42:01'),(150,'提现订单','/backend/walletWithdrawApplication/list','GET','','2023-04-04 12:42:01','2023-04-04 12:42:01'),(151,'提现订单','/backend/walletWithdrawApplication','POST','','2023-04-04 12:42:01','2023-04-04 12:42:01'),(152,'提现订单','/backend/walletWithdrawApplication','PUT','','2023-04-04 12:42:01','2023-04-04 12:42:01'),(153,'提现订单','/backend/walletWithdrawApplication','DELETE','','2023-04-04 12:42:01','2023-04-04 12:42:01'),(154,'提现订单','/walletWithdrawApplication/updateByAdmin','PUT','审核提现订单','2023-04-04 12:43:04','2023-04-04 12:43:04');
+INSERT INTO `s_api` (`id`, `group`, `url`, `method`, `desc`, `created_at`, `updated_at`) VALUES (1,'管理员','/backend/getCaptcha','GET','获取验证码','2023-01-16 17:04:25','2023-01-19 15:35:00'),(2,'管理员','/backend/login','POST','管理员登录','2023-01-16 17:07:50','2023-01-16 17:07:50'),(3,'管理员','/backend/admin/getInfo','GET','获取登录信息','2023-01-16 17:08:19','2023-01-16 17:08:19'),(4,'管理员','/backend/admin/getMenu','GET','获取菜单信息','2023-01-16 09:08:55','2023-01-17 15:23:33'),(5,'菜单','/backend/menu','GET',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(6,'菜单','/backend/menu/list','GET',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(7,'菜单','/backend/menu','POST',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(8,'菜单','/backend/menu','PUT',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(9,'菜单','/backend/menu','DELETE',NULL,'2023-01-16 17:08:55','2023-01-16 17:08:55'),(10,'菜单','/backend/menu/sort','GET','菜单排序','2023-01-16 17:08:55','2023-01-16 17:08:55'),(11,'API','/backend/api','GET',NULL,'2023-01-16 09:12:32','2023-01-18 08:18:09'),(12,'API','/backend/api/list','GET',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(13,'API','/backend/api','POST',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(14,'API','/backend/api','PUT',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(15,'API','/backend/api','DELETE',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(16,'角色','/backend/role','GET',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(17,'角色','/backend/role/list','GET',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(18,'角色','/backend/role','POST',NULL,'2023-01-16 17:12:32','2023-01-16 17:12:32'),(19,'角色','/backend/role','PUT',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(20,'角色','/backend/role','DELETE',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(21,'角色','/backend/roleApi','GET',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(22,'角色','/backend/roleApi/list','GET',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(23,'角色','/backend/roleApi','POST',NULL,'2023-01-16 17:13:02','2023-01-16 17:13:02'),(24,'角色','/backend/roleApi','PUT',NULL,'2023-01-16 17:14:31','2023-01-16 17:14:31'),(25,'角色','/backend/roleApi','DELETE',NULL,'2023-01-16 17:14:31','2023-01-16 17:14:31'),(26,'角色','/backend/roleMenu','GET',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(27,'角色','/backend/roleMenu','GET',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(28,'角色','/backend/roleMenu','POST',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(29,'角色','/backend/roleMenu','PUT',NULL,'2023-01-16 19:36:56','2023-01-16 19:36:56'),(30,'角色','/backend/roleMenu','DELETE',NULL,'2023-01-16 19:36:56','2023-01-19 15:35:05'),(31,'管理员','/backend/admin/updateUname','PUT','修改管理员用户名','2023-01-16 23:10:52','2023-04-04 12:35:22'),(32,'管理员','/backend/adminn/updatePass','PUT','修改管理员密码','2023-01-17 15:20:31','2023-01-17 15:20:31'),(43,'角色','/backend/role','GET','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(44,'角色','/backend/role/list','GET','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(45,'角色','/backend/role','POST','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(46,'角色','/backend/role','PUT','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(47,'角色','/backend/role','DELETE','','2023-01-19 16:48:39','2023-01-19 16:48:39'),(48,'字典','/backend/dict','GET','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(49,'字典','/backend/dict/list','GET','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(50,'字典','/backend/dict','POST','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(51,'字典','/backend/dict','PUT','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(52,'字典','/backend/dict','DELETE','','2023-01-19 16:59:11','2023-01-19 16:59:11'),(53,'文件','/backend/file','GET','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(54,'文件','/backend/file/list','GET','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(55,'文件','/backend/file','POST','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(56,'文件','/backend/file','PUT','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(57,'文件','/backend/file','DELETE','','2023-01-19 16:59:57','2023-01-19 16:59:57'),(58,'文件','/backend/file/upload','POST','上传文件','2023-01-19 17:01:43','2023-01-19 17:01:43'),(59,'操作日志','/backend/operationLog','GET','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(60,'操作日志','/backend/operationLog/list','GET','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(61,'操作日志','/backend/operationLog','POST','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(62,'操作日志','/backend/operationLog','PUT','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(63,'操作日志','/backend/operationLog','DELETE','','2023-01-19 17:02:02','2023-01-19 17:02:02'),(64,'操作日志','/backend/operationLog/delClear','DELETE','清空操作日志','2023-01-19 17:02:23','2023-04-04 12:35:59'),(65,'登陆日志','/backend/adminLoginLog','GET','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(66,'登陆日志','/backend/adminLoginLog/list','GET','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(67,'登陆日志','/backend/adminLoginLog','POST','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(68,'登陆日志','/backend/adminLoginLog','PUT','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(69,'登陆日志','/backend/adminLoginLog','DELETE','','2023-01-19 17:02:52','2023-01-19 17:02:52'),(70,'登陆日志','/backend/adminLoginLog/delClear','DELETE','清空管理员登录日志','2023-01-19 17:03:51','2023-04-04 12:36:13'),(71,'banner','/backend/banner','GET','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(72,'banner','/backend/banner/list','GET','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(73,'banner','/backend/banner','POST','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(74,'banner','/backend/banner','PUT','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(75,'banner','/backend/banner','DELETE','','2023-01-19 17:04:02','2023-01-19 17:04:02'),(76,'用户','/backend/user','GET','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(77,'用户','/backend/user/list','GET','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(78,'用户','/backend/user','POST','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(79,'用户','/backend/user','PUT','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(80,'用户','/backend/user','DELETE','','2023-01-19 17:04:39','2023-01-19 17:04:39'),(81,'用户','/backend/user/updateUname','PUT','修改用户名','2023-01-19 17:05:03','2023-01-19 17:05:03'),(82,'用户','/backend/user/updatePass','PUT','修改用户密码','2023-01-19 17:05:34','2023-04-04 12:38:40'),(83,'用户登录日志','/backend/userLoginLog','GET','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(84,'用户登录日志','/backend/userLoginLog/list','GET','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(85,'用户登录日志','/backend/userLoginLog','POST','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(86,'用户登录日志','/backend/userLoginLog','PUT','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(87,'用户登录日志','/backend/userLoginLog','DELETE','','2023-01-19 17:06:30','2023-01-19 17:06:30'),(88,'钱包','/backend/wallet','GET','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(89,'钱包','/backend/wallet/list','GET','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(90,'钱包','/backend/wallet','POST','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(91,'钱包','/backend/wallet','PUT','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(92,'钱包','/backend/wallet','DELETE','','2023-01-19 17:07:15','2023-01-19 17:07:15'),(93,'钱包','/backend/wallet/updatePass','PUT','修改钱包密码','2023-01-19 17:07:57','2023-04-04 12:39:32'),(94,'钱包','/backend/wallet/updateByAdmin','PUT','管理员充值提现','2023-01-19 17:08:21','2023-04-04 12:39:21'),(95,'账变类型','/backend/walletChangeType','GET','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(96,'账变类型','/backend/walletChangeType/list','GET','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(97,'账变类型','/backend/walletChangeType','POST','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(98,'账变类型','/backend/walletChangeType','PUT','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(99,'账变类型','/backend/walletChangeType','DELETE','','2023-01-19 17:11:30','2023-01-19 17:11:30'),(100,'账变记录','/backend/walletChangeLog','GET','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(101,'账变记录','/backend/walletChangeLog/list','GET','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(102,'账变记录','/backend/walletChangeLog','POST','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(103,'账变记录','/backend/walletChangeLog','PUT','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(104,'账变记录','/backend/walletChangeLog','DELETE','','2023-01-19 17:11:55','2023-01-19 17:11:55'),(105,'充值订单','/backend/topUp','GET','','2023-01-19 17:13:59','2023-04-11 21:43:14'),(106,'充值订单','/backend/topUp/list','GET','','2023-01-19 17:13:59','2023-04-11 21:43:10'),(107,'充值订单','/backend/topUp','POST','','2023-01-19 17:13:59','2023-04-11 21:43:03'),(108,'充值订单','/backend/topUp','PUT','','2023-01-19 17:13:59','2023-04-11 21:42:58'),(109,'充值订单','/backend/topUp','DELETE','','2023-01-19 17:13:59','2023-04-11 21:42:53'),(110,'菜单','/backend/api/addGroup','POST','','2023-01-19 18:50:11','2023-01-19 18:50:11'),(137,'用户登录日志','/userLoginLog/delClear','DELETE','清空用户登录日志','2023-04-04 12:26:22','2023-04-04 12:26:42'),(138,'API','/api/addGroup','POST','添加一组API\n','2023-04-04 12:31:45','2023-04-04 12:31:45'),(139,'角色','/roleApi/addRoleApis','POST','添加角色api权限','2023-04-04 12:33:36','2023-04-04 12:33:36'),(140,'角色','/roleApi/clear','DELETE','清除角色api权限','2023-04-04 12:34:05','2023-04-04 12:34:05'),(141,'角色','/roleMenu/addRoleMenus','POST','添加角色菜单','2023-04-04 12:34:36','2023-04-04 12:34:36'),(142,'角色','/roleMenu/clear','DELETE','清除角色菜单','2023-04-04 12:34:57','2023-04-04 12:34:57'),(148,'充值订单','/backend/topUp/updateByAdmin','PUT','审核充值订单','2023-04-04 12:41:45','2023-04-11 21:42:47');
 /*!40000 ALTER TABLE `s_api` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +187,7 @@ CREATE TABLE `s_file` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +222,7 @@ CREATE TABLE `s_menu` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +231,7 @@ CREATE TABLE `s_menu` (
 
 LOCK TABLES `s_menu` WRITE;
 /*!40000 ALTER TABLE `s_menu` DISABLE KEYS */;
-INSERT INTO `s_menu` (`id`, `pid`, `icon`, `bg_img`, `name`, `path`, `sort`, `type`, `desc`, `file_path`, `status`, `created_at`, `updated_at`) VALUES (1,-1,'','','系统','/',1.00,2,'','',1,'2022-06-18 06:18:55','2023-04-04 12:40:08'),(2,1,'','','菜单','/backend/sys/menu',1.10,1,'这里是菜单页面','',2,'2022-02-15 03:14:13','2023-04-07 11:21:58'),(3,1,'','','角色','/backend/sys/role',1.30,1,'角色权限管理，在这里可以创建新的角色','',1,'2022-03-04 08:57:14','2023-04-07 11:21:45'),(4,1,'','','API','/backend/sys/api',1.20,1,'','',1,'2022-07-03 06:25:52','2023-04-07 11:21:55'),(5,1,'','','管理员','/backend/sys/admin',1.40,1,'','',1,'2022-03-07 23:45:04','2023-04-07 11:21:42'),(28,1,'','','字典','/backend/sys/dict',1.50,1,'字典页面','',1,'2022-03-06 23:45:04','2023-04-07 11:21:37'),(30,1,'','','文件','/backend/sys/file',1.60,1,'','',1,'2022-03-08 08:05:30','2023-04-07 11:21:40'),(78,1,'','','操作日志','/backend/sys/operationLog',1.80,1,'','',1,'2022-06-13 11:59:57','2023-04-07 11:21:34'),(139,1,'','','登录日志','/backend/sys/adminLoginLog',1.90,1,'这里是登陆日志页面可以对数据进行相应的操作。','',1,'2022-07-11 11:06:26','2023-04-07 11:21:30'),(171,-1,'','','用户','',5.00,2,'','',1,'2022-09-01 14:24:18','2023-01-14 09:10:02'),(172,171,'','','用户列表','/backend/user',5.10,1,'这里是用户管理页面','',1,'2022-08-31 22:24:18','2023-04-07 11:21:05'),(173,171,'','','登录日志','/backend/user/userLoginLog',5.20,1,'','',1,'2022-09-02 14:47:17','2023-04-07 11:21:02'),(174,171,'','','钱包','/backend/user/wallet',5.30,1,'','',1,'2022-09-03 20:32:44','2023-04-07 11:20:59'),(175,-1,'','','配置','/',2.00,2,'','',1,'2022-09-04 23:02:32','2023-01-19 11:24:33'),(176,175,'','','账变类型','/backend/setting/walletChangeType',2.10,1,'','',1,'2022-09-04 07:02:32','2023-04-07 11:21:24'),(177,171,'','','账变记录','/backend/user/walletChangeLog',5.40,1,'','',1,'2022-09-04 19:09:03','2023-04-07 11:38:00'),(178,-1,'','','统计','',4.00,2,'','',1,'2022-09-05 03:15:18','2022-12-28 16:49:59'),(179,178,'','','账变统计','/backend/user/walletStatisticsLog',4.10,1,'','',1,'2022-09-04 19:15:18','2023-04-07 11:21:11'),(180,178,'','','账变报表','/backend/user/walletReport',4.20,1,'','',1,'2022-09-05 22:14:24','2023-04-07 11:21:08'),(204,-1,'','','通用','',3.00,2,'','',1,'2022-12-28 16:46:37','2022-12-28 16:48:10'),(205,204,'','','Banner','/backend/common/banner',3.10,1,'','',1,'2022-12-28 00:46:37','2023-04-07 11:21:19'),(230,1,'','','文档与测试','/backend/sys/test?name=CSS',1.91,1,'','',0,'2023-01-19 11:42:54','2023-01-20 12:08:58');
+INSERT INTO `s_menu` (`id`, `pid`, `icon`, `bg_img`, `name`, `path`, `sort`, `type`, `desc`, `file_path`, `status`, `created_at`, `updated_at`) VALUES (1,-1,'','','系统','/',1.00,2,'','',1,'2022-06-18 06:18:55','2023-04-04 12:40:08'),(2,1,'','','菜单','/backend/sys/menu',1.10,1,'这里是菜单页面','',2,'2022-02-15 03:14:13','2023-04-07 11:21:58'),(3,1,'','','角色','/backend/sys/role',1.30,1,'角色权限管理，在这里可以创建新的角色','',1,'2022-03-04 08:57:14','2023-04-07 11:21:45'),(4,1,'','','API','/backend/sys/api',1.20,1,'','',1,'2022-07-03 06:25:52','2023-04-07 11:21:55'),(5,1,'','','管理员','/backend/sys/admin',1.40,1,'','',1,'2022-03-07 23:45:04','2023-04-07 11:21:42'),(28,1,'','','字典','/backend/sys/dict',1.50,1,'字典页面','',1,'2022-03-06 23:45:04','2023-04-07 11:21:37'),(30,1,'','','文件','/backend/sys/file',1.60,1,'','',1,'2022-03-08 08:05:30','2023-04-07 11:21:40'),(78,1,'','','操作日志','/backend/sys/operationLog',1.80,1,'','',1,'2022-06-13 11:59:57','2023-04-07 11:21:34'),(139,1,'','','登录日志','/backend/sys/adminLoginLog',1.90,1,'这里是登陆日志页面可以对数据进行相应的操作。','',1,'2022-07-11 11:06:26','2023-04-07 11:21:30'),(171,-1,'','','用户','',5.00,2,'','',1,'2022-09-01 14:24:18','2023-01-14 09:10:02'),(172,171,'','','用户列表','/backend/user',5.10,1,'这里是用户管理页面','',1,'2022-08-31 22:24:18','2023-04-07 11:21:05'),(173,171,'','','登录日志','/backend/user/userLoginLog',5.20,1,'','',1,'2022-09-02 14:47:17','2023-04-07 11:21:02'),(174,261,'','','钱包列表','/backend/wallet/wallet',6.10,1,'','',1,'2022-09-03 20:32:44','2023-04-08 12:57:24'),(175,-1,'','','配置','/',2.00,2,'','',1,'2022-09-04 23:02:32','2023-01-19 11:24:33'),(176,175,'','','账变类型','/backend/setting/walletChangeType',2.10,1,'','',1,'2022-09-04 07:02:32','2023-04-07 11:21:24'),(177,261,'','','账变记录','/backend/wallet/walletChangeLog',6.20,1,'','',1,'2022-09-04 19:09:03','2023-04-08 12:57:30'),(178,-1,'','','统计','',4.00,2,'','',1,'2022-09-05 03:15:18','2022-12-28 16:49:59'),(179,178,'','','账变统计','/backend/wallet/walletStatisticsLog',4.10,1,'','',1,'2022-09-04 19:15:18','2023-04-07 11:21:11'),(180,178,'','','账变报表','/backend/wallet/walletReport',4.20,1,'','',1,'2022-09-05 22:14:24','2023-04-07 11:21:08'),(204,-1,'','','通用','',3.00,2,'','',1,'2022-12-28 16:46:37','2022-12-28 16:48:10'),(205,204,'','','Banner','/backend/common/banner',3.10,1,'','',1,'2022-12-28 00:46:37','2023-04-07 11:21:19'),(230,1,'','','文档与测试','/backend/sys/test?name=CSS',1.91,1,'','',0,'2023-01-19 11:42:54','2023-01-20 12:08:58'),(261,-1,'','','钱包','',6.00,2,'','',0,'2023-04-08 12:56:39','2023-04-08 12:56:39'),(262,261,'','','充值订单','/backend/wallet/topUp',6.30,1,'','',0,'2023-04-09 05:57:31','2023-04-09 05:57:31');
 /*!40000 ALTER TABLE `s_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +254,7 @@ CREATE TABLE `s_operation_log` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4835 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4890 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +263,7 @@ CREATE TABLE `s_operation_log` (
 
 LOCK TABLES `s_operation_log` WRITE;
 /*!40000 ALTER TABLE `s_operation_log` DISABLE KEYS */;
-INSERT INTO `s_operation_log` (`id`, `uid`, `content`, `response`, `method`, `uri`, `ip`, `use_time`, `created_at`) VALUES (4828,42,'/backend/admin?id=51','{\"code\":0,\"message\":\"\",\"data\":null}','DELETE','/backend/admin','::1',13,'2023-04-07 19:31:33'),(4829,42,'/backend/dict?id=53','{\"code\":0,\"message\":\"\",\"data\":null}','DELETE','/backend/dict','::1',8,'2023-04-07 19:31:40'),(4830,42,'/backend/dict?id=52','{\"code\":0,\"message\":\"\",\"data\":null}','DELETE','/backend/dict','::1',12,'2023-04-07 19:31:41'),(4831,42,'/backend/dict?id=51','{\"code\":0,\"message\":\"\",\"data\":null}','DELETE','/backend/dict','::1',8,'2023-04-07 19:31:42'),(4832,42,'/backend/dict?id=50','{\"code\":0,\"message\":\"\",\"data\":null}','DELETE','/backend/dict','::1',9,'2023-04-07 19:31:45'),(4833,42,'/backend/dict?id=49','{\"code\":0,\"message\":\"\",\"data\":null}','DELETE','/backend/dict','::1',6,'2023-04-07 19:31:46'),(4834,42,'{\"id\":177,\"pid\":171,\"icon\":\"\",\"bgImg\":\"\",\"name\":\"账变记录\",\"path\":\"/backend/user/walletChangeLog\",\"sort\":5.4,\"type\":1,\"desc\":\"\",\"filePath\":\"\",\"status\":1,\"createdAt\":\"2022-09-05 03:09:03\",\"updatedAt\":\"2023-04-07 19:20:55\"}','{\"code\":0,\"message\":\"\",\"data\":null}','PUT','/backend/menu','::1',11,'2023-04-07 19:38:00');
+INSERT INTO `s_operation_log` (`id`, `uid`, `content`, `response`, `method`, `uri`, `ip`, `use_time`, `created_at`) VALUES (4889,52,'/backend/adminLoginLog/delClear','{\"code\":0,\"message\":\"\",\"data\":null}','DELETE','/backend/adminLoginLog/delClear','::1',7,'2023-04-11 21:44:58');
 /*!40000 ALTER TABLE `s_operation_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +317,6 @@ CREATE TABLE `s_role_api` (
 
 LOCK TABLES `s_role_api` WRITE;
 /*!40000 ALTER TABLE `s_role_api` DISABLE KEYS */;
-INSERT INTO `s_role_api` (`id`, `rid`, `aid`) VALUES (1329,1,94);
 /*!40000 ALTER TABLE `s_role_api` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,7 +336,7 @@ CREATE TABLE `s_role_menu` (
   KEY `mid` (`mid`),
   CONSTRAINT `s_role_menu_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `s_role` (`id`) ON DELETE CASCADE,
   CONSTRAINT `s_role_menu_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `s_menu` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=409 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=411 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -347,7 +345,7 @@ CREATE TABLE `s_role_menu` (
 
 LOCK TABLES `s_role_menu` WRITE;
 /*!40000 ALTER TABLE `s_role_menu` DISABLE KEYS */;
-INSERT INTO `s_role_menu` (`id`, `rid`, `mid`) VALUES (372,22,204),(374,22,1),(375,22,230),(376,1,1),(377,1,2),(378,1,4),(379,1,3),(380,1,5),(381,1,28),(382,1,30),(383,1,78),(384,1,139),(385,1,230),(386,1,175),(387,1,176),(389,1,204),(390,1,205),(392,1,178),(393,1,179),(394,1,180),(395,1,171),(396,1,172),(397,1,173),(398,1,174),(399,1,177);
+INSERT INTO `s_role_menu` (`id`, `rid`, `mid`) VALUES (372,22,204),(374,22,1),(375,22,230),(376,1,1),(377,1,2),(378,1,4),(379,1,3),(380,1,5),(381,1,28),(382,1,30),(383,1,78),(384,1,139),(385,1,230),(386,1,175),(387,1,176),(389,1,204),(390,1,205),(392,1,178),(393,1,179),(394,1,180),(395,1,171),(396,1,172),(397,1,173),(398,1,174),(399,1,177),(409,1,261),(410,1,262);
 /*!40000 ALTER TABLE `s_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,7 +381,7 @@ CREATE TABLE `u_user` (
   KEY `email` (`email`),
   KEY `join_ip_2` (`join_ip`),
   KEY `status_2` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,6 +390,7 @@ CREATE TABLE `u_user` (
 
 LOCK TABLES `u_user` WRITE;
 /*!40000 ALTER TABLE `u_user` DISABLE KEYS */;
+INSERT INTO `u_user` (`id`, `uname`, `pass`, `nickname`, `icon`, `summary`, `desc`, `join_ip`, `device`, `phone`, `email`, `status`, `pass_error_count`, `created_at`, `updated_at`) VALUES (56,'test001','$2a$10$rTJnL2OC4Uc/RE138X7mAeQD37c1LcwBgc1AoDDRLENYId4EkWvGu','ciel&33','/icon/icon43.png','','','127.0.0.1','','','',1,0,'2023-04-08 19:31:03','2023-04-10 19:56:56');
 /*!40000 ALTER TABLE `u_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,7 +410,7 @@ CREATE TABLE `u_user_login_log` (
   PRIMARY KEY (`id`),
   KEY `ip` (`ip`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,13 +423,46 @@ LOCK TABLES `u_user_login_log` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `u_wallet`
+-- Table structure for table `w_top_up`
 --
 
-DROP TABLE IF EXISTS `u_wallet`;
+DROP TABLE IF EXISTS `w_top_up`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `u_wallet` (
+CREATE TABLE `w_top_up` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `uid` bigint unsigned NOT NULL COMMENT '用户id',
+  `trans_id` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '交易id',
+  `money` decimal(12,2) unsigned DEFAULT NULL,
+  `change_type` int unsigned DEFAULT NULL COMMENT '账变类型 最好配置与此表 u_wallet_change_type 中的相对应。 1 支付宝充值, 2 微信充值, 3 Paypal充值',
+  `ip` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户操作ip',
+  `desc` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `status` int unsigned DEFAULT '1' COMMENT '订单状态 1 等待, 2 成功, 3 失败',
+  `aid` bigint unsigned DEFAULT NULL COMMENT '管理员id',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `w_top_up`
+--
+
+LOCK TABLES `w_top_up` WRITE;
+/*!40000 ALTER TABLE `w_top_up` DISABLE KEYS */;
+INSERT INTO `w_top_up` (`id`, `uid`, `trans_id`, `money`, `change_type`, `ip`, `desc`, `status`, `aid`, `created_at`, `updated_at`) VALUES (2,56,'1yfwpaa1ktacrs1ftb6jrhs3006v0h39',10.00,1,'127.0.0.1','test',3,42,'2023-04-09 15:14:23','2023-04-09 19:37:58'),(5,56,'1hsdfeq1svhcrs7b964j3y0400whoi3n',10.00,1,'127.0.0.1','test',2,42,'2023-04-09 19:50:32','2023-04-09 19:51:46');
+/*!40000 ALTER TABLE `w_top_up` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `w_wallet`
+--
+
+DROP TABLE IF EXISTS `w_wallet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `w_wallet` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `uid` bigint unsigned NOT NULL,
   `balance` decimal(12,2) unsigned NOT NULL DEFAULT '0.00',
@@ -445,26 +477,27 @@ CREATE TABLE `u_wallet` (
   KEY `uid_2` (`uid`),
   KEY `balance` (`balance`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户金库';
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户金库';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `u_wallet`
+-- Dumping data for table `w_wallet`
 --
 
-LOCK TABLES `u_wallet` WRITE;
-/*!40000 ALTER TABLE `u_wallet` DISABLE KEYS */;
-/*!40000 ALTER TABLE `u_wallet` ENABLE KEYS */;
+LOCK TABLES `w_wallet` WRITE;
+/*!40000 ALTER TABLE `w_wallet` DISABLE KEYS */;
+INSERT INTO `w_wallet` (`id`, `uid`, `balance`, `pass`, `pass_err_count`, `desc`, `status`, `created_at`, `updated_at`) VALUES (47,56,11.00,'',0,'',1,'2023-04-08 19:31:03','2023-04-09 20:31:48');
+/*!40000 ALTER TABLE `w_wallet` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `u_wallet_change_log`
+-- Table structure for table `w_wallet_change_log`
 --
 
-DROP TABLE IF EXISTS `u_wallet_change_log`;
+DROP TABLE IF EXISTS `w_wallet_change_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `u_wallet_change_log` (
+CREATE TABLE `w_wallet_change_log` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `trans_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `uid` bigint unsigned NOT NULL,
@@ -479,27 +512,28 @@ CREATE TABLE `u_wallet_change_log` (
   KEY `balance` (`balance`),
   KEY `type` (`type`),
   KEY `trans_id` (`trans_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=607 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='账变记录';
+) ENGINE=InnoDB AUTO_INCREMENT=609 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='账变记录';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `u_wallet_change_log`
+-- Dumping data for table `w_wallet_change_log`
 --
 
-LOCK TABLES `u_wallet_change_log` WRITE;
-/*!40000 ALTER TABLE `u_wallet_change_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `u_wallet_change_log` ENABLE KEYS */;
+LOCK TABLES `w_wallet_change_log` WRITE;
+/*!40000 ALTER TABLE `w_wallet_change_log` DISABLE KEYS */;
+INSERT INTO `w_wallet_change_log` (`id`, `trans_id`, `uid`, `amount`, `balance`, `type`, `desc`, `created_at`) VALUES (607,'1hsdfeq1svhcrs7b964j3y0400whoi3n',56,10.00,10.00,1,'','2023-04-09 19:51:46'),(608,'1njnlvm1u37crs86uqq9uj4300m2n4a6',56,1.00,11.00,2,'','2023-04-09 20:31:48');
+/*!40000 ALTER TABLE `w_wallet_change_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `u_wallet_change_type`
+-- Table structure for table `w_wallet_change_type`
 --
 
-DROP TABLE IF EXISTS `u_wallet_change_type`;
+DROP TABLE IF EXISTS `w_wallet_change_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `u_wallet_change_type` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `w_wallet_change_type` (
+  `id` bigint unsigned NOT NULL,
   `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `sub_title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` tinyint unsigned DEFAULT '1' COMMENT '1 add; 2 reduce',
@@ -507,29 +541,28 @@ CREATE TABLE `u_wallet_change_type` (
   `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `status` tinyint unsigned DEFAULT '1',
   `count_status` tinyint DEFAULT '1' COMMENT 'Whether this field needs statistics, 1 true 2 false',
-  PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='充值类型';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='充值类型';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `u_wallet_change_type`
+-- Dumping data for table `w_wallet_change_type`
 --
 
-LOCK TABLES `u_wallet_change_type` WRITE;
-/*!40000 ALTER TABLE `u_wallet_change_type` DISABLE KEYS */;
-INSERT INTO `u_wallet_change_type` (`id`, `title`, `sub_title`, `type`, `class`, `desc`, `status`, `count_status`) VALUES (1,'支付宝充值',NULL,1,'tag-primary','',1,1),(2,'微信充值','',1,'tag-success','',1,1),(3,'银行卡充值',NULL,1,'tag-warning',NULL,1,1),(4,'PayPal充值','',1,'tag-info','',1,1);
-/*!40000 ALTER TABLE `u_wallet_change_type` ENABLE KEYS */;
+LOCK TABLES `w_wallet_change_type` WRITE;
+/*!40000 ALTER TABLE `w_wallet_change_type` DISABLE KEYS */;
+INSERT INTO `w_wallet_change_type` (`id`, `title`, `sub_title`, `type`, `class`, `desc`, `status`, `count_status`) VALUES (3,'PayPal充值','',1,'tag-info','',1,1),(2,'微信充值','',1,'tag-success','',1,1),(1,'支付宝充值',NULL,1,'tag-primary','',1,1);
+/*!40000 ALTER TABLE `w_wallet_change_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `u_wallet_statistics_log`
+-- Table structure for table `w_wallet_statistics_log`
 --
 
-DROP TABLE IF EXISTS `u_wallet_statistics_log`;
+DROP TABLE IF EXISTS `w_wallet_statistics_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `u_wallet_statistics_log` (
+CREATE TABLE `w_wallet_statistics_log` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `uid` bigint unsigned NOT NULL,
   `t1` decimal(12,2) NOT NULL DEFAULT '0.00',
@@ -548,16 +581,17 @@ CREATE TABLE `u_wallet_statistics_log` (
   `created_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `u_wallet_statistics_log`
+-- Dumping data for table `w_wallet_statistics_log`
 --
 
-LOCK TABLES `u_wallet_statistics_log` WRITE;
-/*!40000 ALTER TABLE `u_wallet_statistics_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `u_wallet_statistics_log` ENABLE KEYS */;
+LOCK TABLES `w_wallet_statistics_log` WRITE;
+/*!40000 ALTER TABLE `w_wallet_statistics_log` DISABLE KEYS */;
+INSERT INTO `w_wallet_statistics_log` (`id`, `uid`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6`, `t7`, `t8`, `t9`, `t10`, `t11`, `t12`, `t13`, `created_date`) VALUES (45,56,10.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,'2023-04-09');
+/*!40000 ALTER TABLE `w_wallet_statistics_log` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -569,4 +603,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-07 20:22:28
+-- Dump completed on 2023-04-11 21:47:09
