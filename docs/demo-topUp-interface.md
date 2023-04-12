@@ -15,7 +15,7 @@ type CreateTopUpReq struct {
 
 > gf 接口文档 常见标签 https://goframe.org/pages/viewpage.action?pageId=47703679
 
-## 2 创建充值路由
+## 2 创建路由
 
 进入 `/freekey-admin/backend/internal/cmd/cmd.go`
 
