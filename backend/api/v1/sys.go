@@ -618,18 +618,12 @@ type GetUserRes struct {
 type ListUserReq struct {
 	g.Meta `tags:"后台"`
 	api.PageReq
-	Uname      string
-	JoinIp     string
-	Status     int
-	Id         uint64
-	Desc       string
-	Phone      string
-	Country    string
-	MemberCode string
-	Vip        string
-	Boss1      string
-	Boss2      string
-	Boss3      string
+	Uname  string
+	JoinIp string
+	Status int
+	Id     uint64
+	Desc   string
+	Phone  string
 }
 type ListUserRes struct {
 	g.Meta `tags:"后台"`

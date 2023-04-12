@@ -148,24 +148,6 @@ func (l lBiz) ListUser(ctx context.Context, req *v1.ListUserReq) ([]*entity.User
 	if req.Phone != "" {
 		db = db.WhereLike("phone", xstr.Like(req.Phone))
 	}
-	if req.Country != "" {
-		db = db.WhereLike("country", xstr.Like(req.Country))
-	}
-	if req.MemberCode != "" {
-		db = db.WhereLike("member_code", xstr.Like(req.MemberCode))
-	}
-	if req.Vip != "" {
-		db = db.Where("vip", req.Vip)
-	}
-	if req.Boss1 != "" {
-		db = db.Where("boss1", req.Boss1)
-	}
-	if req.Boss2 != "" {
-		db = db.Where("boss2", req.Boss2)
-	}
-	if req.Boss3 != "" {
-		db = db.Where("boss3", req.Boss3)
-	}
 	if req.Uname != "" {
 		db = db.WhereLike("uname", xstr.Like(req.Uname))
 	}
