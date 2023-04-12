@@ -83,7 +83,7 @@ freekey admin(自由钥匙) 一个V2EX风格 `Golang+React+NextJS` 写的后台�
 
 ### 后台运行
 
-1. 下载项目 `git clone https://github.com/1211ciel/freekey-admin.git`
+1. 下载项目 https://github.com/1211ciel/ciel-admin/archive/refs/tags/v2.0.zip
 2. 创建数据库并导入项目 `/backend/freekey_admin.sql`
 3. 修改 `/backend/manifest/config/config.yaml` 文件配置:mysql,redis 信息替换成您自己的
 4. 进入 `/backend` 目录下 运行 `go mod tidy` 下载依赖。下载完成后 运行 `gf run main.go`
