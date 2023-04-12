@@ -268,7 +268,7 @@ func (c cBiz) UpdateTopUp(ctx context.Context, req *v1.UpdateTopUpReq) (res *api
 
 创建 `topUp.js`
 
-使用 `goland` 的 `Live Templates` 在 `sysRouters` 方法下 输入 `ciel-js`
+使用 `goland` 的 `Live Templates` 输入 `ciel-js`
 
 ```text
 import useSWR from "swr";
