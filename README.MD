@@ -48,7 +48,6 @@ freekey admin(自由钥匙) 一个V2EX风格 `Golang+React+NextJS` 写的后台�
 ### 前台
 
 1. nodejs 安装
-2. nextjs 安装
 
 ## 项目结构
 
