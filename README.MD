@@ -6,7 +6,12 @@ freekey admin(自由钥匙) 一个V2EX风格 `Golang+React+NextJS` 写的后台�
 使用到的技术:
 
 - 后台: GoFrame
-- 前台: React, Nextjs, SWR,Axios, React-toastify, Js-cookie
+- 前台: React, Nextjs, SWR, Axios, React-toastify, Js-cookie
+
+> 如果对 React、Nextjs、SWR 不了解，请先学习这三个框架
+> - [React](https://github.com/facebook/react) : React是由Facebook开发的用于构建用户界面的JavaScript库
+> - [next.js](https://github.com/vercel/next.js) : Nextjs是一个基于React的服务器端渲染框架，用于构建可扩展的React应用程序
+> - [swr](https://github.com/vercel/swr) : SWR是一种React Hooks库，用于在数据获取方面提供高度自动化和简化的体验。
 
 ## 🍒 内置功能
 
@@ -113,22 +118,17 @@ freekey admin(自由钥匙) 一个V2EX风格 `Golang+React+NextJS` 写的后台�
 ![](docs/btn.jpg)
 ![](docs/btn-dark.jpg)
 
-
 ![](docs/link.jpg)
 ![](docs/link-dark.jpg)
-
 
 ![](docs/tag.jpg)
 ![](docs/tag-dark.jpg)
 
-
 ![](docs/icon.jpg)
 ![](docs/icon-dark.jpg)
 
-
 ![](docs/info-box.jpg)
 ![](docs/info-box-dark.jpg)
-
 
 ![](docs/theme.jpg)
 ![](docs/theme-dark.jpg)
@@ -138,11 +138,11 @@ freekey admin(自由钥匙) 一个V2EX风格 `Golang+React+NextJS` 写的后台�
 
 ## 致谢
 
-- [V2EX](https://www.v2ex.com/)
-- [GoFrame](https://github.com/gogf/gf)
-- [React](https://github.com/facebook/react)
-- [next.js](https://github.com/vercel/next.js)
-- [swr](https://github.com/vercel/swr)
-- [axios](https://github.com/axios/axios)
-- [react-toastify](https://github.com/fkhadra/react-toastify)
-- [js-cookie](https://github.com/js-cookie/js-cookie)
+- [V2EX](https://www.v2ex.com/) : V2EX是一个面向开发者的社区论坛
+- [GoFrame](https://github.com/gogf/gf) : GoFrame是一个开源的Go语言Web应用框架
+- [React](https://github.com/facebook/react) : React是由Facebook开发的用于构建用户界面的JavaScript库
+- [next.js](https://github.com/vercel/next.js) : Nextjs是一个基于React的服务器端渲染框架，用于构建可扩展的React应用程序
+- [swr](https://github.com/vercel/swr) : SWR是一种React Hooks库，用于在数据获取方面提供高度自动化和简化的体验。
+- [axios](https://github.com/axios/axios) : axios是一个基于Promise的HTTP客户端，用于浏览器和Node.js
+- [react-toastify](https://github.com/fkhadra/react-toastify) :  react-toastify是一个React通知组件库，用于在应用程序中显示消息
+- [js-cookie](https://github.com/js-cookie/js-cookie) : js-cookie是一个简单的JavaScript API，用于处理浏览器中的cookie
